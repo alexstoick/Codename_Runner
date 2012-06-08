@@ -37,6 +37,6 @@ class InputTouches_Listener extends MonoBehaviour {
 	function  onShortTap ( pos:Vector2 )
 	{
 		Debug.LogWarning ( "short tap" ) ;
-		moveRunner.fire ( false );
+	//	moveRunner.fire ( false );
 	}
 }
