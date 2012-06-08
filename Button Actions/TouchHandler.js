@@ -13,7 +13,7 @@ function Update () {
     var hit : RaycastHit;
     for (var i = 0; i < Input.touchCount && i < 1; ++i) {
 //    	Debug.Log ( "in touchcount: " + i ) ;
-        if (Input.GetTouch(i).phase == TouchPhase.Ended) {
+        if (Input.GetTouch(i).phase == TouchPhase.Began) {
         // Construct a ray from the current touch coordinates
         var ray = cam.ScreenPointToRay (Input.GetTouch(i).position);
         if (Physics.Raycast (ray,hit)) {

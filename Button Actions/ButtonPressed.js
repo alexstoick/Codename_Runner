@@ -14,16 +14,16 @@ class ButtonPressed extends MonoBehaviour {
 		switch ( transform.name )
 		{
 			case "rightButton":
-				moveRunner.move ( false , true ) ;
+				moveRunner.move ( false , true , true ) ;
 				break ;
 			case "leftButton": 
-				moveRunner.move ( true , false ) ;
+				moveRunner.move ( true , false , true ) ;
 				break ;
 			case "jumpButton": 
-				moveRunner.jump ( ) ;
+				moveRunner.jump ( true ) ;
 				break ;
 			case "fireButton":
-				moveRunner.fire ( ) ;
+				moveRunner.fire ( true ) ;
 				break;
 		}
 	}

@@ -25,18 +25,18 @@ class InputTouches_Listener extends MonoBehaviour {
 		
 		if ( swipeInfo.direction.x > 0 )
 		{
-			moveRunner.move ( false , true ) ;
+			moveRunner.move ( false , true , true ) ;
 			Debug.LogWarning ( "called swipe right" + Time.time ) ;
 		}
 		else
 		{
-			moveRunner.move ( true , false ) ;
+			moveRunner.move ( true , false , true ) ;
 			Debug.LogWarning ( "called swipe left" + Time.time) ;
 		}
 	}
 	function  onShortTap ( pos:Vector2 )
 	{
 		Debug.LogWarning ( "short tap" ) ;
-		moveRunner.fire ( );
+		moveRunner.fire ( false );
 	}
 }

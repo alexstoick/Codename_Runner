@@ -24,10 +24,10 @@ class MoveRunner extends MonoBehaviour {
 			arrowControl = GameObject.Find ( "Arrows").GetComponent ( ArrowControl ) ;
 	}
 	
-	function move ( left:boolean , right:boolean )
+	function move ( left:boolean , right:boolean , useTime:boolean )
 	{
 		var angle:int ;
-		if ( lastTime == Time.time )
+		if ( useTime && lastTime == Time.time )
 		{
 			Debug.LogError ( "refused move; time: " + Time.time ) ;
 			return ;
@@ -68,11 +68,11 @@ class MoveRunner extends MonoBehaviour {
 	function Update ( )
 	{
 		if ( Input.GetKeyDown ( KeyCode.LeftArrow) )
-			move ( true , false ) ;
+			move ( true , false , true) ;
 		if ( Input.GetKeyDown ( KeyCode.RightArrow) )
-			move ( false , true ) ;
+			move ( false , true , true ) ;
 		if ( Input.GetKeyDown ( KeyCode.Space ) )
-			fire ( ) ;
+			fire ( true ) ;
 		if ( Input.GetKeyDown ( KeyCode.UpArrow ) )
 			movementVariation += 0.1 ;
 		if ( Input.GetKeyDown ( KeyCode.DownArrow ) )
@@ -99,22 +99,22 @@ class MoveRunner extends MonoBehaviour {
 	}
 	
 	
-	function jump ( )
+	function jump ( useTime : boolean )
 	{
-		if ( lastTime == Time.time )
+		if ( useTime && lastTime == Time.time )
 			return ;
 			
 		lastTime = Time.time;
-
+// test de git
 //		Debug.Log ( "JUMPING!" ) ;
 	}
 	
-	function fire ( )
+	function fire ( useTime:boolean )
 	{
-//		if ( lastTime == Time.time )
-//			return ;
+		if ( useTime && lastTime == Time.time )
+			return ;
 			
-//		lastTime = Time.time;
+		lastTime = Time.time;
 		
 //		Debug.Log ( "FIRE!") ;
 		createBullet.InstantiateBullet ( transform.position.z , Quaternion.Euler ( 0 , 0 , 0 ) ) ;
