@@ -11,12 +11,12 @@ class InputTouches_Listener extends MonoBehaviour {
 			
 	function OnEnable(){
 //		Gesture.onSwipeE += onSwipe;
-		Gesture.onShortTapE += onShortTap ;
+		Gesture.onDoubleTapE += onShortTap ;
 	}
 	
 	function OnDisable(){
 //		Gesture.onSwipeE -= onSwipe;
-		Gesture.onShortTapE -= onShortTap ;
+		Gesture.onDoubleTapE -= onShortTap ;
 	}
 
 /*	function onSwipe ( swipeInfo:SwipeInfo )	
@@ -36,7 +36,7 @@ class InputTouches_Listener extends MonoBehaviour {
 	}*/
 	function  onShortTap ( pos:Vector2 )
 	{
-		Debug.LogWarning ( "short tap" ) ;
+		Debug.LogWarning ( "long tap" ) ;
 	//	moveRunner.fire ( false );
 	}
 }

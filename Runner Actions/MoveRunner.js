@@ -28,7 +28,7 @@ class MoveRunner extends MonoBehaviour {
 	{
 		var angle:int ;	
 		//var useTime:boolean ;
-		Debug.Log ( "moving" ) ;
+//		Debug.Log ( "moving" ) ;
 		if ( useTime && lastTime == Time.time )
 		{
 			Debug.LogError ( "refused move; time: " + Time.time ) ;

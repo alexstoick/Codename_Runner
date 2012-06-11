@@ -30,7 +30,7 @@ class CollisionHandler extends MonoBehaviour {
 		
 		if ( CollisionInfo.contacts[0].otherCollider.name == "ammoBox") 
 		{
-			Debug.LogWarning ( "AMMO BOX TOUCHED" ) ;
+//			Debug.LogWarning ( "AMMO BOX TOUCHED" ) ;
 			bulletVector.initializeBullets ( ) ;
 			var ammoBox:Transform = CollisionInfo.contacts[0].otherCollider.transform ;
 //			Debug.LogWarning ( ammoBox.parent.name + " " + ammoBox.parent.parent.name ) ;

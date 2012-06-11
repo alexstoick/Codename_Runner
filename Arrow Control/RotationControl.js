@@ -137,7 +137,7 @@ class RotationControl extends MonoBehaviour {
 	
 	function destroyObjects ( ) 
 	{
-		Debug.LogError ( "destroying arrow and box") ;
+//		Debug.LogError ( "destroying arrow and box") ;
 		transform.parent = null ;
 		ammoBox.parent = null ;
 		Destroy ( ammoBox.gameObject ) ;

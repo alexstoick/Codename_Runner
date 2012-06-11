@@ -34,7 +34,7 @@ class CreateBullet extends MonoBehaviour {
 	    {
 	    
 	    
-	    	Debug.Log ( "COLIZIUNE" + hit.transform.name ) ; 
+//	    	Debug.Log ( "COLIZIUNE" + hit.transform.name ) ; 
 	    	var lovit:Transform = hit.transform ;
 	    	//Debug.LogWarning ( lovit.gameObject.renderer.material.name ) ;
 	    	if ( lovit.gameObject.renderer.material.name == "destroyableBox (Instance)" )
