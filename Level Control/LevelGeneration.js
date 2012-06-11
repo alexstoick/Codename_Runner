@@ -12,7 +12,7 @@ class LevelGeneration extends MonoBehaviour {
 
 	var level:TextAsset ;
 	private var stringArray:Array ;
-	var MODULO:int = 79 ;
+	var MODULO:int = 105 ;
 	
 	function splitText ()
 	{
