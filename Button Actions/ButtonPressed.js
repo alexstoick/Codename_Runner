@@ -10,7 +10,7 @@ class ButtonPressed extends MonoBehaviour {
 
 	function MouseDown ( ) //OnMouseDown - computer; MouseDown - iOS
 	{
-//		Debug.LogWarning ( "in mouseDown") ;
+	Debug.LogWarning ( "in mouseDown") ;
 		switch ( transform.name )
 		{
 			case "rightButton":

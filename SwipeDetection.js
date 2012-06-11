@@ -2,7 +2,7 @@
 class SwipeDetection extends MonoBehaviour {
 
 
-	var  swipeThresh      :    float  =   0.5;
+	var  swipeThresh      :    float  =   1.2;
 	private var  swipeStart       :  Vector2  =   Vector2.zero;
 	private var  swipeEnd         :  Vector2  =   Vector2.zero;
 	private var  swipeWasActive   :  boolean  =   false;
@@ -62,17 +62,22 @@ class SwipeDetection extends MonoBehaviour {
 	
 	function SwipeEnded ()
 	{
-	    if ( swipeStart.x < swipeEnd.x )
+		Debug.Log ( "Swipe Detection 1.0" ) ;
+		if ( swipeEnd == Vector2.zero )
+			return ;
+		var st:Vector2 = swipeStart ;
+		var sf:Vector2 = swipeEnd ;
+		swipeStart = swipeEnd = Vector2.zero ;
+
+	    if ( st.x < sf.x )
 	    {
 	    	Debug.LogWarning ( "move right" + Time.time ) ;
 	    	moveRunner.move ( false , true , true ) ;
-	    	swipeStart = swipeEnd = Vector2.zero ;
 	    }
 	    else
 	    {
 	    	Debug.LogWarning ( "move left" + Time.time ) ;
  	    	moveRunner.move ( true , false , true ) ;
-	    	swipeStart = swipeEnd = Vector2.zero ;
 		}
 	}
 	

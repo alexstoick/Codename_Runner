@@ -10,18 +10,18 @@ class InputTouches_Listener extends MonoBehaviour {
 	}
 			
 	function OnEnable(){
-		Gesture.onSwipeE += onSwipe;
+//		Gesture.onSwipeE += onSwipe;
 		Gesture.onShortTapE += onShortTap ;
 	}
 	
 	function OnDisable(){
-		Gesture.onSwipeE -= onSwipe;
+//		Gesture.onSwipeE -= onSwipe;
 		Gesture.onShortTapE -= onShortTap ;
 	}
 
-	function onSwipe ( swipeInfo:SwipeInfo )	
+/*	function onSwipe ( swipeInfo:SwipeInfo )	
 	{
-		//Debug.LogWarning ( "Swipe" + swipeInfo.direction.x ) ; 
+		Debug.LogWarning ( "Input.Touches swipe" ) ; 
 		
 		if ( swipeInfo.direction.x > 0 )
 		{
@@ -33,7 +33,7 @@ class InputTouches_Listener extends MonoBehaviour {
 			moveRunner.move ( true , false , true ) ;
 			Debug.LogWarning ( "called swipe left" + Time.time) ;
 		}
-	}
+	}*/
 	function  onShortTap ( pos:Vector2 )
 	{
 		Debug.LogWarning ( "short tap" ) ;
