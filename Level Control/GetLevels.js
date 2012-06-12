@@ -6,13 +6,14 @@ class GetLevels extends MonoBehaviour {
 
 	var levelGen:LevelGeneration ;
 	var levels : Object[] ;
-	static private var lastLvl:int = 0 ;
+	static private var lastLvl:int = -1 ;
 
 	function Start ( )
 	{
 		if ( ! levelGen )	
 			levelGen = GameObject.Find ( "Level Control").GetComponent ( LevelGeneration ) ;
 		levels = Resources.LoadAll( "", TextAsset );
+		newLevel ( ) ;
 
 	}
 
