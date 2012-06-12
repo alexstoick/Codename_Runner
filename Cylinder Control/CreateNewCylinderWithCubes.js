@@ -72,7 +72,7 @@ class CreateNewCylinderWithCubes extends MonoBehaviour {
 	
 	function FixedUpdate ()
 	{
-		if ( numberOfCylinders < 60 && !creating )
+		if ( numberOfCylinders < 50 && !creating )
 		{
 			createCylinder ( );
 		}

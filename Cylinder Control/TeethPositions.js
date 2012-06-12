@@ -1,5 +1,5 @@
 #pragma strict
-
+/*
 class TeethPositions extends MonoBehaviour 
 {
 
@@ -15,4 +15,4 @@ class TeethPositions extends MonoBehaviour
 			positions.push ( cylinder.GetChild(i).position ) ;
 		}
 	}
-}
+}*/

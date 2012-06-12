@@ -1,4 +1,5 @@
 #pragma strict
+/*
 class InputTouches_Listener extends MonoBehaviour {
 
 	
@@ -33,10 +34,10 @@ class InputTouches_Listener extends MonoBehaviour {
 			moveRunner.move ( true , false , true ) ;
 			Debug.LogWarning ( "called swipe left" + Time.time) ;
 		}
-	}*/
+	}
 	function  onShortTap ( pos:Vector2 )
 	{
 		Debug.LogWarning ( "long tap" ) ;
 	//	moveRunner.fire ( false );
 	}
-}
+}*/
