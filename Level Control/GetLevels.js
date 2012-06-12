@@ -6,6 +6,7 @@ class GetLevels extends MonoBehaviour {
 
 	var levelGen:LevelGeneration ;
 	var levels : Object[] ;
+	static private var lastLvl:int = 0 ;
 
 	function Start ( )
 	{
@@ -14,19 +15,7 @@ class GetLevels extends MonoBehaviour {
 		levels = Resources.LoadAll( "", TextAsset );
 
 	}
-			
-	/*{	
-		var path:String = Application.dataPath + "/Scripts/Level Control";
-		var info = new DirectoryInfo(path);
-		var fileInfo = info.GetFiles("*.txt");
-		var i:int = 0 ;
-		for (file in fileInfo) 
-		{
-			++ i ;
-			if ( i == 2 )
-				levelGen.level = file as TextAsset;
-	}*/
-	
+
 	function loadRes () 
 	{
 	    
@@ -34,8 +23,13 @@ class GetLevels extends MonoBehaviour {
 	    levelGen.MODULO = 1 ;
 	    levelGen.splitText ( ) ;
 	}
-	function getLevel ( var x:int )
+	function newLevel ( )
 	{
-		
+		++ lastLvl ;
+		if ( lastLvl > levels.Length )
+			lastLvl = 0 ;
+			
+		levelGen.level = levels[lastLvl] ;
+		levelGen.splitText ( ) ;
 	}
 }

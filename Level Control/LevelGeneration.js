@@ -20,6 +20,7 @@ class LevelGeneration extends MonoBehaviour {
 		/* split the contents of the file into an array of pieces separated by commas */
 		
 		stringArray = level.text.Split(","[0],"\n"[0]);
+		MODULO = stringArray.length / 24 ;
 //		Debug.Log ( stringArray.length ) ;
 		//for ( var i = 0; i < stringArray.length; i ++ ) 
 		//	Debug.Log ( i + ": " + stringArray[i]); 
