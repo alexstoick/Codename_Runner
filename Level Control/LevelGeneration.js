@@ -10,9 +10,9 @@
 class LevelGeneration extends MonoBehaviour {
 
 
-	var level:TextAsset ;
+	static var level:TextAsset ;
 	private var stringArray:Array ;
-	var MODULO:int = 105 ;
+	static var MODULO:int = 105 ;
 	
 	function splitText ()
 	{
@@ -52,9 +52,9 @@ class LevelGeneration extends MonoBehaviour {
 		return currentLine ;
 	}
 	
-	function Start () 
-	{
-		splitText ( ) ;
-	}	
+	//function Start () 
+	//{
+	//	splitText ( ) ;
+	//}	
 
 }
