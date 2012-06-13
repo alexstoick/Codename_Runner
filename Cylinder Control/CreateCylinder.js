@@ -49,10 +49,8 @@ class CreateCylinder extends MonoBehaviour {
 			    	}
 				}
 			}
-
 	}
 
-	
 	public function createCylinder ( )
 	{
 		var rotation:Quaternion = Quaternion(0,0,0,0) ;
@@ -84,6 +82,7 @@ class CreateCylinder extends MonoBehaviour {
 		}
 
 		newCylinder = Instantiate ( newObjectType[0] , position , rotation ) ;
+		newCylinder.gameObject.renderer.materials[0] = cylinderMaterials [ level[25] ] ;
 			
 		newCylinder.name = "Cylinder" + (_number) ;
 		newCylinder.parent = parent ;

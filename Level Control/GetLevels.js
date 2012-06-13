@@ -25,6 +25,7 @@ class GetLevels extends MonoBehaviour {
 	}
 	function newLevel ( )
 	{
+		
 		++ lastLvl ;
 		if ( lastLvl == levels.Length )
 			lastLvl = 0 ;

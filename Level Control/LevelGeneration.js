@@ -13,27 +13,31 @@ class LevelGeneration extends MonoBehaviour {
 	static var level:TextAsset ;
 	private var stringArray:Array ;
 	static var MODULO:int = 105 ;
+	static var LEVELS:int = 5 ;
+	static private var currentLevel:int = 0 ;
 	
 	function splitText ()
 	{
-	
-		/* split the contents of the file into an array of pieces separated by commas */
-		
 		stringArray = level.text.Split(","[0],"\n"[0]);
 		MODULO = stringArray.length / 24 ;
-//		Debug.Log ( stringArray.length ) ;
+		Debug.Log ( stringArray.length ) ;
 		//for ( var i = 0; i < stringArray.length; i ++ ) 
 		//	Debug.Log ( i + ": " + stringArray[i]); 
 	}
 	
 	function getLine ( line:int )
 	{
-		var currentLine:Array = new Array(26);
+		var currentLine:Array = new Array(27);
 		var triggerBox:boolean = false ;
 		
 		line = line % MODULO ; 
 		if ( line == 0 ) 
+		{
 			line = 1 ;
+			++ currentLevel ;
+			if ( currentLevel == LEVELS )
+				currentLevel = 0 ;
+		}
 		
 		var lower:int = ((line-1)*24) ; 
 		var upper:int = (line*24-1) ; 
@@ -49,6 +53,7 @@ class LevelGeneration extends MonoBehaviour {
 		}
 		
 		currentLine[24] = triggerBox ;
+		currentLine[25] = currentLevel ;
 			
 		return currentLine ;
 	}
