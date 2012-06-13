@@ -20,7 +20,7 @@ class ShiftingCylinders extends MonoBehaviour {
 	{
 		//Debug.Log ( cylinderVector.length ) ;
 		
-		if ( (cylinderVector [0] as Transform ).position.z + 10 <  runner.position.z )
+		if ( (cylinderVector [0] as Transform ).position.z + 5 <  runner.position.z )
 		{
 			
 			var toRemove:Transform = cylinderVector.Shift ( ) as Transform ;

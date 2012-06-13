@@ -19,7 +19,7 @@ private var timeleft : float; // Left time for current interval
 
 function Start()
 {
-//	Application.targetFrameRate = 300;
+	Application.targetFrameRate = 300;
     if( !guiText )
     {
         Debug.Log ("FramesPerSecond needs a GUIText component!");
