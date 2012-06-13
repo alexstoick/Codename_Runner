@@ -16,7 +16,8 @@ class CreateCylinder extends MonoBehaviour {
 	private var creating: boolean ; 
 	static private var levelGen:LevelGeneration ;
 	private static var _number:int = 0 ;
-	
+	static private var _cylVector:Array ;
+	static private var runner:Transform ;
 
 	
 	function Start ( )
@@ -30,6 +31,10 @@ class CreateCylinder extends MonoBehaviour {
 			levelGen = GameObject. Find ( "Level Control"). GetComponent ( LevelGeneration ) ;
 		if ( ! ammoBoxSpawn )
 			ammoBoxSpawn = GameObject. Find ( "Ammo Box Control").GetComponent ( AmmoBoxSpawn ) ;
+		if ( ! _cylVector ) 
+			_cylVector = cylinderVector.Cylinder ;			
+		if ( ! runner )
+			runner = GameObject.Find ( "Runner" ).transform ;			
 	}
 	
 	public function transformGate ( cilindru:Transform , level:Array )
@@ -82,7 +87,7 @@ class CreateCylinder extends MonoBehaviour {
 		}
 
 		newCylinder = Instantiate ( newObjectType[0] , position , rotation ) ;
-		newCylinder.gameObject.renderer.materials[0] = cylinderMaterials [ level[25] ] ;
+		newCylinder.gameObject.renderer.material = cylinderMaterials [ level[25] ] ;
 			
 		newCylinder.name = "Cylinder" + (_number) ;
 		newCylinder.parent = parent ;
@@ -97,7 +102,6 @@ class CreateCylinder extends MonoBehaviour {
 		
 		creating = false ;
 	}
-	
 	
 	private function transformBox ( rot:int , code:int , zPos : double , parent: Transform  )
 	{
@@ -119,9 +123,23 @@ class CreateCylinder extends MonoBehaviour {
 				break  ;
 		}
 	}
+	
+	public function shiftVector ( ) 
+	{
+		var toRemove:Transform = _cylVector.Shift ( ) as Transform ;
+		toRemove.parent = null ;
+		Destroy ( toRemove.gameObject) ;
+		createCylinder ( ) ;
+	}
 
-	
-	
+	function Update ( )
+	{
+		if ( (_cylVector [0] as Transform ).position.z + 5 <  runner.position.z )
+		{
+			shiftVector ( ) ;
+		}
+	}
+
 	function FixedUpdate ()
 	{
 		if ( numberOfCylinders < 45 && !creating )

@@ -30,7 +30,7 @@ class CreateBullet extends MonoBehaviour {
 	    
 	    var rotatieZ:int = bigGroup.rotation.eulerAngles.z ;
 	    
-	    if (Physics.Raycast ( parent.position , parent.TransformDirection ( -Vector3.up ), hit, 15	 ) )
+	    if (Physics.Raycast ( parent.position , parent.TransformDirection ( -Vector3.up ), hit,  30	 ) )
 	    {
 	    
 	    
@@ -56,7 +56,7 @@ class CreateBullet extends MonoBehaviour {
 	    	
 	    }
 	    var newLaser:GameObject ;
-	    newLaser = Instantiate ( laserType , parent.position - Vector3 ( 0 , 0 , -8 )  , parent.rotation ) ;
+	    newLaser = Instantiate ( laserType , parent.position - Vector3 ( 0 , 0 , 0 - 10 )  , parent.rotation ) ;
 	    Destroy ( newLaser , 0.2 ) ;
 	    Debug.DrawRay (parent.position , parent.TransformDirection ( -Vector3.up )*10, Color.green , 0.2 );
 	    bulletVector.deactivateBullet () ;
