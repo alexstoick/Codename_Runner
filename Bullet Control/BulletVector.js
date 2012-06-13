@@ -5,6 +5,7 @@ class BulletVector extends MonoBehaviour {
 	var Bullets:GameObject[] ;
 	private var MAX_BULLETS:int = 5 ; 
 	private var isActive:boolean[] = new boolean[MAX_BULLETS] ;
+	private var usedBullets:int = 0 ;
 	
 	public function availableBullet ( )
 	{
@@ -28,10 +29,10 @@ class BulletVector extends MonoBehaviour {
 	
 	private function setBullet ( indice:int , stare:boolean )
 	{
-		var renderers = Bullets[indice].GetComponentsInChildren ( Renderer ) ;
+	/*	var renderers = Bullets[indice].GetComponentsInChildren ( Renderer ) ;
 
 		for ( var r: Renderer in renderers )
-			r.enabled = stare ;
+			r.enabled = stare ;*/
 		isActive[indice] = stare ;
 	}
 	

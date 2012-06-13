@@ -2,18 +2,14 @@
 
 class CylinderVector extends MonoBehaviour 
 {
-	var firstCylinder: Transform ;
 	static public var Cylinder:Array = new Array () ;
 
 	private var removeTeethFromCylinder: RemoveTeethFromCylinder ;
 
 	public function Start ( )
 	{
-		removeTeethFromCylinder = GetComponent ( RemoveTeethFromCylinder) ;
-		teethPositions = GetComponent ( TeethPositions ) ;
-		
-	//	Cylinder.push ( firstCylinder ) ;
-	//	removeTeethFromCylinder.removeTeeth ( firstCylinder ) ;
+		if ( ! removeTeethFromCylinder )
+			removeTeethFromCylinder = GetComponent ( RemoveTeethFromCylinder) ;
 	}
 	
 	public function addCylinder ( cilindru:Transform )

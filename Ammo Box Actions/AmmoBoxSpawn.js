@@ -6,15 +6,8 @@ class AmmoBoxSpawn extends MonoBehaviour {
 	var arrowGroup:Transform ;
 	var ammoParent:Transform ;
 	var arrowParent:Transform ;
-	static private var teethPosition:TeethPositions ;
 	static private var NUMBER:int = 0 ;
 
-	function Start ( )
-	{
-		if ( ! teethPosition ) 
-			teethPosition = GameObject.Find ( "Cylinder Control"). GetComponent  ( TeethPositions ) ;
-	}
-	
 	function Spawn ( pozitie:int , zPos:int )
 	{
 	

@@ -2,7 +2,6 @@
 class MoveRunner extends MonoBehaviour {
 	
 	var movementVariation = 0.1 ;
-	static private var teethPositions: TeethPositions ;
 	static private var currentPosition = 0 ;
 	static private var endingPosition:Vector3 = Vector3 ( 0 , 0 , 0 ) ;
 	static private var createBullet:CreateBullet ;
@@ -13,8 +12,6 @@ class MoveRunner extends MonoBehaviour {
 	
 	function Start ( )
 	{
-		if ( ! teethPositions )
-			teethPositions = GameObject.Find ( "Main Camera" ).GetComponent ( TeethPositions ) ;
 		if ( ! createBullet )
 			createBullet = GameObject.Find ( "Bullet Control").GetComponent ( CreateBullet ) ;
 		if ( ! sphereGroup )
