@@ -7,7 +7,8 @@ class BulletVector extends MonoBehaviour {
 	
 	public function availableBullet ( )
 	{
-		return  ( usedBullets < MAX_BULLETS ) ;
+		return true ;
+		//return  ( usedBullets < MAX_BULLETS ) ;
 	}
 	
 	public function deactivateBullet ( )

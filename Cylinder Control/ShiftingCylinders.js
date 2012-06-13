@@ -18,7 +18,7 @@ class ShiftingCylinders extends MonoBehaviour {
 
 	function Update ( )
 	{
-		//Debug.Log ( cylinderVector.length ) ;
+
 		
 		if ( (cylinderVector [0] as Transform ).position.z + 5 <  runner.position.z )
 		{
@@ -26,11 +26,7 @@ class ShiftingCylinders extends MonoBehaviour {
 			var toRemove:Transform = cylinderVector.Shift ( ) as Transform ;
 			toRemove.parent = null ;
 			Destroy ( toRemove.gameObject) ;
-//			Debug.LogWarning ( "POPPED FRONT" ) ;
 			createNewCylinderWithCubes.createCylinder ( ) ;
 		}
-			
-		//Debug.Log ( runner.position ) ;
 	}
-
 }

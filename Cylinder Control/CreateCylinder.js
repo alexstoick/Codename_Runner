@@ -4,7 +4,8 @@ class CreateCylinder extends MonoBehaviour {
 
 	var newObjectType: Transform[] ;
 	var cubesType: Transform[] ;
-	var materials:Material[] ;
+	var cubeMaterials:Material[] ;
+	var cylinderMaterials:Material[] ;
 
 	
 	static private var numberOfCylinders:int ;
@@ -44,7 +45,7 @@ class CreateCylinder extends MonoBehaviour {
 			    	if (t.name == name) 
 			    	{
 						//avem cubul potrivit
-						t.gameObject.renderer.material = materials [1] ;
+						t.gameObject.renderer.material = cubeMaterials [0] ;
 			    	}
 				}
 			}
