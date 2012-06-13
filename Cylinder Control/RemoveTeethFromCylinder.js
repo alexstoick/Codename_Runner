@@ -37,11 +37,11 @@ class RemoveTeethFromCylinder extends MonoBehaviour {
     		var name:String = "Cube" + (i+1) ;
     		for (var t : Transform in transforms)
 	    	{
-		    	if (t.name == name) 
-		    	{
-					//avem cubul potrivit
-					transformBox ( t , level[i] , cilindru.position.z ) ;
-		    	}
+			   	if (t.name == name) 
+			  	{
+						//avem cubul potrivit
+						transformBox ( t , level[i] , cilindru.position.z ) ;
+			   	}
 			}
 		}
 	}
@@ -57,12 +57,17 @@ class RemoveTeethFromCylinder extends MonoBehaviour {
 				break ;
 			case 1: break ;
 			case 2:
+//				box.parent = null ;
+//				Destroy ( box.gameObject ) ;
 				box.gameObject.renderer.material = materials[0] ;
 				break ;
-			case 3: box.gameObject.renderer.material = materials[1] ;
+			case 3: 
+//				box.parent = null ;
+//				Destroy ( box.gameObject ) ;
+				box.gameObject.renderer.material = materials[1] ;
 				break ;
 			case 4:			
-				ammoBoxSpawn.Spawn ( int.Parse ( box.name.Substring(4) ) , zPos ) ; 
+				ammoBoxSpawn.Spawn ( int.Parse ( box.name.Substring(4) ) , zPos ) ; //substring4
 				box.parent = null ;
 				Destroy ( box.gameObject ) ;
 				break;

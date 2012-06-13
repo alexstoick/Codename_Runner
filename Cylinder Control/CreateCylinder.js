@@ -1,8 +1,10 @@
 #pragma strict
 
-class CreateNewCylinderWithCubes extends MonoBehaviour {
+class CreateCylinder extends MonoBehaviour {
 
 	var newObjectType: Transform[] ;
+	var cubesType: Transform[] ;
+	
 	
 	static private var numberOfCylinders:int ;
 	static private var cylinderVector : CylinderVector ;
@@ -63,12 +65,42 @@ class CreateNewCylinderWithCubes extends MonoBehaviour {
 		newCylinder.name = "Cylinder" + (_number) ;
 		newCylinder.parent = parent ;
 		++ numberOfCylinders ;
+		
+		for ( i  = 1 ; i < 25 ; ++ i )
+		{
+			transformBox ( i ,level[i] , position.z , newCylinder ) ;
+		}
 
 		cylinderVector.addCylinder ( newCylinder );
 		
 
 		creating = false ;
 	}
+	
+	
+	private function transformBox ( rot:int , code:int , zPos : int , parent: Transform  )
+	{
+		var newBox:Transform ;
+		-- rot ;
+		switch ( code )
+		{
+			case 0: return ;
+			case 1: newBox = Instantiate ( cubesType [0] , position , Quaternion ( 0 , 0 , 0 , 0) ) ;
+				newBox.rotation.eulerAngles.z = rot*15 ;
+				return ;
+			case 2: newBox = Instantiate ( cubesType [1] , position , Quaternion ( 0 , 0 , 0 , 0) ) ;
+				newBox.rotation.eulerAngles.z = rot*15 ;
+				return ;
+			case 4:			
+				ammoBoxSpawn.Spawn ( i , zPos ) ; //substring4
+				box.parent = null ;
+				Destroy ( box.gameObject ) ;
+				break;
+			
+		}
+	}
+
+	
 	
 	function FixedUpdate ()
 	{

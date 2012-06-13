@@ -15,7 +15,7 @@ class CylinderVector extends MonoBehaviour
 	public function addCylinder ( cilindru:Transform )
 	{
 		Cylinder.push ( cilindru ) ;
-		removeTeethFromCylinder.removeTeeth ( cilindru ) ;
+		//removeTeethFromCylinder.removeTeeth ( cilindru ) ;
 	}
 	
 	public function addCylinder ( cilindru:Transform , removeTeeth:boolean )

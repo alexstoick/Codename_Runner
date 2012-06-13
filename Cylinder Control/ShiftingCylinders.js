@@ -4,7 +4,7 @@ class ShiftingCylinders extends MonoBehaviour {
 
 	static private var cylinderVector:Array ;
 	static private var runner:Transform ;
-	static private var createNewCylinderWithCubes:CreateNewCylinderWithCubes ;
+	static private var createNewCylinderWithCubes:CreateCylinder ;
 	
 	function Start ( )
 	{
@@ -13,7 +13,7 @@ class ShiftingCylinders extends MonoBehaviour {
 		if ( ! runner )
 			runner = GameObject.Find ( "Runner" ).transform ;
 		if ( ! createNewCylinderWithCubes )
-			createNewCylinderWithCubes = GameObject.Find ( "Cylinder Control").GetComponent ( CreateNewCylinderWithCubes ) ;
+			createNewCylinderWithCubes = GameObject.Find ( "Cylinder Control").GetComponent ( CreateCylinder ) ;
 	}
 
 	function Update ( )
