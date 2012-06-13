@@ -8,7 +8,7 @@ class AmmoBoxSpawn extends MonoBehaviour {
 	var arrowParent:Transform ;
 	static private var NUMBER:int = 0 ;
 
-	function Spawn ( pozitie:int , zPos:int )
+	function Spawn ( pozitie:int , zPos:double )
 	{
 	
 		++NUMBER;

@@ -4,7 +4,8 @@ class CreateCylinder extends MonoBehaviour {
 
 	var newObjectType: Transform[] ;
 	var cubesType: Transform[] ;
-	
+	var materials:Material[] ;
+
 	
 	static private var numberOfCylinders:int ;
 	static private var cylinderVector : CylinderVector ;
@@ -14,7 +15,7 @@ class CreateCylinder extends MonoBehaviour {
 	private var creating: boolean ; 
 	static private var levelGen:LevelGeneration ;
 	private static var _number:int = 0 ;
-	static private var removeTeeth:RemoveTeethFromCylinder ;
+	
 
 	
 	function Start ( )
@@ -26,9 +27,30 @@ class CreateCylinder extends MonoBehaviour {
 			cylinderVector = GetComponent ( CylinderVector ) ;
 		if ( ! levelGen )
 			levelGen = GameObject. Find ( "Level Control"). GetComponent ( LevelGeneration ) ;
-		if ( ! removeTeeth )
-			removeTeeth = GameObject.Find ( "Cylinder Control"). GetComponent ( RemoveTeethFromCylinder ) ;
+		if ( ! ammoBoxSpawn )
+			ammoBoxSpawn = GameObject. Find ( "Ammo Box Control").GetComponent ( AmmoBoxSpawn ) ;
 	}
+	
+	public function transformGate ( cilindru:Transform , level:Array )
+	{
+		var transforms = cilindru.GetComponentsInChildren(Transform);
+
+		for ( var i = 0 ; i < 24 ; ++ i )
+			if ( level[i] == 3)
+			{		
+	    		var name:String = "Cube" + (i+1) ;
+	    		for (var t : Transform in transforms)
+		    	{
+			    	if (t.name == name) 
+			    	{
+						//avem cubul potrivit
+						t.gameObject.renderer.material = materials [1] ;
+			    	}
+				}
+			}
+
+	}
+
 	
 	public function createCylinder ( )
 	{
@@ -56,7 +78,7 @@ class CreateCylinder extends MonoBehaviour {
 			++ numberOfCylinders ;
 			cylinderVector.addCylinder ( newCylinder , false );
 			creating = false ;
-			removeTeeth.transformGate ( newCylinder , level ) ;
+			transformGate ( newCylinder , level ) ;
 			return ;
 		}
 
@@ -66,37 +88,35 @@ class CreateCylinder extends MonoBehaviour {
 		newCylinder.parent = parent ;
 		++ numberOfCylinders ;
 		
-		for ( i  = 1 ; i < 25 ; ++ i )
+		for ( var i  = 1 ; i < 25 ; ++ i )
 		{
 			transformBox ( i ,level[i] , position.z , newCylinder ) ;
 		}
 
 		cylinderVector.addCylinder ( newCylinder );
 		
-
 		creating = false ;
 	}
 	
 	
-	private function transformBox ( rot:int , code:int , zPos : int , parent: Transform  )
+	private function transformBox ( rot:int , code:int , zPos : double , parent: Transform  )
 	{
 		var newBox:Transform ;
 		-- rot ;
 		switch ( code )
 		{
-			case 0: return ;
-			case 1: newBox = Instantiate ( cubesType [0] , position , Quaternion ( 0 , 0 , 0 , 0) ) ;
+			case 0: break ;
+			case 1: newBox = Instantiate ( cubesType [0] , Vector3 ( 3.64 , -1 , zPos ) , Quaternion ( 0 , 0 , 0 , 0) ) ;
+				newBox.parent = parent ;
 				newBox.rotation.eulerAngles.z = rot*15 ;
-				return ;
-			case 2: newBox = Instantiate ( cubesType [1] , position , Quaternion ( 0 , 0 , 0 , 0) ) ;
+				break  ;
+			case 2: newBox = Instantiate ( cubesType [1] , Vector3 ( 3.64 , -1 , zPos ) , Quaternion ( 0 , 0 , 0 , 0) ) ;
+				newBox.parent = parent ;
 				newBox.rotation.eulerAngles.z = rot*15 ;
-				return ;
+				break  ;
 			case 4:			
-				ammoBoxSpawn.Spawn ( i , zPos ) ; //substring4
-				box.parent = null ;
-				Destroy ( box.gameObject ) ;
-				break;
-			
+				ammoBoxSpawn.Spawn ( rot+1 , zPos ) ; //substring4
+				break  ;
 		}
 	}
 
