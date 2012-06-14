@@ -16,7 +16,7 @@ class CreateCylinder extends MonoBehaviour {
 	private var creating: boolean ; 
 	static private var levelGen:LevelGeneration ;
 	private static var _number:int = 0 ;
-	static private var _cylVector:Array ;
+	static private var _cylVector:Array = new Array[50];
 	static private var runner:Transform ;
 
 	

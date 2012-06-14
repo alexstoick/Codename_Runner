@@ -27,7 +27,7 @@ class LevelGeneration extends MonoBehaviour {
 	
 	function getLine ( line:int )
 	{
-		var currentLine:Array = new Array(27);
+		var currentLine:Array = new Array[27];
 		var triggerBox:boolean = false ;
 		
 		line = line % MODULO ; 
