@@ -9,10 +9,8 @@ class CollisionHandler extends MonoBehaviour {
 	static private var bulletVector:BulletVector ;
 	var materials:Material[] ;
 
-	function Start ( )
+	function Awake ( )
 	{
-		if ( ! cylinderVector ) 
-			cylinderVector = GameObject.Find ( "Cylinder Control").GetComponent ( CylinderVector ).Cylinder ;
 		if ( ! bigGroup )
 			bigGroup = GameObject.Find ( "BigGroup") ; 
 		if ( ! runner )
