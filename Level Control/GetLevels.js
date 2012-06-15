@@ -4,7 +4,7 @@ import System.IO ;
 class GetLevels extends MonoBehaviour {
 
 
-	var levelGen:LevelGeneration ;
+	static private var levelGen:LevelGeneration ;
 	var levels : Object[] ;
 	static private var lastLvl:int = -1 ;
 
