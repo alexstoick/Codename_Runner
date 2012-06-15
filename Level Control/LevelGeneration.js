@@ -11,7 +11,7 @@ class LevelGeneration extends MonoBehaviour {
 
 
 	static var level:TextAsset ;
-	private var stringArray:Array ;
+	private var stringArray:String[] ;
 	static var MODULO:int = 105 ;
 	static var LEVELS:int = 5 ;
 	static private var currentLevel:int = 0 ;
@@ -21,8 +21,6 @@ class LevelGeneration extends MonoBehaviour {
 		stringArray = level.text.Split(","[0],"\n"[0]);
 		MODULO = stringArray.length / 24 ;
 		Debug.Log ( stringArray.length ) ;
-		//for ( var i = 0; i < stringArray.length; i ++ ) 
-		//	Debug.Log ( i + ": " + stringArray[i]); 
 	}
 	
 	function getLine ( line:int )
@@ -43,7 +41,6 @@ class LevelGeneration extends MonoBehaviour {
 		var upper:int = (line*24-1) ; 
 		var abc:String = "" ;
 		
-//		Debug.Log ( "Getting line:" + line + " bounds:[" + lower + " , " + upper + "]" ) ;
 		for ( var i = (line-1)*24 ; i <= line*24 - 1 ; ++ i )
 		{
 			currentLine [i-lower] = int.Parse ( stringArray [i] ) ; 
@@ -54,13 +51,9 @@ class LevelGeneration extends MonoBehaviour {
 		
 		currentLine[24] = triggerBox ;
 		currentLine[25] = currentLevel ;
-			
+		
 		return currentLine ;
 	}
-	
-	//function Start () 
-	//{
-	//	splitText ( ) ;
-	//}	
+
 
 }
