@@ -5,11 +5,12 @@ class SpawnCylinder extends MonoBehaviour {
 	var cubeMaterials:Material[] ;
 	var cylinderMaterials:Material[] ;
 
-	static private var _LineNumber:int = 0 ;
-	static private var numberOfCylinders:int = 0 ;
+	static var _LineNumber:int = 0 ;
+	static var numberOfCylinders:int = 0 ;
 	var bigGroup:Transform ;
 	private static var levelGen:LevelGeneration ; 
 	private static var ammoBoxSpawn:AmmoBoxSpawn ;
+	static var doSpawn:boolean = true ;
 	
 	
 	
@@ -55,8 +56,8 @@ class SpawnCylinder extends MonoBehaviour {
 		var level:Array ; 
 		level = levelGen.getLine ( _LineNumber ) ;
 		
-		var cylinderPrefab:Transform ; //cylinderPool.prefabs["Cylinder Simple"];
-		var currentCylinder:Transform ;// cylinderPool.Spawn(cylinderPrefab);
+		var cylinderPrefab:Transform ; 
+		var currentCylinder:Transform ;
 		
 		if ( level[24] )
 		{
@@ -70,14 +71,15 @@ class SpawnCylinder extends MonoBehaviour {
 			currentCylinder.position = position ;
 			
 			transformGate ( currentCylinder , level ) ;
-//			Debug.Log ( "Setting " + currentCylinder.GetChild(0).name + " " + currentCylinder.GetChild(1).name + " rotation to 0" ) ;
-//			Debug.Log ( "Before: " + currentCylinder.GetChild(0).rotation.eulerAngles.z  + " " + currentCylinder.GetChild(1).rotation.eulerAngles.z ) ;
-
-			currentCylinder.GetChild(0).rotation =  Quaternion ( 0 , 0 , 0 , 0 ) ;
-			currentCylinder.GetChild(1).rotation = Quaternion ( 0 , 0 , 0 , 0 ) ;
+			var trs:Transform ; 
 			
-			currentCylinder.GetChild(0).GetChild(0).gameObject.renderer.material = cylinderMaterials [ level[25] ] ;
-			currentCylinder.GetChild(1).GetChild(0).gameObject.renderer.material = cylinderMaterials [ level[25] ] ;
+			trs = currentCylinder.GetChild(0) ;
+			trs.rotation =  Quaternion ( 0 , 0 , 0 , 0 ) ;
+			trs.GetChild(0).gameObject.renderer.material = cylinderMaterials [ level[25] ] ;
+
+			trs = currentCylinder.GetChild(1) ;					
+			trs.rotation =  Quaternion ( 0 , 0 , 0 , 0 ) ;
+			trs.GetChild(0).gameObject.renderer.material = cylinderMaterials [ level[25] ] ;
 			
 			numberOfCylinders += 2 ;
 	
@@ -130,7 +132,7 @@ class SpawnCylinder extends MonoBehaviour {
 				cubesPool.Despawn ( trs ) ;
 		}
 		
-		if ( cylinderPool.Count < 40 )
+		if ( cylinderPool.Count < 40 && doSpawn )
 			Spawn() ;
 	}
 	

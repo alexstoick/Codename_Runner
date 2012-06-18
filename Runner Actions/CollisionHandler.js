@@ -7,6 +7,7 @@ class CollisionHandler extends MonoBehaviour {
 	static private var bigGroup:GameObject ;
 	static private var runner:GameObject ;
 	static private var bulletVector:BulletVector ;
+	static private var spawnCylinder:SpawnCylinder ;
 	var materials:Material[] ;
 
 	function Awake ( )
@@ -19,6 +20,49 @@ class CollisionHandler extends MonoBehaviour {
 			moveRunner = bigGroup.GetComponent ( "MoveRunner" ) ;
 		if ( !bulletVector )
 			bulletVector = GameObject.Find ( "Bullet Control").GetComponent ( BulletVector ) ;
+	}
+	
+	function clearCubes ( )
+	{
+	}
+	
+	function clearPools ( )
+	{
+		var i : int ;
+		var cylinderPool:SpawnPool = PoolManager.Pools["Cylinder"] ;
+		var cubesPool:SpawnPool = PoolManager.Pools["Cubes"] ;
+
+		SpawnCylinder.doSpawn = false ;
+
+		for ( i = 0 ; i < cubesPool.Count ; )
+			cubesPool.Despawn ( cubesPool[i] ) ;
+
+		for ( i = 0 ; i < cylinderPool.Count ;  )
+		{
+			cylinderPool.Despawn ( cylinderPool[i] ) ;
+			yield WaitForSeconds (0.005) ;
+		}
+	}
+	
+	function clearArrowsAndAmmo ( ) 
+	{
+		var trs:Transform = GameObject.Find ( "Arrows").transform ; //Ammo Boxes
+		var i:int ;
+		for ( i = 0 ; i < trs.GetChildCount ( ) ; ) 
+		{
+			var t:Transform = trs.GetChild ( i ) ;
+			t.parent = null ;
+			Destroy ( t.gameObject ) ;
+		}
+		
+		trs = GameObject.Find ( "Ammo Boxes" ).transform ; //Ammo Boxes
+		
+		for ( i = 0 ; i < trs.GetChildCount ( ) ; ++ i ) 
+		{
+			t = trs.GetChild ( i ) ;
+			t.parent = null ;
+			Destroy ( t.gameObject ) ;
+		}
 	}
 	
 	function OnCollisionEnter(CollisionInfo:Collision) 
@@ -46,7 +90,16 @@ class CollisionHandler extends MonoBehaviour {
 		//CylinderVector.Cylinder.Shift( );
 		
 		runner.gameObject.renderer.material = materials[0] ;
-		yield WaitForSeconds ( 1.5 ) ;
+		moveRunner.movementVariation = 0 ;
+		clearPools ( ) ;
+		clearArrowsAndAmmo ( ) ;
+		
+		yield WaitForSeconds ( 1 ) ;
+		bigGroup.transform.position.z = 0 ;
+		SpawnCylinder.numberOfCylinders = SpawnCylinder._LineNumber = 0 ;
+		SpawnCylinder.doSpawn = true ;
+		moveRunner.movementVariation = 0.2 ;
+
 		runner.gameObject.renderer.material = materials[1] ;
 		
 		//Debug.Log ( cylinderVector.length ) ;
