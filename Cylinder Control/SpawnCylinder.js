@@ -92,11 +92,14 @@ class SpawnCylinder extends MonoBehaviour {
 		currentCylinder.gameObject.renderer.material = cylinderMaterials [ level[25] ] ;
 		
 		++numberOfCylinders ;
-		
+		var string:String = "Line: " + _LineNumber ;
 		for ( var i  = 1 ; i < 25 ; ++ i )
 		{
 			transformBox ( i ,level[i] , position.z ) ;
+			if ( level[i] == 1 || level[i] == 2 )
+				string += ( " " + i ) ;
 		}
+		Debug.Log ( string + "  " + currentCylinder.name + " " + Time.time ) ;
 
 	}
 	
