@@ -24,14 +24,10 @@ class CollisionHandler extends MonoBehaviour {
 	function OnCollisionEnter(CollisionInfo:Collision) 
 	{
 	
-//		Debug.Log(CollisionInfo.contacts[0].thisCollider.name+" hit "+CollisionInfo.contacts[0].otherCollider.name); 
-		
 		if ( CollisionInfo.contacts[0].otherCollider.name == "ammoBox") 
 		{
-//			Debug.LogWarning ( "AMMO BOX TOUCHED" ) ;
 			bulletVector.initializeBullets ( ) ;
 			var ammoBox:Transform = CollisionInfo.contacts[0].otherCollider.transform ;
-//			Debug.LogWarning ( ammoBox.parent.name + " " + ammoBox.parent.parent.name ) ;
 			var arrowControl:ArrowControl = GameObject.Find ( "Arrows").GetComponent ( ArrowControl ) ;
 			arrowControl.ArrowAndBox ( ammoBox.parent.name ) ;
 			return ;
@@ -43,7 +39,7 @@ class CollisionHandler extends MonoBehaviour {
 			Debug.LogError ( "TOUCHED TRIGGER BOX" ) ;
 			var trigger:Transform = CollisionInfo.contacts[0].otherCollider.transform ;
 			trigger.parent.parent.rotation.eulerAngles.z = 15 ;
-			
+			return ;
 		}
 		
 

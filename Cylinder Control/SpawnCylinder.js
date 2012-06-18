@@ -70,8 +70,11 @@ class SpawnCylinder extends MonoBehaviour {
 			currentCylinder.position = position ;
 			
 			transformGate ( currentCylinder , level ) ;
-			currentCylinder.GetChild(0).rotation.eulerAngles.z = 0 ;
-			currentCylinder.GetChild(1).rotation.eulerAngles.z = 0 ;
+//			Debug.Log ( "Setting " + currentCylinder.GetChild(0).name + " " + currentCylinder.GetChild(1).name + " rotation to 0" ) ;
+//			Debug.Log ( "Before: " + currentCylinder.GetChild(0).rotation.eulerAngles.z  + " " + currentCylinder.GetChild(1).rotation.eulerAngles.z ) ;
+
+			currentCylinder.GetChild(0).rotation =  Quaternion ( 0 , 0 , 0 , 0 ) ;
+			currentCylinder.GetChild(1).rotation = Quaternion ( 0 , 0 , 0 , 0 ) ;
 			
 			currentCylinder.GetChild(0).GetChild(0).gameObject.renderer.material = cylinderMaterials [ level[25] ] ;
 			currentCylinder.GetChild(1).GetChild(0).gameObject.renderer.material = cylinderMaterials [ level[25] ] ;
@@ -111,7 +114,14 @@ class SpawnCylinder extends MonoBehaviour {
 		{
 			trs = cylinderPool[i] ;
 			if ( trs.position.z + 5 < bigGroup.position.z )
+			{
 				cylinderPool.Despawn ( trs ) ;
+				if ( trs.name.Contains ( "trigger") )
+				{	
+					trs.GetChild(0).GetComponent ( SmoothMove ).shouldMove = false ;
+					trs.GetChild(1).GetComponent ( SmoothMove ).shouldMove = false ;
+				}
+			}
 		}
 		for ( i = 0 ; i < cubesPool.Count ; ++ i )
 		{

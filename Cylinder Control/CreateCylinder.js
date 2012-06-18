@@ -1,4 +1,4 @@
-#pragma strict
+/*#pragma strict
 
 class CreateCylinder extends MonoBehaviour {
 
@@ -99,145 +99,7 @@ class CreateCylinder extends MonoBehaviour {
 	static private var maxCylinder:int = 50 ;
 	private var level:Array ;
 	
-	private function transformBox ( rot:int , code:int , zPos : double , parent: Transform  )
-	{
-		var newBox:Transform ;
-		
-		var i:int ;
-		var found:boolean = false ;
-		if ( code == 4 )
-		{
-			ammoBoxSpawn.Spawn ( rot , zPos ) ;
-			return ;
-		}
-		if ( code == 0 )
-			return ;
-			
-		for ( i = 0 ; i < cubeLength && code != 4 && ! found; ++ i )
-			if ( ! Cube[i].gameObject.active )
-			{
-				if ( cubeType [i] == code )
-				{
-					found = true ;
-//					Debug.LogError ( "Cube: " + i + " off; " + cubeType[i] + " req code:" + code ) ;
-					Cube[i].gameObject.active = true ;
-				}
-			}
-				
-		-- rot ;
-		var position:Vector3 = Vector3 ( 3.64 , -1 , zPos ) ;
-		var rotation:Quaternion = Quaternion ( 0 , 0 , 0 , 0 ) ;
-		
-		if ( !found )
-		{
-			switch ( code )
-			{
-				case 1: 
-					newBox = Instantiate ( cubesType [0] , position,  rotation ) ;
-					newBox.name = "box" + cubeLength;
-					newBox.parent = parent ;
-					newBox.rotation.eulerAngles.z = rot*15 ;
-					Cube[cubeLength] = newBox ;
-					cubeType[cubeLength] = code ;
-					cube_Zpos[cubeLength] = zPos ;
-					++cubeLength ;
-					break  ;
-					
-				case 2: 
-					newBox = Instantiate ( cubesType [1] , position , rotation ) ;
-					newBox.name = "box" + cubeLength;
-					newBox.parent = parent ;
-					newBox.rotation.eulerAngles.z = rot*15 ;
-					Cube[cubeLength] = newBox ;
-					cubeType[cubeLength] = code ;
-					cube_Zpos[cubeLength] = zPos ;
-					++cubeLength ;
-					break  ;
-			}
-		}
-		else
-		{
-			//found
-			--i;
-			Debug.LogError ( "reusing " + Cube[i].name + " for " + parent.name + " with rotation:" + rot*15) ;
-			Cube[i].gameObject.active = true ;
-			Cube[i].GetChild(0).gameObject.active = true ;
-			Debug.LogWarning ( Cube[i].gameObject.active ) ;
-			Cube[i].parent = parent ;
-			Cube[i].position = position ;
-			Cube[i].rotation = rotation ;
-			Cube[i].rotation.eulerAngles.z = rot*15 ;
-		}
-	}
-
-	private function getAvailableObject ( typeNeeded:int , poz:int )
-	{
-		var rotation:Quaternion = Quaternion(0,0,0,0) ;
-		var newCylinder:Transform ;
-		var position: Vector3 ;
-		var i:int ;
-		
-		position.x =  3.64 ;
-		position.y =  -1 ;
-		position.z =  0.12 + ( 1.545 * ( numberOfCylinders + 1 ) ) ;
-		
-		if ( typeNeeded == 0 )
-		{
-			position.x =  11.68 ;
-			position.y =  -9.03 ;
-		}
-		var found:boolean = false ;
-		
-		if ( poz != -1 && typeNeeded == type[poz] )
-			found = true ;
-
-		for ( i = 0 ; i < cylinderLength && ! found; ++ i )
-			if ( type[i] == typeNeeded  && ! Cylinder[i].gameObject.active && Cylinder[i].position.z + 5 < runner.position.z ) 
-			{
-				found = true ;
-				Cylinder [i].gameObject.active = true ;
-			}
-		-- i;
-		if ( poz != -1 && typeNeeded == type[poz] )
-			i = poz ;
-		
-		if ( found )
-		{
-			Cylinder [i].gameObject.active = true ;
-			Cylinder [i].position = position ;
-//			Debug.Log ( "Found: " + i + " current number:" + _number + " found free number:" + Cylinder[i].name + " time:" + Time.time) ;
-			Cylinder [i].name = "Cylinder" + (_number) + " poz:"+i;
-			if ( typeNeeded == 0 )
-				Cylinder [i].gameObject.renderer.material = cylinderMaterials [ level[25] ] ;
-			else
-			{
-				Cylinder [i].GetChild(0).GetChild(0).gameObject.renderer.material = cylinderMaterials [ level[25] ] ;
-				Cylinder [i].GetChild(1).GetChild(0).gameObject.renderer.material = cylinderMaterials [ level[25] ] ;
-			}		
-						
-			newCylinder = Cylinder[i] ;
-		}
-		else
-		{
-			newCylinder = Instantiate ( newObjectType[typeNeeded] , position , rotation ) ;
-			newCylinder.name = "Cylinder" + (_number) + " poz:"+cylinderLength ;
-			newCylinder.parent = parent ;
-			if ( typeNeeded == 0 )
-				newCylinder.gameObject.renderer.material = cylinderMaterials [ level[25] ] ;
-			else
-			{
-				newCylinder.GetChild(0).GetChild(0).gameObject.renderer.material = cylinderMaterials [ level[25] ] ;
-				newCylinder.GetChild(1).GetChild(0).gameObject.renderer.material = cylinderMaterials [ level[25] ] ;
-			}
-
-			Cylinder [cylinderLength] = newCylinder ;
-			type [cylinderLength] = typeNeeded  ;
-//			Debug.LogWarning ( "setted up cylinder" + _number ) ;
-			++cylinderLength ;
-		}
-		
-		return newCylinder ;
-	}
+	
 	
 	public function createCylinder ( message:String , poz:int )
 	{
@@ -273,4 +135,4 @@ class CreateCylinder extends MonoBehaviour {
 		creating = false ;
 		
 	}		
-	}
+	}*/
