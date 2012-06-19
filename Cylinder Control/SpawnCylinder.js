@@ -5,7 +5,7 @@ class SpawnCylinder extends MonoBehaviour {
 	var cubeMaterials:Material[] ;
 	var cylinderMaterials:Material[] ;
 
-	static var _LineNumber:int = 0 ;
+	//static var _LineNumber:int = 0 ;
 	static var numberOfCylinders:int = 0 ;
 	var bigGroup:Transform ;
 	private static var levelGen:LevelGeneration ; 
@@ -51,10 +51,10 @@ class SpawnCylinder extends MonoBehaviour {
 		position.x =  11.68 ;
 		position.y =  -9.03 ;
 
-		++ _LineNumber ;
+//		++ _LineNumber ;
 		
 		var level:Array ; 
-		level = levelGen.getLine ( _LineNumber ) ;
+		level = levelGen.getLine (  ) ;
 		
 		var cylinderPrefab:Transform ; 
 		var currentCylinder:Transform ;
@@ -92,14 +92,16 @@ class SpawnCylinder extends MonoBehaviour {
 		currentCylinder.gameObject.renderer.material = cylinderMaterials [ level[25] ] ;
 		
 		++numberOfCylinders ;
-		var string:String = "Line: " + _LineNumber ;
-		for ( var i  = 1 ; i < 25 ; ++ i )
+		
+		var string:String = "Line: " + LevelGeneration._Line ;
+		
+		for ( var i  = 0 ; i < 24 ; ++ i )
 		{
 			transformBox ( i ,level[i] , position.z ) ;
 			if ( level[i] == 1 || level[i] == 2 )
 				string += ( " " + i ) ;
 		}
-		Debug.Log ( string + "  " + currentCylinder.name + " " + Time.time ) ;
+//		Debug.Log ( string + "  " + " " + Time.time ) ;
 
 	}
 	
@@ -162,7 +164,7 @@ class SpawnCylinder extends MonoBehaviour {
 		switch ( code )
 		{
 			case 1: 
-				cubePrefab = cubesPool.prefabs["cube_refferencePoint"] ;
+				cubePrefab = cubesPool.prefabs["brad_refferencePoint"] ;
 				break ;
 			case 2: 
 				cubePrefab = cubesPool.prefabs["destroyableCube_refferencePoint"];

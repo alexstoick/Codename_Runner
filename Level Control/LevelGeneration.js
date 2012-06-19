@@ -15,6 +15,13 @@ class LevelGeneration extends MonoBehaviour {
 	static var MODULO:int = 105 ;
 	static var LEVELS:int = 5 ;
 	static private var currentLevel:int = 0 ;
+	static private var getLevels:GetLevels ;
+	static var _Line:int = 1 ;
+	
+	function Awake ( ) 
+	{
+		getLevels = GetComponent ( GetLevels ) ;
+	}
 	
 	function splitText ()
 	{
@@ -23,25 +30,28 @@ class LevelGeneration extends MonoBehaviour {
 		Debug.Log ( stringArray.length ) ;
 	}
 	
-	function getLine ( line:int )
+	function getLine ( )
 	{
 		var currentLine:Array = new Array[27];
 		var triggerBox:boolean = false ;
 		
-		line = line % MODULO ; 
-		if ( line == 0 ) 
+		if ( _Line > MODULO )
 		{
-			line = 1 ;
-			++ currentLevel ;
+			_Line = 1 ;
+			++currentLevel ;
+			
+			getLevels.newLevel ( ) ;
 			if ( currentLevel == LEVELS )
 				currentLevel = 0 ;
 		}
 		
-		var lower:int = ((line-1)*24) ; 
-		var upper:int = (line*24-1) ; 
+		var lower:int = ((_Line-1)*24) ; 
+		var upper:int = (_Line*24-1) ; 
 		var abc:String = "" ;
-		
-		for ( var i = (line-1)*24 ; i <= line*24 - 1 ; ++ i )
+
+//		Debug.Log ( "Getting line:" + _Line + " bounds:[" + lower + " , " + upper + "]" ) ;
+				
+		for ( var i = (_Line-1)*24 ; i <= _Line*24 - 1 ; ++ i )
 		{
 			currentLine [i-lower] = int.Parse ( stringArray [i] ) ; 
 			if ( currentLine [i-lower] == 3)
@@ -52,7 +62,9 @@ class LevelGeneration extends MonoBehaviour {
 		currentLine[24] = triggerBox ;
 		currentLine[25] = currentLevel ;
 		
+		++ _Line ;
 		return currentLine ;
+		
 	}
 
 

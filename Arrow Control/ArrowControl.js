@@ -18,7 +18,6 @@ class ArrowControl extends MonoBehaviour {
 	{
 
 		var name:String = "arrow" + nume.Substring ( 7 ) ;
-//		Debug.Log ( "called destroying arrow and box" + name ) ;
 		var child :Transform;
 		var i:int ;
 
@@ -36,9 +35,6 @@ class ArrowControl extends MonoBehaviour {
 		    	}
 			}
 		}
-
-		
-
 		var rotationControl:RotationControl = child.GetComponent ( RotationControl ) ;
 		rotationControl.destroyObjects ( ) ;
 	}

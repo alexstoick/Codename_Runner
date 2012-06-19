@@ -77,18 +77,17 @@ class CollisionHandler extends MonoBehaviour {
 			return ;
 		}
 		
-		if ( CollisionInfo.contacts[0].otherCollider.transform.gameObject.renderer.material.name == "triggerBox" )
-		{
-			//trebuie miscat
-			Debug.LogError ( "TOUCHED TRIGGER BOX" ) ;
-			var trigger:Transform = CollisionInfo.contacts[0].otherCollider.transform ;
-			trigger.parent.parent.rotation.eulerAngles.z = 15 ;
-			return ;
-		}
+		if (  CollisionInfo.contacts[0].otherCollider.name != "Brad" )
+			if ( CollisionInfo.contacts[0].otherCollider.transform.gameObject.renderer.material.name == "triggerBox" )
+			{
+				//trebuie miscat
+				Debug.LogError ( "TOUCHED TRIGGER BOX" ) ;
+				var trigger:Transform = CollisionInfo.contacts[0].otherCollider.transform ;
+				trigger.parent.parent.rotation.eulerAngles.z = 15 ;
+				return ;
+			}
 		
 
-		//CylinderVector.Cylinder.Shift( );
-		
 		runner.gameObject.renderer.material = materials[0] ;
 		moveRunner.movementVariation = 0 ;
 		clearPools ( ) ;
@@ -96,17 +95,12 @@ class CollisionHandler extends MonoBehaviour {
 		
 		yield WaitForSeconds ( 1 ) ;
 		bigGroup.transform.position.z = 0 ;
-		SpawnCylinder.numberOfCylinders = SpawnCylinder._LineNumber = 0 ;
+		SpawnCylinder.numberOfCylinders = 0 ;
+		LevelGeneration._Line = 1 ;
 		SpawnCylinder.doSpawn = true ;
 		moveRunner.movementVariation = 0.2 ;
 
 		runner.gameObject.renderer.material = materials[1] ;
-		
-		//Debug.Log ( cylinderVector.length ) ;
-		/* RESPAWN
-		var firstCylinder:Transform = cylinderVector[0] as Transform ;
-		bigGroup.transform.position.z = firstCylinder.position.z ;
-		runner.transform.position.z = firstCylinder.position.z ;*/
 		
 	}
 }
