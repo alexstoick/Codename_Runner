@@ -39,7 +39,7 @@ class LevelGeneration extends MonoBehaviour {
 		{
 			_Line = 1 ;
 			++currentLevel ;
-			
+			Debug.LogError ( "Changed level to:" + currentLevel ) ;
 			getLevels.newLevel ( ) ;
 			if ( currentLevel == LEVELS )
 				currentLevel = 0 ;

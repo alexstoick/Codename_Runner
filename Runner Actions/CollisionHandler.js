@@ -22,10 +22,6 @@ class CollisionHandler extends MonoBehaviour {
 			bulletVector = GameObject.Find ( "Bullet Control").GetComponent ( BulletVector ) ;
 	}
 	
-	function clearCubes ( )
-	{
-	}
-	
 	function clearPools ( )
 	{
 		var i : int ;
@@ -57,7 +53,7 @@ class CollisionHandler extends MonoBehaviour {
 		
 		trs = GameObject.Find ( "Ammo Boxes" ).transform ; //Ammo Boxes
 		
-		for ( i = 0 ; i < trs.GetChildCount ( ) ; ++ i ) 
+		for ( i = 0 ; i < trs.GetChildCount ( ) ; ) 
 		{
 			t = trs.GetChild ( i ) ;
 			t.parent = null ;

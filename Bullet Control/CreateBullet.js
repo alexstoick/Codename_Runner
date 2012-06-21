@@ -32,26 +32,27 @@ class CreateBullet extends MonoBehaviour {
 	    
 	    if (Physics.Raycast ( parent.position , parent.TransformDirection ( -Vector3.up ), hit,  30	 ) )
 	    {
-	    
-	    
 //	    	Debug.Log ( "COLIZIUNE" + hit.transform.name ) ; 
 	    	var lovit:Transform = hit.transform ;
 	    	//Debug.LogWarning ( lovit.gameObject.renderer.material.name ) ;
-	    	if ( lovit.gameObject.renderer.material.name == "destroyableBox (Instance)" )
+	    	if ( lovit.name != "Brad" )
 	    	{
-	    		Destroy ( lovit.gameObject ) ;
-	    		lovit.parent = null ;
-	    		
-	    		var instance = Instantiate( particleEffect , lovit.gameObject.transform.position , lovit.gameObject.transform.rotation);
-			    Destroy(instance.gameObject, 1 );
-			    Destroy(lovit.gameObject , 1 );
-	    	}
-	    	
-	    	if ( lovit.gameObject.renderer.material.name == "triggerBox (Instance)" )
-	    	{
-	    		//lovit.parent.parent.rotation.eulerAngles.z = 15 ;
-	    		var smoothMove:SmoothMove = lovit.parent.parent.GetComponent ( SmoothMove ) ;
-	    		smoothMove.goActive ( ) ;
+		    	if ( lovit.gameObject.renderer.material.name == "destroyableBox (Instance)" )
+		    	{
+		    		Destroy ( lovit.gameObject ) ;
+		    		lovit.parent = null ;
+		    		
+		    		var instance = Instantiate( particleEffect , lovit.gameObject.transform.position , lovit.gameObject.transform.rotation);
+				    Destroy(instance.gameObject, 1 );
+				    Destroy(lovit.gameObject , 1 );
+		    	}
+		    	else
+			    	if ( lovit.gameObject.renderer.material.name == "triggerBox (Instance)" )
+			    	{
+			    		//lovit.parent.parent.rotation.eulerAngles.z = 15 ;
+			    		var smoothMove:SmoothMove = lovit.parent.GetComponent ( SmoothMove ) ;
+			    		smoothMove.goActive ( ) ;
+			    	}
 	    	}
 	    	
 	    }
