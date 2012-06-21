@@ -126,7 +126,6 @@ class SpawnCylinder extends MonoBehaviour {
 			trs = cylinderPool[i] ;
 			if ( trs.position.z + 5 < bigGroup.position.z )
 			{
-				Debug.LogWarning ( "Despawning: " + trs.name + " for out of screen" + Time.time ) ;
 				cylinderPool.Despawn ( trs ) ;
 				if ( trs.name.Contains ( "trigger") )
 				{	

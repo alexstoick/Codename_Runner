@@ -35,7 +35,6 @@ class CollisionHandler extends MonoBehaviour {
 
 		for ( i = 0 ; i < cylinderPool.Count ;  )
 		{
-			Debug.Log ( "Despawning: " + cylinderPool[i] + " for hitting " + Time.time) ;
 			cylinderPool.Despawn ( cylinderPool[i] ) ;
 			yield WaitForSeconds (0.005) ;
 		}
