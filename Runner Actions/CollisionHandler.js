@@ -27,7 +27,7 @@ class CollisionHandler extends MonoBehaviour {
 		var i : int ;
 		var cylinderPool:SpawnPool = PoolManager.Pools["Cylinder"] ;
 		var cubesPool:SpawnPool = PoolManager.Pools["Cubes"] ;
-
+		
 		SpawnCylinder.doSpawn = false ;
 
 		for ( i = 0 ; i < cubesPool.Count ; )
@@ -35,6 +35,7 @@ class CollisionHandler extends MonoBehaviour {
 
 		for ( i = 0 ; i < cylinderPool.Count ;  )
 		{
+			Debug.Log ( "Despawning: " + cylinderPool[i] + " for hitting " + Time.time) ;
 			cylinderPool.Despawn ( cylinderPool[i] ) ;
 			yield WaitForSeconds (0.005) ;
 		}

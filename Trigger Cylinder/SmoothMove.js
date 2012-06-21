@@ -2,7 +2,7 @@
 
 class SmoothMove extends MonoBehaviour {
 
-	private var shouldMove:boolean = false ;
+	var shouldMove:boolean = false ;
 	
 	function goActive ( )
 	{
