@@ -90,12 +90,6 @@ class SpawnCylinder extends MonoBehaviour {
 		cylinderPrefab = cylinderPool.prefabs["Cylinder Simple"] ;
 		currentCylinder = cylinderPool.Spawn(cylinderPrefab);
 		currentCylinder.position = position ;
-		if ( level[25] == 2 )
-		{
-			Debug.Log ( "cylinderMaterials: " + cylinderMaterials[2] + " " + cylinderMaterials[3] + " L:" + cylinderMaterials.Length ) ;
-			Debug.LogError ( "No: " + level[25] + " Material:" + cylinderMaterials[level[25]]) ;
-		}
-//		Debug.LogWarning ( "Setting " + currentCylinder.name + "to material no:" + level[25] + " " + Time.time ) ;
 		currentCylinder.GetChild(0).gameObject.renderer.material = cylinderMaterials [ level[25] ] ;
 		
 		++numberOfCylinders ;
