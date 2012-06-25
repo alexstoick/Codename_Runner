@@ -23,8 +23,7 @@ class MoveRunner extends MonoBehaviour {
 	function move ( left:boolean , right:boolean , useTime:boolean )
 	{
 		var angle:int ;	
-		//var useTime:boolean ;
-//		Debug.Log ( "moving" ) ;
+		
 		if ( useTime && lastTime == Time.time )
 		{
 			Debug.LogError ( "refused move; time: " + Time.time ) ;
@@ -36,12 +35,10 @@ class MoveRunner extends MonoBehaviour {
 		if ( left )
 		{
 			++ currentPosition ;
-//			Debug.Log ( "MOVING RUNNER LEFT!" + currentPosition) ;
 			angle = 15 ;
 		}
 		else
 		{
-//			Debug.Log ( "MOVING RUNNER RIGHT!" + currentPosition ) ;
 			-- currentPosition ;
 			angle = -15 ;
 		}
@@ -89,9 +86,7 @@ class MoveRunner extends MonoBehaviour {
 			
 			var time:int = 1.5 ;
 
-		    //sphereGroup.rotation = Quaternion.Lerp(sphereGroup.rotation, target, Mathf.SmoothStep(0.0, 1.0, Mathf.SmoothStep(0.0, 1.0, Time.deltaTime * 0.5)));
-
-			sphereGroup.rotation = Quaternion.Slerp( sphereGroup.rotation, target, Mathf.Sin( 0.08 * Mathf.PI * 0.5) ); //Time.deltaTime * 4 );
+			sphereGroup.rotation = Quaternion.Slerp( sphereGroup.rotation, target, Mathf.Sin( 0.08 * Mathf.PI * 0.5) ); 
 
 		}
 	}
@@ -103,8 +98,6 @@ class MoveRunner extends MonoBehaviour {
 			return ;
 			
 		lastTime = Time.time;
-// test de git
-//		Debug.Log ( "JUMPING!" ) ;
 	}
 	
 	function fire ( useTime:boolean )
@@ -114,7 +107,6 @@ class MoveRunner extends MonoBehaviour {
 			
 		lastTime = Time.time;
 		
-//		Debug.Log ( "FIRE!") ;
 		createBullet.InstantiateBullet ( transform.position.z , Quaternion.Euler ( 0 , 0 , 0 ) ) ;
 	}
 	

@@ -5,11 +5,12 @@ class SpawnCylinder extends MonoBehaviour {
 	var cubeMaterials:Material[] ;
 	var cylinderMaterials:Material[] ;
 
-	//static var _LineNumber:int = 0 ;
+	static var _currentLine:int = 0 ;
 	static var numberOfCylinders:int = 0 ;
 	var bigGroup:Transform ;
 	private static var levelGen:LevelGeneration ; 
 	private static var ammoBoxSpawn:AmmoBoxSpawn ;
+	private static var enemySpawn:EnemySpawn ;
 	static var doSpawn:boolean = true ;
 	
 	
@@ -24,6 +25,8 @@ class SpawnCylinder extends MonoBehaviour {
 			levelGen = GameObject. Find ( "Level Control"). GetComponent ( LevelGeneration ) ;
 		if ( ! ammoBoxSpawn )
 			ammoBoxSpawn = GameObject. Find ( "Ammo Box Control").GetComponent ( AmmoBoxSpawn ) ;
+		if ( ! enemySpawn )
+			enemySpawn = GameObject. Find ( "Enemy Control"). GetComponent ( EnemySpawn ) ;
 	}
 	
 	private function transformGate ( cilindru:Transform , level:Array )
@@ -124,9 +127,11 @@ class SpawnCylinder extends MonoBehaviour {
 		for ( var i:int = 0 ; i < cylinderPool.Count ; ++ i )
 		{
 			trs = cylinderPool[i] ;
+		
 			if ( trs.position.z + 5 < bigGroup.position.z )
 			{
 				cylinderPool.Despawn ( trs ) ;
+				++ _currentLine ;
 				if ( trs.name.Contains ( "trigger") )
 				{	
 					trs.GetChild(0).GetComponent ( SmoothMove ).shouldMove = false ;
@@ -150,15 +155,7 @@ class SpawnCylinder extends MonoBehaviour {
 		var newBox:Transform ;
 		
 		var i:int ;
-
-		if ( code == 4 )
-		{
-			ammoBoxSpawn.Spawn ( rot , zPos ) ;
-			return ;
-		}
-		if ( code == 0 )
-			return ;
-
+		
 		-- rot ;
 		var position:Vector3 = Vector3 ( 3.64 , -1 , zPos ) ;
 		var rotation:Quaternion = Quaternion ( 0 , 0 , 0 , 0 ) ;
@@ -167,12 +164,19 @@ class SpawnCylinder extends MonoBehaviour {
 
 		switch ( code )
 		{
+			case 0: return ;
 			case 1: 
 				cubePrefab = cubesPool.prefabs["brad_refferencePoint"] ;
 				break ;
 			case 2: 
 				cubePrefab = cubesPool.prefabs["destroyableCube_refferencePoint"];
 				break  ;
+			case 4:
+				ammoBoxSpawn.Spawn ( rot , zPos ) ;
+				return ;
+			case 6: enemySpawn.handleEnemySpawn ( zPos , levelGen._Line , rot ) ;
+					return ;
+
 		}
 		
 		currentCube = cubesPool.Spawn ( cubePrefab ) ;

@@ -73,7 +73,7 @@ class CollisionHandler extends MonoBehaviour {
 			return ;
 		}
 		
-		if (  CollisionInfo.contacts[0].otherCollider.name != "Brad" )
+		if (  CollisionInfo.contacts[0].otherCollider.name != "Brad" && CollisionInfo.contacts[0].otherCollider.name != "soldier" )
 			if ( CollisionInfo.contacts[0].otherCollider.transform.gameObject.renderer.material.name == "triggerBox" )
 			{
 				//trebuie miscat
@@ -86,7 +86,7 @@ class CollisionHandler extends MonoBehaviour {
 
 		runner.gameObject.renderer.material = materials[0] ;
 		moveRunner.movementVariation = 0 ;
-		runner.transform.position.z -= 1 ;
+		bigGroup.transform.position.z -= 1 ;
 //		clearPools ( ) ;
 //		clearArrowsAndAmmo ( ) ;
 		

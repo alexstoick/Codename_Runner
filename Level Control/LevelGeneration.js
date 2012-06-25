@@ -17,6 +17,7 @@ class LevelGeneration extends MonoBehaviour {
 	static private var currentLevel:int = 0 ;
 	static private var getLevels:GetLevels ;
 	static var _Line:int = 1 ;
+	private var mat:Array = new Array ( );
 	
 	function Awake ( ) 
 	{
@@ -39,10 +40,13 @@ class LevelGeneration extends MonoBehaviour {
 		{
 			_Line = 1 ;
 			++currentLevel ;
-			Debug.LogError ( "Changed level to:" + currentLevel ) ;
+			Debug.LogWarning ( "Changed level to:" + currentLevel ) ;
 			getLevels.newLevel ( ) ;
+			mat.Clear ( ) ;
+			SpawnCylinder._currentLine = 0 ;
 			if ( currentLevel == LEVELS )
 				currentLevel = 0 ;
+				
 		}
 		
 		var lower:int = ((_Line-1)*24) ; 
@@ -63,8 +67,13 @@ class LevelGeneration extends MonoBehaviour {
 		currentLine[25] = currentLevel ;
 		
 		++ _Line ;
+		mat.push ( currentLine ) ;
 		return currentLine ;
-		
+	}
+	
+	public function GetMat ( )
+	{
+		return mat ;
 	}
 
 
