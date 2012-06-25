@@ -54,7 +54,7 @@ class EnemyPathfinding extends MonoBehaviour {
 	{
 		var row:int = runner.rotation.eulerAngles.z / 15 ;
 		var line:int = runner.position.z / 1.53 ;
-		Debug.Log ( "Runner: " + line + " " + row ) ;
+//		Debug.Log ( "Runner: " + line + " " + row ) ;
 		return Vector2 ( line , row ) ;
 	}
 	
@@ -82,53 +82,68 @@ class EnemyPathfinding extends MonoBehaviour {
 	function Move ( )
 	{
 		var c:int ;
-		var newX:int ;
-		var newY:int ;
-		var level:Array ;
-		var runnerPos:Vector2; 
+		var runnerPos:Vector2 ;
 		
 		runnerPos = GetRunnerPosition () ;
 		
-		//if ( 0 <= myRow - runnerPos.y < 12 )
+		if ( ( 0 <= myRow - runnerPos.y )&& ( myRow - runnerPos.y < 12 ) )
+		{
+			Debug.Log ( "RIGHT: Target:" + runnerPos.y + " current:" + myRow ) ;
+			computeDirection ( 2 ) ;		
+		}
+		else
+		{
+			Debug.Log ( "LEFT: Target:" + runnerPos.y + " current:" + myRow ) ;
+			computeDirection ( 1 ) ;
+		}
 			
+		var done:boolean = false ;
 		
 		for ( c = 0 ; c < 4 ; ++ c )
 		{
-			newX = myLine + dx[c] ;
-			newY = myRow + dy[c] ;
-			
-			if ( newX < 0 )
-				continue ;
-				
-			if ( newY == -1 )
-				newY = 24 ;
-			if ( newY == 25 )
-				newY = 1 ;
-				
-//			Debug.Log ( "newX:" + newX + " newY:" + newY ) ;
-			level = mat[newX] ;
-			
-			var newPos:Vector2 = new Vector2 ( newX , newY ) ;
-			
-			if ( level[newY] == 0 && ( newPos != LS1 && newPos != LS2 ) )
-			{
-				//move our enemy there
-				
-				target = Quaternion.Euler ( 0 , 0 , transform.rotation.eulerAngles.z + dy[c] * 15 ) ;
-//				Debug.LogWarning  ( direction [c] ) ;
-				transform.position.z = transform.position.z + dx[c] * 1.53 ;
-				myLine = newX ;
-				myRow = newY ;
-				shouldMove = false ;
-				
-				
-				LS2 = LS1 ;
-				LS1 = Vector2 ( myLine , myRow ) ;
-				
-				yield WaitForSeconds ( 0.5 ) ;
-				shouldMove = true ;
+			done = computeDirection ( c ) ;
+			yield WaitForSeconds ( 1 ) ;
+			shouldMove = true ;
+			if ( done ) 
 				return ;
-			}
 		}
+	}
+	
+	private function computeDirection ( c:int )
+	{
+	
+		var newX:int ;
+		var newY:int ;
+		var level:Array ;
+	
+		newX = myLine + dx[c] ;
+		newY = myRow + dy[c] ;
+		
+		if ( newX < 0 )
+			return ;
+			
+		if ( newY == -1 )
+			newY = 24 ;
+		if ( newY == 25 )
+			newY = 1 ;
+		Debug.Log ( "newX:" + newX ) ;
+		level = mat[newX] ;
+		var newPos:Vector2 = new Vector2 ( newX , newY ) ;
+		
+		if ( level[newY] == 0 && ( newPos != LS1 && newPos != LS2 ) )
+		{
+			//move our enemy there
+			
+			target = Quaternion.Euler ( 0 , 0 , transform.rotation.eulerAngles.z + dy[c] * 15 ) ;
+			transform.position.z = transform.position.z + dx[c] * 1.53 ;
+			myLine = newX ;
+			myRow = newY ;
+			shouldMove = false ;
+			
+			LS2 = LS1 ;
+			LS1 = Vector2 ( myLine , myRow ) ;
+			return true ;
+		}
+		return false ;
 	}
 }
