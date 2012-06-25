@@ -86,30 +86,53 @@ class EnemyPathfinding extends MonoBehaviour {
 		
 		runnerPos = GetRunnerPosition () ;
 		
-		if ( ( 0 <= myRow - runnerPos.y )&& ( myRow - runnerPos.y < 12 ) )
+		Debug.Log ( runnerPos.y + " current:" + myRow ) ;
+		
+		if ( myRow != runnerPos.y )
 		{
-			Debug.Log ( "RIGHT: Target:" + runnerPos.y + " current:" + myRow ) ;
-			computeDirection ( 2 ) ;		
-		}
-		else
-		{
-			Debug.Log ( "LEFT: Target:" + runnerPos.y + " current:" + myRow ) ;
-			computeDirection ( 1 ) ;
+			//Debug.Log ( myRow - runnerPos.y ) ;
+			
+			if ( ( 0 < myRow - runnerPos.y )&& ( myRow - runnerPos.y < 12 ) )
+			{
+				if ( computeDirection ( 2 , "compute for right" ) )
+				{
+					yield WaitForSeconds ( 2 ) ;				
+					shouldMove = true ;	
+					Debug.Log ( "RIGHT: Target:" + runnerPos.y + " current:" + myRow + " time:" + Time.time ) ;
+				}
+				//else
+					//yield WaitForSeconds ( 2 ) ;
+			}
+			else
+			{
+				if ( computeDirection ( 1 , "compute for left") )
+				{
+					yield WaitForSeconds ( 2 ) ;
+					shouldMove = true ;
+					Debug.Log ( "LEFT: Target:" + runnerPos.y + " current:" + myRow + " time:" + Time.time ) ;
+				}
+				//else
+					//yield WaitForSeconds ( 2 ) ;
+			}
 		}
 			
 		var done:boolean = false ;
 		
+/*		
 		for ( c = 0 ; c < 4 ; ++ c )
 		{
-			done = computeDirection ( c ) ;
-			yield WaitForSeconds ( 1 ) ;
-			shouldMove = true ;
-			if ( done ) 
+			done = computeDirection ( c , "usual" ) ;
+			if ( done )
+			{	
+				yield WaitForSeconds ( 2 ) ;
+				shouldMove = true ;
 				return ;
+			}
 		}
+*/
 	}
 	
-	private function computeDirection ( c:int )
+	private function computeDirection ( c:int , mesaj:String )
 	{
 	
 		var newX:int ;
@@ -123,17 +146,31 @@ class EnemyPathfinding extends MonoBehaviour {
 			return ;
 			
 		if ( newY == -1 )
-			newY = 24 ;
-		if ( newY == 25 )
-			newY = 1 ;
-		Debug.Log ( "newX:" + newX ) ;
+			newY = 23 ;
+		if ( newY == 24 )
+			newY = 0 ;
+			
 		level = mat[newX] ;
+		
 		var newPos:Vector2 = new Vector2 ( newX , newY ) ;
+		
+		if ( mesaj != "usual" )
+		{
+			Debug.LogWarning ( newX + " " + newY + " old:" + myLine + " " + myRow + " D:" + dx[c] + " " + dy[c] ) ;
+			
+			//Debug.Log ( mesaj + "   new: " + newPos + " 1:" + LS1 + " 2:" + LS2 ) ;
+			if ( newPos == LS1 )
+				Debug.Log ( "error la 1" ) ;
+			if ( newPos == LS2 )
+				Debug.Log ( "error la 2" ) ;
+			if ( level[newY] != 0 )
+				Debug.Log ( "error la level[newY]" ) ;
+		}
 		
 		if ( level[newY] == 0 && ( newPos != LS1 && newPos != LS2 ) )
 		{
 			//move our enemy there
-			
+//			Debug.LogWarning ( direction [c] + " " + Time.time ) ;
 			target = Quaternion.Euler ( 0 , 0 , transform.rotation.eulerAngles.z + dy[c] * 15 ) ;
 			transform.position.z = transform.position.z + dx[c] * 1.53 ;
 			myLine = newX ;
