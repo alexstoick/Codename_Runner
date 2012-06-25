@@ -86,14 +86,15 @@ class CollisionHandler extends MonoBehaviour {
 
 		runner.gameObject.renderer.material = materials[0] ;
 		moveRunner.movementVariation = 0 ;
-		clearPools ( ) ;
-		clearArrowsAndAmmo ( ) ;
+		runner.transform.position.z -= 1 ;
+//		clearPools ( ) ;
+//		clearArrowsAndAmmo ( ) ;
 		
-		yield WaitForSeconds ( 1 ) ;
-		bigGroup.transform.position.z = 0 ;
-		SpawnCylinder.numberOfCylinders = 0 ;
-		LevelGeneration._Line = 1 ;
-		SpawnCylinder.doSpawn = true ;
+		yield WaitForSeconds ( 3 ) ;
+//		bigGroup.transform.position.z = 0 ;
+//		SpawnCylinder.numberOfCylinders = 0 ;
+//		LevelGeneration._Line = 1 ;
+//		SpawnCylinder.doSpawn = true ;
 		moveRunner.movementVariation = 0.2 ;
 
 		runner.gameObject.renderer.material = materials[1] ;

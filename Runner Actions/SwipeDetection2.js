@@ -10,7 +10,6 @@ class SwipeDetection2 extends MonoBehaviour {
 	}
 	
 	private var Velocity_X:float;
-
 	private var touch:Touch;
 	private var moved:boolean ;
 	private var lastVelocity:float;
@@ -20,6 +19,10 @@ class SwipeDetection2 extends MonoBehaviour {
 	private var touchPositions:Array = new Array() ;
 	private var timeOfTouch:Array = new Array () ;
 
+	private var TOUCH_LENGTH:int = 40 ;
+	private var startLength:int = 0 ;
+
+
 	private function touchBegan ( )	
 	{
 		Debug.LogWarning ( "Touch began" ) ;
@@ -28,7 +31,10 @@ class SwipeDetection2 extends MonoBehaviour {
 		touchPositions.push ( touch.position ) ;
 		timeOfTouch.push ( Time.time ) ;
 		analyzedDuringMove = false ;
+		TOUCH_LENGTH = startLength ;
 	}
+	
+
 	
 	private function touchMoved ( )
 	{
@@ -37,23 +43,38 @@ class SwipeDetection2 extends MonoBehaviour {
 		var time:double = Time.time ;
 		touchPositions.push ( position ) ;
 		timeOfTouch.push ( time ) ;
-		Debug.Log ( touch.position + " " + Time.time ) ;
+		//Debug.Log ( touch.position + " " + Time.time ) ;
 		
 		var firstTouch:Vector2 = touchPositions[0] ;
 		var delta:double = position.x - firstTouch.x ;
-		
-		if ( delta< -50 || delta > 50 )
+		var firstTime:double = timeOfTouch[0] ;
+		var deltaTime:double = time - firstTime ;
+		 
+		if ( (delta< -TOUCH_LENGTH || delta > TOUCH_LENGTH ) )
 		{	
+			if ( analyzedDuringMove )
+				return ;
 			if ( delta < 0 )
+			{
 				moveRunner.move ( true , false ,true ) ; //left
+				Debug.LogWarning ( "Moved left with delta: " + delta / deltaTime + " deltaX:" + delta + " deltaTime: " + deltaTime ) ;
+			}
 			else
-				moveRunner.move ( false , true , true ) ; //right 
+				if (delta > 0 )
+				{
+					moveRunner.move ( false , true , true ) ; //right 
+					Debug.LogWarning ( "Moved right with delta: " + delta / deltaTime + " deltaX:" + delta + " deltaTime: " + deltaTime ) ;
+				}
 				
 			touchPositions.Clear ( ) ;
 			timeOfTouch.Clear ( ) ;
 			touchPositions.push ( position ) ;
 			timeOfTouch.push ( time ) ;
-			analyzedDuringMove = true ;
+			if ( ! analyzedDuringMove )
+			{
+				analyzedDuringMove = true ;
+				TOUCH_LENGTH = 40 ;
+			}
 		}
 			
 	}
@@ -63,7 +84,7 @@ class SwipeDetection2 extends MonoBehaviour {
 		Debug.LogWarning ( "Touch ended" ) ;
 		if ( touch.tapCount == 1 )
 				moveRunner.fire ( true ) ;
-		if ( ! analyzedDuringMove )
+/*		if ( ! analyzedDuringMove )
 		{
 			
 			var firstTouch:Vector2 = touchPositions[0] ;
@@ -74,7 +95,7 @@ class SwipeDetection2 extends MonoBehaviour {
 			else
 				if ( delta > 0 )
 					moveRunner.move ( false , true , true ) ; //right 
-		}
+		}*/
 	}
 
 	function Update() 
