@@ -21,11 +21,6 @@ class EnemyPathfinding extends MonoBehaviour {
 		yield 1 ;
 		shouldMove = true ;
 		(mat[myLine] as Array)[myRow] = 0 ;
-		
-//		Debug.Log ( "14:" + mat[14] ) ;
-//		Debug.Log ( "15:" + mat[15] ) ;
-//		Debug.Log ( "16:" + mat[16] ) ;
-//		Debug.Log ( "17:" + mat[17] ) ;
 	}
 	
 	var dx:int[] = new int [4] ;
@@ -64,7 +59,7 @@ class EnemyPathfinding extends MonoBehaviour {
 	var target:Quaternion ;
 	
 	function Update ( )
-	{
+	{	
 		if ( shouldMove )
 			Move ( ) ;
 			
@@ -93,77 +88,56 @@ class EnemyPathfinding extends MonoBehaviour {
 		
 		if ( myRow != runnerPos.y )
 		{
+		
+			var target:int = runnerPos.y ;	
+			var upperBound:int = myRow + 12 ;
+//			Debug.Log ( "Target:" + target + " current:" + myRow + " upperBound:" + upperBound ) ;//+ "		" + right + " " + left ) ;
 			
+			var distance = Mathf.Abs ( myRow - target ) ;
 			
-/*			var lowerLimit:int = -12 + myRow ;
- 			var upperLimit:int = 12 + myRow   ; 
- 			var interschimbare:boolean = false ;
- 		
-			if ( lowerLimit < 0 )
-				lowerLimit += 24 ;
-			if ( upperLimit > 23 )  
-				upperLimit -= 24 ;
-			
-			if ( upperLimit < lowerLimit ) 
-			{
-				var aux:int = upperLimit ;
-				upperLimit = lowerLimit ;
-				lowerLimit = aux ; 
-				interschimbare = true ;
-			} 
-
-			var goOn:boolean = false ;
-			
-			Debug.Log ( "Target:" + runnerPos.y + " current:" + myRow ) ;
-			
-			if ( interschimbare )	  
-			{
-				if ( upperLimit <= runnerPos.y || runnerPos.y  <= lowerLimit )  
-					goOn = true ; 
-					
-				Debug.Log ( "interschimbare:" + upperLimit + " " + runnerPos.y + " " + lowerLimit ) ;
-			}
+			if ( distance <= 12 )
+				if ( myRow > target )
+				{
+					if ( computeDirection ( 1 , "compute for left" , false ) )
+					{
+						//yield WaitForSeconds ( 0.5 ) ;
+						shouldMove = true ;
+					}
+				}
+				else
+				{
+					if ( computeDirection ( 2 , "compute for right" , false ) )
+					{
+						//yield WaitForSeconds ( 0.5 ) ;
+						shouldMove = true ;	
+					}
+				}
 			else
 			{
-				if ( lowerLimit <= runnerPos.y && runnerPos.y <= upperLimit )  
-					goOn = true ;  
-					
-				Debug.Log ( lowerLimit + " " + runnerPos.y + " " + upperLimit ) ;
+				//distance >12 
+				Debug.LogWarning ( "CAZ SPECIAL" ) ;
+				if ( myRow < target )
+				{
+					if ( computeDirection ( 1 , "compute for left" , false ) )
+					{
+						//yield WaitForSeconds ( 0.5 ) ;
+						shouldMove = true ;
+					}
+				}
+				else
+				{
+					if ( computeDirection ( 2 , "compute for right" , false ) )
+					{
+						//yield WaitForSeconds ( 0.5 ) ;
+						shouldMove = true ;	
+					}
 
+				}
 			}
 
-			
-*/			
-
-			var newRow:int ; 
-			
-			newRow = myRow + 1 ;
-			if ( newRow == 24 )
-				newRow = 0 ;
-				
-			var right:int = runnerPos.y - newRow ;
-			
-			if ( right < 0 )
-				right = newRow - runnerPos.y ;
-
-			newRow = myRow - 1 ;
-			if ( newRow == -1 )
-				newRow = 23 ;
-			
-			var left:int = runnerPos.y - newRow ;
-			
-			if ( left < 0 ) 
-				left = newRow - runnerPos.y ;
-				
-				
-				
-			var target:int = runnerPos.y ;	
-			
-			Debug.Log ( "Target:" + target + " current:" + myRow ) ;//+ "		" + right + " " + left ) ;
-			
-			
+						
 			//if ( right < left )
-			if ( myRow < target  && target < myRow + 12 )
+/*			if ( myRow < target  && target < upperBound )
 			{
 				if ( computeDirection ( 2 , "compute for right" , false ) )
 				{
@@ -172,36 +146,34 @@ class EnemyPathfinding extends MonoBehaviour {
 				}
 			}
 			else
-				if ( ( (myRow+12)%24 < target && target < myRow ) )
+				if ( upperBound%24 < target && target < myRow )
 				{
-					if ( computeDirection ( 2 , "compute for right" , false ) )
-					{
-						yield WaitForSeconds ( 0.5 ) ;
-						shouldMove = true ;	
-					}
-				}
-				else
 					if ( computeDirection ( 1 , "compute for left" , false ) )
 					{
 						yield WaitForSeconds ( 0.5 ) ;
 						shouldMove = true ;
 					}
+				}
+				else
+					if ( computeDirection ( 2 , "compute for right" , false ) )
+					{
+						yield WaitForSeconds ( 0.5 ) ;
+						shouldMove = true ;	
+					}
+*/
 		}
 			
 		var done:boolean = false ;
 		
-/*		
-		for ( c = 0 ; c < 1 ; ++ c )
-		{
-			done = computeDirection ( c , "usual" , true ) ;
-			if ( done )
-			{	
-				yield WaitForSeconds ( 0.5 ) ;
-				shouldMove = true ;
-				return ;
-			}
+		
+		c = 0 ;
+		done = computeDirection ( c , "usual" , true ) ;
+		if ( done )
+		{	
+			yield WaitForSeconds ( 0.5 ) ;
+			shouldMove = true ;
+			return ;
 		}
-*/
 	}
 	
 	private function computeDirection ( c:int , mesaj:String , useLS:boolean )
@@ -225,21 +197,12 @@ class EnemyPathfinding extends MonoBehaviour {
 		level = mat[newX] ;
 		
 		var newPos:Vector2 = new Vector2 ( newX , newY ) ;
-		
+/*		
 		if ( mesaj != "usual" )
 		{
 			Debug.LogWarning ( newX + " " + newY + " old:" + myLine + " " + myRow + " D:" + dx[c] + " " + dy[c] ) ;
-/*			
-			Debug.Log ( mesaj + "   new: " + newPos + " 1:" + LS1 + " 2:" + LS2 ) ;
-			if ( newPos == LS1 )
-				Debug.Log ( "error la 1" ) ;
-			if ( newPos == LS2 )
-				Debug.Log ( "error la 2" ) ;
-			if ( level[newY] != 0 )
-				Debug.Log ( "error la level[newY]" + level[newY] ) ;
-*/			
 		}
-		
+*/		
 		var ok:boolean = true ;
 		
 				

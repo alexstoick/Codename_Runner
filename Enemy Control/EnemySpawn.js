@@ -4,6 +4,13 @@ class EnemySpawn extends MonoBehaviour {
 
 	private static var enemiesPool: SpawnPool ;
 	private static var enemyPrefab: Transform ;
+	private static var bigGroup:Transform ;
+	
+	function Awake ( )
+	{
+		if ( ! bigGroup  )
+			bigGroup  = GameObject.Find ( "BigGroup").transform ;
+	}
 	
 	function Start ( )
 	{
@@ -29,5 +36,22 @@ class EnemySpawn extends MonoBehaviour {
 		var enemyPF: EnemyPathfinding = newEnemy.GetComponent ( EnemyPathfinding ) ;
 		
 		enemyPF.SetPosition ( _Line , rot + 1 ) ;
+	}
+	
+	
+	function Update ( )
+	{
+		
+		var i:int ;
+		var trs:Transform ;
+		
+		for ( i = 0 ; i < enemiesPool.Count ; ++ i )
+		{
+			trs = enemiesPool[i] ;
+			if ( trs.position.z + 5 < bigGroup.position.z )
+				enemiesPool.Despawn ( trs ) ;
+		}		
+		
+		
 	}
 }
