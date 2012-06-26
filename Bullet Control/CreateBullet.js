@@ -37,22 +37,25 @@ class CreateBullet extends MonoBehaviour {
 	    	//Debug.LogWarning ( lovit.gameObject.renderer.material.name ) ;
 	    	if ( lovit.name != "Brad" )
 	    	{
-		    	if ( lovit.gameObject.renderer.material.name == "destroyableBox (Instance)" )
-		    	{
-		    		Destroy ( lovit.gameObject ) ;
-		    		lovit.parent = null ;
-		    		
-		    		var instance = Instantiate( particleEffect , lovit.gameObject.transform.position , lovit.gameObject.transform.rotation);
-				    Destroy(instance.gameObject, 1 );
-				    Destroy(lovit.gameObject , 1 );
-		    	}
-		    	else
-			    	if ( lovit.gameObject.renderer.material.name == "triggerBox (Instance)" )
+	    		if ( lovit.name == "soldier" )
+	    			Destroy ( lovit.gameObject ) ;
+	    		else
+			    	if ( lovit.gameObject.renderer.material.name == "destroyableBox (Instance)" )
 			    	{
-			    		//lovit.parent.parent.rotation.eulerAngles.z = 15 ;
-			    		var smoothMove:SmoothMove = lovit.parent.GetComponent ( SmoothMove ) ;
-			    		smoothMove.goActive ( ) ;
+			    		Destroy ( lovit.gameObject ) ;
+			    		lovit.parent = null ;
+			    		
+			    		var instance = Instantiate( particleEffect , lovit.gameObject.transform.position , lovit.gameObject.transform.rotation);
+					    Destroy(instance.gameObject, 1 );
+					    Destroy(lovit.gameObject , 1 );
 			    	}
+			    	else
+				    	if ( lovit.gameObject.renderer.material.name == "triggerBox (Instance)" )
+				    	{
+				    		//lovit.parent.parent.rotation.eulerAngles.z = 15 ;
+				    		var smoothMove:SmoothMove = lovit.parent.GetComponent ( SmoothMove ) ;
+				    		smoothMove.goActive ( ) ;
+				    	}
 	    	}
 	    	
 	    }

@@ -90,7 +90,7 @@ class CollisionHandler extends MonoBehaviour {
 //		clearPools ( ) ;
 //		clearArrowsAndAmmo ( ) ;
 		
-		yield WaitForSeconds ( 3 ) ;
+		yield WaitForSeconds ( 1.5 ) ;
 //		bigGroup.transform.position.z = 0 ;
 //		SpawnCylinder.numberOfCylinders = 0 ;
 //		LevelGeneration._Line = 1 ;
