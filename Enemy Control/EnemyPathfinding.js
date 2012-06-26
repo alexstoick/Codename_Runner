@@ -93,43 +93,104 @@ class EnemyPathfinding extends MonoBehaviour {
 		
 		if ( myRow != runnerPos.y )
 		{
+			
+			
+/*			var lowerLimit:int = -12 + myRow ;
+ 			var upperLimit:int = 12 + myRow   ; 
+ 			var interschimbare:boolean = false ;
+ 		
+			if ( lowerLimit < 0 )
+				lowerLimit += 24 ;
+			if ( upperLimit > 23 )  
+				upperLimit -= 24 ;
+			
+			if ( upperLimit < lowerLimit ) 
+			{
+				var aux:int = upperLimit ;
+				upperLimit = lowerLimit ;
+				lowerLimit = aux ; 
+				interschimbare = true ;
+			} 
+
+			var goOn:boolean = false ;
+			
+			Debug.Log ( "Target:" + runnerPos.y + " current:" + myRow ) ;
+			
+			if ( interschimbare )	  
+			{
+				if ( upperLimit <= runnerPos.y || runnerPos.y  <= lowerLimit )  
+					goOn = true ; 
+					
+				Debug.Log ( "interschimbare:" + upperLimit + " " + runnerPos.y + " " + lowerLimit ) ;
+			}
+			else
+			{
+				if ( lowerLimit <= runnerPos.y && runnerPos.y <= upperLimit )  
+					goOn = true ;  
+					
+				Debug.Log ( lowerLimit + " " + runnerPos.y + " " + upperLimit ) ;
+
+			}
+
+			
+*/			
+
 			var newRow:int ; 
 			
 			newRow = myRow + 1 ;
 			if ( newRow == 24 )
 				newRow = 0 ;
+				
+			var right:int = runnerPos.y - newRow ;
 			
-			if ( newRow == runnerPos.y )
+			if ( right < 0 )
+				right = newRow - runnerPos.y ;
+
+			newRow = myRow - 1 ;
+			if ( newRow == -1 )
+				newRow = 23 ;
+			
+			var left:int = runnerPos.y - newRow ;
+			
+			if ( left < 0 ) 
+				left = newRow - runnerPos.y ;
+				
+				
+				
+			var target:int = runnerPos.y ;	
+			
+			Debug.Log ( "Target:" + target + " current:" + myRow ) ;//+ "		" + right + " " + left ) ;
+			
+			
+			//if ( right < left )
+			if ( myRow < target  && target < myRow + 12 )
 			{
 				if ( computeDirection ( 2 , "compute for right" , false ) )
 				{
-					//yield WaitForSeconds ( 2 ) ;				
+					yield WaitForSeconds ( 0.5 ) ;
 					shouldMove = true ;	
-					//Debug.Log ( "RIGHT: Target:" + runnerPos.y + " current:" + myRow + " time:" + Time.time ) ;
 				}
-				//else
-					//yield WaitForSeconds ( 2 ) ;		
 			}
 			else
-			{
-				newRow = myRow - 1 ;
-				if ( newRow == -1 )
-					newRow = 23 ;
-				
-				if ( computeDirection ( 1 , "compute for left" , false ) )
+				if ( ( (myRow+12)%24 < target && target < myRow ) )
 				{
-					//yield WaitForSeconds ( 2 ) ;
-					shouldMove = true ;
-					//Debug.Log ( "LEFT: Target:" + runnerPos.y + " current:" + myRow + " time:" + Time.time ) ;
+					if ( computeDirection ( 2 , "compute for right" , false ) )
+					{
+						yield WaitForSeconds ( 0.5 ) ;
+						shouldMove = true ;	
+					}
 				}
-				//else
-					//yield WaitForSeconds ( 2 ) ;
-			}	
+				else
+					if ( computeDirection ( 1 , "compute for left" , false ) )
+					{
+						yield WaitForSeconds ( 0.5 ) ;
+						shouldMove = true ;
+					}
 		}
 			
 		var done:boolean = false ;
 		
-		
+/*		
 		for ( c = 0 ; c < 1 ; ++ c )
 		{
 			done = computeDirection ( c , "usual" , true ) ;
@@ -140,6 +201,7 @@ class EnemyPathfinding extends MonoBehaviour {
 				return ;
 			}
 		}
+*/
 	}
 	
 	private function computeDirection ( c:int , mesaj:String , useLS:boolean )
@@ -167,7 +229,7 @@ class EnemyPathfinding extends MonoBehaviour {
 		if ( mesaj != "usual" )
 		{
 			Debug.LogWarning ( newX + " " + newY + " old:" + myLine + " " + myRow + " D:" + dx[c] + " " + dy[c] ) ;
-			
+/*			
 			Debug.Log ( mesaj + "   new: " + newPos + " 1:" + LS1 + " 2:" + LS2 ) ;
 			if ( newPos == LS1 )
 				Debug.Log ( "error la 1" ) ;
@@ -175,7 +237,7 @@ class EnemyPathfinding extends MonoBehaviour {
 				Debug.Log ( "error la 2" ) ;
 			if ( level[newY] != 0 )
 				Debug.Log ( "error la level[newY]" + level[newY] ) ;
-			
+*/			
 		}
 		
 		var ok:boolean = true ;
@@ -195,9 +257,7 @@ class EnemyPathfinding extends MonoBehaviour {
 				target = Quaternion.Euler ( 0 , 0 , transform.rotation.eulerAngles.z + dy[c] * 15 ) ;
 			else
 			{
-				Debug.LogWarning ( "updating target: " + target ) ;
 				target.eulerAngles.z += dy[c] * 15  ;
-				Debug.LogWarning ( "updated target: " + target ) ;
 			}
 				
 			transform.position.z = transform.position.z + dx[c] * 1.53 ;
