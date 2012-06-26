@@ -156,7 +156,6 @@ class SpawnCylinder extends MonoBehaviour {
 		
 		var i:int ;
 		
-		-- rot ;
 		var position:Vector3 = Vector3 ( 3.64 , -1 , zPos ) ;
 		var rotation:Quaternion = Quaternion ( 0 , 0 , 0 , 0 ) ;
 		var cubePrefab:Transform ;
