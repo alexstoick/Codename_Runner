@@ -20,6 +20,7 @@ class EnemyPathfinding extends MonoBehaviour {
 		mat = levelGen.GetMat ( ) ;
 		yield 1 ;
 		shouldMove = true ;
+		(mat[myLine] as Array)[myRow] = 0 ;
 		
 //		Debug.Log ( "14:" + mat[14] ) ;
 //		Debug.Log ( "15:" + mat[15] ) ;
@@ -52,8 +53,10 @@ class EnemyPathfinding extends MonoBehaviour {
 	
 	function GetRunnerPosition ( )
 	{
-		var row:int = runner.rotation.eulerAngles.z / 15 ;
+		var row:int = System.Math.Ceiling ( runner.rotation.eulerAngles.z ) / 15 ;
 		var line:int = runner.position.z / 1.53 ;
+		if ( row == 24 )
+			row = 0 ;
 //		Debug.Log ( "Runner: " + line + " " + row ) ;
 		return Vector2 ( line , row ) ;
 	}
@@ -86,53 +89,60 @@ class EnemyPathfinding extends MonoBehaviour {
 		
 		runnerPos = GetRunnerPosition () ;
 		
-		Debug.Log ( runnerPos.y + " current:" + myRow ) ;
+//		Debug.Log ( runnerPos.y + " current:" + myRow ) ;
 		
 		if ( myRow != runnerPos.y )
 		{
-			//Debug.Log ( myRow - runnerPos.y ) ;
+			var newRow:int ; 
 			
-			if ( ( 0 < myRow - runnerPos.y )&& ( myRow - runnerPos.y < 12 ) )
+			newRow = myRow + 1 ;
+			if ( newRow == 24 )
+				newRow = 0 ;
+			
+			if ( newRow == runnerPos.y )
 			{
-				if ( computeDirection ( 2 , "compute for right" ) )
+				if ( computeDirection ( 2 , "compute for right" , false ) )
 				{
-					yield WaitForSeconds ( 2 ) ;				
+					//yield WaitForSeconds ( 2 ) ;				
 					shouldMove = true ;	
-					Debug.Log ( "RIGHT: Target:" + runnerPos.y + " current:" + myRow + " time:" + Time.time ) ;
+					//Debug.Log ( "RIGHT: Target:" + runnerPos.y + " current:" + myRow + " time:" + Time.time ) ;
 				}
 				//else
-					//yield WaitForSeconds ( 2 ) ;
+					//yield WaitForSeconds ( 2 ) ;		
 			}
 			else
 			{
-				if ( computeDirection ( 1 , "compute for left") )
+				newRow = myRow - 1 ;
+				if ( newRow == -1 )
+					newRow = 23 ;
+				
+				if ( computeDirection ( 1 , "compute for left" , false ) )
 				{
-					yield WaitForSeconds ( 2 ) ;
+					//yield WaitForSeconds ( 2 ) ;
 					shouldMove = true ;
-					Debug.Log ( "LEFT: Target:" + runnerPos.y + " current:" + myRow + " time:" + Time.time ) ;
+					//Debug.Log ( "LEFT: Target:" + runnerPos.y + " current:" + myRow + " time:" + Time.time ) ;
 				}
 				//else
 					//yield WaitForSeconds ( 2 ) ;
-			}
+			}	
 		}
 			
 		var done:boolean = false ;
 		
-/*		
-		for ( c = 0 ; c < 4 ; ++ c )
+		
+		for ( c = 0 ; c < 1 ; ++ c )
 		{
-			done = computeDirection ( c , "usual" ) ;
+			done = computeDirection ( c , "usual" , true ) ;
 			if ( done )
 			{	
-				yield WaitForSeconds ( 2 ) ;
+				yield WaitForSeconds ( 0.5 ) ;
 				shouldMove = true ;
 				return ;
 			}
 		}
-*/
 	}
 	
-	private function computeDirection ( c:int , mesaj:String )
+	private function computeDirection ( c:int , mesaj:String , useLS:boolean )
 	{
 	
 		var newX:int ;
@@ -158,20 +168,38 @@ class EnemyPathfinding extends MonoBehaviour {
 		{
 			Debug.LogWarning ( newX + " " + newY + " old:" + myLine + " " + myRow + " D:" + dx[c] + " " + dy[c] ) ;
 			
-			//Debug.Log ( mesaj + "   new: " + newPos + " 1:" + LS1 + " 2:" + LS2 ) ;
+			Debug.Log ( mesaj + "   new: " + newPos + " 1:" + LS1 + " 2:" + LS2 ) ;
 			if ( newPos == LS1 )
 				Debug.Log ( "error la 1" ) ;
 			if ( newPos == LS2 )
 				Debug.Log ( "error la 2" ) ;
 			if ( level[newY] != 0 )
-				Debug.Log ( "error la level[newY]" ) ;
+				Debug.Log ( "error la level[newY]" + level[newY] ) ;
+			
 		}
 		
-		if ( level[newY] == 0 && ( newPos != LS1 && newPos != LS2 ) )
+		var ok:boolean = true ;
+		
+				
+		if ( level[newY] != 0 )
+			ok = false ;
+			
+		if ( useLS )
+			if ( newPos == LS1 || newPos == LS2 ) 
+				ok = false;
+				
+		if ( ok )	
 		{
 			//move our enemy there
-//			Debug.LogWarning ( direction [c] + " " + Time.time ) ;
-			target = Quaternion.Euler ( 0 , 0 , transform.rotation.eulerAngles.z + dy[c] * 15 ) ;
+			if ( ! ( target.x || target.y || target.z || target.w ) )
+				target = Quaternion.Euler ( 0 , 0 , transform.rotation.eulerAngles.z + dy[c] * 15 ) ;
+			else
+			{
+				Debug.LogWarning ( "updating target: " + target ) ;
+				target.eulerAngles.z += dy[c] * 15  ;
+				Debug.LogWarning ( "updated target: " + target ) ;
+			}
+				
 			transform.position.z = transform.position.z + dx[c] * 1.53 ;
 			myLine = newX ;
 			myRow = newY ;
