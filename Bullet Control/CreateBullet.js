@@ -38,7 +38,7 @@ class CreateBullet extends MonoBehaviour {
 	    	if ( lovit.name != "Brad" )
 	    	{
 	    		if ( lovit.name == "soldier" )
-	    			Destroy ( lovit.gameObject ) ;
+	    			PoolManager.Pools["Enemies"].Despawn ( lovit.parent ) ;
 	    		else
 			    	if ( lovit.gameObject.renderer.material.name == "destroyableBox (Instance)" )
 			    	{
