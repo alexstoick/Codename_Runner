@@ -175,7 +175,6 @@ class SpawnCylinder extends MonoBehaviour {
 			case 6: 
 				enemySpawn.handleEnemySpawn ( zPos , levelGen._Line , rot ) ;
 					return ;
-
 		}
 		
 		currentCube = cubesPool.Spawn ( cubePrefab ) ;

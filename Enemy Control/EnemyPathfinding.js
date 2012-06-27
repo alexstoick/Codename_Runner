@@ -17,10 +17,13 @@ class EnemyPathfinding extends MonoBehaviour {
 		myRow = _row ;
 		
 		myLine -= 2 ;
-
-		Debug.Log ( "Setted enemy line to: " + myLine + " row:" + myRow) ;
-		
 		mat = levelGen.GetMat ( ) ;
+		// -1 pentru levelGen._Line
+		// -1 pentru ca incepe de la 0 matricea.
+	
+		Debug.Log ( transform.name + "	Setted enemy line to: " + myLine + " row:" + myRow) ;
+		
+		
 		yield 1 ;
 		shouldMove = true ;
 	}
@@ -92,14 +95,14 @@ class EnemyPathfinding extends MonoBehaviour {
 			
 			var distance = Mathf.Abs ( myRow - target ) ;
 			
-			Debug.Log ( "Target:" + target + " current:" + myRow + " distance:" + distance );
+			Debug.Log ( "Target:" + target + " current:" + myRow ) ;
 			
 			if ( distance <= 12 )
 				if ( myRow > target )
 				{
 					if ( computeDirection ( 1 , "compute for left" , false ) )
 					{
-						//yield WaitForSeconds ( 0.5 ) ;
+						//yyield WaitForSeconds ( 0.5 ) ;
 						shouldMove = true ;
 					}
 				}
@@ -107,14 +110,13 @@ class EnemyPathfinding extends MonoBehaviour {
 				{
 					if ( computeDirection ( 2 , "compute for right" , false ) )
 					{
-						//yield WaitForSeconds ( 0.5 ) ;
+						//yyield WaitForSeconds ( 0.5 ) ;
 						shouldMove = true ;	
 					}
 				}
 			else
 			{
 				//distance >12 
-				Debug.LogWarning ( "CAZ SPECIAL" ) ;
 				if ( myRow < target )
 				{
 					if ( computeDirection ( 1 , "compute for left" , false ) )
@@ -138,8 +140,8 @@ class EnemyPathfinding extends MonoBehaviour {
 			
 		var done:boolean = false ;
 		
-		
-		for ( c = 0 ; c < 4 ; c += 3 )
+	
+		for ( c = 0 ; c < 1 ; c += 3 )
 		{
 			done = computeDirection ( c , "usual" , true ) ;
 			if ( done )
@@ -149,12 +151,16 @@ class EnemyPathfinding extends MonoBehaviour {
 				return ;
 			}
 		}
-
 	}
 	
 	private var LS1:Vector2 = new Vector2(-1 , -1 ) ;
 	private var LS2:Vector2 = new Vector2(-1 , -1 ) ;
 
+	function Start ( )
+	{
+		LS1 = new Vector2(-1 , -1 ) ;
+		LS2 = new Vector2(-1 , -1 ) ;
+	}
 	
 	private function computeDirection ( c:int , mesaj:String , useLS:boolean )
 	{
