@@ -15,12 +15,14 @@ class EnemyPathfinding extends MonoBehaviour {
 	{
 		myLine = _line ;
 		myRow = _row ;
-		Debug.Log ( "Setted enemy line to: " + myLine + " row:" + myRow) ;
+		
 		myLine -= 2 ;
+
+		Debug.Log ( "Setted enemy line to: " + myLine + " row:" + myRow) ;
+		
 		mat = levelGen.GetMat ( ) ;
 		yield 1 ;
 		shouldMove = true ;
-		(mat[myLine] as Array)[myRow] = 0 ;
 	}
 	
 	var dx:int[] = new int [4] ;
@@ -74,9 +76,6 @@ class EnemyPathfinding extends MonoBehaviour {
 		
 	}
 	
-	var LS1:Vector2 = new Vector2(-1 , -1 ) ;
-	var LS2:Vector2 = new Vector2(-1 , -1 ) ;
-
 	function Move ( )
 	{
 		var c:int ;
@@ -84,16 +83,16 @@ class EnemyPathfinding extends MonoBehaviour {
 		
 		runnerPos = GetRunnerPosition () ;
 		
-//		Debug.Log ( runnerPos.y + " current:" + myRow ) ;
-		
 		if ( myRow != runnerPos.y )
 		{
 		
 			var target:int = runnerPos.y ;	
 			var upperBound:int = myRow + 12 ;
-//			Debug.Log ( "Target:" + target + " current:" + myRow + " upperBound:" + upperBound ) ;//+ "		" + right + " " + left ) ;
+			// " upperBound:" + upperBound ) ;//+ "		" + right + " " + left ) ;
 			
 			var distance = Mathf.Abs ( myRow - target ) ;
+			
+			Debug.Log ( "Target:" + target + " current:" + myRow + " distance:" + distance );
 			
 			if ( distance <= 12 )
 				if ( myRow > target )
@@ -135,46 +134,27 @@ class EnemyPathfinding extends MonoBehaviour {
 				}
 			}
 
-						
-			//if ( right < left )
-/*			if ( myRow < target  && target < upperBound )
-			{
-				if ( computeDirection ( 2 , "compute for right" , false ) )
-				{
-					yield WaitForSeconds ( 0.5 ) ;
-					shouldMove = true ;	
-				}
-			}
-			else
-				if ( upperBound%24 < target && target < myRow )
-				{
-					if ( computeDirection ( 1 , "compute for left" , false ) )
-					{
-						yield WaitForSeconds ( 0.5 ) ;
-						shouldMove = true ;
-					}
-				}
-				else
-					if ( computeDirection ( 2 , "compute for right" , false ) )
-					{
-						yield WaitForSeconds ( 0.5 ) ;
-						shouldMove = true ;	
-					}
-*/
 		}
 			
 		var done:boolean = false ;
 		
 		
-		c = 0 ;
-		done = computeDirection ( c , "usual" , true ) ;
-		if ( done )
-		{	
-			yield WaitForSeconds ( 0.5 ) ;
-			shouldMove = true ;
-			return ;
+		for ( c = 0 ; c < 4 ; c += 3 )
+		{
+			done = computeDirection ( c , "usual" , true ) ;
+			if ( done )
+			{	
+				yield WaitForSeconds ( 0.5 ) ;
+				shouldMove = true ;
+				return ;
+			}
 		}
+
 	}
+	
+	private var LS1:Vector2 = new Vector2(-1 , -1 ) ;
+	private var LS2:Vector2 = new Vector2(-1 , -1 ) ;
+
 	
 	private function computeDirection ( c:int , mesaj:String , useLS:boolean )
 	{
@@ -188,31 +168,32 @@ class EnemyPathfinding extends MonoBehaviour {
 		
 		if ( newX < 0 )
 			return ;
+		if ( newX >= mat.length )
+			return ;				
 			
 		if ( newY == -1 )
 			newY = 23 ;
 		if ( newY == 24 )
 			newY = 0 ;
-			
+		
+	
 		level = mat[newX] ;
 		
+				
 		var newPos:Vector2 = new Vector2 ( newX , newY ) ;
-/*		
-		if ( mesaj != "usual" )
-		{
-			Debug.LogWarning ( newX + " " + newY + " old:" + myLine + " " + myRow + " D:" + dx[c] + " " + dy[c] ) ;
-		}
-*/		
+	
 		var ok:boolean = true ;
 		
 				
-		if ( level[newY] != 0 )
+		if ( level[newY] != 6 && level[newY] != 0 && level[newY] != 4 )
 			ok = false ;
-			
+		
 		if ( useLS )
 			if ( newPos == LS1 || newPos == LS2 ) 
 				ok = false;
-				
+
+//		Debug.LogWarning ( "old:" + " " + myRow + " new: " + newY + " ok:" + ok + " lvl check:" + level[newY] + " " + newX ) ;
+
 		if ( ok )	
 		{
 			//move our enemy there
@@ -230,6 +211,8 @@ class EnemyPathfinding extends MonoBehaviour {
 			
 			LS2 = LS1 ;
 			LS1 = Vector2 ( myLine , myRow ) ;
+
+
 			return true ;
 		}
 		return false ;
