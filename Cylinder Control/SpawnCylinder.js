@@ -97,15 +97,17 @@ class SpawnCylinder extends MonoBehaviour {
 		
 		++numberOfCylinders ;
 		
-		var string:String = "Line: " + LevelGeneration._Line ;
+		var string:String = "Line: " + position.z ;
 		
 		for ( var i  = 0 ; i < 24 ; ++ i )
 		{
 			transformBox ( i ,level[i] , position.z ) ;
 			if ( level[i] == 1 || level[i] == 2 )
 				string += ( " " + i ) ;
+			if ( level[i] == 6 )
+				string += (" ! " + i ); 
 		}
-//		Debug.Log ( string + "  " + " " + Time.time ) ;
+		Debug.Log ( string + "  " );//+ " " + Time.time ) ;
 
 	}
 	
@@ -152,10 +154,7 @@ class SpawnCylinder extends MonoBehaviour {
 	
 	private function transformBox ( rot:int , code:int , zPos : double )
 	{
-		var newBox:Transform ;
-		
-		var i:int ;
-		
+
 		var position:Vector3 = Vector3 ( 3.64 , -1 , zPos ) ;
 		var rotation:Quaternion = Quaternion ( 0 , 0 , 0 , 0 ) ;
 		var cubePrefab:Transform ;
@@ -173,7 +172,8 @@ class SpawnCylinder extends MonoBehaviour {
 			case 4:
 				ammoBoxSpawn.Spawn ( rot , zPos ) ;
 				return ;
-			case 6: enemySpawn.handleEnemySpawn ( zPos , levelGen._Line , rot ) ;
+			case 6: 
+				enemySpawn.handleEnemySpawn ( zPos , levelGen._Line , rot ) ;
 					return ;
 
 		}

@@ -32,10 +32,10 @@ class EnemySpawn extends MonoBehaviour {
 		
 		newEnemy.position = position ;
 		newEnemy.rotation = rotation ;
-		newEnemy.rotation.eulerAngles.z = 15*(rot+1) ;
+		newEnemy.rotation.eulerAngles.z = 15*rot ;
 		var enemyPF: EnemyPathfinding = newEnemy.GetComponent ( EnemyPathfinding ) ;
-		
-		enemyPF.SetPosition ( _Line , rot + 1 ) ;
+		Debug.LogWarning ( "should spawn enemy at Z:" + zPos + " rotation:" + 15*rot) ;
+		enemyPF.SetPosition ( _Line , rot ) ;
 	}
 	
 	
