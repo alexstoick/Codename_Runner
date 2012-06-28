@@ -107,7 +107,7 @@ class SpawnCylinder extends MonoBehaviour {
 			if ( level[i] == 6 )
 				string += (" ! " + i ); 
 		}
-		Debug.Log ( string + "  " );//+ " " + Time.time ) ;
+//		Debug.Log ( string + "  " );//+ " " + Time.time ) ;
 
 	}
 	
@@ -170,7 +170,7 @@ class SpawnCylinder extends MonoBehaviour {
 				cubePrefab = cubesPool.prefabs["destroyableCube_refferencePoint"];
 				break  ;
 			case 4:
-				ammoBoxSpawn.Spawn ( rot , zPos ) ;
+				//ammoBoxSpawn.Spawn ( rot , zPos ) ;
 				return ;
 			case 6: 
 				enemySpawn.handleEnemySpawn ( zPos , levelGen._Line , rot ) ;
