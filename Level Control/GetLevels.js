@@ -17,12 +17,6 @@ class GetLevels extends MonoBehaviour {
 
 	}
 
-/*	function loadRes () 
-	{
-	    levelGen.level = levels[1] ;
-	    levelGen.MODULO = 1 ;
-	    levelGen.splitText ( ) ;
-	}*/
 	function newLevel ( )
 	{
 		

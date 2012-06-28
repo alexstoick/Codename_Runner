@@ -26,49 +26,58 @@ class LevelGeneration extends MonoBehaviour {
 	
 	function splitText ()
 	{
+	
+		var currentLine:Array = new Array[27];
+		var triggerBox:boolean = false ;		
 		stringArray = level.text.Split(","[0],"\n"[0]);
 		MODULO = stringArray.length / 24 ;
 		Debug.Log ( stringArray.length ) ;
+		
+		mat.Clear ( ) ;
+		Debug.Log ( MODULO ) ;
+		
+		for ( var j:int  = 1 ; j < MODULO ; ++ j)
+		{
+		
+			currentLine = new Array[26] ;
+			triggerBox = false ;
+			
+			var lower:int = ((j-1)*24) ; 
+			var upper:int = (j*24-1) ; 
+	
+			for ( var i:int = lower ; i <= upper ; ++ i )
+			{
+				currentLine [i-lower] = int.Parse ( stringArray [i] ) ; 
+				if ( currentLine [i-lower] == 3)
+					triggerBox = true ;
+			}
+			
+			currentLine[24] = triggerBox ;
+			currentLine[25] = currentLevel ;
+			
+			mat.push ( currentLine ) ;
+		}
+		_Line = 0 ;
 	}
 	
 	function getLine ( )
 	{
-		var currentLine:Array = new Array[27];
-		var triggerBox:boolean = false ;
-		
-		if ( _Line > MODULO )
+		if ( _Line == MODULO -2 )
 		{
-			_Line = 1 ;
+			_Line = 0 ;
 			++currentLevel ;
 			Debug.LogWarning ( "Changed level to:" + currentLevel ) ;
 			getLevels.newLevel ( ) ;
-			mat.Clear ( ) ;
-			SpawnCylinder._currentLine = 0 ;
 			if ( currentLevel == LEVELS )
 				currentLevel = 0 ;
-				
+			return mat[0] ;
+			
 		}
-		
-		var lower:int = ((_Line-1)*24) ; 
-		var upper:int = (_Line*24-1) ; 
-		var abc:String = "" ;
-
-//		Debug.Log ( "Getting line:" + _Line + " bounds:[" + lower + " , " + upper + "]" ) ;
-				
-		for ( var i = (_Line-1)*24 ; i <= _Line*24 - 1 ; ++ i )
-		{
-			currentLine [i-lower] = int.Parse ( stringArray [i] ) ; 
-			if ( currentLine [i-lower] == 3)
-				triggerBox = true ;
-			abc += " , " + currentLine[i-lower] ;
-		}
-		
-		currentLine[24] = triggerBox ;
-		currentLine[25] = currentLevel ;
-		
-		++ _Line ;
-		mat.push ( currentLine ) ;
-		return currentLine ;
+		++_Line ;
+		if ( _Line >= mat.length) 
+			return new Array[26] ;
+			
+		return mat[ _Line ] ;
 	}
 	
 	public function GetMat ( )

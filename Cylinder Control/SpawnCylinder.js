@@ -5,7 +5,6 @@ class SpawnCylinder extends MonoBehaviour {
 	var cubeMaterials:Material[] ;
 	var cylinderMaterials:Material[] ;
 
-	static var _currentLine:int = 0 ;
 	static var numberOfCylinders:int = 0 ;
 	var bigGroup:Transform ;
 	private static var levelGen:LevelGeneration ; 
@@ -97,16 +96,15 @@ class SpawnCylinder extends MonoBehaviour {
 		
 		++numberOfCylinders ;
 		
-		var string:String = "Line: " + position.z ;
-		
+		var string:String = "" ;
+
 		for ( var i  = 0 ; i < 24 ; ++ i )
 		{
 			transformBox ( i ,level[i] , position.z ) ;
 			if ( level[i] == 1 || level[i] == 2 )
-				string += ( " " + i ) ;
-			if ( level[i] == 6 )
-				string += (" ! " + i ); 
+				string += ( " " + i*15 ) ;
 		}
+		Debug.Log ( "Line " + LevelGeneration._Line + " zPos:" + position.z + " 	" + string ) ;
 //		Debug.Log ( string + "  " );//+ " " + Time.time ) ;
 
 	}
@@ -133,7 +131,6 @@ class SpawnCylinder extends MonoBehaviour {
 			if ( trs.position.z + 5 < bigGroup.position.z )
 			{
 				cylinderPool.Despawn ( trs ) ;
-				++ _currentLine ;
 				if ( trs.name.Contains ( "trigger") )
 				{	
 					trs.GetChild(0).GetComponent ( SmoothMove ).shouldMove = false ;
