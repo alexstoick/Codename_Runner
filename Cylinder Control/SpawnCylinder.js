@@ -104,7 +104,7 @@ class SpawnCylinder extends MonoBehaviour {
 			if ( level[i] == 1 || level[i] == 2 )
 				string += ( " " + i*15 ) ;
 		}
-		Debug.Log ( "Line " + LevelGeneration._Line + " zPos:" + position.z + " 	" + string ) ;
+//		Debug.Log ( "Line " + LevelGeneration._Line + " zPos:" + position.z + " 	" + string ) ;
 //		Debug.Log ( string + "  " );//+ " " + Time.time ) ;
 
 	}
