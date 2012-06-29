@@ -2,35 +2,54 @@
 
 class EnemyPathfinding extends MonoBehaviour {
 
-	private var myLine:int ;
-	private var myRow:int ;
 	static private var levelGen: LevelGeneration ;
 	private var mat:Array = new Array( ) ;
 	static var runner:Transform ;
 	private var shouldMove:boolean = false ;
 	
 	
-	
-	public function SetPosition ( _line , _row )
+	var forward:boolean = false ;
+	var myLine:int ;
+	var myRow:int ;
+	var showCurrentRow:boolean = false ;
+	var stringMatrice:String = "" ;
+	var freeze:boolean = false ;
+	var showMessages:boolean = false ;
+		
+	private function getMatrix ( )
 	{
-		myLine = _line ;
-		myRow = _row ;
-		
-		myLine -= 2 ;
-		mat = levelGen.GetMat ( ) ;
-		// -1 pentru levelGen._Line
-		// -1 pentru ca incepe de la 0 matricea.
-	
-		Debug.Log ( transform.name + "	Setted enemy line to: " + myLine + " row:" + myRow) ;
-		
-		
-		yield 1 ;
+		var matrice:Array ;
+		shouldMove = false ;
+		matrice = levelGen.GetMat ( ) ;
+		stringMatrice = "" ;
+		mat.clear ( ) ;
+		for ( var i:int = 0 ; i < matrice.length ; ++ i )
+		{
+			mat.push ( matrice[i] ) ;
+			stringMatrice += "\n" + matrice[i] ;
+		}
 		shouldMove = true ;
 	}
 	
-	var dx:int[] = new int [4] ;
-	var dy:int[] = new int [4] ;
-	var direction:String[] = new String[4] ;
+	public function SetPosition ( _line:int , _row:int )
+	{
+		myLine = _line ;
+		myRow = _row ;
+		freeze = false ;
+		
+		var m:int = Random.Range ( 0 , 2 ) ;
+		if ( m < 1 )
+			forward = true ;
+		else
+			forward = false ;
+		
+		Debug.LogError ( "Setted position for " + transform.name + " line:" + myLine + " row:" + myRow + " rotation:" + transform.rotation.eulerAngles.z ) ;
+		getMatrix ( );
+	}
+	
+	private var dx:int[] = new int [4] ;
+	private var dy:int[] = new int [4] ;
+	private var direction:String[] = new String[4] ;
 	
 
 	
@@ -61,11 +80,25 @@ class EnemyPathfinding extends MonoBehaviour {
 		return Vector2 ( line , row ) ;
 	}
 	
+	private function showRow ( )
+	{
+		var i:int ;
+		var lvl:Array = mat[myLine] ;
+		var s:String = "Line nr:" + myLine + " " ;
+		for ( i = 0 ; i < 25 ; ++ i )
+			s += lvl[i] + " " ;
+		Debug.LogWarning ( s ) ;
+		Debug.LogWarning ( stringMatrice ) ;
+	}
+	
 	var target:Quaternion ;
 	
 	function Update ( )
 	{	
-		if ( shouldMove )
+		if ( showCurrentRow )
+			showRow ( ) ;
+			
+		if ( shouldMove && runner.position.z + 60 > transform.position.z && ! freeze )
 			Move ( ) ;
 			
 		if ( ! ( target.x || target.y || target.z || target.w ))
@@ -76,11 +109,12 @@ class EnemyPathfinding extends MonoBehaviour {
 			return ;
 		}
 		transform.rotation = Quaternion.Slerp( transform.rotation, target, Mathf.Sin( 0.08 * Mathf.PI * 0.5) ); 
-		
+
 	}
 	
 	function Move ( )
 	{
+		shouldMove = false ;
 		var c:int ;
 		var runnerPos:Vector2 ;
 		
@@ -88,30 +122,27 @@ class EnemyPathfinding extends MonoBehaviour {
 		
 		if ( myRow != runnerPos.y )
 		{
-		
 			var target:int = runnerPos.y ;	
-			var upperBound:int = myRow + 12 ;
-			// " upperBound:" + upperBound ) ;//+ "		" + right + " " + left ) ;
 			
 			var distance = Mathf.Abs ( myRow - target ) ;
 			
-			Debug.Log ( "Target:" + target + " current:" + myRow ) ;
+//			Debug.Log ( "Target:" + target + " current:" + myRow ) ;
 			
 			if ( distance <= 12 )
 				if ( myRow > target )
 				{
 					if ( computeDirection ( 1 , "compute for left" , false ) )
 					{
-						//yyield WaitForSeconds ( 0.5 ) ;
-						shouldMove = true ;
+						yield 1 ;
+						//yyield WaitForSeconds ( 3 ) ;
 					}
 				}
 				else
 				{
 					if ( computeDirection ( 2 , "compute for right" , false ) )
 					{
-						//yyield WaitForSeconds ( 0.5 ) ;
-						shouldMove = true ;	
+						yield 1 ;
+						//yyield WaitForSeconds ( 3 ) ;
 					}
 				}
 			else
@@ -121,36 +152,34 @@ class EnemyPathfinding extends MonoBehaviour {
 				{
 					if ( computeDirection ( 1 , "compute for left" , false ) )
 					{
-						//yield WaitForSeconds ( 0.5 ) ;
-						shouldMove = true ;
+						yield 1 ;
+						//yyield WaitForSeconds ( 3 ) ;
 					}
 				}
 				else
 				{
 					if ( computeDirection ( 2 , "compute for right" , false ) )
 					{
-						//yield WaitForSeconds ( 0.5 ) ;
-						shouldMove = true ;	
+						yield 1 ;
+						//yyield WaitForSeconds ( 3 ) ;
 					}
-
 				}
 			}
-
 		}
 			
 		var done:boolean = false ;
-		
-	
-		for ( c = 0 ; c < 1 ; c += 3 )
-		{
-			done = computeDirection ( c , "usual" , true ) ;
-			if ( done )
-			{	
-				yield WaitForSeconds ( 0.5 ) ;
-				shouldMove = true ;
-				return ;
-			}
+
+		if ( forward )
+			c = 0 ;
+		else
+			c = 3 ;
+
+		done = computeDirection ( c , "usual" , false ) ;
+		if ( done )
+		{	
+			yield WaitForSeconds ( 0.5 ) ;
 		}
+		shouldMove = true ;
 	}
 	
 	private var LS1:Vector2 = new Vector2(-1 , -1 ) ;
@@ -168,7 +197,7 @@ class EnemyPathfinding extends MonoBehaviour {
 		var newX:int ;
 		var newY:int ;
 		var level:Array ;
-	
+		
 		newX = myLine + dx[c] ;
 		newY = myRow + dy[c] ;
 		
@@ -182,45 +211,57 @@ class EnemyPathfinding extends MonoBehaviour {
 		if ( newY == 24 )
 			newY = 0 ;
 		
-	
-		level = mat[newX] ;
-		
-				
 		var newPos:Vector2 = new Vector2 ( newX , newY ) ;
-	
-		var ok:boolean = true ;
 		
-				
+		level = mat[newX] ;
+
+//		if ( transform.position.z == 191.37 )
+//			Debug.LogError ( level ) ;			
+		
+//		if ( c == 3 )
+//			Debug.LogWarning ( "old:" + " " + myLine + " new: " + newX + " " + " y:" + newY + " " + level[newY] ) ;
+
+		if ( level[24] )
+			return false ;
+
 		if ( level[newY] != 6 && level[newY] != 0 && level[newY] != 4 )
-			ok = false ;
+		{
+			if ( showMessages )		
+				Debug.Log ( "Tried going " + direction[c] + " but is not clear! + [ " + newX + " , " + newY + " ]" ) ;
+			return false ;
+		}
 		
 		if ( useLS )
 			if ( newPos == LS1 || newPos == LS2 ) 
-				ok = false;
-
-//		Debug.LogWarning ( "old:" + " " + myRow + " new: " + newY + " ok:" + ok + " lvl check:" + level[newY] + " " + newX ) ;
-
-		if ( ok )	
-		{
-			//move our enemy there
-			if ( ! ( target.x || target.y || target.z || target.w ) )
-				target = Quaternion.Euler ( 0 , 0 , transform.rotation.eulerAngles.z + dy[c] * 15 ) ;
-			else
 			{
-				target.eulerAngles.z += dy[c] * 15  ;
+				if ( showMessages )
+					Debug.Log ( "Been here before ! Might be stuck" ) ;
+				return false ;
 			}
-				
-			transform.position.z = transform.position.z + dx[c] * 1.53 ;
-			myLine = newX ;
-			myRow = newY ;
-			shouldMove = false ;
-			
-			LS2 = LS1 ;
-			LS1 = Vector2 ( myLine , myRow ) ;
 
-
-			return true ;
+		//move our enemy there
+		if ( ! ( target.x || target.y || target.z || target.w ) )
+			target = Quaternion.Euler ( 0 , 0 , transform.rotation.eulerAngles.z + dy[c] * 15) ;
+		else
+		{
+			target.eulerAngles.z += dy[c] * 15  ;
 		}
-		return false ;
+			
+		var multiplier:int = 1 ;
+			
+		if ( level[24] == true )
+			multiplier = 2 ;
+			
+			
+		transform.position.z = transform.position.z + dx[c] * 1.53 * multiplier ;
+		myLine = newX ;
+		myRow = newY ;
+		shouldMove = false ;
+		
+		LS2 = LS1 ;
+		LS1 = Vector2 ( myLine , myRow ) ;
+
+
+		return true ;
 	}
 }
