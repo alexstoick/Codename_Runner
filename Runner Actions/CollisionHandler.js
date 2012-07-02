@@ -72,29 +72,12 @@ class CollisionHandler extends MonoBehaviour {
 			arrowControl.ArrowAndBox ( ammoBox.parent.name ) ;
 			return ;
 		}
-		
-		if (  CollisionInfo.contacts[0].otherCollider.name != "Brad" && CollisionInfo.contacts[0].otherCollider.name != "soldier" )
-			if ( CollisionInfo.contacts[0].otherCollider.transform.gameObject.renderer.material.name == "triggerBox" )
-			{
-				//trebuie miscat
-				Debug.LogError ( "TOUCHED TRIGGER BOX" ) ;
-				var trigger:Transform = CollisionInfo.contacts[0].otherCollider.transform ;
-				trigger.parent.parent.rotation.eulerAngles.z = 15 ;
-				return ;
-			}
-		
 
 		runner.gameObject.renderer.material = materials[0] ;
 		moveRunner.movementVariation = 0 ;
-//		bigGroup.transform.position.z -= 1 ;
-//		clearPools ( ) ;
-//		clearArrowsAndAmmo ( ) ;
 		
 		yield WaitForSeconds ( 2 ) ;
-//		bigGroup.transform.position.z = 0 ;
-//		SpawnCylinder.numberOfCylinders = 0 ;
-//		LevelGeneration._Line = 1 ;
-//		SpawnCylinder.doSpawn = true ;
+
 		moveRunner.movementVariation = 0.2 ;
 
 		runner.gameObject.renderer.material = materials[1] ;
