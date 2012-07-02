@@ -6,7 +6,9 @@ class EnemyPathfinding extends MonoBehaviour {
 	private var mat:Array = new Array( ) ;
 	static var runner:Transform ;
 	private var shouldMove:boolean = false ;
-	
+	private var LS1:Vector2 = new Vector2(-1 , -1 ) ;
+	private var LS2:Vector2 = new Vector2(-1 , -1 ) ;
+	private var enemyShoot:EnemyShoot ;
 	
 	var forward:boolean = false ;
 	var myLine:int ;
@@ -15,6 +17,7 @@ class EnemyPathfinding extends MonoBehaviour {
 	var stringMatrice:String = "" ;
 	var freeze:boolean = false ;
 	var showMessages:boolean = false ;
+	
 		
 	private function getMatrix ( )
 	{
@@ -43,7 +46,7 @@ class EnemyPathfinding extends MonoBehaviour {
 		else
 			forward = false ;
 		
-		Debug.LogError ( "Setted position for " + transform.name + " line:" + myLine + " row:" + myRow + " rotation:" + transform.rotation.eulerAngles.z ) ;
+//		Debug.LogError ( "Setted position for " + transform.name + " line:" + myLine + " row:" + myRow + " rotation:" + transform.rotation.eulerAngles.z ) ;
 		getMatrix ( );
 	}
 	
@@ -51,6 +54,17 @@ class EnemyPathfinding extends MonoBehaviour {
 	private var dy:int[] = new int [4] ;
 	private var direction:String[] = new String[4] ;
 	
+	function Start () 
+	{
+	
+		if ( ! enemyShoot )
+			enemyShoot = GetComponent ( EnemyShoot ) ;
+
+		enemyShoot.setOffCooldown ( ) ;
+	
+		LS1 = new Vector2(-1 , -1 ) ;
+		LS2 = new Vector2(-1 , -1 ) ;		
+	}
 
 	
 	function Awake ( )
@@ -59,15 +73,11 @@ class EnemyPathfinding extends MonoBehaviour {
 			levelGen = GameObject.Find ( "Level Control" ). GetComponent ( LevelGeneration ) ;
 		if ( ! runner )
 			runner = GameObject. Find ( "BigGroup").transform ;
-			
-		// 0 , 0 , 1 , -1
-		//1 , -1 , 0 , 0
+					
 		dx[2] =  0 ; dy[2] =  1 ; direction[2] = "right" ;
 		dx[3] =  1 ; dy[3] =  0 ; direction[3] = "backward" ;
 		dx[1] =  0 ; dy[1] = -1 ; direction[1] = "left" ;
 		dx[0] = -1 ; dy[0] =  0 ; direction[0] = "forward" ;
-		
-		
 	}
 	
 	function GetRunnerPosition ( )
@@ -76,7 +86,6 @@ class EnemyPathfinding extends MonoBehaviour {
 		var line:int = runner.position.z / 1.53 ;
 		if ( row == 24 )
 			row = 0 ;
-//		Debug.Log ( "Runner: " + line + " " + row ) ;
 		return Vector2 ( line , row ) ;
 	}
 	
@@ -126,15 +135,12 @@ class EnemyPathfinding extends MonoBehaviour {
 			
 			var distance = Mathf.Abs ( myRow - target ) ;
 			
-//			Debug.Log ( "Target:" + target + " current:" + myRow ) ;
-			
 			if ( distance <= 12 )
 				if ( myRow > target )
 				{
 					if ( computeDirection ( 1 , "compute for left" , false ) )
 					{
 						yield 1 ;
-						//yyield WaitForSeconds ( 3 ) ;
 					}
 				}
 				else
@@ -142,7 +148,6 @@ class EnemyPathfinding extends MonoBehaviour {
 					if ( computeDirection ( 2 , "compute for right" , false ) )
 					{
 						yield 1 ;
-						//yyield WaitForSeconds ( 3 ) ;
 					}
 				}
 			else
@@ -153,7 +158,6 @@ class EnemyPathfinding extends MonoBehaviour {
 					if ( computeDirection ( 1 , "compute for left" , false ) )
 					{
 						yield 1 ;
-						//yyield WaitForSeconds ( 3 ) ;
 					}
 				}
 				else
@@ -161,10 +165,13 @@ class EnemyPathfinding extends MonoBehaviour {
 					if ( computeDirection ( 2 , "compute for right" , false ) )
 					{
 						yield 1 ;
-						//yyield WaitForSeconds ( 3 ) ;
 					}
 				}
 			}
+		}
+		else
+		{
+			enemyShoot.Shoot ( ) ;
 		}
 			
 		var done:boolean = false ;
@@ -180,15 +187,6 @@ class EnemyPathfinding extends MonoBehaviour {
 			yield WaitForSeconds ( 0.5 ) ;
 		}
 		shouldMove = true ;
-	}
-	
-	private var LS1:Vector2 = new Vector2(-1 , -1 ) ;
-	private var LS2:Vector2 = new Vector2(-1 , -1 ) ;
-
-	function Start ( )
-	{
-		LS1 = new Vector2(-1 , -1 ) ;
-		LS2 = new Vector2(-1 , -1 ) ;
 	}
 	
 	private function computeDirection ( c:int , mesaj:String , useLS:boolean )
@@ -214,12 +212,6 @@ class EnemyPathfinding extends MonoBehaviour {
 		var newPos:Vector2 = new Vector2 ( newX , newY ) ;
 		
 		level = mat[newX] ;
-
-//		if ( transform.position.z == 191.37 )
-//			Debug.LogError ( level ) ;			
-		
-//		if ( c == 3 )
-//			Debug.LogWarning ( "old:" + " " + myLine + " new: " + newX + " " + " y:" + newY + " " + level[newY] ) ;
 
 		if ( level[24] )
 			return false ;
