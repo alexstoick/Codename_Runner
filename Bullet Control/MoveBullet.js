@@ -1,9 +1,5 @@
-/**************\ 
-|	UNUSED	   |
-\**************/
-
-
 #pragma strict
+
 class MoveBullet extends MonoBehaviour {
 	
 	var movementVariation = 0.5 ;

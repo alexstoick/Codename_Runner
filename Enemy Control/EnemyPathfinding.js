@@ -38,7 +38,13 @@ class EnemyPathfinding extends MonoBehaviour {
 	{
 		myLine = _line ;
 		myRow = _row ;
+		transform.rotation.eulerAngles.z = _row * 15 ;
 		freeze = false ;
+		
+		if ( ! enemyShoot )
+			enemyShoot = GetComponent ( EnemyShoot ) ;
+			
+		enemyShoot.setOffCooldown ( ) ;
 		
 		var m:int = Random.Range ( 0 , 2 ) ;
 		if ( m < 1 )
@@ -56,12 +62,6 @@ class EnemyPathfinding extends MonoBehaviour {
 	
 	function Start () 
 	{
-	
-		if ( ! enemyShoot )
-			enemyShoot = GetComponent ( EnemyShoot ) ;
-
-		enemyShoot.setOffCooldown ( ) ;
-	
 		LS1 = new Vector2(-1 , -1 ) ;
 		LS2 = new Vector2(-1 , -1 ) ;		
 	}
@@ -140,14 +140,16 @@ class EnemyPathfinding extends MonoBehaviour {
 				{
 					if ( computeDirection ( 1 , "compute for left" , false ) )
 					{
-						yield 1 ;
+						yield WaitForSeconds ( 0.1 ) ;
+//						Debug.LogWarning ( transform.name + " " + " row:" + myRow + " rot:" + transform.rotation.eulerAngles.z ) ;
 					}
 				}
 				else
 				{
 					if ( computeDirection ( 2 , "compute for right" , false ) )
 					{
-						yield 1 ;
+						yield WaitForSeconds ( 0.1 ) ;
+//						Debug.LogWarning ( transform.name + " " + " row:" + myRow + " rot:" + transform.rotation.eulerAngles.z ) ;
 					}
 				}
 			else
@@ -157,20 +159,25 @@ class EnemyPathfinding extends MonoBehaviour {
 				{
 					if ( computeDirection ( 1 , "compute for left" , false ) )
 					{
-						yield 1 ;
+						yield WaitForSeconds ( 0.1 ) ;
+//						Debug.LogWarning ( transform.name + " " + " row:" + myRow + " rot:" + transform.rotation.eulerAngles.z ) ;
 					}
 				}
 				else
 				{
 					if ( computeDirection ( 2 , "compute for right" , false ) )
 					{
-						yield 1 ;
+						yield WaitForSeconds ( 0.1 ) ;
+//						Debug.LogWarning ( transform.name + " " + " row:" + myRow + " rot:" + transform.rotation.eulerAngles.z ) ;
 					}
 				}
 			}
 		}
 		else
 		{
+			myRow =  transformRotation ( ) ;
+			if ( myRow > 23 )
+				myRow = 23 ;
 			enemyShoot.Shoot ( ) ;
 		}
 			
@@ -188,6 +195,23 @@ class EnemyPathfinding extends MonoBehaviour {
 		}
 		shouldMove = true ;
 	}
+	
+	private function transformRotation ( )
+	{
+		var rot:double = transform.rotation.eulerAngles.z / 15 ;
+		var rotInt:int = transform.rotation.eulerAngles.z / 15 ;
+		
+		var actualRot:double = rot - rotInt ;
+		
+		
+		
+		if ( actualRot > 0.5 )
+			return rotInt + 1 ;
+		return rotInt ; 
+
+
+	}
+	
 	
 	private function computeDirection ( c:int , mesaj:String , useLS:boolean )
 	{
