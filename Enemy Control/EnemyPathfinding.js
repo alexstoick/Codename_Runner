@@ -16,8 +16,8 @@ class EnemyPathfinding extends MonoBehaviour {
 	var stringMatrice:String = "" ;
 	var freeze:boolean = false ;
 	var showMessages:boolean = false ;
+	private var enemyShoot:EnemyShoot ;
 	
-		
 	private function getMatrix ( )
 	{
 		var matrice:Array ;
@@ -39,6 +39,13 @@ class EnemyPathfinding extends MonoBehaviour {
 		myRow = _row ;
 		transform.rotation.eulerAngles.z = _row * 15 ;
 		freeze = false ;
+		
+		
+		if ( ! enemyShoot )
+			enemyShoot = GetComponent ( EnemyShoot ) ;
+			
+		enemyShoot.setOffCooldown ( ) ;
+
 		
 		var m:int = Random.Range ( 0 , 2 ) ;
 		if ( m < 1 )
