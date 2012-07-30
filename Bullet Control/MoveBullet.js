@@ -32,7 +32,7 @@ class MoveBullet extends MonoBehaviour {
 
 	function OnCollisionEnter(CollisionInfo:Collision) 
 	{
-		Debug.Log ( "123 " + CollisionInfo.contacts[0].otherCollider.name ) ;
+//		Debug.Log ( "123 " + CollisionInfo.contacts[0].otherCollider.name ) ;
 		bulletPool . Despawn ( bullet ) ;
 	}
 }

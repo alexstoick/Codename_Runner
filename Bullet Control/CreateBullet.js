@@ -38,7 +38,10 @@ class CreateBullet extends MonoBehaviour {
 	    	if ( lovit.name != "Brad" )
 	    	{
 	    		if ( lovit.name == "soldier" )
+	    		{
 	    			PoolManager.Pools["Enemies"].Despawn ( lovit.parent ) ;
+	    			ScoreControl.addScore ( 300 ) ;
+	    		}
 	    		else
 			    	if ( lovit.gameObject.renderer.material.name == "destroyableBox (Instance)" )
 			    	{
@@ -48,6 +51,7 @@ class CreateBullet extends MonoBehaviour {
 			    		var instance = Instantiate( particleEffect , lovit.gameObject.transform.position , lovit.gameObject.transform.rotation);
 					    Destroy(instance.gameObject, 1 );
 					    Destroy(lovit.gameObject , 1 );
+					    ScoreControl.addScore ( 150 ) ;
 			    	}
 			    	else
 				    	if ( lovit.gameObject.renderer.material.name == "triggerBox (Instance)" )
