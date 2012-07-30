@@ -42,7 +42,7 @@ class EnemyShoot extends MonoBehaviour
 	
 		shootOnCooldown = true ;
 //		Debug.Log ( transform.name + " shoot should be ON cd:" + Time.time + " spawned: " + newBullet.name + " " + newBullet.position ) ;
-		yield WaitForSeconds ( 1 ) ;
+		yield WaitForSeconds ( 1.5 ) ;
 //		Debug.Log ( transform.name + " shoot should be OFF cd:" + Time.time ) ;
 		shootOnCooldown = false ;
 	}

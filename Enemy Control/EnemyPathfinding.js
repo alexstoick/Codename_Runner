@@ -139,6 +139,8 @@ class EnemyPathfinding extends MonoBehaviour {
 		var runnerPos:Vector2 ;
 		
 		runnerPos = GetRunnerPosition () ;
+		myRow = doubleToInt ( transform.eulerAngles.z / 15 ) ;
+		transform.eulerAngles.z = myRow * 15.00000 ;
 		
 		if ( myRow != runnerPos.y )
 		{
