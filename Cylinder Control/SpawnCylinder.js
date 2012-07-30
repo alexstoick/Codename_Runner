@@ -60,7 +60,7 @@ class SpawnCylinder extends MonoBehaviour {
 		
 		var cylinderPrefab:Transform ; 
 		var currentCylinder:Transform ;
-		
+	/*	
 		if ( level[24] )
 		{
 			//is Trigger
@@ -87,7 +87,7 @@ class SpawnCylinder extends MonoBehaviour {
 			numberOfCylinders += 2 ;
 	
 			return ;
-		}
+		} */
 		
 		cylinderPrefab = cylinderPool.prefabs["Cylinder Simple"] ;
 		currentCylinder = cylinderPool.Spawn(cylinderPrefab);
@@ -131,11 +131,7 @@ class SpawnCylinder extends MonoBehaviour {
 			if ( trs.position.z + 5 < bigGroup.position.z )
 			{
 				cylinderPool.Despawn ( trs ) ;
-				if ( trs.name.Contains ( "trigger") )
-				{	
-					trs.GetChild(0).GetComponent ( SmoothMove ).shouldMove = false ;
-					trs.GetChild(1).GetComponent ( SmoothMove ).shouldMove = false ;
-				}
+				ScoreControl.addScore ( 10 ) ;
 			}
 		}
 		for ( i = 0 ; i < cubesPool.Count ; ++ i )
@@ -166,6 +162,9 @@ class SpawnCylinder extends MonoBehaviour {
 			case 2: 
 				cubePrefab = cubesPool.prefabs["destroyableCube_refferencePoint"];
 				break  ;
+			case 3: 
+				cubePrefab = cubesPool.prefabs["brad_refferencePoint"] ;
+				break ;
 			case 4:
 				//ammoBoxSpawn.Spawn ( rot , zPos ) ;
 				return ;
