@@ -8,7 +8,6 @@ class EnemyPathfinding extends MonoBehaviour {
 	private var shouldMove:boolean = false ;
 	private var LS1:Vector2 = new Vector2(-1 , -1 ) ;
 	private var LS2:Vector2 = new Vector2(-1 , -1 ) ;
-	private var enemyShoot:EnemyShoot ;
 	
 	var forward:boolean = false ;
 	var myLine:int ;
@@ -40,11 +39,6 @@ class EnemyPathfinding extends MonoBehaviour {
 		myRow = _row ;
 		transform.rotation.eulerAngles.z = _row * 15 ;
 		freeze = false ;
-		
-		if ( ! enemyShoot )
-			enemyShoot = GetComponent ( EnemyShoot ) ;
-			
-		enemyShoot.setOffCooldown ( ) ;
 		
 		var m:int = Random.Range ( 0 , 2 ) ;
 		if ( m < 1 )
@@ -80,9 +74,19 @@ class EnemyPathfinding extends MonoBehaviour {
 		dx[0] = -1 ; dy[0] =  0 ; direction[0] = "forward" ;
 	}
 	
+	private function doubleToInt ( x: double )
+	{
+		var intX : int = System.Math.Floor ( x ) ;
+		
+		if ( x - intX > 0.5 )
+			return intX + 1 ;
+			
+		return intX ;
+	}
+	
 	function GetRunnerPosition ( )
 	{
-		var row:int = System.Math.Ceiling ( runner.rotation.eulerAngles.z ) / 15 ;
+		var row:int = doubleToInt ( runner.rotation.eulerAngles.z / 15 ) ;
 		var line:int = runner.position.z / 1.53 ;
 		if ( row == 24 )
 			row = 0 ;
@@ -140,7 +144,7 @@ class EnemyPathfinding extends MonoBehaviour {
 				{
 					if ( computeDirection ( 1 , "compute for left" , false ) )
 					{
-						yield WaitForSeconds ( 0.1 ) ;
+						yield WaitForSeconds ( 0.3 ) ;
 //						Debug.LogWarning ( transform.name + " " + " row:" + myRow + " rot:" + transform.rotation.eulerAngles.z ) ;
 					}
 				}
@@ -148,7 +152,7 @@ class EnemyPathfinding extends MonoBehaviour {
 				{
 					if ( computeDirection ( 2 , "compute for right" , false ) )
 					{
-						yield WaitForSeconds ( 0.1 ) ;
+						yield WaitForSeconds ( 0.3 ) ;
 //						Debug.LogWarning ( transform.name + " " + " row:" + myRow + " rot:" + transform.rotation.eulerAngles.z ) ;
 					}
 				}
@@ -159,7 +163,7 @@ class EnemyPathfinding extends MonoBehaviour {
 				{
 					if ( computeDirection ( 1 , "compute for left" , false ) )
 					{
-						yield WaitForSeconds ( 0.1 ) ;
+						yield WaitForSeconds ( 0.3) ;
 //						Debug.LogWarning ( transform.name + " " + " row:" + myRow + " rot:" + transform.rotation.eulerAngles.z ) ;
 					}
 				}
@@ -167,7 +171,7 @@ class EnemyPathfinding extends MonoBehaviour {
 				{
 					if ( computeDirection ( 2 , "compute for right" , false ) )
 					{
-						yield WaitForSeconds ( 0.1 ) ;
+						yield WaitForSeconds ( 0.3 ) ;
 //						Debug.LogWarning ( transform.name + " " + " row:" + myRow + " rot:" + transform.rotation.eulerAngles.z ) ;
 					}
 				}
@@ -175,10 +179,8 @@ class EnemyPathfinding extends MonoBehaviour {
 		}
 		else
 		{
-			myRow =  transformRotation ( ) ;
 			if ( myRow > 23 )
 				myRow = 23 ;
-			enemyShoot.Shoot ( ) ;
 		}
 			
 		var done:boolean = false ;
@@ -191,27 +193,10 @@ class EnemyPathfinding extends MonoBehaviour {
 		done = computeDirection ( c , "usual" , false ) ;
 		if ( done )
 		{	
-			yield WaitForSeconds ( 0.5 ) ;
+			yield WaitForSeconds ( 0.6 ) ;
 		}
 		shouldMove = true ;
 	}
-	
-	private function transformRotation ( )
-	{
-		var rot:double = transform.rotation.eulerAngles.z / 15 ;
-		var rotInt:int = transform.rotation.eulerAngles.z / 15 ;
-		
-		var actualRot:double = rot - rotInt ;
-		
-		
-		
-		if ( actualRot > 0.5 )
-			return rotInt + 1 ;
-		return rotInt ; 
-
-
-	}
-	
 	
 	private function computeDirection ( c:int , mesaj:String , useLS:boolean )
 	{
@@ -264,10 +249,6 @@ class EnemyPathfinding extends MonoBehaviour {
 		}
 			
 		var multiplier:int = 1 ;
-			
-		if ( level[24] == true )
-			multiplier = 2 ;
-			
 			
 		transform.position.z = transform.position.z + dx[c] * 1.53 * multiplier ;
 		myLine = newX ;

@@ -24,6 +24,11 @@ class EnemyShoot extends MonoBehaviour
 		shootOnCooldown = false ;
 	}
 
+	function Update ( )
+	{
+		Shoot ( ) ;
+	}
+
 	function Shoot ( )
 	{
 	
@@ -36,9 +41,9 @@ class EnemyShoot extends MonoBehaviour
 		newBullet =  bulletPool. Spawn ( bulletPrefab , position , transform.rotation ) ;
 		
 		shootOnCooldown = true ;
-		Debug.Log ( transform.name + " shoot should be ON cd:" + Time.time + " spawned: " + newBullet.name + " " + newBullet.position ) ;
+//		Debug.Log ( transform.name + " shoot should be ON cd:" + Time.time + " spawned: " + newBullet.name + " " + newBullet.position ) ;
 		yield WaitForSeconds ( 1 ) ;
-		Debug.Log ( transform.name + " shoot should be OFF cd:" + Time.time ) ;
+//		Debug.Log ( transform.name + " shoot should be OFF cd:" + Time.time ) ;
 		shootOnCooldown = false ;
 	}
 }
