@@ -73,7 +73,7 @@ class CollisionHandler extends MonoBehaviour {
 			return ;
 		}
 
-		ScoreControl.addScore ( -200 ) ;
+		ScoreControl.addScore ( -400 ) ;
 		runner.gameObject.renderer.material = materials[0] ;
 		moveRunner.movementVariation = 0 ;
 		

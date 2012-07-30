@@ -39,7 +39,7 @@ class EnemyShoot extends MonoBehaviour
 		var position:Vector3 = Vector3 ( 3.64 , -1 , transform.position.z - 3 ) ;
 
 		newBullet =  bulletPool. Spawn ( bulletPrefab , position , transform.rotation ) ;
-		
+	
 		shootOnCooldown = true ;
 //		Debug.Log ( transform.name + " shoot should be ON cd:" + Time.time + " spawned: " + newBullet.name + " " + newBullet.position ) ;
 		yield WaitForSeconds ( 1 ) ;
