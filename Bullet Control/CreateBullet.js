@@ -45,12 +45,11 @@ class CreateBullet extends MonoBehaviour {
 	    		else
 			    	if ( lovit.gameObject.renderer.material.name == "destroyableBox (Instance)" )
 			    	{
-			    		Destroy ( lovit.gameObject ) ;
-			    		lovit.parent = null ;
+			    		lovit.gameObject.active = false ;
+			    		
 			    		
 			    		var instance = Instantiate( particleEffect , lovit.gameObject.transform.position , lovit.gameObject.transform.rotation);
 					    Destroy(instance.gameObject, 1 );
-					    Destroy(lovit.gameObject , 1 );
 					    ScoreControl.addScore ( 150 ) ;
 			    	}
 			    	else
