@@ -61,10 +61,25 @@ class CollisionHandler extends MonoBehaviour {
 		}
 	}
 	
+	function blinkRunner ( )
+	{
+		runner.gameObject.renderer.material = materials[0] ;
+		yield WaitForSeconds ( 0.5 ) ;
+		runner.gameObject.renderer.material = materials[1] ;
+		yield WaitForSeconds ( 0.5 ) ;
+
+		runner.gameObject.renderer.material = materials[0] ;
+		yield WaitForSeconds ( 0.5 ) ;
+		runner.gameObject.renderer.material = materials[1] ;
+		yield WaitForSeconds ( 0.5 ) ;	
+			
+		moveRunner.movementVariation *= 2 ;
+	}
+	
 	function OnCollisionEnter(CollisionInfo:Collision) 
 	{
 	
-		if ( CollisionInfo.contacts[0].otherCollider.name == "ammoBox") 
+		if ( CollisionInfo.contacts[0].otherCollider.name == "ammoBox" ) 
 		{
 			bulletVector.initializeBullets ( ) ;
 			var ammoBox:Transform = CollisionInfo.contacts[0].otherCollider.transform ;
@@ -74,6 +89,21 @@ class CollisionHandler extends MonoBehaviour {
 		}
 
 		ScoreControl.addScore ( -400 ) ;
+		
+		if ( CollisionInfo.contacts[0].otherCollider.name == "MONSTER" )
+		{
+			/* sa se micsoreze viteza la jumate
+			
+			* sa blincaie playerul ca si cand a pierdut o viata
+			
+			* sa se distruga NPC-ul*/
+			
+			Debug.LogWarning ( "coliziune cu monstru" ) ;
+			
+			moveRunner.movementVariation /= 2 ;
+			blinkRunner ( ) ; //takes 2 seconds
+			return ;
+		}
 		runner.gameObject.renderer.material = materials[0] ;
 		moveRunner.movementVariation = 0 ;
 		
