@@ -8,6 +8,8 @@ class CollisionHandler extends MonoBehaviour {
 	static private var runner:GameObject ;
 	static private var bulletVector:BulletVector ;
 	static private var spawnCylinder:SpawnCylinder ;
+	static private var enemiesPool: SpawnPool ;
+
 	var materials:Material[] ;
 
 	function Awake ( )
@@ -22,22 +24,10 @@ class CollisionHandler extends MonoBehaviour {
 			bulletVector = GameObject.Find ( "Bullet Control").GetComponent ( BulletVector ) ;
 	}
 	
-	function clearPools ( )
-	{
-		var i : int ;
-		var cylinderPool:SpawnPool = PoolManager.Pools["Cylinder"] ;
-		var cubesPool:SpawnPool = PoolManager.Pools["Cubes"] ;
-		
-		SpawnCylinder.doSpawn = false ;
-
-		for ( i = 0 ; i < cubesPool.Count ; )
-			cubesPool.Despawn ( cubesPool[i] ) ;
-
-		for ( i = 0 ; i < cylinderPool.Count ;  )
-		{
-			cylinderPool.Despawn ( cylinderPool[i] ) ;
-			yield WaitForSeconds (0.005) ;
-		}
+	function Start ( )
+	{ 
+		if ( ! enemiesPool )
+			enemiesPool = PoolManager.Pools["Enemies"] ;
 	}
 	
 	function clearArrowsAndAmmo ( ) 
@@ -92,14 +82,7 @@ class CollisionHandler extends MonoBehaviour {
 		
 		if ( CollisionInfo.contacts[0].otherCollider.name == "MONSTER" )
 		{
-			/* sa se micsoreze viteza la jumate
-			
-			* sa blincaie playerul ca si cand a pierdut o viata
-			
-			* sa se distruga NPC-ul*/
-			
-			Debug.LogWarning ( "coliziune cu monstru" ) ;
-			
+			enemiesPool.Despawn ( CollisionInfo.contacts[0].otherCollider.gameObject.transform.parent.transform ) ;			
 			moveRunner.movementVariation /= 2 ;
 			blinkRunner ( ) ; //takes 2 seconds
 			return ;
