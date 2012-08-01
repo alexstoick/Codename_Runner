@@ -157,13 +157,13 @@ class SpawnCylinder extends MonoBehaviour {
 		{
 			case 0: return ;
 			case 1: 
-				cubePrefab = cubesPool.prefabs["brad_refferencePoint"] ;
+				cubePrefab = cubesPool.prefabs["tree_refferencePoint"] ;
 				break ;
 			case 2: 
 				cubePrefab = cubesPool.prefabs["destroyableCube_refferencePoint"];
 				break  ;
 			case 3: 
-				cubePrefab = cubesPool.prefabs["brad_refferencePoint"] ;
+				cubePrefab = cubesPool.prefabs["tree_refferencePoint"] ;
 				break ;
 			case 4:
 				//ammoBoxSpawn.Spawn ( rot , zPos ) ;

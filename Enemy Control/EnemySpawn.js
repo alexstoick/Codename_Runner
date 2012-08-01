@@ -17,7 +17,7 @@ class EnemySpawn extends MonoBehaviour {
 		if ( ! enemiesPool )
 			enemiesPool = PoolManager.Pools [ "Enemies" ] ;
 		if ( ! enemyPrefab )
-			enemyPrefab = enemiesPool.prefabs [ "soldier_refferencePoint" ] ;
+			enemyPrefab = enemiesPool.prefabs [ "monster_refferencePoint" ] ;
 	}
 
 	public function handleEnemySpawn ( zPos:double , _Line:int , rot:int )
