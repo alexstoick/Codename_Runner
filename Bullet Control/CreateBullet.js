@@ -43,15 +43,16 @@ class CreateBullet extends MonoBehaviour {
 //	    	Debug.Log ( "COLIZIUNE" + hit.transform.name ) ; 
 	    	var lovit:Transform = hit.transform ;
 	    	//Debug.LogWarning ( lovit.gameObject.renderer.material.name ) ;
-	    	if ( lovit.name != "Brad" )
+	    	if ( lovit.name != "Tree" )
 	    	{
-	    		if ( lovit.name == "soldier" )
+	    		if ( lovit.name == "MONSTER" )
 	    		{
 	    			PoolManager.Pools["Enemies"].Despawn ( lovit.parent ) ;
+	    			createParticleEffect ( lovit.gameObject.transform.position.z , lovit.gameObject.transform.rotation ) ;
 	    			ScoreControl.addScore ( 300 ) ;
 	    		}
 	    		else
-			    	if ( lovit.gameObject.renderer.material.name == "destroyableBox (Instance)" )
+			    	if ( lovit.gameObject.renderer.material.name == "crate_tex3 (Instance)" ) //destroyable crate
 			    	{
 			    		lovit.gameObject.active = false ;
 			    		
