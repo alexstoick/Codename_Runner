@@ -5,7 +5,7 @@ class EnemyPathfinding extends MonoBehaviour {
 	static private var levelGen: LevelGeneration ;
 	private var mat:Array = new Array( ) ;
 	static var runner:Transform ;
-	private var shouldMove:boolean = false ;
+	private var shouldMove:boolean = true ;
 	private var LS1:Vector2 = new Vector2(-1 , -1 ) ;
 	private var LS2:Vector2 = new Vector2(-1 , -1 ) ;
 	
@@ -64,7 +64,8 @@ class EnemyPathfinding extends MonoBehaviour {
 	function Start () 
 	{
 		LS1 = new Vector2(-1 , -1 ) ;
-		LS2 = new Vector2(-1 , -1 ) ;		
+		LS2 = new Vector2(-1 , -1 ) ;	
+		patrolling = false ;	
 	}
 
 	
@@ -118,9 +119,21 @@ class EnemyPathfinding extends MonoBehaviour {
 		if ( showCurrentRow )
 			showRow ( ) ;
 			
-		if ( shouldMove && runner.position.z + 60 > transform.position.z && ! freeze )
-			Move ( ) ;
-			
+		if ( ! freeze )
+		{
+			if ( runner.position.z + 30 > transform.position.z )
+			{
+				if ( shouldMove )
+					Move ( ) ;
+				Debug.Log ( transform.name + " moving" ) ;
+			}
+			else
+			{
+				Patrol ( ) ;
+				Debug.Log ( transform.name + " patrolling" ) ;
+			}
+		}
+		
 		if ( ! ( target.x || target.y || target.z || target.w ))
 			return ;
 		if ( transform.rotation == target )
@@ -130,6 +143,39 @@ class EnemyPathfinding extends MonoBehaviour {
 		}
 		transform.rotation = Quaternion.Slerp( transform.rotation, target, Mathf.Sin( 0.08 * Mathf.PI * 0.5) ); 
 
+	}
+	
+	private var patrolDirection:int = 1 ;
+	private var patrolling:boolean = false ;
+	
+	function Patrol ( ) 
+	{
+	
+		//to be implemented !
+		if ( patrolling )
+			return ;
+		
+		if ( computeDirection ( patrolDirection  , "compute for patrolling" , false ) )
+		{
+			patrolling = true ;
+			yield WaitForSeconds (1.5) ;
+			patrolling = false ;
+			return ;
+		}
+		else
+		{
+			if ( patrolDirection  == 1 )
+				patrolDirection  = 2 ;
+			else
+				patrolDirection  = 1 ;
+			
+			patrolling = true ;
+			computeDirection ( patrolDirection  , "compute for patrolling" , false ) ;
+			yield WaitForSeconds ( 1.5 ) ;
+			patrolling = false ;
+		}
+		
+	
 	}
 	
 	function Move ( )
@@ -153,7 +199,7 @@ class EnemyPathfinding extends MonoBehaviour {
 				{
 					if ( computeDirection ( 1 , "compute for left" , false ) )
 					{
-						yield WaitForSeconds ( 0.3 ) ;
+						yield WaitForSeconds ( 1 ) ;
 //						Debug.LogWarning ( transform.name + " " + " row:" + myRow + " rot:" + transform.rotation.eulerAngles.z ) ;
 					}
 				}
@@ -161,7 +207,7 @@ class EnemyPathfinding extends MonoBehaviour {
 				{
 					if ( computeDirection ( 2 , "compute for right" , false ) )
 					{
-						yield WaitForSeconds ( 0.3 ) ;
+						yield WaitForSeconds ( 1 ) ;
 //						Debug.LogWarning ( transform.name + " " + " row:" + myRow + " rot:" + transform.rotation.eulerAngles.z ) ;
 					}
 				}
@@ -172,7 +218,7 @@ class EnemyPathfinding extends MonoBehaviour {
 				{
 					if ( computeDirection ( 1 , "compute for left" , false ) )
 					{
-						yield WaitForSeconds ( 0.3) ;
+						yield WaitForSeconds ( 1 ) ;
 //						Debug.LogWarning ( transform.name + " " + " row:" + myRow + " rot:" + transform.rotation.eulerAngles.z ) ;
 					}
 				}
@@ -180,7 +226,7 @@ class EnemyPathfinding extends MonoBehaviour {
 				{
 					if ( computeDirection ( 2 , "compute for right" , false ) )
 					{
-						yield WaitForSeconds ( 0.3 ) ;
+						yield WaitForSeconds ( 1 ) ;
 //						Debug.LogWarning ( transform.name + " " + " row:" + myRow + " rot:" + transform.rotation.eulerAngles.z ) ;
 					}
 				}
@@ -192,7 +238,7 @@ class EnemyPathfinding extends MonoBehaviour {
 				myRow = 23 ;
 		}
 			
-		var done:boolean = false ;
+/*		var done:boolean = false ;
 
 		if ( forward )
 			c = 0 ;
@@ -203,7 +249,7 @@ class EnemyPathfinding extends MonoBehaviour {
 		if ( done )
 		{	
 			yield WaitForSeconds ( 0.6 ) ;
-		}
+		}*/
 		shouldMove = true ;
 	}
 	
@@ -262,7 +308,6 @@ class EnemyPathfinding extends MonoBehaviour {
 		transform.position.z = transform.position.z + dx[c] * 1.53 * multiplier ;
 		myLine = newX ;
 		myRow = newY ;
-		shouldMove = false ;
 		
 		LS2 = LS1 ;
 		LS1 = Vector2 ( myLine , myRow ) ;

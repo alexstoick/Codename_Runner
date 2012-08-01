@@ -19,6 +19,14 @@ class CreateBullet extends MonoBehaviour {
 	
 	}
 	
+	function createParticleEffect ( zPos:double , rotation:Quaternion )
+	{
+		var position:Vector3 = Vector3 ( 3.64 , -0.98 , zPos ) ;
+		
+   		var instance = Instantiate( particleEffect , position , rotation ) ;
+	    Destroy(instance.gameObject, 1 );
+	}
+	
 	function InstantiateBullet ( positionZ:int , rotation_for_bullet:Quaternion )
 	{
 		
@@ -47,9 +55,8 @@ class CreateBullet extends MonoBehaviour {
 			    	{
 			    		lovit.gameObject.active = false ;
 			    		
-			    		
-			    		var instance = Instantiate( particleEffect , lovit.gameObject.transform.position , lovit.gameObject.transform.rotation);
-					    Destroy(instance.gameObject, 1 );
+			    		createParticleEffect ( lovit.gameObject.transform.position.z , lovit.gameObject.transform.rotation ) ;	
+
 					    ScoreControl.addScore ( 150 ) ;
 			    	}
 			    	else
@@ -70,30 +77,3 @@ class CreateBullet extends MonoBehaviour {
 	}
 	
 }
-
-
-	
-	/*	var newBullet:GameObject ;
-		var parentPosition = parent.position ;
-		var newPosition = Vector3 ( parentPosition.x + 0.30 , parentPosition.y + 0.00 , parentPosition.z + 0.30) ;
-		
-		newBullet =  Instantiate ( bulletType , newPosition , rotation_for_bullet ) ;
-		newBullet.transform.parent = parent ;
-		++number ;
-		newBullet.name = "bulletABC" + number  ;
-		
-		Debug.Log ( "newPosition: " + newPosition ) ;
-		Debug.Log ( newBullet.transform.position ) ;
-		Debug.Log ( "parent: " + parentPosition ) ;
-		
-		Debug.Log ( "trying: " + GameObject.Find ( "bulletABC" + number ).transform.position ) ;
-		
-		//newBullet.transform.position.x = .30 ;
-		//newBullet.transform.position.y = 8.06 ;
-		//newBullet.transform.position.z = 0 ;
-		
-		newBullet.AddComponent ( MoveBullet ) ;
-		var moveBullet:MoveBullet = newBullet.GetComponent ( MoveBullet ) ;
-		
-		moveBullet.SendGameObject ( newBullet )	;
-		moveBullet.movementVariation = 0.0 ;*/
