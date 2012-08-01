@@ -8,7 +8,7 @@ class EnemyShoot extends MonoBehaviour
 
 
 	var shootOnCooldown:boolean = false ;
-
+	var shouldShoot:boolean = false ;
 	
 	function Start ( )
 	{
@@ -22,6 +22,7 @@ class EnemyShoot extends MonoBehaviour
 	function setOffCooldown ( )
 	{
 		shootOnCooldown = false ;
+		shouldShoot = false ;
 	}
 
 	function Update ( )
@@ -31,7 +32,8 @@ class EnemyShoot extends MonoBehaviour
 
 	function Shoot ( )
 	{
-	
+		if ( ! shouldShoot )
+			return ;
 		if ( shootOnCooldown )
 			return ;
 		
