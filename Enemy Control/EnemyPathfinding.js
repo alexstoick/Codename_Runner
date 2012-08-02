@@ -269,20 +269,20 @@ class EnemyPathfinding extends MonoBehaviour {
 		{
 			case 0: directionVector = -Vector3.up ; break ;
 			case 3: directionVector = Vector3.up ; break ;
-			case 1: directionVector = Vector3.right ; break ;
-			case 2: directionVector = -Vector3.right ; break ;
+			case 1: directionVector = -Vector3.right ; break ;
+			case 2: directionVector = Vector3.right ; break ;
 		}
 		
-		if (Physics.Raycast ( position , copil.TransformDirection ( directionVector ), hit,  3 ) )
+		if (Physics.Raycast ( position , copil.TransformDirection ( directionVector ), hit,  4 ) )
 		{
-			Debug.LogWarning ( "OBSTACOL" + hit.transform.name ) ;
+			Debug.LogWarning ( "OBSTACOL" + hit.transform.parent.name) ;
 			
-			Debug.DrawRay ( position , transform.TransformDirection ( directionVector  )*3 , Color.green , 0.5 );
+			Debug.DrawRay ( position , copil.TransformDirection ( directionVector ) * 4 , Color.green , 0.5 );
 			
 			return false ;
 		}
-		
-		Debug.DrawRay ( position , transform.TransformDirection ( directionVector  )*3 , Color.red , 0.5 );
+
+		Debug.DrawRay ( position , copil.TransformDirection ( directionVector  )*4 , Color.red , 0.5 );
 		Debug.Log ( mesaj + " " + directionVector ) ;
 		
 		if ( ! ( target.x || target.y || target.z || target.w ) )
