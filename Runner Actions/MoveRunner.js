@@ -9,6 +9,9 @@ class MoveRunner extends MonoBehaviour {
 	static private var sphereGroup:Transform ;
 	static private var lastTime:double; 
 	static private var arrowControl:ArrowControl ;
+	static private var runner:GameObject ;
+	
+	var materials:Material[] ;
 	
 	function Start ( )
 	{
@@ -18,13 +21,45 @@ class MoveRunner extends MonoBehaviour {
 			sphereGroup = GameObject.Find ( "BigGroup").transform ;
 		if ( ! arrowControl )
 			arrowControl = GameObject.Find ( "Arrows").GetComponent ( ArrowControl ) ;
+		if ( ! runner )
+			runner = GameObject.Find ( "Runner" ) ;
 	}
 	
-	function move ( left:boolean , right:boolean , useTime:boolean )
+	public function action ( act:String )
+	{
+		Debug.LogError ( act ) ;
+		switch ( act )
+		{
+			case "left": move ( true ) ; break ;
+			case "right": move ( false ) ; break ;
+			case "up": activateBash ( ); break ;
+			case "down": slowdown ( ) ; break ;
+		}
+	}
+	
+	private function activateBash ( )
+	{
+		runner.gameObject.renderer.material = materials[1] ;
+		yield WaitForSeconds ( 2.0 ) ;
+		runner.gameObject.renderer.material = materials[0] ;
+		
+		//to be implemented
+
+	}
+	
+	private function slowdown ( )
+	{
+		//to be implemented
+		runner.gameObject.renderer.material = materials[2] ;
+		yield WaitForSeconds ( 2.0 ) ;
+		runner.gameObject.renderer.material = materials[0] ;
+	}
+	
+	private function move ( left:boolean )
 	{
 		var angle:int ;	
 		
-		if ( useTime && lastTime == Time.time )
+		if ( lastTime == Time.time )
 		{
 			Debug.LogError ( "refused move; time: " + Time.time ) ;
 			return ;
@@ -63,9 +98,9 @@ class MoveRunner extends MonoBehaviour {
 	function Update ( )
 	{
 		if ( Input.GetKeyDown ( KeyCode.LeftArrow) )
-			move ( true , false , true) ;
+			action ( "left") ;
 		if ( Input.GetKeyDown ( KeyCode.RightArrow) )
-			move ( false , true , true ) ;
+			action ( "right" ) ;
 		if ( Input.GetKeyDown ( KeyCode.Space ) )
 			fire ( true ) ;
 		if ( Input.GetKeyDown ( KeyCode.UpArrow ) )
