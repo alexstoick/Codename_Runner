@@ -275,7 +275,7 @@ class EnemyPathfinding extends MonoBehaviour {
 		
 		if (Physics.Raycast ( position , copil.TransformDirection ( directionVector ), hit,  4 ) )
 		{
-			Debug.LogWarning ( "OBSTACOL" + hit.transform.parent.name) ;
+//			Debug.LogWarning ( "OBSTACOL" + hit.transform.parent.name) ;
 			
 			Debug.DrawRay ( position , copil.TransformDirection ( directionVector ) * 4 , Color.green , 0.5 );
 			
@@ -283,7 +283,7 @@ class EnemyPathfinding extends MonoBehaviour {
 		}
 
 		Debug.DrawRay ( position , copil.TransformDirection ( directionVector  )*4 , Color.red , 0.5 );
-		Debug.Log ( mesaj + " " + directionVector ) ;
+//		Debug.Log ( mesaj + " " + directionVector ) ;
 		
 		if ( ! ( target.x || target.y || target.z || target.w ) )
 			target = Quaternion.Euler ( 0 , 0 , transform.rotation.eulerAngles.z + dy[c] * 15) ;

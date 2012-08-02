@@ -22,7 +22,6 @@ class EnemyShoot extends MonoBehaviour
 	function setOffCooldown ( )
 	{
 		shootOnCooldown = false ;
-		shouldShoot = false ;
 	}
 
 	function Update ( )
