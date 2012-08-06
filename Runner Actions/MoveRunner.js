@@ -39,10 +39,11 @@ class MoveRunner extends MonoBehaviour {
 	
 	private function activateBash ( )
 	{
+		CollisionHandler.bashOn = true ;
 		runner.gameObject.renderer.material = materials[1] ;
 		yield WaitForSeconds ( 2.0 ) ;
 		runner.gameObject.renderer.material = materials[0] ;
-		
+		CollisionHandler.bashOn = false ;
 		//to be implemented
 
 	}
@@ -51,8 +52,10 @@ class MoveRunner extends MonoBehaviour {
 	{
 		//to be implemented
 		runner.gameObject.renderer.material = materials[2] ;
+		movementVariation /= 2 ;
 		yield WaitForSeconds ( 2.0 ) ;
 		runner.gameObject.renderer.material = materials[0] ;
+		movementVariation *= 2 ;
 	}
 	
 	private function move ( left:boolean )
@@ -107,6 +110,10 @@ class MoveRunner extends MonoBehaviour {
 			movementVariation += 0.1 ;
 		if ( Input.GetKeyDown ( KeyCode.DownArrow ) )
 			movementVariation -= 0.1 ;
+		if ( Input.GetKeyDown ( KeyCode.LeftControl ) )
+			action ( "down" ) ;
+		if ( Input.GetKeyDown ( KeyCode.LeftShift ) )
+			action ( "up" ) ;
 			
 		if ( haveToRotate ) 
 		{

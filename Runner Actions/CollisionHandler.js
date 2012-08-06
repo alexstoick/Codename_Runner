@@ -9,6 +9,9 @@ class CollisionHandler extends MonoBehaviour {
 	static private var bulletVector:BulletVector ;
 	static private var spawnCylinder:SpawnCylinder ;
 	static private var enemiesPool: SpawnPool ;
+	static private var cubesPool: SpawnPool ;
+	static public var bashOn:boolean = false ;
+	public var particleEffect:GameObject ;
 
 	var materials:Material[] ;
 
@@ -28,6 +31,8 @@ class CollisionHandler extends MonoBehaviour {
 	{ 
 		if ( ! enemiesPool )
 			enemiesPool = PoolManager.Pools["Enemies"] ;
+		if ( ! cubesPool ) 
+			cubesPool = PoolManager.Pools["Cubes"] ;
 	}
 	
 	function clearArrowsAndAmmo ( ) 
@@ -66,10 +71,21 @@ class CollisionHandler extends MonoBehaviour {
 		moveRunner.movementVariation *= 2 ;
 	}
 	
+	function createParticleEffect ( zPos:double , rotation:Quaternion )
+	{
+		var position:Vector3 = Vector3 ( 3.64 , -0.98 , zPos ) ;
+		
+   		var instance = Instantiate( particleEffect , position , rotation ) ;
+	    Destroy(instance.gameObject, 1 );
+	}
+
+	
+	
 	function OnCollisionEnter(CollisionInfo:Collision) 
 	{
-	
-		if ( CollisionInfo.contacts[0].otherCollider.name == "ammoBox" ) 
+		var name:String = CollisionInfo.contacts[0].otherCollider.name ;
+
+		if ( name == "ammoBox" ) 
 		{
 			bulletVector.initializeBullets ( ) ;
 			var ammoBox:Transform = CollisionInfo.contacts[0].otherCollider.transform ;
@@ -77,16 +93,33 @@ class CollisionHandler extends MonoBehaviour {
 			arrowControl.ArrowAndBox ( ammoBox.parent.name ) ;
 			return ;
 		}
-
-		ScoreControl.addScore ( -400 ) ;
+		if ( bashOn )
+			Debug.Log ( name) ;
+		if ( bashOn && ( name == "crate" || name == "MONSTER" ) ) 
+		{
+			var parent:Transform = CollisionInfo.contacts[0].otherCollider.gameObject.transform.parent.transform ;
+			if ( name == "MONSTER" )
+				enemiesPool.Despawn ( parent ) ;
+			else
+				cubesPool. Despawn ( parent ) ;
+			createParticleEffect ( parent.position.z , parent.rotation ) ;
+			ScoreControl.addScore ( 400 ) ;
+			return ;
+		}
 		
 		if ( CollisionInfo.contacts[0].otherCollider.name == "MONSTER" )
 		{
-			enemiesPool.Despawn ( CollisionInfo.contacts[0].otherCollider.gameObject.transform.parent.transform ) ;			
+			parent = CollisionInfo.contacts[0].otherCollider.gameObject.transform.parent.transform ;
+			enemiesPool.Despawn ( parent ) ;
+			createParticleEffect ( parent.position.z , parent.rotation ) ;
 			moveRunner.movementVariation /= 2 ;
 			blinkRunner ( ) ; //takes 2 seconds
 			return ;
 		}
+
+
+		
+		ScoreControl.addScore ( -400 ) ;
 		runner.gameObject.renderer.material = materials[0] ;
 		moveRunner.movementVariation = 0 ;
 		
