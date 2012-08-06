@@ -27,7 +27,7 @@ class MoveRunner extends MonoBehaviour {
 	
 	public function action ( act:String )
 	{
-		Debug.LogError ( act ) ;
+//		Debug.LogError ( act ) ;
 		switch ( act )
 		{
 			case "left": move ( true ) ; break ;
@@ -142,7 +142,7 @@ class MoveRunner extends MonoBehaviour {
 			
 		lastTime = Time.time;
 		
-		createBullet.InstantiateBullet ( transform.position.z , Quaternion.Euler ( 0 , 0 , 0 ) ) ;
+		createBullet.InstantiateBullet ( transform.position.z + 2, transform.rotation ) ;
 	}
 	
 	function FixedUpdate () //moving the Runner

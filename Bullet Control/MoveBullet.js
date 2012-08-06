@@ -12,8 +12,6 @@ class MoveBullet extends MonoBehaviour {
 	{
 		if ( ! bulletPool ) 
 			bulletPool = PoolManager. Pools [ "Bullets" ] ;
-		if ( ! cubesPool )
-			cubesPool = PoolManager. Pools [ "Cubes" ] ; 
 		if ( ! runner )
 			runner = GameObject.Find ( "BigGroup" ) .transform ;
 		bullet = transform ;
@@ -32,7 +30,7 @@ class MoveBullet extends MonoBehaviour {
 
 	function OnCollisionEnter(CollisionInfo:Collision) 
 	{
-//		Debug.Log ( "123 " + CollisionInfo.contacts[0].otherCollider.name ) ;
-		bulletPool . Despawn ( bullet ) ;
+		if ( ! CollisionInfo.contacts[0].otherCollider.name.Contains ( "rock" ) )
+			bulletPool . Despawn ( bullet ) ;
 	}
 }
