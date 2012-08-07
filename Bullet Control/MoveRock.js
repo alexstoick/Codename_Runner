@@ -7,6 +7,7 @@ class MoveRock extends MonoBehaviour {
 	private var rock:Transform ;
 	static private var runner : Transform ;
 	static private var rocksPool: SpawnPool ;
+	static private var powerUp : PowerUp ;
 	
 	function Start ( )
 	{
@@ -15,6 +16,8 @@ class MoveRock extends MonoBehaviour {
 		if ( ! runner )
 			runner = GameObject.Find ( "BigGroup" ) .transform ;
 		rock = transform ;
+		if ( ! powerUp)
+			powerUp = GameObject.Find ( "Power Up Control").GetComponent ( PowerUp ) ;
 	}
 	
 	function Update ( )
@@ -42,7 +45,7 @@ class MoveRock extends MonoBehaviour {
 	
 		var collider:Collider = CollisionInfo.contacts[0].otherCollider ;
 		var child:Transform ;
-		Debug.LogWarning ( "rock collision" + collider ) ;
+//		Debug.LogWarning ( "rock collision" + collider ) ;
 		
 		if ( collider.name == "Runner" )
 			return ;
@@ -67,6 +70,7 @@ class MoveRock extends MonoBehaviour {
 	    		collider.gameObject.active = false ;
 	    		createParticleEffect ( collider.gameObject.transform.position.z , collider.gameObject.transform.rotation ) ;	
 			    ScoreControl.addScore ( 150 ) ;
+			    powerUp.Spawn ( collider.gameObject.transform.parent ) ;
 			}
 		if ( ! collider.name.Contains ( "bullet") )
 			rocksPool . Despawn ( rock ) ;

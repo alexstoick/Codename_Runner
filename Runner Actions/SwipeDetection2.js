@@ -24,6 +24,7 @@ class SwipeDetection2 extends MonoBehaviour {
 	private var VERTICAL_TOUCH_LENGHT:int = 80 ;
 	private var startingTime:double ;
 	private var shouldFire:boolean = false ;
+	static public var continuousFire:boolean = false ;
 
 	private function touchBegan ( )	
 	{
@@ -32,8 +33,11 @@ class SwipeDetection2 extends MonoBehaviour {
 		startingTime = Time.time ;
 		analyzedDuringMove = false ;
 		Debug.LogError ( "began" ) ;
-		shouldFire = true ;
-		startFiring ( ) ;
+		if ( continuousFire )
+		{
+			shouldFire = true ;
+			startFiring ( ) ;
+		}
 	}
 	
 	function startFiring ( )
@@ -143,7 +147,7 @@ class SwipeDetection2 extends MonoBehaviour {
 	
 	private function touchEnded ( ) 
 	{
-		if ( touch.tapCount == 1 )
+		if ( touch.tapCount >= 1 )
 				moveRunner.fire ( true ) ;
 		touchPositions.Clear ( ) ;
 		timeOfTouch.Clear ( ) ;

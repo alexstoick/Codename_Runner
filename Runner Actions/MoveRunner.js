@@ -47,8 +47,6 @@ class MoveRunner extends MonoBehaviour {
 			createBullet = GameObject.Find ( "Bullet Control").GetComponent ( CreateBullet ) ;
 		if ( ! sphereGroup )
 			sphereGroup = GameObject.Find ( "BigGroup").transform ;
-		if ( ! arrowControl )
-			arrowControl = GameObject.Find ( "Arrows").GetComponent ( ArrowControl ) ;
 		if ( ! runner )
 			runner = GameObject.Find ( "Runner" ) ;
 	}
@@ -114,8 +112,6 @@ class MoveRunner extends MonoBehaviour {
 			angle = -15 ;
 		}
 
-		arrowControl.updateAllArrows ( angle ) ;
-		
 		if ( endingPosition == Vector3 ( 0 , 0 , 0 ) ) 
 		{
 			//nu a fost definit

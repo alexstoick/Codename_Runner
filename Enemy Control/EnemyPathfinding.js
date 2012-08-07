@@ -46,6 +46,9 @@ class EnemyPathfinding extends MonoBehaviour {
 		else
 			forward = false ;
 		
+		if ( ! enemyShoot )
+			enemyShoot = GetComponent ( EnemyShoot ) ;
+		
 		enemyShoot.setOffCooldown ( ) ;
 
 		

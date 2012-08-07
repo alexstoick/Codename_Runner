@@ -10,8 +10,10 @@ class CollisionHandler extends MonoBehaviour {
 	static private var spawnCylinder:SpawnCylinder ;
 	static private var enemiesPool: SpawnPool ;
 	static private var cubesPool: SpawnPool ;
+	static private var bonusesPool: SpawnPool ;
 	static public var bashOn:boolean = false ;
 	public var particleEffect:GameObject ;
+	static private var powerUp:PowerUp ;
 
 	var materials:Material[] ;
 
@@ -25,6 +27,8 @@ class CollisionHandler extends MonoBehaviour {
 			moveRunner = bigGroup.GetComponent ( "MoveRunner" ) ;
 		if ( !bulletVector )
 			bulletVector = GameObject.Find ( "Bullet Control").GetComponent ( BulletVector ) ;
+		if ( ! powerUp )
+			powerUp = GameObject.Find ( "Power Up Control").GetComponent ( PowerUp ) ;
 	}
 	
 	function Start ( )
@@ -33,27 +37,8 @@ class CollisionHandler extends MonoBehaviour {
 			enemiesPool = PoolManager.Pools["Enemies"] ;
 		if ( ! cubesPool ) 
 			cubesPool = PoolManager.Pools["Cubes"] ;
-	}
-	
-	function clearArrowsAndAmmo ( ) 
-	{
-		var trs:Transform = GameObject.Find ( "Arrows").transform ; //Ammo Boxes
-		var i:int ;
-		for ( i = 0 ; i < trs.GetChildCount ( ) ; ) 
-		{
-			var t:Transform = trs.GetChild ( i ) ;
-			t.parent = null ;
-			Destroy ( t.gameObject ) ;
-		}
-		
-		trs = GameObject.Find ( "Ammo Boxes" ).transform ; //Ammo Boxes
-		
-		for ( i = 0 ; i < trs.GetChildCount ( ) ; ) 
-		{
-			t = trs.GetChild ( i ) ;
-			t.parent = null ;
-			Destroy ( t.gameObject ) ;
-		}
+		if ( ! bonusesPool )
+			bonusesPool = PoolManager.Pools["Bonuses"] ;
 	}
 	
 	function blinkRunner ( )
@@ -92,10 +77,10 @@ class CollisionHandler extends MonoBehaviour {
 
 		if ( name == "ammoBox" ) 
 		{
-			bulletVector.initializeBullets ( ) ;
-			var ammoBox:Transform = CollisionInfo.contacts[0].otherCollider.transform ;
-			var arrowControl:ArrowControl = GameObject.Find ( "Arrows").GetComponent ( ArrowControl ) ;
-			arrowControl.ArrowAndBox ( ammoBox.parent.name ) ;
+			Debug.LogWarning ( "coliziune cu ammo box" ) ;
+			SwipeDetection2.continuousFire = true ;
+			FireCountdown.startEvent() ;
+			bonusesPool.Despawn ( CollisionInfo.contacts[0].otherCollider.gameObject.transform.parent.transform ) ; 
 			return ;
 		}
 		
@@ -107,7 +92,10 @@ class CollisionHandler extends MonoBehaviour {
 			if ( name == "MONSTER" )
 				enemiesPool.Despawn ( parent ) ;
 			else
+			{
 				cubesPool. Despawn ( parent ) ;
+				powerUp.Spawn ( parent ) ;
+			}
 			createParticleEffect ( parent.position.z , parent.rotation ) ;
 			ScoreControl.addScore ( 400 ) ;
 			return ;
