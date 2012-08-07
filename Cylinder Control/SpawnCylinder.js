@@ -28,7 +28,7 @@ class SpawnCylinder extends MonoBehaviour {
 			enemySpawn = GameObject. Find ( "Enemy Control"). GetComponent ( EnemySpawn ) ;
 	}
 	
-	private function transformGate ( cilindru:Transform , level:Array )
+/*	private function transformGate ( cilindru:Transform , level:Array )
 	{
 	
 		var transforms = cilindru.GetComponentsInChildren(Transform);
@@ -44,7 +44,7 @@ class SpawnCylinder extends MonoBehaviour {
 		    	}
 			}
 		}
-	}
+	}*/
 	
 	private function Spawn ( ) 
 	{

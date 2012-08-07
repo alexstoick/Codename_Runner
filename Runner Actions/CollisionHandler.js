@@ -58,17 +58,19 @@ class CollisionHandler extends MonoBehaviour {
 	
 	function blinkRunner ( )
 	{
-		runner.gameObject.renderer.material = materials[0] ;
+		var renderer:Renderer = runner.gameObject.GetComponentInChildren ( Renderer ) ;
+		MoveRunner.setLowSpeed ( ) ;
+		renderer.material = materials[0] ;
 		yield WaitForSeconds ( 0.5 ) ;
-		runner.gameObject.renderer.material = materials[1] ;
+		renderer.material = materials[1] ;
 		yield WaitForSeconds ( 0.5 ) ;
 
-		runner.gameObject.renderer.material = materials[0] ;
+		renderer.material = materials[0] ;
 		yield WaitForSeconds ( 0.5 ) ;
-		runner.gameObject.renderer.material = materials[1] ;
+		renderer.material = materials[1] ;
 		yield WaitForSeconds ( 0.5 ) ;	
-			
-		moveRunner.movementVariation *= 2 ;
+		MoveRunner.setNormalSpeed ( ) ;
+
 	}
 	
 	function createParticleEffect ( zPos:double , rotation:Quaternion )
@@ -85,6 +87,9 @@ class CollisionHandler extends MonoBehaviour {
 	{
 		var name:String = CollisionInfo.contacts[0].otherCollider.name ;
 
+		if ( name.Contains ( "rock") ) 
+			return ;		
+
 		if ( name == "ammoBox" ) 
 		{
 			bulletVector.initializeBullets ( ) ;
@@ -93,6 +98,7 @@ class CollisionHandler extends MonoBehaviour {
 			arrowControl.ArrowAndBox ( ammoBox.parent.name ) ;
 			return ;
 		}
+		
 		if ( bashOn )
 			Debug.Log ( name) ;
 		if ( bashOn && ( name == "crate" || name == "MONSTER" ) ) 
@@ -112,22 +118,12 @@ class CollisionHandler extends MonoBehaviour {
 			parent = CollisionInfo.contacts[0].otherCollider.gameObject.transform.parent.transform ;
 			enemiesPool.Despawn ( parent ) ;
 			createParticleEffect ( parent.position.z , parent.rotation ) ;
-			moveRunner.movementVariation /= 2 ;
+			ScoreControl.addScore ( -400 ) ;
 			blinkRunner ( ) ; //takes 2 seconds
 			return ;
 		}
 
-
-		
 		ScoreControl.addScore ( -400 ) ;
-		runner.gameObject.renderer.material = materials[0] ;
-		moveRunner.movementVariation = 0 ;
-		
-		yield WaitForSeconds ( 2 ) ;
-
-		moveRunner.movementVariation = 0.2 ;
-
-		runner.gameObject.renderer.material = materials[1] ;
-		
+		blinkRunner ( ) ;
 	}
 }

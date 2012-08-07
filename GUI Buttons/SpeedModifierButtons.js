@@ -12,9 +12,9 @@ class SpeedModifierButtons extends MonoBehaviour {
 	function OnGUI()
 	{
 		if(GUI.Button(Rect(10, 50, 70, 70), "+"))
-			moveRunner.movementVariation += 0.1 ;
+			moveRunner.increaseSpeed() ;
 		if(GUI.Button(Rect(100, 50, 70, 70), "-"))
-			moveRunner.movementVariation -= 0.1 ;
+			moveRunner.decreaseSpeed ( ) ;
 	}
 
 }

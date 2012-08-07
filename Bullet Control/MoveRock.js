@@ -44,6 +44,10 @@ class MoveRock extends MonoBehaviour {
 		var child:Transform ;
 		Debug.LogWarning ( "rock collision" + collider ) ;
 		
+		if ( collider.name == "Runner" )
+			return ;
+		
+		
 		if ( collider.name == "Tree" )
 		{
 			rocksPool. Despawn ( rock ) ;

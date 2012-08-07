@@ -21,7 +21,7 @@ class StartButton extends MonoBehaviour {
 		if(GUI.Button(Rect(100, 500, 150, 150), "Start"))
 		{
 			Started = true ;
-			moveRunner.movementVariation = 0.2 ;
+			moveRunner.setNormalSpeed ( ) ;
 		}
 	}
 
