@@ -28,24 +28,6 @@ class SpawnCylinder extends MonoBehaviour {
 			enemySpawn = GameObject. Find ( "Enemy Control"). GetComponent ( EnemySpawn ) ;
 	}
 	
-/*	private function transformGate ( cilindru:Transform , level:Array )
-	{
-	
-		var transforms = cilindru.GetComponentsInChildren(Transform);
-		
-		for ( var i = 0 ; i < 24 ; ++ i )
-		{		
-    		var name:String = "Cube" + (i+1) ;
-    		for (var t : Transform in transforms)
-	    	{
-		    	if (t.name == name) 
-		    	{
-					t.gameObject.renderer.material = cubeMaterials [Mathf.Min ( 1 , level[i])] ;
-		    	}
-			}
-		}
-	}*/
-	
 	private function Spawn ( ) 
 	{
 		var position: Vector3 ;
@@ -53,42 +35,12 @@ class SpawnCylinder extends MonoBehaviour {
 		position.x =  0 ;//11.68 ;
 		position.y =  0 ;//-9.03 ;
 
-//		++ _LineNumber ;
-		
 		var level:Array ; 
 		level = levelGen.getLine (  ) ;
 		
 		var cylinderPrefab:Transform ; 
 		var currentCylinder:Transform ;
-	/*	
-		if ( level[24] )
-		{
-			//is Trigger
 
-			position.x =  3.89 ;
-			position.y = -1.030298 ;
-
-			cylinderPrefab = cylinderPool.prefabs["triggerBoxes"] ;
-			currentCylinder = cylinderPool.Spawn(cylinderPrefab);
-			currentCylinder.position = position ;
-			currentCylinder.position.z -= 1.5;
-
-			transformGate ( currentCylinder , level ) ;
-			var trs:Transform ; 
-			
-			trs = currentCylinder.GetChild(0) ;
-			trs.rotation =  Quaternion ( 0 , 0 , 0 , 0 ) ;
-			trs.GetChild(12).GetChild(0).gameObject.renderer.material = cylinderMaterials [ level[25] ] ;
-
-			trs = currentCylinder.GetChild(1) ;					
-			trs.rotation =  Quaternion ( 0 , 0 , 0 , 0 ) ;
-			trs.GetChild(12).GetChild(0).gameObject.renderer.material = cylinderMaterials [ level[25] ] ;
-			
-			numberOfCylinders += 2 ;
-	
-			return ;
-		} */
-		
 		cylinderPrefab = cylinderPool.prefabs["Cylinder Simple"] ;
 		currentCylinder = cylinderPool.Spawn(cylinderPrefab);
 		currentCylinder.position = position ;
