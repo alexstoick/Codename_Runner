@@ -15,9 +15,9 @@ class PowerUp extends MonoBehaviour {
 
 	public function Spawn ( loc:Transform )
 	{
-		var random:float = Random.RandomRange ( 0.0 , 1.0) ;
+		var random:float = Random.Range ( 0.0 , 1.0) ;
 		
-		if ( random < 0.7 ) 
+		if ( random < 0.75 ) 
 		{
 			Debug.Log ( "random is too small" + random.ToString() ) ;
 			return ;
