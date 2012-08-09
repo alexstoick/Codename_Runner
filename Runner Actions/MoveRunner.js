@@ -13,6 +13,12 @@ class MoveRunner extends MonoBehaviour {
 	
 	var materials:Material[] ;
 	
+	static public function Stop ( )
+	{
+		movementVariation = 0 ;
+	}
+	
+	
 	static public function isStopped ( )
 	{
 		return movementVariation == 0 ;

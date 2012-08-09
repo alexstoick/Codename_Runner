@@ -63,8 +63,6 @@ class CollisionHandler extends MonoBehaviour {
    		var instance = Instantiate( particleEffect , position , rotation ) ;
 	    Destroy(instance.gameObject, 1 );
 	}
-
-	
 	
 	function OnCollisionEnter(CollisionInfo:Collision) 
 	{
@@ -78,6 +76,15 @@ class CollisionHandler extends MonoBehaviour {
 			Debug.LogWarning ( "coliziune cu ammo box" ) ;
 			SwipeDetection2.continuousFire = true ;
 			FireCountdown.startEvent() ;
+			bonusesPool.Despawn ( CollisionInfo.contacts[0].otherCollider.gameObject.transform.parent.transform ) ; 
+			return ;
+		}
+		
+		if ( name.Contains ( "health" ) )
+		{
+			Debug.LogWarning ( "coliziune cu health pack" ) ;
+			HealthBar.percentage = -25 ;
+			HealthBar.UpdateHealthBar ( ) ;
 			bonusesPool.Despawn ( CollisionInfo.contacts[0].otherCollider.gameObject.transform.parent.transform ) ; 
 			return ;
 		}
@@ -104,12 +111,18 @@ class CollisionHandler extends MonoBehaviour {
 			parent = CollisionInfo.contacts[0].otherCollider.gameObject.transform.parent.transform ;
 			enemiesPool.Despawn ( parent ) ;
 			createParticleEffect ( parent.position.z , parent.rotation ) ;
-			ScoreControl.addScore ( -400 ) ;
-			blinkRunner ( ) ; //takes 2 seconds
-			return ;
 		}
-
-		ScoreControl.addScore ( -400 ) ;
-		blinkRunner ( ) ;
+		
+		if ( HealthBar.percentage < 75 )
+		{
+			ScoreControl.addScore ( -400 ) ;
+			HealthBar.UpdateHealthBar ( );
+			blinkRunner ( ) ;
+		}
+		else
+		{
+			HealthBar.UpdateHealthBar ( ) ;
+			GameOver.Dead ( );
+		}
 	}
 }

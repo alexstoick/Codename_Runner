@@ -50,7 +50,7 @@ class MoveRock extends MonoBehaviour {
 		if ( collider.name == "Runner" )
 			return ;
 			
-		if ( collider.name.Contains ( "ammo") )
+		if ( collider.name.Contains ( "ammo") || collider.name.Contains ( "health" ) )
 			return ;
 		
 		
