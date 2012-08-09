@@ -2,7 +2,6 @@
 
 class SpawnCylinder extends MonoBehaviour {
 
-	var cubeMaterials:Material[] ;
 	var cylinderMaterials:Material[] ;
 
 	static var numberOfCylinders:int = 0 ;
@@ -12,8 +11,7 @@ class SpawnCylinder extends MonoBehaviour {
 	private static var enemySpawn:EnemySpawn ;
 	static var doSpawn:boolean = true ;
 	
-	
-	
+	private var endPosition:Vector3 ;
 	private static var cylinderPool:SpawnPool ; 
 	private static var cubesPool:SpawnPool ;
 	
@@ -22,11 +20,12 @@ class SpawnCylinder extends MonoBehaviour {
 	{
 		if ( ! levelGen )
 			levelGen = GameObject. Find ( "Level Control"). GetComponent ( LevelGeneration ) ;
-		if ( ! ammoBoxSpawn )
-			ammoBoxSpawn = GameObject. Find ( "Ammo Box Control").GetComponent ( AmmoBoxSpawn ) ;
 		if ( ! enemySpawn )
 			enemySpawn = GameObject. Find ( "Enemy Control"). GetComponent ( EnemySpawn ) ;
 	}
+	
+	private var contor:double = 0 ;
+	private var semn:double = 0.1 ;
 	
 	private function Spawn ( ) 
 	{
@@ -34,18 +33,27 @@ class SpawnCylinder extends MonoBehaviour {
 		position.z =  0.12 + ( 1.53 * ( numberOfCylinders + 1 ) ) ;
 		position.x =  0 ;//11.68 ;
 		position.y =  0 ;//-9.03 ;
-
+		
+		if ( numberOfCylinders > 15 )
+		{
+			position.x += contor ;
+			contor += semn ;
+			if ( contor >= 20 )
+				semn *= -1 ;
+			if ( contor < 0 )
+				semn *= -1 ;
+		}
+		
 		var level:Array ; 
 		level = levelGen.getLine (  ) ;
 		
 		var cylinderPrefab:Transform ; 
 		var currentCylinder:Transform ;
 
-		cylinderPrefab = cylinderPool.prefabs["Cylinder Simple"] ;
+		cylinderPrefab = cylinderPool.prefabs["Cylinder PLIN new"] ;
 		currentCylinder = cylinderPool.Spawn(cylinderPrefab);
 		currentCylinder.position = position ;
 		currentCylinder.GetChild(0).gameObject.renderer.material = cylinderMaterials [ level[25] ] ;
-		
 		++numberOfCylinders ;
 		
 		var string:String = "" ;
@@ -93,7 +101,7 @@ class SpawnCylinder extends MonoBehaviour {
 				cubesPool.Despawn ( trs ) ;
 		}
 		
-		if ( cylinderPool.Count < 40 )
+		if ( cylinderPool.Count < 60 )
 			Spawn() ;
 	}
 	
