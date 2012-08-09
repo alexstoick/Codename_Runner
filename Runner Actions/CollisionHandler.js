@@ -25,8 +25,6 @@ class CollisionHandler extends MonoBehaviour {
 			runner = GameObject.Find ( "Runner") ; 
 		if ( ! moveRunner )
 			moveRunner = bigGroup.GetComponent ( "MoveRunner" ) ;
-		if ( !bulletVector )
-			bulletVector = GameObject.Find ( "Bullet Control").GetComponent ( BulletVector ) ;
 		if ( ! powerUp )
 			powerUp = GameObject.Find ( "Power Up Control").GetComponent ( PowerUp ) ;
 	}

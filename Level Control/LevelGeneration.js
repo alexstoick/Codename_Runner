@@ -13,7 +13,7 @@ class LevelGeneration extends MonoBehaviour {
 	static var level:TextAsset ;
 	private var stringArray:String[] ;
 	static var MODULO:int = 105 ;
-	static var LEVELS:int = 4 ;
+	static var LEVELS:int = 3 ;
 	static private var currentLevel:int = 0 ;
 	static private var getLevels:GetLevels ;
 	static var _Line:int = 1 ;

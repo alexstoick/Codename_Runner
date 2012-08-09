@@ -19,7 +19,7 @@ class PowerUp extends MonoBehaviour {
 		
 		if ( random < 0.75 ) 
 		{
-			Debug.Log ( "random is too small" + random.ToString() ) ;
+//			Debug.Log ( "random is too small" + random.ToString() ) ;
 			return ;
 		}
 		
