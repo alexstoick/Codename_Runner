@@ -1,5 +1,5 @@
 #pragma strict
-
+ 
 class HealthBar extends MonoBehaviour {
 
 	static var percentage:double = 0 ;
