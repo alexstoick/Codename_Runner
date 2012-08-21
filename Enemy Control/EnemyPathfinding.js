@@ -2,7 +2,6 @@
 
 class EnemyPathfinding extends MonoBehaviour {
 
-	static private var levelGen: LevelGeneration ;
 	private var mat:Array = new Array( ) ;
 	static var runner:Transform ;
 	private var shouldMove:boolean = true ;
@@ -18,24 +17,9 @@ class EnemyPathfinding extends MonoBehaviour {
 	var showMessages:boolean = false ;
 	private var enemyShoot:EnemyShoot ;
 	
-	private function getMatrix ( )
-	{
-		var matrice:Array ;
-		shouldMove = false ;
-		matrice = levelGen.GetMat ( ) ;
-		stringMatrice = "" ;
-		mat.clear ( ) ;
-		for ( var i:int = 0 ; i < matrice.length ; ++ i )
-		{
-			mat.push ( matrice[i] ) ;
-			stringMatrice += "\n" + matrice[i] ;
-		}
-		shouldMove = true ;
-	}
 	
 	public function SetPosition ( _line:int , _row:int )
 	{
-		myLine = _line ;
 		myRow = _row ;
 		transform.rotation.eulerAngles.z = _row * 15 ;
 		freeze = false ;
@@ -51,8 +35,6 @@ class EnemyPathfinding extends MonoBehaviour {
 		
 		enemyShoot.setOffCooldown ( ) ;
 
-		
-//		Debug.LogError ( "Setted position for " + transform.name + " line:" + myLine + " row:" + myRow + " rotation:" + transform.rotation.eulerAngles.z ) ;
 		getMatrix ( );
 	}
 	
@@ -72,8 +54,6 @@ class EnemyPathfinding extends MonoBehaviour {
 	
 	function Awake ( )
 	{
-		if ( ! levelGen )		
-			levelGen = GameObject.Find ( "Level Control" ). GetComponent ( LevelGeneration ) ;
 		if ( ! runner )
 			runner = GameObject. Find ( "BigGroup").transform ;
 					
@@ -96,21 +76,9 @@ class EnemyPathfinding extends MonoBehaviour {
 	function GetRunnerPosition ( )
 	{
 		var row:int = doubleToInt ( runner.rotation.eulerAngles.z / 15 ) ;
-		var line:int = runner.position.z / 1.53 ;
 		if ( row == 24 )
 			row = 0 ;
-		return Vector2 ( line , row ) ;
-	}
-	
-	private function showRow ( )
-	{
-		var i:int ;
-		var lvl:Array = mat[myLine] ;
-		var s:String = "Line nr:" + myLine + " " ;
-		for ( i = 0 ; i < 25 ; ++ i )
-			s += lvl[i] + " " ;
-		Debug.LogWarning ( s ) ;
-		Debug.LogWarning ( stringMatrice ) ;
+		return row ;
 	}
 	
 	var target:Quaternion ;
@@ -126,12 +94,10 @@ class EnemyPathfinding extends MonoBehaviour {
 			{
 				if ( shouldMove )
 					Move ( ) ;
-//				Debug.Log ( transform.name + " moving" ) ;
 			}
 			else
 			{
 				Patrol ( ) ;
-	//			Debug.Log ( transform.name + " patrolling" ) ;
 			}
 		}
 		
@@ -152,7 +118,6 @@ class EnemyPathfinding extends MonoBehaviour {
 	function Patrol ( ) 
 	{
 	
-		//to be implemented !
 		if ( patrolling )
 			return ;
 		
@@ -191,9 +156,9 @@ class EnemyPathfinding extends MonoBehaviour {
 		myRow = doubleToInt ( transform.eulerAngles.z / 15 ) ;
 		transform.eulerAngles.z = myRow * 15.00000 ;
 		
-		if ( myRow != runnerPos.y )
+		if ( myRow != runnerPos )
 		{
-			var target:int = runnerPos.y ;	
+			var target:int = runnerPos ;	
 			
 			var distance = Mathf.Abs ( myRow - target ) ;
 			
