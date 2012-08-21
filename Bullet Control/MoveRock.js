@@ -66,6 +66,7 @@ class MoveRock extends MonoBehaviour {
 					PoolManager.Pools["Enemies"].Despawn ( child.parent ) ;
 	    			createParticleEffect ( child.position.z , child.rotation ) ;
 	    			ScoreControl.addScore ( 300 ) ;
+	    			return ;
 		}
 		else
 			if ( collider.name == "crate" )
@@ -74,6 +75,7 @@ class MoveRock extends MonoBehaviour {
 	    		createParticleEffect ( collider.gameObject.transform.position.z , collider.gameObject.transform.rotation ) ;	
 			    ScoreControl.addScore ( 150 ) ;
 			    powerUp.Spawn ( collider.gameObject.transform.parent ) ;
+			    return ;
 			}
 		if ( ! collider.name.Contains ( "bullet") )
 			rocksPool . Despawn ( rock ) ;
