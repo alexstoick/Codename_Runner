@@ -30,12 +30,15 @@ class CollisionHandler extends MonoBehaviour {
 	
 	function Start ( )
 	{ 
-		/*if ( ! enemiesPool )
-			enemiesPool = PoolManager.Pools["Enemies"] ;
+		/*
 
 		if ( ! bonusesPool )
 			bonusesPool = PoolManager.Pools["Bonuses"] ;
 		*/
+		
+		if ( ! enemiesPool )
+			enemiesPool = PoolManager.Pools["Monsters"] ;
+	
 		if ( ! boxPool ) 
 			boxPool = PoolManager.Pools["Boxes"] ;
 
@@ -101,7 +104,7 @@ class CollisionHandler extends MonoBehaviour {
 		{
 			var parent:Transform = CollisionInfo.contacts[0].otherCollider.gameObject.transform.parent.transform ;
 			if ( name == "MONSTER" )
-				enemiesPool.Despawn ( parent ) ;
+				enemiesPool.Despawn ( parent.parent ) ;
 			else
 			{
 				boxPool. Despawn ( parent.parent ) ;
@@ -115,7 +118,7 @@ class CollisionHandler extends MonoBehaviour {
 		if ( CollisionInfo.contacts[0].otherCollider.name == "MONSTER" )
 		{
 			parent = CollisionInfo.contacts[0].otherCollider.gameObject.transform.parent.transform ;
-			enemiesPool.Despawn ( parent ) ;
+			enemiesPool.Despawn ( parent.parent ) ;
 			createParticleEffect ( parent.parent.position , parent.rotation ) ;
 		}
 		

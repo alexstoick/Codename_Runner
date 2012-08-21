@@ -16,11 +16,12 @@ class EnemyShoot extends MonoBehaviour
 	{
 		if ( ! shootCooldownBar )
 			shootCooldownBar = GetComponentInChildren ( LifeBar ) ;
-		if ( ! bulletPool )
+/*		if ( ! bulletPool )
 			bulletPool = PoolManager.Pools ["Bullets"] ;
 			
 		if ( ! bulletPrefab )
 			bulletPrefab = bulletPool.prefabs [ "bullet_refferencePoint" ] ;
+*/
 	}
 
 	function setOffCooldown ( )

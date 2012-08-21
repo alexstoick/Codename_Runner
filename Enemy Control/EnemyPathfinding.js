@@ -10,12 +10,24 @@ class EnemyPathfinding extends MonoBehaviour {
 	var freeze:boolean = false ;
 	private var enemyShoot:EnemyShoot ;
 	
+	private var patrolDirection:int = 1 ;
+	var patrolling:boolean = false ;
+
+	private var dx:int[] = new int [4] ;
+	private var dy:int[] = new int [4] ;
+	private var direction:String[] = new String[4] ;
+
+	var target:Quaternion ;
+
+	
 	
 	public function SetPosition ( _row:int )
 	{
 		myRow = _row ;
 		transform.rotation.eulerAngles.z = _row * 15 ;
 		freeze = false ;
+		target = Quaternion ( 0 , 0, 0 , 0 ) ;
+		patrolling = false ;
 		
 //		if ( ! enemyShoot )
 //			enemyShoot = GetComponent ( EnemyShoot ) ;
@@ -23,9 +35,13 @@ class EnemyPathfinding extends MonoBehaviour {
 //		enemyShoot.setOffCooldown ( ) ;
 	}
 	
-	private var dx:int[] = new int [4] ;
-	private var dy:int[] = new int [4] ;
-	private var direction:String[] = new String[4] ;
+
+	function Init ( )
+	{
+		patrolling = false ;
+		target = Quaternion ( 0 , 0, 0 , 0 ) ;
+		freeze = false ;
+	}
 	
 	function Start () 
 	{
@@ -64,7 +80,6 @@ class EnemyPathfinding extends MonoBehaviour {
 		return row ;
 	}
 	
-	var target:Quaternion ;
 	
 	function Update ( )
 	{	
@@ -92,12 +107,9 @@ class EnemyPathfinding extends MonoBehaviour {
 			target = Quaternion ( 0 , 0 , 0 , 0 ) ;
 			return ;
 		}
-		transform.rotation = Quaternion.Slerp( transform.rotation, target, Time.deltaTime * 4 ); 
+		transform.localRotation = Quaternion.Slerp( transform.localRotation, target, Time.deltaTime * 4 ); 
 
 	}
-	
-	private var patrolDirection:int = 1 ;
-	private var patrolling:boolean = false ;
 	
 	function Patrol ( ) 
 	{
@@ -215,8 +227,8 @@ class EnemyPathfinding extends MonoBehaviour {
 		{
 			case 0: directionVector = -Vector3.up ; break ;
 			case 3: directionVector = Vector3.up ; break ;
-			case 1: directionVector = Vector3.right ; break ;
-			case 2: directionVector = -Vector3.right ; break ;
+			case 1: directionVector = -Vector3.right ; break ;
+			case 2: directionVector = Vector3.right ; break ;
 		}
 		
 		if (Physics.Raycast ( position , copil.TransformDirection ( directionVector ), hit,  4 ) )
