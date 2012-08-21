@@ -12,12 +12,6 @@ class MoveRunnerNew extends MonoBehaviour {
 	//materials[1] = bash
 	//materials[2] = slowdown
 	
-
-	
-	
-	
-	
-	
 	function Start ( )
 	{
 		if ( ! sphereGroup )
@@ -42,9 +36,9 @@ class MoveRunnerNew extends MonoBehaviour {
 		var renderer:Renderer = runner.gameObject.GetComponentInChildren ( Renderer ) ;
 		CollisionHandler.bashOn = true ;
 		renderer.material = materials[1] ;
-		setHighSpeed () ;
+		LoftMovement.setHighSpeed () ;
 		yield WaitForSeconds ( 0.4 ) ;
-		setNormalSpeed ( );
+		LoftMovement.setNormalSpeed ( );
 		yield WaitForSeconds ( 1.6 ) ;
 		renderer.material = materials[0] ;
 		CollisionHandler.bashOn = false ;
@@ -57,10 +51,10 @@ class MoveRunnerNew extends MonoBehaviour {
 		//to be implemented
 		var renderer:Renderer = runner.gameObject.GetComponentInChildren ( Renderer ) ;
 		renderer.material = materials[2] ;
-		movementVariation /= 2 ;
+		LoftMovement.setLowSpeed ( ) ;
 		yield WaitForSeconds ( 2.0 ) ;
 		renderer.material = materials[0] ;
-		movementVariation *= 2 ;
+		LoftMovement.setNormalSpeed ( );
 	}
 
 	
@@ -126,7 +120,6 @@ class MoveRunnerNew extends MonoBehaviour {
 			}
 			
 			sphereGroup.localRotation = Quaternion.Slerp( sphereGroup.localRotation , target, Mathf.Sin( 0.08 * Mathf.PI * 0.5) ); 
-
 		}
 	}
 }

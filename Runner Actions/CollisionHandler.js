@@ -41,7 +41,7 @@ class CollisionHandler extends MonoBehaviour {
 	function blinkRunner ( )
 	{
 		var renderer:Renderer = runner.gameObject.GetComponentInChildren ( Renderer ) ;
-		MoveRunner.setLowSpeed ( ) ;
+		LoftMovement.setLowSpeed ( ) ;
 		renderer.material = materials[0] ;
 		yield WaitForSeconds ( 0.5 ) ;
 		renderer.material = materials[1] ;
@@ -51,7 +51,7 @@ class CollisionHandler extends MonoBehaviour {
 		yield WaitForSeconds ( 0.5 ) ;
 		renderer.material = materials[1] ;
 		yield WaitForSeconds ( 0.5 ) ;	
-		MoveRunner.setNormalSpeed ( ) ;
+		LoftMovement.setNormalSpeed ( ) ;
 
 	}
 	
@@ -74,7 +74,9 @@ class CollisionHandler extends MonoBehaviour {
 		{
 			Debug.LogWarning ( "coliziune cu ammo box" ) ;
 			SwipeDetection2.continuousFire = true ;
-			FireCountdown.startEvent() ;
+			
+			//FireCountdown.startEvent() ;
+			
 			bonusesPool.Despawn ( CollisionInfo.contacts[0].otherCollider.gameObject.transform.parent.transform ) ; 
 			return ;
 		}
