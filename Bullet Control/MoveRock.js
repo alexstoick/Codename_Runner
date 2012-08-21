@@ -3,15 +3,13 @@
 class MoveRock extends MonoBehaviour {
 	
 	var particleEffect: GameObject ;
-	private var rock:Transform ;
 	static private var rocksPool: SpawnPool ;
 //	static private var powerUp : PowerUp ;
 	
 	function Start ( )
 	{
-//		if ( !rocksPool )
-//			rocksPool = PoolManager.Pools [ "Rocks" ] ;
-		rock = transform ;
+		if ( !rocksPool )
+			rocksPool = PoolManager.Pools [ "Rocks" ] ;
 //		if ( ! powerUp)
 //			powerUp = GameObject.Find ( "Power Up Control").GetComponent ( PowerUp ) ;
 	}
@@ -37,19 +35,19 @@ class MoveRock extends MonoBehaviour {
 			 cname.Contains ( "ammo") || cname.Contains ( "health" ) )
 				return ;
 		
-
-		
 		if ( cname == "Tree" )
 		{
-			//rocksPool. Despawn ( rock ) ;
+			rocksPool. Despawn ( transform.parent.parent ) ;
 			return ;
 		}
 		
 		if ( cname == "MONSTER")
 		{
 					child = CollisionInfo.contacts[0].otherCollider.gameObject.transform ;
+					
 					//CARE HERE
-					PoolManager.Pools["Enemies"].Despawn ( child.parent ) ;
+					PoolManager.Pools["Monsters"].Despawn ( child.parent.parent ) ;
+					
 	    			createParticleEffect ( child.position.z , child.rotation ) ;
 	    			ScoreControl.addScore ( 300 ) ;
 		}
@@ -62,7 +60,7 @@ class MoveRock extends MonoBehaviour {
 			    //powerUp.Spawn ( collider.gameObject.transform.parent ) ;
 			}
 			
-//		rocksPool . Despawn ( rock ) ;
+		rocksPool . Despawn ( transform.parent.parent ) ;
 		
 	}
 }

@@ -12,12 +12,19 @@ class MoveRunnerNew extends MonoBehaviour {
 	//materials[1] = bash
 	//materials[2] = slowdown
 	
+	static var rocksPool:SpawnPool ;
+	static var prefab:Transform ;
+	
 	function Start ( )
 	{
 		if ( ! sphereGroup )
 			sphereGroup = GameObject.Find ( "BigGroup").transform ;
 		if ( ! runner )
 			runner = GameObject.Find ( "Runner" ) ;
+		if ( ! rocksPool )
+			rocksPool = PoolManager.Pools[ "Rocks" ] ;
+		if ( ! prefab )
+			prefab = rocksPool.prefabs [ "rock_for_loft" ] ;
 	}
 	
 	public function action ( act:String )
@@ -57,8 +64,6 @@ class MoveRunnerNew extends MonoBehaviour {
 		LoftMovement.setNormalSpeed ( );
 	}
 
-	
-	
 	private function move ( left:boolean )
 	{
 		var angle:int ;	
@@ -71,7 +76,6 @@ class MoveRunnerNew extends MonoBehaviour {
 			
 		lastTime = Time.time;
 
-		
 		if ( left )
 		{
 			angle = 15 ;
@@ -106,12 +110,17 @@ class MoveRunnerNew extends MonoBehaviour {
 			action ( "down" ) ;
 		if ( Input.GetKeyDown ( KeyCode.LeftShift ) )
 			action ( "up" ) ;
+			
 		if ( Input.GetKeyDown ( KeyCode.UpArrow ) )
 			LoftMovement.increaseSpeed ( ) ;
 		if ( Input.GetKeyDown ( KeyCode.DownArrow ) )
 			LoftMovement.decreaseSpeed ( ) ;
+			
 		if ( Input.GetKeyDown ( KeyCode.Space ) )
+		{
 			fire ( true ) ;
+			Debug.LogWarning ( "fired" ) ;
+		}
 
 		
 		if ( haveToRotate ) 
@@ -128,4 +137,17 @@ class MoveRunnerNew extends MonoBehaviour {
 			sphereGroup.localRotation = Quaternion.Slerp( sphereGroup.localRotation , target, Mathf.Sin( 0.08 * Mathf.PI * 0.5) ); 
 		}
 	}
+	
+	function fire ( useTime:boolean )
+	{
+		if ( useTime && lastTime == Time.time )
+			return ;
+			
+		lastTime = Time.time;
+		
+		var rock = rocksPool.Spawn ( prefab ) ;
+		var movement = rock.GetComponent ( RockMovementOnLoft ) ;
+		movement.Init ( ) ;
+	}
+
 }
