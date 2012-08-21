@@ -7,6 +7,17 @@ class MoveRunnerNew extends MonoBehaviour {
 	static private var lastTime:double; 
 	static private var runner:GameObject ;
 	
+	var materials:Material[] ;
+	//materials[0] = goober
+	//materials[1] = bash
+	//materials[2] = slowdown
+	
+
+	
+	
+	
+	
+	
 	function Start ( )
 	{
 		if ( ! sphereGroup )
@@ -21,8 +32,38 @@ class MoveRunnerNew extends MonoBehaviour {
 		{
 			case "left": move ( true ) ; break ;
 			case "right": move ( false ) ; break ;
+			case "up": activateBash ( ); break ;
+			case "down": slowdown ( ) ; break ;
 		}
 	}
+	
+	private function activateBash ( )
+	{
+		var renderer:Renderer = runner.gameObject.GetComponentInChildren ( Renderer ) ;
+		CollisionHandler.bashOn = true ;
+		renderer.material = materials[1] ;
+		setHighSpeed () ;
+		yield WaitForSeconds ( 0.4 ) ;
+		setNormalSpeed ( );
+		yield WaitForSeconds ( 1.6 ) ;
+		renderer.material = materials[0] ;
+		CollisionHandler.bashOn = false ;
+		//to be implemented
+
+	}
+	
+	private function slowdown ( )
+	{
+		//to be implemented
+		var renderer:Renderer = runner.gameObject.GetComponentInChildren ( Renderer ) ;
+		renderer.material = materials[2] ;
+		movementVariation /= 2 ;
+		yield WaitForSeconds ( 2.0 ) ;
+		renderer.material = materials[0] ;
+		movementVariation *= 2 ;
+	}
+
+	
 	
 	private function move ( left:boolean )
 	{
@@ -46,7 +87,6 @@ class MoveRunnerNew extends MonoBehaviour {
 			angle = -15 ;
 		}
 		
-		Debug.Log ( left + " " + Time.time ) ;
 		if ( endingPosition == Vector3 ( 0 , 0 , 0 ) ) 
 		{
 			//nu a fost definit
@@ -68,6 +108,11 @@ class MoveRunnerNew extends MonoBehaviour {
 			action ( "left") ;
 		if ( Input.GetKeyDown ( KeyCode.RightArrow) )
 			action ( "right" ) ;
+		if ( Input.GetKeyDown ( KeyCode.LeftControl ) )
+			action ( "down" ) ;
+		if ( Input.GetKeyDown ( KeyCode.LeftShift ) )
+			action ( "up" ) ;
+
 		
 		if ( haveToRotate ) 
 		{

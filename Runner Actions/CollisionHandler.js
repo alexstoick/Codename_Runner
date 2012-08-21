@@ -2,34 +2,33 @@
 
 class CollisionHandler extends MonoBehaviour {
 
-	static private var cylinderVector: Array ;
-	static private var moveRunner:MoveRunner ;
-	static private var bigGroup:GameObject ;
-	static private var runner:GameObject ;
-	static private var bulletVector:BulletVector ;
-	static private var spawnCylinder:SpawnCylinder ;
+	static private var moveRunner:MoveRunnerNew ;
+
 	static private var enemiesPool: SpawnPool ;
 	static private var cubesPool: SpawnPool ;
 	static private var bonusesPool: SpawnPool ;
+	
 	static public var bashOn:boolean = false ;
+	
 	public var particleEffect:GameObject ;
-	static private var powerUp:PowerUp ;
+	static private var runner:GameObject ;
+
+	//static private var powerUp:PowerUp ;
 
 	var materials:Material[] ;
 
 	function Awake ( )
 	{
-		if ( ! bigGroup )
-			bigGroup = GameObject.Find ( "BigGroup") ; 
+
 		if ( ! runner )
 			runner = GameObject.Find ( "Runner") ; 
 		if ( ! moveRunner )
-			moveRunner = bigGroup.GetComponent ( "MoveRunner" ) ;
-		if ( ! powerUp )
-			powerUp = GameObject.Find ( "Power Up Control").GetComponent ( PowerUp ) ;
+			moveRunner = GameObject.Find ( "BigGroup").GetComponent ( "MoveRunnerNew" ) ;
+//		if ( ! powerUp )
+//			powerUp = GameObject.Find ( "Power Up Control").GetComponent ( PowerUp ) ;
 	}
 	
-	function Start ( )
+	/*function Start ( )
 	{ 
 		if ( ! enemiesPool )
 			enemiesPool = PoolManager.Pools["Enemies"] ;
@@ -37,7 +36,7 @@ class CollisionHandler extends MonoBehaviour {
 			cubesPool = PoolManager.Pools["Cubes"] ;
 		if ( ! bonusesPool )
 			bonusesPool = PoolManager.Pools["Bonuses"] ;
-	}
+	}*/
 	
 	function blinkRunner ( )
 	{
@@ -83,9 +82,11 @@ class CollisionHandler extends MonoBehaviour {
 		if ( name.Contains ( "health" ) )
 		{
 			Debug.LogWarning ( "coliziune cu health pack" ) ;
-			HealthBar.percentage = -25 ;
-			HealthBar.UpdateHealthBar ( ) ;
 			bonusesPool.Despawn ( CollisionInfo.contacts[0].otherCollider.gameObject.transform.parent.transform ) ; 
+			
+			//HealthBar.percentage = -25 ;
+			//HealthBar.UpdateHealthBar ( ) ;
+
 			return ;
 		}
 		
@@ -99,7 +100,7 @@ class CollisionHandler extends MonoBehaviour {
 			else
 			{
 				cubesPool. Despawn ( parent ) ;
-				powerUp.Spawn ( parent ) ;
+				//powerUp.Spawn ( parent ) ;
 			}
 			createParticleEffect ( parent.position.z , parent.rotation ) ;
 			ScoreControl.addScore ( 400 ) ;
@@ -116,12 +117,12 @@ class CollisionHandler extends MonoBehaviour {
 		if ( HealthBar.percentage < 75 )
 		{
 			ScoreControl.addScore ( -400 ) ;
-			HealthBar.UpdateHealthBar ( );
+			//HealthBar.UpdateHealthBar ( );
 			blinkRunner ( ) ;
 		}
 		else
 		{
-			HealthBar.UpdateHealthBar ( ) ;
+			//HealthBar.UpdateHealthBar ( ) ;
 			GameOver.Dead ( );
 		}
 	}
