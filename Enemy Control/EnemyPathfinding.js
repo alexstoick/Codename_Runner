@@ -17,12 +17,10 @@ class EnemyPathfinding extends MonoBehaviour {
 		transform.rotation.eulerAngles.z = _row * 15 ;
 		freeze = false ;
 		
-		if ( ! enemyShoot )
-			enemyShoot = GetComponent ( EnemyShoot ) ;
+//		if ( ! enemyShoot )
+//			enemyShoot = GetComponent ( EnemyShoot ) ;
 		
-		enemyShoot.setOffCooldown ( ) ;
-
-		getMatrix ( );
+//		enemyShoot.setOffCooldown ( ) ;
 	}
 	
 	private var dx:int[] = new int [4] ;
@@ -32,8 +30,8 @@ class EnemyPathfinding extends MonoBehaviour {
 	function Start () 
 	{
 		patrolling = false ;	
-		if ( ! enemyShoot )
-			enemyShoot = GetComponent ( EnemyShoot ) ;
+//		if ( ! enemyShoot )
+//			enemyShoot = GetComponent ( EnemyShoot ) ;
 	}
 
 	
@@ -75,7 +73,9 @@ class EnemyPathfinding extends MonoBehaviour {
 			
 		if ( ! freeze )
 		{
-			if ( runner.position.z + 30 > transform.position.z )
+			// TODO: implement the distance feature
+			
+			/*if ( runner.position.z + 30 > transform.position.z )
 			{
 				if ( shouldMove )
 					Move ( ) ;
@@ -83,7 +83,8 @@ class EnemyPathfinding extends MonoBehaviour {
 			else
 			{
 				Patrol ( ) ;
-			}
+			}*/
+			Patrol () ;
 		}
 		
 		if ( ! ( target.x || target.y || target.z || target.w ))
@@ -109,7 +110,7 @@ class EnemyPathfinding extends MonoBehaviour {
 		if ( computeDirection ( patrolDirection  , "compute for patrolling" , false ) )
 		{
 			patrolling = true ;
-			enemyShoot.Shoot() ;
+			//enemyShoot.Shoot() ;
 			yield WaitForSeconds (2) ;
 			patrolling = false ;
 			return ;
@@ -123,7 +124,7 @@ class EnemyPathfinding extends MonoBehaviour {
 			
 			patrolling = true ;
 			computeDirection ( patrolDirection  , "compute for patrolling" , false ) ;
-			enemyShoot.Shoot() ;
+			//enemyShoot.Shoot() ;
 			yield WaitForSeconds ( 2 ) ;
 			patrolling = false ;
 		}
@@ -131,6 +132,7 @@ class EnemyPathfinding extends MonoBehaviour {
 	
 	}
 	
+	//Currently not using Move
 	function Move ( )
 	{
 		shouldMove = false ;
@@ -229,7 +231,6 @@ class EnemyPathfinding extends MonoBehaviour {
 		}
 
 		Debug.DrawRay ( position , copil.TransformDirection ( directionVector  )*4 , Color.red , 0.5 );
-//		Debug.Log ( mesaj + " " + directionVector ) ;
 		
 		if ( ! ( target.x || target.y || target.z || target.w ) )
 			target = Quaternion.Euler ( 0 , 0 , transform.rotation.eulerAngles.z + dy[c] * 15) ;

@@ -28,11 +28,6 @@ class EnemyShoot extends MonoBehaviour
 		shootOnCooldown = false ;
 	}
 
-	//function Update ( )
-	//{
-	//	Shoot ( ) ;
-	//}
-
 	function Shoot ( )
 	{
 		if ( shootOnCooldown )
