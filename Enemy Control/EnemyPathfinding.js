@@ -68,9 +68,7 @@ class EnemyPathfinding extends MonoBehaviour {
 	
 	function Update ( )
 	{	
-		if ( showCurrentRow )
-			showRow ( ) ;
-			
+	
 		if ( ! freeze )
 		{
 			// TODO: implement the distance feature
@@ -137,7 +135,7 @@ class EnemyPathfinding extends MonoBehaviour {
 	{
 		shouldMove = false ;
 		var c:int ;
-		var runnerPos:Vector2 ;
+		var runnerPos:int ;
 		
 		runnerPos = GetRunnerPosition () ;
 		myRow = doubleToInt ( transform.eulerAngles.z / 15 ) ;
