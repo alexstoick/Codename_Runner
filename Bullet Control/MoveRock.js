@@ -20,17 +20,6 @@ class MoveRock extends MonoBehaviour {
 			powerUp = GameObject.Find ( "Power Up Control").GetComponent ( PowerUp ) ;
 	}
 	
-	function Update ( )
-	{
-		if ( rock.position.z < runner.position.z )
-			rocksPool. Despawn ( rock ) ;
-	}
-	
-	function FixedUpdate () //moving the Bullet!
-	{
-		transform.position.z += movementVariation ;
-	}
-	
 	function createParticleEffect ( zPos:double , rotation:Quaternion )
 	{
 		var position:Vector3 = Vector3 ( 3.64 , -0.98 , zPos ) ;

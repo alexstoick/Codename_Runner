@@ -110,8 +110,6 @@ class MoveRunnerNew extends MonoBehaviour {
 			LoftMovement.increaseSpeed ( ) ;
 		if ( Input.GetKeyDown ( KeyCode.DownArrow ) )
 			LoftMovement.decreaseSpeed ( ) ;
-
-
 		
 		if ( haveToRotate ) 
 		{
