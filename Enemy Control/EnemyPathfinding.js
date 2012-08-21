@@ -8,7 +8,6 @@ class EnemyPathfinding extends MonoBehaviour {
 	private var LS1:Vector2 = new Vector2(-1 , -1 ) ;
 	private var LS2:Vector2 = new Vector2(-1 , -1 ) ;
 	
-	var forward:boolean = false ;
 	var myLine:int ;
 	var myRow:int ;
 	var showCurrentRow:boolean = false ;
@@ -23,12 +22,6 @@ class EnemyPathfinding extends MonoBehaviour {
 		myRow = _row ;
 		transform.rotation.eulerAngles.z = _row * 15 ;
 		freeze = false ;
-		
-		var m:int = Random.Range ( 0 , 2 ) ;
-		if ( m < 1 )
-			forward = true ;
-		else
-			forward = false ;
 		
 		if ( ! enemyShoot )
 			enemyShoot = GetComponent ( EnemyShoot ) ;
@@ -211,18 +204,6 @@ class EnemyPathfinding extends MonoBehaviour {
 				myRow = 23 ;
 		}
 			
-/*		var done:boolean = false ;
-
-		if ( forward )
-			c = 0 ;
-		else
-			c = 3 ;
-
-		done = computeDirection ( c , "usual" , false ) ;
-		if ( done )
-		{	
-			yield WaitForSeconds ( 0.6 ) ;
-		}*/
 		shouldMove = true ;
 	}
 	
