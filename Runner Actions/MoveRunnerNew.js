@@ -106,6 +106,11 @@ class MoveRunnerNew extends MonoBehaviour {
 			action ( "down" ) ;
 		if ( Input.GetKeyDown ( KeyCode.LeftShift ) )
 			action ( "up" ) ;
+		if ( Input.GetKeyDown ( KeyCode.UpArrow ) )
+			LoftMovement.increaseSpeed ( ) ;
+		if ( Input.GetKeyDown ( KeyCode.DownArrow ) )
+			LoftMovement.decreaseSpeed ( ) ;
+
 
 		
 		if ( haveToRotate ) 

@@ -5,7 +5,7 @@ class CollisionHandler extends MonoBehaviour {
 	static private var moveRunner:MoveRunnerNew ;
 
 	static private var enemiesPool: SpawnPool ;
-	static private var cubesPool: SpawnPool ;
+	static private var boxPool: SpawnPool ;
 	static private var bonusesPool: SpawnPool ;
 	
 	static public var bashOn:boolean = false ;
@@ -28,15 +28,18 @@ class CollisionHandler extends MonoBehaviour {
 //			powerUp = GameObject.Find ( "Power Up Control").GetComponent ( PowerUp ) ;
 	}
 	
-	/*function Start ( )
+	function Start ( )
 	{ 
-		if ( ! enemiesPool )
+		/*if ( ! enemiesPool )
 			enemiesPool = PoolManager.Pools["Enemies"] ;
-		if ( ! cubesPool ) 
-			cubesPool = PoolManager.Pools["Cubes"] ;
+
 		if ( ! bonusesPool )
 			bonusesPool = PoolManager.Pools["Bonuses"] ;
-	}*/
+		*/
+		if ( ! boxPool ) 
+			boxPool = PoolManager.Pools["Boxes"] ;
+
+	}
 	
 	function blinkRunner ( )
 	{
@@ -55,9 +58,9 @@ class CollisionHandler extends MonoBehaviour {
 
 	}
 	
-	function createParticleEffect ( zPos:double , rotation:Quaternion )
+	function createParticleEffect ( position:Vector3 , rotation:Quaternion )
 	{
-		var position:Vector3 = Vector3 ( 3.64 , -0.98 , zPos ) ;
+		//var position:Vector3 = Vector3 ( 3.64 , -0.98 , zPos ) ;
 		
    		var instance = Instantiate( particleEffect , position , rotation ) ;
 	    Destroy(instance.gameObject, 1 );
@@ -101,10 +104,10 @@ class CollisionHandler extends MonoBehaviour {
 				enemiesPool.Despawn ( parent ) ;
 			else
 			{
-				cubesPool. Despawn ( parent ) ;
+				boxPool. Despawn ( parent.parent ) ;
 				//powerUp.Spawn ( parent ) ;
 			}
-			createParticleEffect ( parent.position.z , parent.rotation ) ;
+			createParticleEffect ( parent.parent.position , parent.rotation ) ;
 			ScoreControl.addScore ( 400 ) ;
 			return ;
 		}
@@ -113,7 +116,7 @@ class CollisionHandler extends MonoBehaviour {
 		{
 			parent = CollisionInfo.contacts[0].otherCollider.gameObject.transform.parent.transform ;
 			enemiesPool.Despawn ( parent ) ;
-			createParticleEffect ( parent.position.z , parent.rotation ) ;
+			createParticleEffect ( parent.parent.position , parent.rotation ) ;
 		}
 		
 		if ( HealthBar.percentage < 75 )
