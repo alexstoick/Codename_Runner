@@ -44,7 +44,7 @@ class SwipeDetection2 extends MonoBehaviour {
 	{
 		while ( shouldFire )
 		{
-			//moveRunner.fire ( true ) ;
+			moveRunner.fire ( true ) ;
 			yield WaitForSeconds ( 0.2 ) ;
 		}
 	}
@@ -73,8 +73,8 @@ class SwipeDetection2 extends MonoBehaviour {
 
 			analyzedDuringMove = true ;
 		}
-//		else
-//			moveRunner.fire ( true ) ;
+		else
+			moveRunner.fire ( true ) ;
 	}
 	
 	private function analyzeVertically ( delta:double ) 
@@ -147,8 +147,8 @@ class SwipeDetection2 extends MonoBehaviour {
 	
 	private function touchEnded ( ) 
 	{
-//		if ( touch.tapCount >= 1 )
-//				moveRunner.fire ( true ) ;
+		if ( touch.tapCount >= 1 )
+				moveRunner.fire ( true ) ;
 		touchPositions.Clear ( ) ;
 		timeOfTouch.Clear ( ) ;
 		HORIZONTAL_TOUCH_LENGHT = 0 ;

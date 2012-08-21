@@ -9,8 +9,8 @@ class MoveRock extends MonoBehaviour {
 	
 	function Start ( )
 	{
-		if ( !rocksPool )
-			rocksPool = PoolManager.Pools [ "Rocks" ] ;
+//		if ( !rocksPool )
+//			rocksPool = PoolManager.Pools [ "Rocks" ] ;
 		rock = transform ;
 //		if ( ! powerUp)
 //			powerUp = GameObject.Find ( "Power Up Control").GetComponent ( PowerUp ) ;
@@ -30,40 +30,39 @@ class MoveRock extends MonoBehaviour {
 	
 		var collider:Collider = CollisionInfo.contacts[0].otherCollider ;
 		var child:Transform ;
-//		Debug.LogWarning ( "rock collision" + collider ) ;
+		Debug.LogWarning ( "rock collision" + collider.name ) ;
+		var cname:String = collider.name ;
 		
-		if ( collider.name == "Runner" )
-			return ;
-			
-		if ( collider.name.Contains ( "ammo") || collider.name.Contains ( "health" ) )
-			return ;
+		if ( cname.Contains ( "bullet") || cname == "Runner" ||
+			 cname.Contains ( "ammo") || cname.Contains ( "health" ) )
+				return ;
 		
+
 		
-		if ( collider.name == "Tree" )
+		if ( cname == "Tree" )
 		{
-			rocksPool. Despawn ( rock ) ;
+			//rocksPool. Despawn ( rock ) ;
 			return ;
 		}
 		
-		if ( collider.name == "MONSTER")
+		if ( cname == "MONSTER")
 		{
 					child = CollisionInfo.contacts[0].otherCollider.gameObject.transform ;
+					//CARE HERE
 					PoolManager.Pools["Enemies"].Despawn ( child.parent ) ;
 	    			createParticleEffect ( child.position.z , child.rotation ) ;
 	    			ScoreControl.addScore ( 300 ) ;
-	    			return ;
 		}
 		else
-			if ( collider.name == "crate" )
+			if ( cname == "crate" )
 			{
 	    		collider.gameObject.active = false ;
 	    		createParticleEffect ( collider.gameObject.transform.position.z , collider.gameObject.transform.rotation ) ;	
 			    ScoreControl.addScore ( 150 ) ;
 			    //powerUp.Spawn ( collider.gameObject.transform.parent ) ;
-			    return ;
 			}
-		if ( ! collider.name.Contains ( "bullet") )
-			rocksPool . Despawn ( rock ) ;
+			
+//		rocksPool . Despawn ( rock ) ;
 		
 	}
 }
