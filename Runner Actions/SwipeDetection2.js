@@ -1,12 +1,12 @@
 #pragma strict
 class SwipeDetection2 extends MonoBehaviour {
 
-	static private var moveRunner:MoveRunner ;
+	static private var moveRunner:MoveRunnerNew ;
 	
 	function Start () 
 	{
 		if ( !moveRunner )
-			moveRunner = GameObject.Find ( "BigGroup" ). GetComponent ( MoveRunner ) ;
+			moveRunner = GameObject.Find ( "BigGroup" ). GetComponent ( MoveRunnerNew ) ;
 	}
 	
 	private var Velocity_X:float;
@@ -44,7 +44,7 @@ class SwipeDetection2 extends MonoBehaviour {
 	{
 		while ( shouldFire )
 		{
-			moveRunner.fire ( true ) ;
+			//moveRunner.fire ( true ) ;
 			yield WaitForSeconds ( 0.2 ) ;
 		}
 	}

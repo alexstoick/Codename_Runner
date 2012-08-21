@@ -7,8 +7,6 @@ class MoveRunnerNew extends MonoBehaviour {
 	static private var lastTime:double; 
 	static private var runner:GameObject ;
 	
-
-	
 	function Start ( )
 	{
 		if ( ! sphereGroup )
@@ -30,6 +28,14 @@ class MoveRunnerNew extends MonoBehaviour {
 	{
 		var angle:int ;	
 
+		if ( lastTime == Time.time )
+		{
+			Debug.LogError ( "refused move; time: " + Time.time ) ;
+			return ;
+		}
+			
+		lastTime = Time.time;
+
 		
 		if ( left )
 		{
@@ -40,7 +46,7 @@ class MoveRunnerNew extends MonoBehaviour {
 			angle = -15 ;
 		}
 		
-
+		Debug.Log ( left + " " + Time.time ) ;
 		if ( endingPosition == Vector3 ( 0 , 0 , 0 ) ) 
 		{
 			//nu a fost definit
