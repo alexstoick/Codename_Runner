@@ -2,22 +2,18 @@
 
 class MoveRock extends MonoBehaviour {
 	
-	var movementVariation = 0.5 ;
 	var particleEffect: GameObject ;
 	private var rock:Transform ;
-	static private var runner : Transform ;
 	static private var rocksPool: SpawnPool ;
-	static private var powerUp : PowerUp ;
+//	static private var powerUp : PowerUp ;
 	
 	function Start ( )
 	{
 		if ( !rocksPool )
 			rocksPool = PoolManager.Pools [ "Rocks" ] ;
-		if ( ! runner )
-			runner = GameObject.Find ( "BigGroup" ) .transform ;
 		rock = transform ;
-		if ( ! powerUp)
-			powerUp = GameObject.Find ( "Power Up Control").GetComponent ( PowerUp ) ;
+//		if ( ! powerUp)
+//			powerUp = GameObject.Find ( "Power Up Control").GetComponent ( PowerUp ) ;
 	}
 	
 	function createParticleEffect ( zPos:double , rotation:Quaternion )
@@ -63,7 +59,7 @@ class MoveRock extends MonoBehaviour {
 	    		collider.gameObject.active = false ;
 	    		createParticleEffect ( collider.gameObject.transform.position.z , collider.gameObject.transform.rotation ) ;	
 			    ScoreControl.addScore ( 150 ) ;
-			    powerUp.Spawn ( collider.gameObject.transform.parent ) ;
+			    //powerUp.Spawn ( collider.gameObject.transform.parent ) ;
 			    return ;
 			}
 		if ( ! collider.name.Contains ( "bullet") )
