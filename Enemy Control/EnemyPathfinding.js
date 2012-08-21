@@ -5,19 +5,13 @@ class EnemyPathfinding extends MonoBehaviour {
 	private var mat:Array = new Array( ) ;
 	static var runner:Transform ;
 	private var shouldMove:boolean = true ;
-	private var LS1:Vector2 = new Vector2(-1 , -1 ) ;
-	private var LS2:Vector2 = new Vector2(-1 , -1 ) ;
 	
-	var myLine:int ;
 	var myRow:int ;
-	var showCurrentRow:boolean = false ;
-	var stringMatrice:String = "" ;
 	var freeze:boolean = false ;
-	var showMessages:boolean = false ;
 	private var enemyShoot:EnemyShoot ;
 	
 	
-	public function SetPosition ( _line:int , _row:int )
+	public function SetPosition ( _row:int )
 	{
 		myRow = _row ;
 		transform.rotation.eulerAngles.z = _row * 15 ;
@@ -37,8 +31,6 @@ class EnemyPathfinding extends MonoBehaviour {
 	
 	function Start () 
 	{
-		LS1 = new Vector2(-1 , -1 ) ;
-		LS2 = new Vector2(-1 , -1 ) ;	
 		patrolling = false ;	
 		if ( ! enemyShoot )
 			enemyShoot = GetComponent ( EnemyShoot ) ;
