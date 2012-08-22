@@ -32,7 +32,7 @@ class MoveRock extends MonoBehaviour {
 		var cname:String = collider.name ;
 		
 		if ( cname.Contains ( "bullet") || cname == "Runner" ||
-			 cname.Contains ( "ammo") || cname.Contains ( "health" ) )
+			 cname.Contains ( "ammo") || cname.Contains ( "health" ) || cname.Contains ( "rock" ) )
 				return ;
 		
 		if ( cname == "Tree" )

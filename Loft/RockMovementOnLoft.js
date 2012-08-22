@@ -9,10 +9,10 @@ class RockMovementOnLoft extends MonoBehaviour {
 	
 	function Init ( )
 	{
+		transform.GetChild(0).localRotation = runner.localRotation ;
 		walk.surfaceLoft = loft ;
 		walk.surfaceLayer = 0 ;
-		walk.alpha = 0.100f ;
-		transform.GetChild(0).localRotation = runner.localRotation ;
+		walk.alpha = 0.10300f ;
 	}
 	
 	function Awake ( )

@@ -144,7 +144,7 @@ class MoveRunnerNew extends MonoBehaviour {
 			
 		lastTime = Time.time;
 		
-		var rock = rocksPool.Spawn ( prefab ) ;
+		var rock = rocksPool.Spawn ( prefab , transform.position , transform.localRotation ) ;
 		var movement = rock.GetComponent ( RockMovementOnLoft ) ;
 		movement.Init ( ) ;
 	}
