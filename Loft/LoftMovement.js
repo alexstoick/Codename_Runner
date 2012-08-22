@@ -10,7 +10,7 @@ class LoftMovement extends MonoBehaviour {
 		layer = GameObject.Find ( "Loft"). GetComponent ( MegaLoftLayerSimple ) ;
 	}
 	
-	public static var movementVariation : double = 0.0001 ;
+	public static var movementVariation : double = 0.0000 ;
 	var speed:double ;
 	
 	static public function position ( )
@@ -55,6 +55,8 @@ class LoftMovement extends MonoBehaviour {
 	{
 		speed = movementVariation ;
 		layer.pathStart += movementVariation  ;
+		if ( movementVariation) 
+			ScoreControl.addScore ( 0.1 ) ;
 		
 		//no longer bugging out.
 		if ( layer.pathStart >= 1 )

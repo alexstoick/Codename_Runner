@@ -2,7 +2,7 @@
 
 class ScoreControl extends MonoBehaviour {
 
-	static private var score:int = 0 ;
+	static private var score:float = 0.0 ;
 	static private var string :String = "" ;
 
 	function Start ( ) 
@@ -10,10 +10,10 @@ class ScoreControl extends MonoBehaviour {
 		guiText.text = "Score: 0 " ;
 	}
 	
-	static public function addScore ( points : int )
+	static public function addScore ( points : float )
 	{
 		score += points ;
-		string = score.ToString ( ) ;
+		string = score.ToString ( "f2" ) ;
 	}
 	
 	function Update ( )
