@@ -13,7 +13,7 @@ class CollisionHandler extends MonoBehaviour {
 	public var particleEffect:GameObject ;
 	static private var runner:GameObject ;
 
-	//static private var powerUp:PowerUp ;
+	static private var powerUp:PowerUp ;
 
 	var materials:Material[] ;
 
@@ -24,21 +24,17 @@ class CollisionHandler extends MonoBehaviour {
 			runner = GameObject.Find ( "Runner") ; 
 		if ( ! moveRunner )
 			moveRunner = GameObject.Find ( "BigGroup").GetComponent ( "MoveRunnerNew" ) ;
-//		if ( ! powerUp )
-//			powerUp = GameObject.Find ( "Power Up Control").GetComponent ( PowerUp ) ;
+		if ( ! powerUp )
+			powerUp = GameObject.Find ( "Power Up Control").GetComponent ( PowerUp ) ;
 	}
 	
 	function Start ( )
 	{ 
-		/*
 
 		if ( ! bonusesPool )
 			bonusesPool = PoolManager.Pools["Bonuses"] ;
-		*/
-		
 		if ( ! enemiesPool )
 			enemiesPool = PoolManager.Pools["Monsters"] ;
-	
 		if ( ! boxPool ) 
 			boxPool = PoolManager.Pools["Boxes"] ;
 
@@ -63,8 +59,6 @@ class CollisionHandler extends MonoBehaviour {
 	
 	function createParticleEffect ( position:Vector3 , rotation:Quaternion )
 	{
-		//var position:Vector3 = Vector3 ( 3.64 , -0.98 , zPos ) ;
-		
    		var instance = Instantiate( particleEffect , position , rotation ) ;
 	    Destroy(instance.gameObject, 1 );
 	}
@@ -81,7 +75,7 @@ class CollisionHandler extends MonoBehaviour {
 			Debug.LogWarning ( "coliziune cu ammo box" ) ;
 			SwipeDetection2.continuousFire = true ;
 			
-			//FireCountdown.startEvent() ;
+			FireCountdown.startEvent() ;
 			
 			bonusesPool.Despawn ( CollisionInfo.contacts[0].otherCollider.gameObject.transform.parent.transform ) ; 
 			return ;
@@ -92,8 +86,8 @@ class CollisionHandler extends MonoBehaviour {
 			Debug.LogWarning ( "coliziune cu health pack" ) ;
 			bonusesPool.Despawn ( CollisionInfo.contacts[0].otherCollider.gameObject.transform.parent.transform ) ; 
 			
-			//HealthBar.percentage = -25 ;
-			//HealthBar.UpdateHealthBar ( ) ;
+			HealthBar.percentage = -25 ;
+			HealthBar.UpdateHealthBar ( ) ;
 
 			return ;
 		}
@@ -108,7 +102,7 @@ class CollisionHandler extends MonoBehaviour {
 			else
 			{
 				boxPool. Despawn ( parent.parent ) ;
-				//powerUp.Spawn ( parent ) ;
+				powerUp.Spawn ( parent ) ;
 			}
 			createParticleEffect ( parent.parent.position , parent.rotation ) ;
 			ScoreControl.addScore ( 400 ) ;
@@ -125,12 +119,12 @@ class CollisionHandler extends MonoBehaviour {
 		if ( HealthBar.percentage < 75 )
 		{
 			ScoreControl.addScore ( -400 ) ;
-			//HealthBar.UpdateHealthBar ( );
+			HealthBar.UpdateHealthBar ( );
 			blinkRunner ( ) ;
 		}
 		else
 		{
-			//HealthBar.UpdateHealthBar ( ) ;
+			HealthBar.UpdateHealthBar ( ) ;
 			GameOver.Dead ( );
 		}
 	}

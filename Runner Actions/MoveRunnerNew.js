@@ -119,7 +119,6 @@ class MoveRunnerNew extends MonoBehaviour {
 		if ( Input.GetKeyDown ( KeyCode.Space ) )
 		{
 			fire ( true ) ;
-			Debug.LogWarning ( "fired" ) ;
 		}
 
 		

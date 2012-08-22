@@ -10,7 +10,6 @@ class RockMovementOnLoft extends MonoBehaviour {
 	
 	function Init ( )
 	{
-		Debug.Log ( "called start from" + transform.name ) ;
 		walk.surfaceLoft = loft ;
 		walk.surfaceLayer = 0 ;
 		walk.alpha = 0.100f ;
@@ -19,7 +18,6 @@ class RockMovementOnLoft extends MonoBehaviour {
 	
 	function Awake ( )
 	{
-		Debug.Log ( "called awake form" + transform.name ) ;
 		if ( !walk )
 			walk = GetComponent ( MegaWalkLoft ) ;
 		if ( ! loft )

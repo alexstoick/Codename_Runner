@@ -4,20 +4,21 @@ class MoveRock extends MonoBehaviour {
 	
 	var particleEffect: GameObject ;
 	static private var rocksPool: SpawnPool ;
-//	static private var powerUp : PowerUp ;
+	static private var enemiesPool: SpawnPool ;
+	static private var powerUp : PowerUp ;
 	
 	function Start ( )
 	{
 		if ( !rocksPool )
 			rocksPool = PoolManager.Pools [ "Rocks" ] ;
-//		if ( ! powerUp)
-//			powerUp = GameObject.Find ( "Power Up Control").GetComponent ( PowerUp ) ;
+		if ( ! enemiesPool )
+			enemiesPool = PoolManager.Pools["Monsters"] ;
+		if ( ! powerUp)
+			powerUp = GameObject.Find ( "Power Up Control").GetComponent ( PowerUp ) ;
 	}
 	
-	function createParticleEffect ( zPos:double , rotation:Quaternion )
+	function createParticleEffect ( position:Vector3 , rotation:Quaternion )
 	{
-		var position:Vector3 = Vector3 ( 3.64 , -0.98 , zPos ) ;
-		
    		var instance = Instantiate( particleEffect , position , rotation ) ;
 	    Destroy(instance.gameObject, 1 );
 	}
@@ -28,7 +29,6 @@ class MoveRock extends MonoBehaviour {
 	
 		var collider:Collider = CollisionInfo.contacts[0].otherCollider ;
 		var child:Transform ;
-		Debug.LogWarning ( "rock collision" + collider.name ) ;
 		var cname:String = collider.name ;
 		
 		if ( cname.Contains ( "bullet") || cname == "Runner" ||
@@ -45,19 +45,18 @@ class MoveRock extends MonoBehaviour {
 		{
 					child = CollisionInfo.contacts[0].otherCollider.gameObject.transform ;
 					
-					//CARE HERE
-					PoolManager.Pools["Monsters"].Despawn ( child.parent.parent ) ;
+					enemiesPool.Despawn ( child.parent.parent ) ;
 					
-	    			createParticleEffect ( child.position.z , child.rotation ) ;
+	    			createParticleEffect ( child.position , child.rotation ) ;
 	    			ScoreControl.addScore ( 300 ) ;
 		}
 		else
 			if ( cname == "crate" )
 			{
 	    		collider.gameObject.active = false ;
-	    		createParticleEffect ( collider.gameObject.transform.position.z , collider.gameObject.transform.rotation ) ;	
+	    		createParticleEffect ( collider.gameObject.transform.position , collider.gameObject.transform.rotation ) ;	
 			    ScoreControl.addScore ( 150 ) ;
-			    //powerUp.Spawn ( collider.gameObject.transform.parent ) ;
+			    powerUp.Spawn ( collider.gameObject.transform.parent ) ;
 			}
 			
 		rocksPool . Despawn ( transform.parent.parent ) ;
