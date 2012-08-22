@@ -21,7 +21,7 @@ class PowerUp extends MonoBehaviour {
 		var random:float = Random.Range ( 0.0 , 1.0) ;
 		
 		
-		if ( random < 0 ) 
+		if ( random < 0.85 ) 
 		{
 //			Debug.Log ( "random is too small" + random.ToString() ) ;
 			return ;

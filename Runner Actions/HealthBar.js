@@ -2,7 +2,7 @@
  
 class HealthBar extends MonoBehaviour {
 
-	static var percentage:double = 0 ;
+	static var percentage:double = 0.1 ;
 	static var trs:Transform ;
 	
 	function Start ( )

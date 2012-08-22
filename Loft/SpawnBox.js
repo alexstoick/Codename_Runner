@@ -19,6 +19,9 @@ class SpawnBox extends MonoBehaviour {
 	
 	function Update ( )
 	{
+		if ( ! StartButton.Started )
+			return ;
+
 		if ( boxPool.Count < limit && ! onCooldown )
 		{
 			var newBox = boxPool.Spawn ( prefab ) ;

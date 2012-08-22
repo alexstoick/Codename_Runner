@@ -30,25 +30,25 @@ class LoftMovement extends MonoBehaviour {
 	
 	static public function setLowSpeed ( )
 	{
-		movementVariation = 0.00005  ;
+		movementVariation = 0.00002  ;
 	}
 	static public function setNormalSpeed ( )
 	{
-		movementVariation = 0.00015 ;
+		movementVariation = 0.0003 ;
 	}
 	static public function setHighSpeed ( )
 	{
-		movementVariation = 0.00025 ;
+		movementVariation = 0.0004 ;
 	}
 	
 	static public function increaseSpeed ( )
 	{
-		movementVariation += 0.00005 ;
+		movementVariation += 0.0001 ;
 	}
 	
 	static public function decreaseSpeed ( )
 	{
-		movementVariation -= 0.00005 ;
+		movementVariation -= 0.0001 ;
 	}
 	
 	function Update ( )

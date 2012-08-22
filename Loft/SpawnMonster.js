@@ -19,6 +19,9 @@ class SpawnMonster extends MonoBehaviour {
 	
 	function Update ( )
 	{
+		if ( ! StartButton.Started )
+			return ;
+
 		if ( monsterPool.Count < limit && ! onCooldown )
 		{
 			var newMonster = monsterPool.Spawn ( prefab ) ;

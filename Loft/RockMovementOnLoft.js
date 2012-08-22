@@ -3,7 +3,6 @@
 class RockMovementOnLoft extends MonoBehaviour {
 
 	var walk:MegaWalkLoft ;
-	public static var moveSpeed : double = 0.0002 ;
 	static var loft:MegaShapeLoft ;
 	static var runner:Transform ;
 
@@ -30,8 +29,8 @@ class RockMovementOnLoft extends MonoBehaviour {
 
 	function Update ( )
 	{
-
-		walk.alpha += moveSpeed ;
+		
+		walk.alpha += LoftMovement.movementVariation* 2;
 		
 		//no longer bugging out.
 		if ( walk.alpha >= 1 )
