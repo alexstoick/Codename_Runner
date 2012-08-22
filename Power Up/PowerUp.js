@@ -5,37 +5,52 @@ class PowerUp extends MonoBehaviour {
 	static private var BonusesPool:SpawnPool ;
 	static private var ammoBox:Transform ;
 	static private var healthPack:Transform ;
-
 	
 	function Start ( )
 	{
 		if ( ! BonusesPool ) 
 			BonusesPool = PoolManager.Pools ["Bonuses"] ;
 		if ( ! ammoBox )
-			ammoBox = BonusesPool.prefabs["ammoBox_group"] ;
+			ammoBox = BonusesPool.prefabs["ammoBox_Holder"] ;
 		if ( ! healthPack )
-			healthPack = BonusesPool.prefabs["healthPack_group"];
+			healthPack = BonusesPool.prefabs["health pack"];
 	}
 
 	public function Spawn ( loc:Transform )
 	{
 		var random:float = Random.Range ( 0.0 , 1.0) ;
 		
-		if ( random < 0.75 ) 
+		
+		if ( random < 0 ) 
 		{
 //			Debug.Log ( "random is too small" + random.ToString() ) ;
 			return ;
 		}
 		
-		var position:Vector3 = Vector3 ( 3.64 , -1.03 , loc.position.z ) ;
+		var position:Vector3 = loc.position ;
 		var rotation:Quaternion = loc.rotation ;
+		var prefab:Transform ;
+		//var rotation:Quaternion = Quaternion ( 0 , 0 , 0 ,0 ) ;
+		
 		
 		random = Random.Range ( 0.0 , 1.0 ) ;
 		
-		if ( random < 0.5 )
-			BonusesPool.Spawn ( ammoBox , position , rotation ) ;
-		else
-			BonusesPool.Spawn ( healthPack , position, rotation ) ;
 		
+		if ( random < 0.5 )
+			prefab = ammoBox ;
+		else
+			prefab = healthPack ;
+			
+		var newBonus = BonusesPool.Spawn ( prefab , position, rotation ) ;
+		var despawn = newBonus.GetComponent ( DespawnPowerUp ) ;
+		var despawnPoint:float ;
+		
+		despawnPoint = LoftMovement.position ( ) + 0.07f;
+		if (despawnPoint > 1) {
+			despawnPoint -= 1f;
+			despawnPoint = -1f + despawnPoint;
+		}
+		
+		despawn.point = despawnPoint ;
 	}
 }

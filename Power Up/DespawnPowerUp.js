@@ -2,19 +2,18 @@
 
 class DespawnPowerUp extends MonoBehaviour {
 
-	static private var runner:GameObject ;
+	static private var runner:MoveRunnerNew ;
 	static private var bonusesPool:SpawnPool ;
+	var point:float ;
 	function Start ( )
 	{
-		if ( ! runner )
-			runner = GameObject.Find ( "BigGroup") ;
 		if ( ! bonusesPool )
 			bonusesPool = PoolManager.Pools["Bonuses"];
 	}
 
 	function Update ( )
 	{
-		if ( transform.position.z + 10 < runner.transform.position.z )
+		if ( LoftMovement.position () > point )
 			bonusesPool.Despawn ( transform ) ;
 	}
 }

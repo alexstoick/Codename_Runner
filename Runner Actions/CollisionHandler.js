@@ -84,7 +84,7 @@ class CollisionHandler extends MonoBehaviour {
 		if ( name.Contains ( "health" ) )
 		{
 			Debug.LogWarning ( "coliziune cu health pack" ) ;
-			bonusesPool.Despawn ( CollisionInfo.contacts[0].otherCollider.gameObject.transform.parent.transform ) ; 
+			bonusesPool.Despawn ( CollisionInfo.contacts[0].otherCollider.gameObject.transform ) ; 
 			
 			HealthBar.percentage = -25 ;
 			HealthBar.UpdateHealthBar ( ) ;
@@ -102,7 +102,7 @@ class CollisionHandler extends MonoBehaviour {
 			else
 			{
 				boxPool. Despawn ( parent.parent ) ;
-				powerUp.Spawn ( parent ) ;
+				powerUp.Spawn ( parent.GetChild(0) ) ;
 			}
 			createParticleEffect ( parent.parent.position , parent.rotation ) ;
 			ScoreControl.addScore ( 400 ) ;

@@ -56,7 +56,7 @@ class MoveRock extends MonoBehaviour {
 	    		collider.gameObject.active = false ;
 	    		createParticleEffect ( collider.gameObject.transform.position , collider.gameObject.transform.rotation ) ;	
 			    ScoreControl.addScore ( 150 ) ;
-			    powerUp.Spawn ( collider.gameObject.transform.parent ) ;
+			    powerUp.Spawn ( collider.gameObject.transform ) ;
 			}
 			
 		rocksPool . Despawn ( transform.parent.parent ) ;
