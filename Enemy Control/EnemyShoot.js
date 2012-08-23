@@ -49,7 +49,7 @@ class EnemyShoot extends MonoBehaviour
 		newBullet =  bulletPool. Spawn ( bulletPrefab ) ;
 		var movement = newBullet.GetComponent ( BulletMovementOnLoft ) ;
 		Debug.Log ( "called fire from" + transform.parent.name + " with startPoint:" + parentProperty.startPoint ) ;
-		movement.Init ( transform.localRotation , parentProperty.startPoint ) ;
+		movement.Init ( transform.localRotation , parentProperty.despawnPoint ) ;
 		shootOnCooldown = false ;
 
 //		Debug.Log ( transform.name + " shoot should be ON cd:" + Time.time + " spawned: " + newBullet.name + " " + newBullet.position ) ;

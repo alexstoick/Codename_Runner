@@ -11,6 +11,7 @@ class GameOver extends MonoBehaviour {
 	
 	static function Dead ( )
 	{
+		LoftMovement.acceleration = 0.0000 ;
 		LoftMovement.Stop ( ) ;
 		StartButton.Started = false ;
 		gText.text = "Game Over !" ;

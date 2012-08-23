@@ -32,8 +32,8 @@ class EnemyPathfinding extends MonoBehaviour {
 	function Start () 
 	{
 		patrolling = false ;	
-		if ( ! enemyShoot )
-			enemyShoot = GetComponent ( EnemyShoot ) ;
+//		if ( ! enemyShoot )
+//			enemyShoot = GetComponent ( EnemyShoot ) ;
 	}
 
 	
@@ -107,7 +107,7 @@ class EnemyPathfinding extends MonoBehaviour {
 		if ( computeDirection ( patrolDirection  , "compute for patrolling" , false ) )
 		{
 			patrolling = true ;
-			enemyShoot.Shoot() ;
+			//enemyShoot.Shoot() ;
 			yield WaitForSeconds ( WAIT_SECONDS_FOR_PATROL ) ;
 			patrolling = false ;
 			return ;
@@ -121,7 +121,7 @@ class EnemyPathfinding extends MonoBehaviour {
 			
 			patrolling = true ;
 			computeDirection ( patrolDirection  , "compute for patrolling" , false ) ;
-			enemyShoot.Shoot() ;
+			//enemyShoot.Shoot() ;
 			yield WaitForSeconds ( WAIT_SECONDS_FOR_PATROL ) ;
 			patrolling = false ;
 		}

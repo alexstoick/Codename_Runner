@@ -2,7 +2,7 @@
 
 class SpawnTree extends MonoBehaviour {
 
-	private var limit:int = 30 ;
+	private var limit:int = 50 ;
 	static var treePool:SpawnPool ;
 	static var prefab:Transform ;
 	var activ:int = 0 ;

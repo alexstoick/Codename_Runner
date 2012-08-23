@@ -10,8 +10,10 @@ class LoftMovement extends MonoBehaviour {
 		layer = GameObject.Find ( "Loft"). GetComponent ( MegaLoftLayerSimple ) ;
 	}
 	
+	public static var acceleration:double = 0.0000 ;
 	public static var movementVariation : double = 0.0000 ;
 	var speed:double ;
+	var lastTime:double = 0 ;
 	
 	static public function position ( )
 	{
@@ -25,8 +27,7 @@ class LoftMovement extends MonoBehaviour {
 	
 	static public function isStopped ( )
 	{
-		var zero:double = 0.0000 ;
-		if ( movementVariation.Equals ( zero )  )
+		if (  - 0.00001 < movementVariation && movementVariation < 0.00001 )
 		{
 			return true ;
 		}
@@ -35,15 +36,15 @@ class LoftMovement extends MonoBehaviour {
 	
 	static public function setLowSpeed ( )
 	{
-		movementVariation = 0.00002  ;
+		movementVariation = 0.00002 + acceleration ;
 	}
 	static public function setNormalSpeed ( )
 	{
-		movementVariation = 0.0003 ;
+		movementVariation = 0.0003 + acceleration ;
 	}
 	static public function setHighSpeed ( )
 	{
-		movementVariation = 0.0004 ;
+		movementVariation = 0.0004 + acceleration ;
 	}
 	
 	static public function increaseSpeed ( )
@@ -58,8 +59,15 @@ class LoftMovement extends MonoBehaviour {
 	
 	function Update ( )
 	{
-		speed = movementVariation ;
-		layer.pathStart += movementVariation  ;
+		if ( ! isStopped () && lastTime + 15 < Time.time )
+		{
+			acceleration += 0.0001 ;
+			Debug.Log ( "ACCELERATED" ) ;
+			lastTime = Time.time ;
+		}
+		
+		speed = movementVariation + acceleration ;
+		layer.pathStart += ( movementVariation + acceleration ) ;
 		if ( movementVariation) 
 			ScoreControl.addScore ( 0.1 ) ;
 		

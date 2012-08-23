@@ -2,7 +2,7 @@
 
 class SpawnBox extends MonoBehaviour {
 
-	private var limit:int = 50 ;
+	private var limit:int = 75 ;
 	static var boxPool:SpawnPool ;
 	static var prefab:Transform ;
 	var activ:int = 0 ;
@@ -23,7 +23,6 @@ class SpawnBox extends MonoBehaviour {
 			return ;
 		if (  LoftMovement.isStopped () )
 			return ;
-
 
 		if ( boxPool.Count < limit && ! onCooldown )
 		{
