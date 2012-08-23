@@ -7,6 +7,7 @@ class EnemyShoot extends MonoBehaviour
 	static private var bulletPrefab: Transform ;
 	
 	private var shootCooldownBar: LifeBar ;
+	private var copil:Transform ;
 
 
 	var shootOnCooldown:boolean = false ;
@@ -16,12 +17,14 @@ class EnemyShoot extends MonoBehaviour
 	{
 		if ( ! shootCooldownBar )
 			shootCooldownBar = GetComponentInChildren ( LifeBar ) ;
-/*		if ( ! bulletPool )
+		if ( ! bulletPool )
 			bulletPool = PoolManager.Pools ["Bullets"] ;
 			
 		if ( ! bulletPrefab )
-			bulletPrefab = bulletPool.prefabs [ "bullet_refferencePoint" ] ;
-*/
+			bulletPrefab = bulletPool.prefabs [ "bullet_for_loft" ] ;
+		
+		copil = transform.GetChild ( 0 ) ;
+
 	}
 
 	function setOffCooldown ( )
@@ -42,7 +45,7 @@ class EnemyShoot extends MonoBehaviour
 		var newBullet:Transform ;
 		var position:Vector3 = Vector3 ( 3.64 , -1 , transform.position.z - 3 ) ;
 
-		newBullet =  bulletPool. Spawn ( bulletPrefab , position , transform.rotation ) ;
+		newBullet =  bulletPool. Spawn ( bulletPrefab , copil.position , copil.rotation ) ;
 		shootOnCooldown = false ;
 
 //		Debug.Log ( transform.name + " shoot should be ON cd:" + Time.time + " spawned: " + newBullet.name + " " + newBullet.position ) ;

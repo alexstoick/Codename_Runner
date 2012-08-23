@@ -2,35 +2,21 @@
 
 class MoveBullet extends MonoBehaviour {
 	
-	var movementVariation = 0.5 ;
-	private var bullet:Transform ;
-	static private var runner : Transform ;
 	static private var bulletPool: SpawnPool ;
-	static private var cubesPool: SpawnPool ;
-	
+
 	function Start ( )
 	{
 		if ( ! bulletPool ) 
 			bulletPool = PoolManager. Pools [ "Bullets" ] ;
-		if ( ! runner )
-			runner = GameObject.Find ( "BigGroup" ) .transform ;
-		bullet = transform ;
-	}
-	
-	function Update ( )
-	{
-		if ( bullet.position.z < runner.position.z )
-			bulletPool. Despawn ( bullet ) ;
-	}
-	
-	function FixedUpdate () //moving the Bullet!
-	{
-		transform.position.z += movementVariation ;
 	}
 
 	function OnCollisionEnter(CollisionInfo:Collision) 
 	{
-		if ( ! CollisionInfo.contacts[0].otherCollider.name.Contains ( "rock" ) )
-			bulletPool . Despawn ( bullet ) ;
+		var cname = CollisionInfo.contacts[0].otherCollider.name ;
+		
+		if ( cname.Contains ( "bullet" ) || cname.Contains ( "rock" ) )
+			return ;
+			
+		bulletPool . Despawn ( transform.parent.parent ) ;
 	}
 }
