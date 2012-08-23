@@ -19,7 +19,9 @@ class SpawnMonster extends MonoBehaviour {
 	
 	function Update ( )
 	{
-		if ( ! StartButton.Started )
+		if ( ! StartButton.Started ) 
+			return ;
+		if (  LoftMovement.isStopped () )
 			return ;
 
 		if ( monsterPool.Count < limit && ! onCooldown )

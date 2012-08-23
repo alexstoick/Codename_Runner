@@ -4,15 +4,13 @@ class BulletMovementOnLoft extends MonoBehaviour {
 
 	var walk:MegaWalkLoft ;
 	static var loft:MegaShapeLoft ;
-	static var runner:Transform ;
-
 	
-	function Init ( )
+	function Init ( rotation , startPoint  )
 	{
-		transform.GetChild(0).localRotation = runner.localRotation ;
+		transform.GetChild(0).localRotation = rotation ;
 		walk.surfaceLoft = loft ;
 		walk.surfaceLayer = 0 ;
-		walk.alpha = 0.10300f ;
+		walk.alpha = startPoint ;//0.10300f ;
 	}
 	
 	function Awake ( )
@@ -21,8 +19,6 @@ class BulletMovementOnLoft extends MonoBehaviour {
 			walk = GetComponent ( MegaWalkLoft ) ;
 		if ( ! loft )
 			loft = GameObject.Find ( "Loft").GetComponent ( MegaShapeLoft ) ;
-		if ( ! runner )
-			runner = GameObject.Find ( "BigGroup" ).transform ;
 	}
 	
 	function Update ( )

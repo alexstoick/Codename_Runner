@@ -19,8 +19,10 @@ class SpawnTree extends MonoBehaviour {
 	
 	function Update ( )
 	{
-		if ( ! StartButton.Started )
+		if ( ! StartButton.Started ) 
 			return ;
+		if (  LoftMovement.isStopped () )
+			return ; 
 		if ( treePool.Count < limit && ! onCooldown )
 		{
 			var newTree = treePool.Spawn ( prefab ) ;

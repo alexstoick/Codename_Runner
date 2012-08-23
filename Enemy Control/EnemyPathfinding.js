@@ -22,22 +22,6 @@ class EnemyPathfinding extends MonoBehaviour {
 	private var WAIT_SECONDS_FOR_MOVEMENT:float = 0.50 ;
 
 	
-	
-	/*public function SetPosition ( _row:int )
-	{
-		myRow = _row ;
-		transform.rotation.eulerAngles.z = _row * 15 ;
-		freeze = false ;
-		target = Quaternion ( 0 , 0, 0 , 0 ) ;
-		patrolling = false ;
-		
-		if ( ! enemyShoot )
-			enemyShoot = GetComponent ( EnemyShoot ) ;
-		
-		enemyShoot.setOffCooldown ( ) ;
-	}*/
-	
-
 	function Init ( )
 	{
 		patrolling = false ;
@@ -76,7 +60,7 @@ class EnemyPathfinding extends MonoBehaviour {
 	
 	function GetRunnerPosition ( )
 	{
-		var row:int = doubleToInt ( runner.rotation.eulerAngles.z / 15 ) ;
+		var row:int = doubleToInt ( runner.localRotation.eulerAngles.z / 15 ) ;
 		if ( row == 24 )
 			row = 0 ;
 		return row ;
@@ -89,8 +73,8 @@ class EnemyPathfinding extends MonoBehaviour {
 		if ( ! freeze )
 		{
 			// TODO: implement the distance feature
-			
-			/*if ( runner.position.z + 30 > transform.position.z )
+			/*
+			if ( LoftMovement.position ( ) > transform.position.z )
 			{
 				if ( shouldMove )
 					Move ( ) ;
@@ -99,7 +83,8 @@ class EnemyPathfinding extends MonoBehaviour {
 			{
 				Patrol ( ) ;
 			}*/
-			Patrol () ;
+			Patrol ( );
+
 		}
 		
 		if ( ! ( target.x || target.y || target.z || target.w ))
@@ -122,7 +107,7 @@ class EnemyPathfinding extends MonoBehaviour {
 		if ( computeDirection ( patrolDirection  , "compute for patrolling" , false ) )
 		{
 			patrolling = true ;
-			//enemyShoot.Shoot() ;
+			enemyShoot.Shoot() ;
 			yield WaitForSeconds ( WAIT_SECONDS_FOR_PATROL ) ;
 			patrolling = false ;
 			return ;
@@ -136,7 +121,7 @@ class EnemyPathfinding extends MonoBehaviour {
 			
 			patrolling = true ;
 			computeDirection ( patrolDirection  , "compute for patrolling" , false ) ;
-			//enemyShoot.Shoot() ;
+			enemyShoot.Shoot() ;
 			yield WaitForSeconds ( WAIT_SECONDS_FOR_PATROL ) ;
 			patrolling = false ;
 		}

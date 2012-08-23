@@ -25,7 +25,12 @@ class LoftMovement extends MonoBehaviour {
 	
 	static public function isStopped ( )
 	{
-		return movementVariation == 0 ;
+		var zero:double = 0.0000 ;
+		if ( movementVariation.Equals ( zero )  )
+		{
+			return true ;
+		}
+		return false ;
 	}
 	
 	static public function setLowSpeed ( )
