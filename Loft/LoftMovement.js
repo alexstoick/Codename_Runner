@@ -12,6 +12,7 @@ class LoftMovement extends MonoBehaviour {
 	
 	public static var acceleration:double = 0.0000 ;
 	public static var movementVariation : double = 0.0000 ;
+	var timeModifier:double = 10 ;
 	var speed:double ;
 	var lastTime:double = 0 ;
 	
@@ -59,9 +60,18 @@ class LoftMovement extends MonoBehaviour {
 	
 	function Update ( )
 	{
-		if ( ! isStopped () && lastTime + 15 < Time.time )
+		if ( ! isStopped () && lastTime + timeModifier < Time.time )
 		{
-			acceleration += 0.0001 ;
+			if ( acceleration < 0.0012 )
+			{
+				acceleration += 0.0003 ;
+				timeModifier += 2 ;
+			}
+			else
+			{
+				acceleration += 0.0001 ;
+				timeModifier += 10 ;
+			}
 			Debug.Log ( "ACCELERATED" ) ;
 			lastTime = Time.time ;
 		}
