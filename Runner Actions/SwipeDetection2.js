@@ -58,17 +58,18 @@ class SwipeDetection2 extends MonoBehaviour {
 			
 //			if ( analyzedDuringMove )
 //				return ;
+			var velocity:double = delta/deltaTime ;
 			
 			if ( delta < 0 )
 			{
-				Debug.Log ( "±±±±±LEFT	: " + delta + " ; time: " + deltaTime + "			velocity: " + delta/deltaTime ) ;
+				Debug.Log ( "±±±±±LEFT	: " + delta + " ; time: " + deltaTime + "			velocity: " + velocity + "		" + HORIZONTAL_TOUCH_LENGTH ) ;
 
 				moveRunner.action ( "left" ) ; //left
 			}
 			else
 				if (delta > 0 )
 				{
-					Debug.Log ( "±±±±RIGHT	: " + delta + " ; time: " + deltaTime + "			velocity: " + delta/deltaTime ) ;
+					Debug.Log ( "±±±±RIGHT	: " + delta + " ; time: " + deltaTime + "			velocity: " + velocity ) ;
 					moveRunner.action ( "right" ) ; //right 
 				}
 				
@@ -155,8 +156,8 @@ class SwipeDetection2 extends MonoBehaviour {
 				moveRunner.fire ( true ) ;
 		touchPositions.Clear ( ) ;
 		timeOfTouch.Clear ( ) ;
-		HORIZONTAL_TOUCH_LENGHT = 0 ;
-		VERTICAL_TOUCH_LENGHT = 80 ;
+//		HORIZONTAL_TOUCH_LENGHT = 0 ;
+//		VERTICAL_TOUCH_LENGHT = 80 ;
 		shouldModify =true  ;
 		shouldFire = false ;
 		Debug.LogError ( "ended" ) ;
