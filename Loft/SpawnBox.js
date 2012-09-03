@@ -37,7 +37,9 @@ class SpawnBox extends MonoBehaviour {
 	function startCooldown ( )
 	{
 		onCooldown = true ;
-		yield WaitForSeconds ( 0.43 ) ;
+		var extraTime = Mathf.Max ( ( 0.0003 / LoftMovement.movementVariation ) , 1 ) ;
+		Debug.Log ( "box " + extraTime + "		" + LoftMovement.movementVariation ) ;
+		yield WaitForSeconds ( 0.5 * Mathf.Min ( extraTime , 3 ) ) ;
 		onCooldown = false ;
 	}
 
