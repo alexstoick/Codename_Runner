@@ -52,6 +52,7 @@ class SwipeDetection2 extends MonoBehaviour {
 	
 	private function analyzeHorizontally ( delta:double  )
 	{
+		Debug.Log ( "analyzing horrizontally: " + delta ) ;
 		if ( (delta< -HORIZONTAL_TOUCH_LENGHT  || delta > HORIZONTAL_TOUCH_LENGHT  ) )
 		{	
 			
@@ -60,11 +61,13 @@ class SwipeDetection2 extends MonoBehaviour {
 			
 			if ( delta < 0 )
 			{
+				Debug.Log ( "moving left !!" ) ;
 				moveRunner.action ( "left" ) ; //left
 			}
 			else
 				if (delta > 0 )
 				{
+					Debug.Log ( "moving right !!" ) ;
 					moveRunner.action ( "right" ) ; //right 
 				}
 				
@@ -73,8 +76,6 @@ class SwipeDetection2 extends MonoBehaviour {
 
 			analyzedDuringMove = true ;
 		}
-		else
-			moveRunner.fire ( true ) ;
 	}
 	
 	private function analyzeVertically ( delta:double ) 
@@ -134,10 +135,12 @@ class SwipeDetection2 extends MonoBehaviour {
 			shouldModify = false ;
 //			Debug.Log ( "±±±± V:" + deltaYY + "original:" + deltaY + " H:" + deltaXX + " original:"+ deltaX + "			###" + (Time.time - startingTime) ) ;
 			
+/*
 			if ( deltaYY > 5 ) 
 				HORIZONTAL_TOUCH_LENGHT = 1000 ;
 			else
 				HORIZONTAL_TOUCH_LENGHT = 0 ;
+*/
 		}
 
 		Debug.Log ( "V: " + deltaY + " H:" + deltaX ) ;
