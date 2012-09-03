@@ -20,7 +20,7 @@ class SwipeDetection2 extends MonoBehaviour {
 	private var touchPositions:Array = new Array() ;
 	private var timeOfTouch:Array = new Array () ;
 
-	private var HORIZONTAL_TOUCH_LENGHT:int = 5 ;
+	private var HORIZONTAL_TOUCH_LENGHT:int = 25 ;
 	private var VERTICAL_TOUCH_LENGHT:int = 80 ;
 	private var startingTime:double ;
 	private var shouldFire:boolean = false ;
@@ -50,9 +50,9 @@ class SwipeDetection2 extends MonoBehaviour {
 	}
 	
 	
-	private function analyzeHorizontally ( delta:double  )
+	private function analyzeHorizontally ( delta:double , deltaTime:double )
 	{
-		Debug.Log ( "analyzing horrizontally: " + delta ) ;
+
 		if ( (delta< -HORIZONTAL_TOUCH_LENGHT  || delta > HORIZONTAL_TOUCH_LENGHT  ) )
 		{	
 			
@@ -61,13 +61,14 @@ class SwipeDetection2 extends MonoBehaviour {
 			
 			if ( delta < 0 )
 			{
-				Debug.Log ( "moving left !!" ) ;
+				Debug.Log ( "±±±±±LEFT	: " + delta + " ; time: " + deltaTime + "			velocity: " + delta/deltaTime ) ;
+
 				moveRunner.action ( "left" ) ; //left
 			}
 			else
 				if (delta > 0 )
 				{
-					Debug.Log ( "moving right !!" ) ;
+					Debug.Log ( "±±±±RIGHT	: " + delta + " ; time: " + deltaTime + "			velocity: " + delta/deltaTime ) ;
 					moveRunner.action ( "right" ) ; //right 
 				}
 				
@@ -143,9 +144,9 @@ class SwipeDetection2 extends MonoBehaviour {
 */
 		}
 
-		Debug.Log ( "V: " + deltaY + " H:" + deltaX ) ;
+//		Debug.Log ( "V: " + deltaY + " H:" + deltaX ) ;
 		analyzeVertically ( deltaY ) ;  
-		analyzeHorizontally ( deltaX ) ;
+		analyzeHorizontally ( deltaX , deltaTime ) ;
 	}
 	
 	private function touchEnded ( ) 
