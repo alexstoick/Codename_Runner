@@ -4,9 +4,11 @@ class MoveRunnerNew extends MonoBehaviour {
 	static private var endingPosition:Vector3 = Vector3 ( 0 , 0 , 0 ) ;
 	static private var haveToRotate:boolean ;
 	static private var sphereGroup:Transform ;
-	static private var lastTime:double; 
 	static private var runner:GameObject ;
+
 	
+//	static private var lastTime:double; 
+			
 	var materials:Material[] ;
 	//materials[0] = goober
 	//materials[1] = bash
@@ -67,7 +69,7 @@ class MoveRunnerNew extends MonoBehaviour {
 	private function move ( left:boolean )
 	{
 		var angle:int ;	
-
+/*
 		if ( lastTime == Time.time )
 		{
 			Debug.LogError ( "refused move; time: " + Time.time ) ;
@@ -75,7 +77,7 @@ class MoveRunnerNew extends MonoBehaviour {
 		}
 			
 		lastTime = Time.time;
-
+*/
 		if ( left )
 		{
 			angle = 15 ;
@@ -139,10 +141,10 @@ class MoveRunnerNew extends MonoBehaviour {
 	
 	function fire ( useTime:boolean )
 	{
-		if ( useTime && lastTime == Time.time )
-			return ;
+//		if ( useTime && lastTime == Time.time )
+//			return ;
 			
-		lastTime = Time.time;
+//		lastTime = Time.time;
 		
 		var rock = rocksPool.Spawn ( prefab , transform.position , transform.localRotation ) ;
 		var movement = rock.GetComponent ( RockMovementOnLoft ) ;
