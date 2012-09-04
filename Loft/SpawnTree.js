@@ -23,7 +23,7 @@ class SpawnTree extends MonoBehaviour {
 			return ;
 		if (  LoftMovement.isStopped () )
 			return ; 
-		if ( treePool.Count < limit && ! onCooldown )
+		if ( ! onCooldown )
 		{
 			var newTree = treePool.Spawn ( prefab ) ;
 			var spawn = newTree.GetComponent ( SpawnOnLoft ) ;

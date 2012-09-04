@@ -24,7 +24,7 @@ class SpawnBox extends MonoBehaviour {
 		if (  LoftMovement.isStopped () )
 			return ;
 
-		if ( boxPool.Count < limit && ! onCooldown )
+		if ( ! onCooldown )
 		{
 			var newBox = boxPool.Spawn ( prefab ) ;
 			var spawn = newBox.GetComponent ( SpawnOnLoft ) ;

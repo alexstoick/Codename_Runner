@@ -24,7 +24,7 @@ class SpawnMonster extends MonoBehaviour {
 		if (  LoftMovement.isStopped () )
 			return ;
 
-		if ( monsterPool.Count < limit && ! onCooldown )
+		if ( ! onCooldown )
 		{
 			var newMonster = monsterPool.Spawn ( prefab ) ;
 			var spawn = newMonster.GetComponent ( SpawnOnLoft ) ;
