@@ -43,6 +43,7 @@ class CollisionHandler extends MonoBehaviour {
 	function blinkRunner ( )
 	{
 		LoftMovement.acceleration = 0.0000 ;
+		LoftMovement.timeModifier = 0.5 ;
 		var renderer:Renderer = runner.gameObject.GetComponentInChildren ( Renderer ) ;
 		LoftMovement.setLowSpeed ( ) ;
 		renderer.material = materials[0] ;

@@ -12,9 +12,9 @@ class LoftMovement extends MonoBehaviour {
 	
 	public static var acceleration:double = 0.0000 ;
 	public static var movementVariation : double = 0.0000 ;
-	var timeModifier:double = 10 ;
-	var speed:double ;
-	var lastTime:double = 0 ;
+	public static var timeModifier:double = 0.5 ;
+	private var speed:double ;
+	private var lastTime:double = 0 ;
 	
 	static public function position ( )
 	{
@@ -60,26 +60,27 @@ class LoftMovement extends MonoBehaviour {
 	
 	function Update ( )
 	{
+		
 		if ( ! isStopped () && lastTime + timeModifier < Time.time )
 		{
-			if ( acceleration < 0.0012 )
+			
+			if ( acceleration < 0.0010 )
 			{
-				acceleration += 0.0003 ;
-				timeModifier += 2 ;
+				acceleration += 0.000015 ;
+				Debug.Log ( "accelerated:" + movementVariation + acceleration ) ;
 			}
 			else
 			{
-				acceleration += 0.0001 ;
+				acceleration += 0.00001 ;
 				timeModifier += 10 ;
 			}
-			Debug.Log ( "ACCELERATED" ) ;
 			lastTime = Time.time ;
 		}
 		
 		speed = movementVariation + acceleration ;
 		layer.pathStart += ( movementVariation + acceleration ) ;
 		if ( movementVariation) 
-			ScoreControl.addScore ( 0.1 ) ;
+			ScoreControl.addScore ( 0.5) ;
 		
 		//no longer bugging out.
 		if ( layer.pathStart >= 1 )
