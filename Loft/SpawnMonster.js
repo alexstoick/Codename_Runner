@@ -40,7 +40,7 @@ class SpawnMonster extends MonoBehaviour {
 	{
 		onCooldown = true ;
 		var extraTime = Mathf.Max ( ( 0.0003 / LoftMovement.movementVariation ) , 1 ) ;
-		yield WaitForSeconds ( 6 * extraTime ) ;
+		yield WaitForSeconds ( 1 * extraTime ) ;
 		onCooldown = false ;
 	}
 

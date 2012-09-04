@@ -31,7 +31,7 @@ class RockMovementOnLoft extends MonoBehaviour {
 	function Update ( )
 	{
 		
-		walk.alpha += LoftMovement.movementVariation* 2;
+		walk.alpha += LoftMovement.movementVariation + 0.0004 ;
 //		copil.rotation.eulerAngles.z += 0.1 ;
 		//no longer bugging out.
 		if ( walk.alpha >= 1 )
