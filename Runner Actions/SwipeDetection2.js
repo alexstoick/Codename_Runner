@@ -37,11 +37,6 @@ class SwipeDetection2 extends MonoBehaviour {
 		startingTime = Time.time ;
 		analyzedDuringMove = false ;
 		Debug.LogError ( "began" ) ;
-		if ( continuousFire )
-		{
-			shouldFire = true ;
-			startFiring ( ) ;
-		}
 	}
 	
 	function startFiring ( )
@@ -136,6 +131,13 @@ class SwipeDetection2 extends MonoBehaviour {
 		var deltaX:double = position.x - firstTouch.x ;
 		var	deltaY:double = position.y - firstTouch.y ;
 		var ok:boolean = false ;
+		
+		if ( continuousFire )
+		{
+			shouldFire = true ;
+			startFiring ( ) ;
+		}
+
 		
 		if ( deltaX && deltaY && shouldModify ) 
 		{
