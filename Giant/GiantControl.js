@@ -2,7 +2,7 @@
 
 class GiantControl extends MonoBehaviour {
 
-	var distance: float = 100 ;
+	static public var distance: float = 200 ;
 	static private var cameraTransform:Transform ;
 	
 	function Start ( )
@@ -16,7 +16,12 @@ class GiantControl extends MonoBehaviour {
 		{	
 			distance += ( ( LoftMovement.movementVariation + LoftMovement.acceleration ) - 0.0003 ) * 2500 ;
 			distance = Mathf.Min ( distance , 200 ) ;
-			Debug.Log ( (LoftMovement.movementVariation + LoftMovement.acceleration)*1000  + " " + distance ) ;
+//			Debug.Log ( (LoftMovement.movementVariation + LoftMovement.acceleration)*1000  + " " + distance ) ;
+		}
+		if ( distance < 0 )
+		{
+			GameOver.Dead ( );
+			return ;
 		}
 		if ( distance < 100 )
 		{

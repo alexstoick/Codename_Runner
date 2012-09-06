@@ -15,6 +15,7 @@ class LoftMovement extends MonoBehaviour {
 	public static var timeModifier:double = 0.5 ;
 	private var speed:double ;
 	private var lastTime:double = 0 ;
+	public static var isDead:boolean = false ;
 	
 	static public function position ( )
 	{
@@ -37,24 +38,31 @@ class LoftMovement extends MonoBehaviour {
 	
 	static public function setLowSpeed ( )
 	{
+		if ( isDead )
+			return ;
 		movementVariation = 0.00002 + acceleration ;
 	}
 	static public function setNormalSpeed ( )
 	{
+		if ( isDead )
+			return ;
+
 		movementVariation = 0.0003 + acceleration ;
 	}
 	static public function setHighSpeed ( )
 	{
+		if ( isDead )
+			return ;		
 		movementVariation = 0.0004 + acceleration ;
 	}
 	
 	static public function increaseSpeed ( )
-	{
+	{	
 		movementVariation += 0.0001 ;
 	}
 	
 	static public function decreaseSpeed ( )
-	{
+	{	
 		movementVariation -= 0.0001 ;
 	}
 	
@@ -67,7 +75,6 @@ class LoftMovement extends MonoBehaviour {
 			if ( acceleration < 0.0010 )
 			{
 				acceleration += 0.000015 ;
-				Debug.Log ( "accelerated:" + movementVariation + acceleration ) ;
 			}
 			else
 			{
