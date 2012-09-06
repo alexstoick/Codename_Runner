@@ -33,14 +33,8 @@ class PowerUp extends MonoBehaviour {
 		//var rotation:Quaternion = Quaternion ( 0 , 0 , 0 ,0 ) ;
 		
 		
-		random = Random.Range ( 0.0 , 1.0 ) ;
-		
-		
-		if ( random < 0.5 )
-			prefab = ammoBox ;
-		else
-			prefab = healthPack ;
-			
+		prefab = ammoBox ;
+
 		var newBonus = BonusesPool.Spawn ( prefab , position, rotation ) ;
 		var despawn = newBonus.GetComponent ( DespawnPowerUp ) ;
 		var despawnPoint:float ;

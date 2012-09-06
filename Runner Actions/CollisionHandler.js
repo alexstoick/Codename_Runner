@@ -83,17 +83,6 @@ class CollisionHandler extends MonoBehaviour {
 			return ;
 		}
 		
-		if ( name.Contains ( "health" ) )
-		{
-			Debug.LogWarning ( "coliziune cu health pack" ) ;
-			bonusesPool.Despawn ( CollisionInfo.contacts[0].otherCollider.gameObject.transform ) ; 
-			
-			HealthBar.percentage = -25 ;
-			HealthBar.UpdateHealthBar ( ) ;
-
-			return ;
-		}
-		
 		if ( bashOn )
 			Debug.Log ( name) ;
 		if ( bashOn && ( name == "crate" || name == "MONSTER" ) ) 
@@ -117,17 +106,8 @@ class CollisionHandler extends MonoBehaviour {
 			enemiesPool.Despawn ( parent.parent ) ;
 			createParticleEffect ( parent.parent.position , parent.rotation ) ;
 		}
-		
-		if ( HealthBar.percentage < 75 )
-		{
-			ScoreControl.addScore ( -400 ) ;
-			HealthBar.UpdateHealthBar ( );
-			blinkRunner ( ) ;
-		}
-		else
-		{
-			HealthBar.UpdateHealthBar ( ) ;
-			GameOver.Dead ( );
-		}
+	
+		ScoreControl.addScore ( -400 ) ;
+		blinkRunner ( ) ;
 	}
 }

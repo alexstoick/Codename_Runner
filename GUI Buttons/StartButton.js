@@ -22,8 +22,6 @@ class StartButton extends MonoBehaviour {
 		{
 			Started = true ;
 			GameOver.gText.text = "" ;
-			HealthBar.percentage = -25 ;
-			HealthBar.UpdateHealthBar ( ) ;
 			LoftMovement.acceleration = 0.0000 ;
 			LoftMovement.setNormalSpeed ( ) ;
 		}
