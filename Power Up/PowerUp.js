@@ -45,7 +45,7 @@ class PowerUp extends MonoBehaviour {
 		var despawn = newBonus.GetComponent ( DespawnPowerUp ) ;
 		var despawnPoint:float ;
 		
-		despawnPoint = LoftMovement.position ( ) + 0.07f;
+		despawnPoint = LoftMovement.position ( ) + 0.17f;
 		if (despawnPoint > 1) {
 			despawnPoint -= 1f;
 			despawnPoint = -1f + despawnPoint;
