@@ -21,7 +21,7 @@ class CollisionHandler extends MonoBehaviour {
 	{
 
 		if ( ! runner )
-			runner = GameObject.Find ( "Runner") ; 
+			runner = GameObject.Find ( "Runner") ;
 		if ( ! moveRunner )
 			moveRunner = GameObject.Find ( "BigGroup").GetComponent ( "MoveRunnerNew" ) ;
 		if ( ! powerUp )
@@ -65,6 +65,31 @@ class CollisionHandler extends MonoBehaviour {
 	    Destroy(instance.gameObject, 1 );
 	}
 	
+	function pushRunnerBack ( )
+	{
+	
+		LoftMovement.setNegativeSpeed ( ) ;
+		var rnd = Random.value ;
+		if ( rnd < 0.5 )
+		{
+			moveRunner.action ( "left" ) ;
+			moveRunner.action ( "left" ) ;
+			moveRunner.action ( "left" ) ;
+			moveRunner.action ( "left" ) ;
+
+		}
+		else
+		{
+			moveRunner.action ( "right" ) ;
+			moveRunner.action ( "right" ) ;
+			moveRunner.action ( "right" ) ;
+			moveRunner.action ( "right" ) ;
+		}
+		
+		yield WaitForSeconds ( 0.3 ) ;
+		LoftMovement.setNormalSpeed ( ) ;
+	}
+	
 	function OnCollisionEnter(CollisionInfo:Collision) 
 	{
 		var name:String = CollisionInfo.contacts[0].otherCollider.name ;
@@ -83,8 +108,6 @@ class CollisionHandler extends MonoBehaviour {
 			return ;
 		}
 		
-		if ( bashOn )
-			Debug.Log ( name) ;
 		if ( bashOn && ( name == "crate" || name == "MONSTER" ) ) 
 		{
 			var parent:Transform = CollisionInfo.contacts[0].otherCollider.gameObject.transform.parent.transform ;
@@ -100,14 +123,23 @@ class CollisionHandler extends MonoBehaviour {
 			return ;
 		}
 		
-		if ( CollisionInfo.contacts[0].otherCollider.name == "MONSTER" )
+		if ( name == "MONSTER" )
 		{
 			parent = CollisionInfo.contacts[0].otherCollider.gameObject.transform.parent.transform ;
 			enemiesPool.Despawn ( parent.parent ) ;
 			createParticleEffect ( parent.parent.position , parent.rotation ) ;
+			ScoreControl.addScore ( -400 ) ;
+			blinkRunner ( ) ;
+			return ;
 		}
-	
-		ScoreControl.addScore ( -400 ) ;
-		blinkRunner ( ) ;
+		
+		//coliziune cu copac -- viitoare frunza
+		if ( name == "Tree" )
+			pushRunnerBack ( );
+		else
+		{
+			ScoreControl.addScore ( -400 ) ;
+			blinkRunner () ;
+		}
 	}
 }

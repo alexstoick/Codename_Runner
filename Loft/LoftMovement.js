@@ -36,6 +36,13 @@ class LoftMovement extends MonoBehaviour {
 		return false ;
 	}
 	
+	static public function setNegativeSpeed ( )
+	{
+		if ( isDead )
+			return ;
+		acceleration = 0.0000 ;
+		movementVariation = - 0.0003 ;
+	}
 	static public function setLowSpeed ( )
 	{
 		if ( isDead )
