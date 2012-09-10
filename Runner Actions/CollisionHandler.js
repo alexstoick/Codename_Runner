@@ -42,11 +42,24 @@ class CollisionHandler extends MonoBehaviour {
 	
 	function blinkRunner ( )
 	{
-		LoftMovement.acceleration = 0.0000 ;
-		LoftMovement.timeModifier = 0.5 ;
+	
 		var renderer:Renderer = runner.gameObject.GetComponentInChildren ( Renderer ) ;
+		var culoare:int = 0 ;
 		LoftMovement.setLowSpeed ( ) ;
-		renderer.material = materials[0] ;
+		for ( var i = 0 ; i < 20 ; ++ i )
+		{
+			LoftMovement.acceleration -= LoftMovement.acceleration/1.5 ;
+			renderer.material = materials[culoare] ;
+			++culoare ;
+			if ( culoare == 2 )
+				culoare = 0 ;
+			yield WaitForSeconds ( 0.1 ) ;
+		}
+		LoftMovement.acceleration = 0.0000;
+		
+		LoftMovement.setNormalSpeed ( ) ;
+/*		LoftMovement.setLowSpeed ( ) ;
+		
 		yield WaitForSeconds ( 0.5 ) ;
 		renderer.material = materials[1] ;
 		yield WaitForSeconds ( 0.5 ) ;
@@ -55,7 +68,7 @@ class CollisionHandler extends MonoBehaviour {
 		yield WaitForSeconds ( 0.5 ) ;
 		renderer.material = materials[1] ;
 		yield WaitForSeconds ( 0.5 ) ;	
-		LoftMovement.setNormalSpeed ( ) ;
+		LoftMovement.setNormalSpeed ( ) ;*/
 
 	}
 	
@@ -87,6 +100,7 @@ class CollisionHandler extends MonoBehaviour {
 		}
 		
 		yield WaitForSeconds ( 0.3 ) ;
+		LoftMovement.acceleration = 0 ;
 		LoftMovement.setNormalSpeed ( ) ;
 	}
 	
