@@ -49,14 +49,14 @@ class CollisionHandler extends MonoBehaviour {
 		LoftMovement.timeModifier = 1000 ;
 		for ( var i = 0 ; i < 20 ; ++ i )
 		{
-			LoftMovement.acceleration -= LoftMovement.acceleration/4 ;
+			LoftMovement.acceleration /=4 ; //-= LoftMovement.acceleration/4 ;
 			renderer.material = materials[culoare] ;
 			++culoare ;
 			if ( culoare == 2 )
 				culoare = 0 ;
 			yield WaitForSeconds ( 0.1 ) ;
 		}
-		LoftMovement.timeModifier = 0.5 ;
+		LoftMovement.timeModifier = 0.8 ;
 		LoftMovement.setNormalSpeed ( ) ;
 /*		LoftMovement.setLowSpeed ( ) ;
 		

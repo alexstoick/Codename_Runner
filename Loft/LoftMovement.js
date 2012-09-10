@@ -62,7 +62,7 @@ class LoftMovement extends MonoBehaviour {
 	{
 		if ( isDead )
 			return ;		
-		movementVariation = 0.0004 ; 
+		movementVariation = 0.0005 ; 
 	}
 	
 	static public function increaseSpeed ( )
@@ -92,7 +92,7 @@ class LoftMovement extends MonoBehaviour {
 			{
 				Debug.Log ( "creste mai incet" ) ;
 				acceleration += 0.00001 ;
-				timeModifier += 10 ;
+				timeModifier = 5 ;
 			}
 			lastTime = Time.time ;
 		//	Debug.Log ( lastTime ) ;

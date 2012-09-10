@@ -14,7 +14,7 @@ class SpawnTree extends MonoBehaviour {
 		if ( ! treePool ) 
 			treePool = PoolManager.Pools ["Trees"] ;
 		if ( ! prefab )
-			prefab = treePool.prefabs["tree_for_loft"] ;
+			prefab = treePool.prefabs["leaf_for_loft"] ;
 	}
 	
 	function Update ( )
