@@ -46,17 +46,17 @@ class CollisionHandler extends MonoBehaviour {
 		var renderer:Renderer = runner.gameObject.GetComponentInChildren ( Renderer ) ;
 		var culoare:int = 0 ;
 		LoftMovement.setLowSpeed ( ) ;
+		LoftMovement.timeModifier = 1000 ;
 		for ( var i = 0 ; i < 20 ; ++ i )
 		{
-			LoftMovement.acceleration -= LoftMovement.acceleration/1.5 ;
+			LoftMovement.acceleration -= LoftMovement.acceleration/4 ;
 			renderer.material = materials[culoare] ;
 			++culoare ;
 			if ( culoare == 2 )
 				culoare = 0 ;
 			yield WaitForSeconds ( 0.1 ) ;
 		}
-		LoftMovement.acceleration = 0.0000;
-		
+		LoftMovement.timeModifier = 0.5 ;
 		LoftMovement.setNormalSpeed ( ) ;
 /*		LoftMovement.setLowSpeed ( ) ;
 		
@@ -101,6 +101,7 @@ class CollisionHandler extends MonoBehaviour {
 		
 		yield WaitForSeconds ( 0.3 ) ;
 		LoftMovement.acceleration = 0 ;
+		LoftMovement.timeModifier = 0.5 ;
 		LoftMovement.setNormalSpeed ( ) ;
 	}
 	

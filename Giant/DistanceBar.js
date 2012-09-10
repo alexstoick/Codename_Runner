@@ -12,6 +12,6 @@ class DistanceBar extends MonoBehaviour {
 	function Update  ( )
 	{
 		if ( ! LoftMovement.isStopped () )
-			trs.renderer.material.SetFloat ( "_Cutoff" , GiantControl.distance / 2.0f / 100 ) ;
+			trs.renderer.material.SetFloat ( "_Cutoff" , GiantControl.distance / 1.0f / 100 ) ;
 	}
 }

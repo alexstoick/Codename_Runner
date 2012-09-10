@@ -4,10 +4,12 @@ class LoftMovement extends MonoBehaviour {
 	
 	static var walk:MegaWalkLoft ;
 	static var layer:MegaLoftLayerSimple ;
+	static var speedText:GUIText ;
 	function Start ( )
 	{
 		walk = GetComponent ( MegaWalkLoft ) ;
 		layer = GameObject.Find ( "Loft"). GetComponent ( MegaLoftLayerSimple ) ;
+		speedText = GameObject.Find ( "SpeedText").guiText ;
 	}
 	
 	public static var acceleration:double = 0.0000 ;
@@ -47,20 +49,20 @@ class LoftMovement extends MonoBehaviour {
 	{
 		if ( isDead )
 			return ;
-		movementVariation = 0.00002 + acceleration ;
+		movementVariation = 0.0001 ;
 	}
 	static public function setNormalSpeed ( )
 	{
 		if ( isDead )
 			return ;
 
-		movementVariation = 0.0003 + acceleration ;
+		movementVariation = 0.0003 ; 
 	}
 	static public function setHighSpeed ( )
 	{
 		if ( isDead )
 			return ;		
-		movementVariation = 0.0004 + acceleration ;
+		movementVariation = 0.0004 ; 
 	}
 	
 	static public function increaseSpeed ( )
@@ -73,25 +75,33 @@ class LoftMovement extends MonoBehaviour {
 		movementVariation -= 0.0001 ;
 	}
 	
+
+
+	
 	function Update ( )
 	{
 		
 		if ( ! isStopped () && lastTime + timeModifier < Time.time )
 		{
 			
-			if ( acceleration < 0.0010 )
+			if ( acceleration < 0.00030 )
 			{
 				acceleration += 0.000015 ;
 			}
 			else
 			{
+				Debug.Log ( "creste mai incet" ) ;
 				acceleration += 0.00001 ;
 				timeModifier += 10 ;
 			}
 			lastTime = Time.time ;
+		//	Debug.Log ( lastTime ) ;
 		}
 		
 		speed = movementVariation + acceleration ;
+		var acc:float = acceleration * 10000 ;
+		speedText.text = (movementVariation * 10000f).ToString ( "f0" ) + "		" + (acc).ToString ( "f3" ) ;
+
 		layer.pathStart += ( movementVariation + acceleration ) ;
 		if ( movementVariation) 
 			ScoreControl.addScore ( 0.5) ;
