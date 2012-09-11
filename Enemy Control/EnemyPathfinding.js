@@ -8,7 +8,7 @@ class EnemyPathfinding extends MonoBehaviour {
 	
 	var myRow:int ;
 	var freeze:boolean = false ;
-	private var enemyShoot:EnemyShoot ;
+
 	
 	private var patrolDirection:int = 1 ;
 	var patrolling:boolean = false ;
@@ -32,8 +32,6 @@ class EnemyPathfinding extends MonoBehaviour {
 	function Start () 
 	{
 		patrolling = false ;	
-//		if ( ! enemyShoot )
-//			enemyShoot = GetComponent ( EnemyShoot ) ;
 	}
 
 	
@@ -107,7 +105,6 @@ class EnemyPathfinding extends MonoBehaviour {
 		if ( computeDirection ( patrolDirection  , "compute for patrolling" , false ) )
 		{
 			patrolling = true ;
-			//enemyShoot.Shoot() ;
 			yield WaitForSeconds ( WAIT_SECONDS_FOR_PATROL ) ;
 			patrolling = false ;
 			return ;
@@ -121,7 +118,6 @@ class EnemyPathfinding extends MonoBehaviour {
 			
 			patrolling = true ;
 			computeDirection ( patrolDirection  , "compute for patrolling" , false ) ;
-			//enemyShoot.Shoot() ;
 			yield WaitForSeconds ( WAIT_SECONDS_FOR_PATROL ) ;
 			patrolling = false ;
 		}
@@ -151,7 +147,6 @@ class EnemyPathfinding extends MonoBehaviour {
 				{
 					if ( computeDirection ( 1 , "compute for left" , false ) )
 					{
-						enemyShoot.Shoot() ;
 						yield WaitForSeconds ( WAIT_SECONDS_FOR_MOVEMENT  ) ;
 //						Debug.LogWarning ( transform.name + " " + " row:" + myRow + " rot:" + transform.rotation.eulerAngles.z ) ;
 					}
@@ -160,7 +155,6 @@ class EnemyPathfinding extends MonoBehaviour {
 				{
 					if ( computeDirection ( 2 , "compute for right" , false ) )
 					{
-						enemyShoot.Shoot() ;
 						yield WaitForSeconds ( WAIT_SECONDS_FOR_MOVEMENT ) ;
 //						Debug.LogWarning ( transform.name + " " + " row:" + myRow + " rot:" + transform.rotation.eulerAngles.z ) ;
 					}
@@ -172,7 +166,6 @@ class EnemyPathfinding extends MonoBehaviour {
 				{
 					if ( computeDirection ( 1 , "compute for left" , false ) )
 					{
-						enemyShoot.Shoot() ;
 						yield WaitForSeconds ( WAIT_SECONDS_FOR_MOVEMENT ) ;
 //						Debug.LogWarning ( transform.name + " " + " row:" + myRow + " rot:" + transform.rotation.eulerAngles.z ) ;
 					}
@@ -181,7 +174,6 @@ class EnemyPathfinding extends MonoBehaviour {
 				{
 					if ( computeDirection ( 2 , "compute for right" , false ) )
 					{
-						enemyShoot.Shoot() ;
 						yield WaitForSeconds ( WAIT_SECONDS_FOR_MOVEMENT ) ;
 //						Debug.LogWarning ( transform.name + " " + " row:" + myRow + " rot:" + transform.rotation.eulerAngles.z ) ;
 					}
@@ -190,7 +182,6 @@ class EnemyPathfinding extends MonoBehaviour {
 		}
 		else
 		{
-			enemyShoot.Shoot ( );
 			if ( myRow > 23 )
 				myRow = 23 ;
 		}
