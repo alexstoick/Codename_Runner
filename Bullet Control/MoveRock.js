@@ -35,7 +35,7 @@ class MoveRock extends MonoBehaviour {
 			 cname.Contains ( "ammo") || cname.Contains ( "health" ) || cname.Contains ( "rock" ) )
 				return ;
 		
-		if ( cname == "Tree" )
+		if ( cname.Contains ( "Plant" ) )
 		{
 			rocksPool. Despawn ( transform.parent.parent ) ;
 			return ;

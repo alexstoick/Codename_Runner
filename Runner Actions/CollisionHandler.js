@@ -130,7 +130,7 @@ class CollisionHandler extends MonoBehaviour {
 				enemiesPool.Despawn ( parent.parent ) ;
 			else
 			{
-				boxPool. Despawn ( parent.parent ) ;
+				boxPool. Despawn ( parent ) ;
 				powerUp.Spawn ( parent.GetChild(0) ) ;
 			}
 			createParticleEffect ( parent.parent.position , parent.rotation ) ;
