@@ -6,6 +6,7 @@ class SpawnTree extends MonoBehaviour {
 	static var treePool:SpawnPool ;
 	static var prefab:Transform ;
 	var activ:int = 0 ;
+	static var contor = 2 ;
 	
 	var onCooldown:boolean = false ;
 	
@@ -13,8 +14,7 @@ class SpawnTree extends MonoBehaviour {
 	{
 		if ( ! treePool ) 
 			treePool = PoolManager.Pools ["Trees"] ;
-		if ( ! prefab )
-			prefab = treePool.prefabs["leaf_for_loft"] ;
+
 	}
 	
 	function Update ( )
@@ -25,6 +25,10 @@ class SpawnTree extends MonoBehaviour {
 			return ; 
 		if ( ! onCooldown )
 		{
+			prefab = treePool.prefabs["leaf_for_loft_"+contor] ;
+			++contor ;
+			if ( contor == 7 )
+				contor = 2 ;
 			var newTree = treePool.Spawn ( prefab ) ;
 			var spawn = newTree.GetComponent ( SpawnOnLoft ) ;
 			spawn.Init ( ) ;
@@ -37,7 +41,7 @@ class SpawnTree extends MonoBehaviour {
 	{
 		onCooldown = true ;
 		var extraTime = Mathf.Max ( ( 0.0003 / LoftMovement.movementVariation ) , 1 ) ;
-		yield WaitForSeconds ( 0.5 * extraTime ) ;
+		yield WaitForSeconds ( 0.8 * extraTime ) ;
 		onCooldown = false ;
 	}
 	

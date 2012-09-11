@@ -149,7 +149,7 @@ class CollisionHandler extends MonoBehaviour {
 		}
 		
 		//coliziune cu copac -- viitoare frunza
-		if ( name == "Tree" )
+		if ( name.Contains ( "Plant") )
 			pushRunnerBack ( );
 		else
 		{

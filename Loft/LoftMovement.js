@@ -9,7 +9,7 @@ class LoftMovement extends MonoBehaviour {
 	{
 		walk = GetComponent ( MegaWalkLoft ) ;
 		layer = GameObject.Find ( "Loft"). GetComponent ( MegaLoftLayerSimple ) ;
-		speedText = GameObject.Find ( "SpeedText").guiText ;
+//		speedText = GameObject.Find ( "SpeedText").guiText ;
 	}
 	
 	public static var acceleration:double = 0.0000 ;
@@ -100,7 +100,7 @@ class LoftMovement extends MonoBehaviour {
 		
 		speed = movementVariation + acceleration ;
 		var acc:float = acceleration * 10000 ;
-		speedText.text = (movementVariation * 10000f).ToString ( "f0" ) + "		" + (acc).ToString ( "f3" ) ;
+//		speedText.text = (movementVariation * 10000f).ToString ( "f0" ) + "		" + (acc).ToString ( "f3" ) ;
 
 		layer.pathStart += ( movementVariation + acceleration ) ;
 		if ( movementVariation) 
