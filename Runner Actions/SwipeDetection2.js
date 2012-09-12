@@ -27,6 +27,7 @@ class SwipeDetection2 extends MonoBehaviour {
 	private var shouldFire:boolean = false ;
 	static public var continuousFire:boolean = false ;
 	private var altitudeModifier:double = 0.0 ;
+	private var touchActive:boolean = false ;
 
 	
 	//consts	
@@ -41,13 +42,15 @@ class SwipeDetection2 extends MonoBehaviour {
 		startingTime = Time.time ;
 		analyzedDuringMove = false ;
 		Debug.LogError ( "began" ) ;
+		touchActive = true ;
 		modifyAltitude ( ) ;
 	}
 	
 	function modifyAltitude ( )
 	{
 		yield WaitForSeconds (0.3) ;
-		altitudeModifier = 0.03 ;
+		if ( touchActive )
+		altitudeModifier = 0.007 ;
 	}
 	
 	function startFiring ( )
@@ -182,19 +185,19 @@ class SwipeDetection2 extends MonoBehaviour {
 				moveRunner.fire ( true ) ;
 		touchPositions.Clear ( ) ;
 		timeOfTouch.Clear ( ) ;
+		touchActive = false ;
 //		HORIZONTAL_TOUCH_LENGTH = 0 ;
 //		VERTICAL_TOUCH_LENGTH = 80 ;
 		shouldModify =true  ;
 		shouldFire = false ;
 		Debug.LogError ( "ended" ) ;
-		altitudeModifier = -0.03 ;
+		altitudeModifier = -0.007 ;
 	}
 
 	function Update() 
 	{
 		plane.localRotation.eulerAngles.z  += -1*altitudeModifier*100 ;
 		plane.localPosition.y += altitudeModifier ;
-		Debug.Log ( plane.localPosition.y ) ;
 		plane.localRotation.eulerAngles.z = Mathf.Clamp ( plane.localRotation.eulerAngles.z , 150 , 180 ) ;
 		plane.localPosition.y = Mathf.Clamp ( plane.localPosition.y , -6.5 , -3.5 ) ;
 	
