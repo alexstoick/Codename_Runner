@@ -7,7 +7,6 @@ class MoveRunnerNew extends MonoBehaviour {
 	static private var runner:GameObject ;
 
 	
-//	static private var lastTime:double; 
 			
 	var materials:Material[] ;
 	//materials[0] = goober
@@ -51,13 +50,10 @@ class MoveRunnerNew extends MonoBehaviour {
 		yield WaitForSeconds ( 1.6 ) ;
 		renderer.material = materials[0] ;
 		CollisionHandler.bashOn = false ;
-		//to be implemented
-
 	}
 	
 	private function slowdown ( )
 	{
-		//to be implemented
 		var renderer:Renderer = runner.gameObject.GetComponentInChildren ( Renderer ) ;
 		renderer.material = materials[2] ;
 		LoftMovement.setLowSpeed ( ) ;
@@ -69,15 +65,7 @@ class MoveRunnerNew extends MonoBehaviour {
 	private function move ( left:boolean )
 	{
 		var angle:int ;	
-/*
-		if ( lastTime == Time.time )
-		{
-			Debug.LogError ( "refused move; time: " + Time.time ) ;
-			return ;
-		}
-			
-		lastTime = Time.time;
-*/
+		
 		if ( left )
 		{
 			angle = 15 ;
@@ -89,12 +77,10 @@ class MoveRunnerNew extends MonoBehaviour {
 		
 		if ( endingPosition == Vector3 ( 0 , 0 , 0 ) ) 
 		{
-			//nu a fost definit
 			endingPosition = sphereGroup.localRotation.eulerAngles + Vector3 ( 0 , 0 ,  angle ) ;
 		}
 		else
 		{ 
-			//adaugam la pozitia la care trebuie sa ajunga 
 			endingPosition = endingPosition + Vector3 ( 0 , 0 , angle ) ; 
 			var zInt:int = (endingPosition.z / 15 ) ;
 			endingPosition.z = zInt * 15 ;
@@ -141,11 +127,6 @@ class MoveRunnerNew extends MonoBehaviour {
 	
 	function fire ( useTime:boolean )
 	{
-//		if ( useTime && lastTime == Time.time )
-//			return ;
-			
-//		lastTime = Time.time;
-		
 		var rock = rocksPool.Spawn ( prefab , transform.position , transform.localRotation ) ;
 		var movement = rock.GetComponent ( RockMovementOnLoft ) ;
 		movement.Init ( ) ;
