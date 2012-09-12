@@ -2,11 +2,14 @@
 class SwipeDetection2 extends MonoBehaviour {
 
 	static private var moveRunner:MoveRunnerNew ;
+	static private var plane:Transform ;
 	
 	function Start () 
 	{
 		if ( !moveRunner )
 			moveRunner = GameObject.Find ( "BigGroup" ). GetComponent ( MoveRunnerNew ) ;
+		if ( ! plane )
+			plane = GameObject.Find ( "plane" ).transform ;
 	}
 	
 	private var Velocity_X:float;
@@ -23,13 +26,14 @@ class SwipeDetection2 extends MonoBehaviour {
 	private var startingTime:double ;
 	private var shouldFire:boolean = false ;
 	static public var continuousFire:boolean = false ;
+	private var altitudeModifier:double = 0.0 ;
+
 	
 	//consts	
 	private var HORIZONTAL_TOUCH_LENGTH:int = 25 ;
 	private var VERTICAL_TOUCH_LENGTH:int = 80 ;
 	private var VELOCITY_THRESHOLD:int = 1500 ;
-
-
+	
 	private function touchBegan ( )	
 	{
 		touchPositions.push ( touch.position ) ;
@@ -37,6 +41,13 @@ class SwipeDetection2 extends MonoBehaviour {
 		startingTime = Time.time ;
 		analyzedDuringMove = false ;
 		Debug.LogError ( "began" ) ;
+		modifyAltitude ( ) ;
+	}
+	
+	function modifyAltitude ( )
+	{
+		yield WaitForSeconds (0.3) ;
+		altitudeModifier = 0.03 ;
 	}
 	
 	function startFiring ( )
@@ -176,13 +187,20 @@ class SwipeDetection2 extends MonoBehaviour {
 		shouldModify =true  ;
 		shouldFire = false ;
 		Debug.LogError ( "ended" ) ;
+		altitudeModifier = -0.03 ;
 	}
 
 	function Update() 
 	{
+		plane.localRotation.eulerAngles.z  += -1*altitudeModifier*100 ;
+		plane.localPosition.y += altitudeModifier ;
+		Debug.Log ( plane.localPosition.y ) ;
+		plane.localRotation.eulerAngles.z = Mathf.Clamp ( plane.localRotation.eulerAngles.z , 150 , 180 ) ;
+		plane.localPosition.y = Mathf.Clamp ( plane.localPosition.y , -6.5 , -3.5 ) ;
+	
 		if ( Input.touchCount == 0 ) 
 			return ;
-			
+		
 		touch = Input.GetTouch ( 0 ) ;
 		
 		switch ( touch.phase )

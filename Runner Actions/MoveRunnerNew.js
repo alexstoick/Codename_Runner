@@ -5,8 +5,7 @@ class MoveRunnerNew extends MonoBehaviour {
 	static private var haveToRotate:boolean ;
 	static private var sphereGroup:Transform ;
 	static private var runner:GameObject ;
-
-	
+	static private var plane:Transform ;
 			
 	var materials:Material[] ;
 	//materials[0] = goober
@@ -20,6 +19,8 @@ class MoveRunnerNew extends MonoBehaviour {
 	{
 		if ( ! sphereGroup )
 			sphereGroup = GameObject.Find ( "BigGroup").transform ;
+		if ( ! plane )
+			plane = GameObject.Find ( "plane" ).transform ;
 		if ( ! runner )
 			runner = GameObject.Find ( "Runner" ) ;
 		if ( ! rocksPool )
@@ -41,14 +42,14 @@ class MoveRunnerNew extends MonoBehaviour {
 	
 	private function activateBash ( )
 	{
-		var renderer:Renderer = runner.gameObject.GetComponentInChildren ( Renderer ) ;
+//		var renderer:Renderer = runner.gameObject.GetComponentInChildren ( Renderer ) ;
 		CollisionHandler.bashOn = true ;
-		renderer.material = materials[1] ;
+//		renderer.material = materials[1] ;
 		LoftMovement.setHighSpeed () ;
 		yield WaitForSeconds ( 0.4 ) ;
 		LoftMovement.setNormalSpeed ( );
 		yield WaitForSeconds ( 1.6 ) ;
-		renderer.material = materials[0] ;
+//		renderer.material = materials[0] ;
 		CollisionHandler.bashOn = false ;
 	}
 	
@@ -74,7 +75,8 @@ class MoveRunnerNew extends MonoBehaviour {
 		{
 			angle = -15 ;
 		}
-		
+		ReturnToRotation.StartRotation ( angle * -1 ) ;
+
 		if ( endingPosition == Vector3 ( 0 , 0 , 0 ) ) 
 		{
 			endingPosition = sphereGroup.localRotation.eulerAngles + Vector3 ( 0 , 0 ,  angle ) ;
@@ -109,13 +111,12 @@ class MoveRunnerNew extends MonoBehaviour {
 			fire ( true ) ;
 		}
 
-		
 		if ( haveToRotate ) 
 		{
 		
 			var target:Quaternion = Quaternion.Euler (  Vector3 ( endingPosition.x , endingPosition.y , endingPosition.z ) ) ;
 
-			if ( sphereGroup.localRotation == target )
+			if ( target.Equals ( sphereGroup.localRotation ) )
 			{
 				haveToRotate = false ;
 				return ;
