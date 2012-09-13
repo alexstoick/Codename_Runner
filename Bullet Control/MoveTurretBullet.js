@@ -20,7 +20,7 @@ class MoveTurretBullet extends MonoBehaviour {
 	
 	function Update ( )
 	{
-		transform.position = Vector3.Slerp ( transform.position , player.position , Time.deltaTime * 5) ;
+		transform.position = Vector3.MoveTowards ( transform.position , player.position , Time.deltaTime * 45 ) ;
 		if ( Time.time > despawnTime )
 			rocksPool. Despawn ( transform ) ;
 	}

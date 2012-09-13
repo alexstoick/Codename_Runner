@@ -40,11 +40,6 @@ class MoveRock extends MonoBehaviour {
 			rocksPool. Despawn ( transform.parent.parent ) ;
 			return ;
 		}
-		if ( cname == "plane" )
-		{
-			Debug.LogError ( "HIT BY PROJECTILE" ) ;
-			return ;
-		}
 			
 		
 		if ( cname == "MONSTER")
