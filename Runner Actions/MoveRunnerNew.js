@@ -103,7 +103,6 @@ class MoveRunnerNew extends MonoBehaviour {
 	
 	function delayCameraMovement ( )
 	{
-		Debug.Log ( "delayed camera" ) ;
 		//yield WaitForSeconds ( 0.1 ) ;
 		haveToRotateCamera = true ;
 		lastTime = Time.time ;

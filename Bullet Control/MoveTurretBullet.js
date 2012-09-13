@@ -18,12 +18,13 @@ class MoveTurretBullet extends MonoBehaviour {
 			rocksPool = PoolManager.Pools [ "Rocks" ] ;
 	}
 	
-	function Update ( )
+
+/*	function Update ( )
 	{
 		transform.position = Vector3.MoveTowards ( transform.position , player.position , Time.deltaTime * 90 ) ;
 		if ( Time.time > despawnTime )
 			rocksPool. Despawn ( transform ) ;
-	}
+	}*/
 	
 	function Init ( )
 	{
