@@ -18,11 +18,31 @@ class BulletForTurret extends MonoBehaviour {
 	{
 		if ( lastTime + 5 < Time.time  )
 		{
-			var newRock = rocksPool.Spawn ( rockPrefab ) ;
-			newRock.position = transform.position ;
-			newRock.GetComponent ( MoveTurretBullet ).Init() ;
+			spawnBullets ( ) ;
 			lastTime = Time.time ;
 		}
 	}	
+	
+	function spawnBullets ( )
+	{
+	
+		var newRock:Transform;
+		
+		newRock = rocksPool.Spawn ( rockPrefab ) ;
+		newRock.position = transform.position ;
+		newRock.GetComponent ( MoveTurretBullet ).Init() ;
+		
+		yield WaitForSeconds (0.3) ;
+		
+		newRock = rocksPool.Spawn ( rockPrefab ) ;
+		newRock.position = transform.position ;
+		newRock.GetComponent ( MoveTurretBullet ).Init() ;
+		
+		yield WaitForSeconds (0.3) ;
+		
+		newRock = rocksPool.Spawn ( rockPrefab ) ;
+		newRock.position = transform.position ;
+		newRock.GetComponent ( MoveTurretBullet ).Init() ;
+	}
 
 }

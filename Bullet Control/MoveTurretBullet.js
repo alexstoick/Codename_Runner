@@ -20,14 +20,14 @@ class MoveTurretBullet extends MonoBehaviour {
 	
 	function Update ( )
 	{
-		transform.position = Vector3.MoveTowards ( transform.position , player.position , Time.deltaTime * 45 ) ;
+		transform.position = Vector3.MoveTowards ( transform.position , player.position , Time.deltaTime * 90 ) ;
 		if ( Time.time > despawnTime )
 			rocksPool. Despawn ( transform ) ;
 	}
 	
 	function Init ( )
 	{
-		despawnTime = Time.time + 1.5 ;
+		despawnTime = Time.time + 0.8;
 	}
 	
 	function OnCollisionEnter(CollisionInfo:Collision) 
