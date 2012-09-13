@@ -142,13 +142,11 @@ class MoveRunnerNew extends MonoBehaviour {
 				return ;
 			}
 		
-			sphereGroup.localRotation = Quaternion.Slerp( sphereGroup.localRotation , target, Mathf.Sin( 0.08 * Mathf.PI * 0.5) ) ; 
+			sphereGroup.localRotation = Quaternion.Slerp( sphereGroup.localRotation , target, Time.deltaTime * 4 ) ;//Mathf.Sin( 0.08 * Mathf.PI * 0.5) ) ; 
 		}
 		if ( haveToRotateCamera )
 		{
-			cameraTransform.localRotation = Quaternion.Slerp ( cameraTransform.localRotation , target , Mathf.Sin ( 0.08* Mathf.PI * 0.45 ) ) ;
-			if ( lastTime + 0.5 < Time.time )
-				haveToRotateCamera = false ;
+			cameraTransform.localRotation = Quaternion.Slerp ( cameraTransform.localRotation , target , Time.deltaTime*3.6 ) ;// Mathf.Sin ( 0.08* Mathf.PI * 0.45 ) ) ;
 		}
 	}
 	
