@@ -2,11 +2,14 @@
 
 class BulletForTurret extends MonoBehaviour {
 
-	var Target:Transform ;
-	var rocksPool: SpawnPool ;
-	var rockPrefab:Transform ;
-	var lastTime:double = -10.000 ;
+	private var Target:Transform ;
+	private var rocksPool: SpawnPool ;
+	private var rockPrefab:Transform ;
+	private var lastTime:double = -10.000 ;
+	private var line:LineRenderer ;
 
+	var aMaterial : Material;
+	
 	function Start  ( )
 	{
 		if ( ! Target )
@@ -15,11 +18,14 @@ class BulletForTurret extends MonoBehaviour {
 			rocksPool = PoolManager. Pools ["Rocks"] ;
 		if ( ! rockPrefab )
 			rockPrefab = rocksPool.prefabs[ "rock_for_loft_2" ] ;
+			
+		line = this.gameObject.AddComponent(LineRenderer);
+
 	}
 
 	function Update ( )
 	{
-		if ( lastTime + 4 < Time.time  )
+		if ( lastTime + 0.5 < Time.time  )
 		{
 			spawnBullets ( ) ;
 			
@@ -30,18 +36,37 @@ class BulletForTurret extends MonoBehaviour {
 	
 	    var hit : RaycastHit;
 	    Physics.Linecast (transform.position, Target.position, hit) ;
-//	       if ( hit.transform != Target )
-//	       		return ;
-		Debug.Log ( hit.transform.name ) ;
-	    if ( hit.transform.name != "plane" )
-	    	return ;
-	    Debug.DrawRay ( transform.position , (Target.position-transform.position )* 10 , Color.green , 0.5) ;
 	    
+	    if ( hit.transform.name != "plane" )
+	    {
+	    	line.renderer.enabled = false ;
+	    	return ;
+	    }
+	    //Debug.DrawRay ( transform.position , (Target.position-transform.position ), Color.green , 0.5) ;
+	    
+		var startWidth = 0.1;
+		var endWidth = 0.1;
+	
+		var startPos = transform.position ;
+		var length = ( Target.position-transform.position ) ;	
 
+		
+		var point01:Vector3 = startPos + Random.value * length ; ;
+		var point02:Vector3 = point01 + length/5 ;	
+	
+		line.SetWidth(startWidth, endWidth);
+		line.SetVertexCount(2);
+		line.material = aMaterial;
+		
+		line.renderer.enabled = true;
+		line.SetPosition(0, point01);
+		line.SetPosition(1, point02);
 
 		lastTime = Time.time ;
+		yield WaitForSeconds ( 0.1 ) ;
+		line.renderer.enabled = false ;
 
-		Debug.Log ( "can see the plane" ) ;
+/*		Debug.Log ( "can see the plane" ) ;
 		
 		var newRock:Transform;
 		
