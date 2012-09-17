@@ -7,7 +7,6 @@ class BulletForTurret extends MonoBehaviour {
 	private var rockPrefab:Transform ;
 	private var lastTime:double = -10.000 ;
 	private var line:LineRenderer ;
-
 	var aMaterial : Material;
 	
 	function Start  ( )
@@ -19,13 +18,15 @@ class BulletForTurret extends MonoBehaviour {
 		if ( ! rockPrefab )
 			rockPrefab = rocksPool.prefabs[ "rock_for_loft_2" ] ;
 			
-		line = this.gameObject.AddComponent(LineRenderer);
+		line = this.GetComponent(LineRenderer);
 
 	}
 
 	function Update ( )
 	{
-		if ( lastTime + 0.5 < Time.time  )
+		if ( ! transform.gameObject.active )
+			return ;
+		if ( lastTime + 0.2 < Time.time  )
 		{
 			spawnBullets ( ) ;
 			
@@ -34,6 +35,7 @@ class BulletForTurret extends MonoBehaviour {
 	function spawnBullets ( )
 	{
 	
+		Debug.Log ( "shot a bullet from "+ transform.name ) ;
 	    var hit : RaycastHit;
 	    Physics.Linecast (transform.position, Target.position, hit) ;
 	    
@@ -44,15 +46,15 @@ class BulletForTurret extends MonoBehaviour {
 	    }
 	    //Debug.DrawRay ( transform.position , (Target.position-transform.position ), Color.green , 0.5) ;
 	    
-		var startWidth = 0.1;
-		var endWidth = 0.1;
+		var startWidth = 1;
+		var endWidth = 1;
 	
 		var startPos = transform.position ;
 		var length = ( Target.position-transform.position ) ;	
 
 		
-		var point01:Vector3 = startPos + Random.value * length ; ;
-		var point02:Vector3 = point01 + length/5 ;	
+		var point01:Vector3 = startPos ; //+ length * Random.Range ( 0.6 , 0.8 ) ;
+		var point02:Vector3 = startPos + length ;	
 	
 		line.SetWidth(startWidth, endWidth);
 		line.SetVertexCount(2);
@@ -63,7 +65,7 @@ class BulletForTurret extends MonoBehaviour {
 		line.SetPosition(1, point02);
 
 		lastTime = Time.time ;
-		yield WaitForSeconds ( 0.1 ) ;
+		yield WaitForSeconds ( 0.05 ) ;
 		line.renderer.enabled = false ;
 
 /*		Debug.Log ( "can see the plane" ) ;

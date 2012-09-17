@@ -1,20 +1,18 @@
 #pragma strict
 
-class SpawnBox extends MonoBehaviour {
+class SpawnSentry extends MonoBehaviour {
 
-	private var limit:int = 75 ;
-	static var boxPool:SpawnPool ;
+	static var sentryPool:SpawnPool ;
 	static var prefab:Transform ;
-	var activ:int = 0 ;
 	
 	var onCooldown:boolean = false ;
 	
 	function Start ( )
 	{
-		if ( ! boxPool  ) 
-			boxPool  = PoolManager.Pools ["Boxes"] ;
+		if ( ! sentryPool ) 
+			sentryPool = PoolManager.Pools ["Sentry"] ;
 		if ( ! prefab )
-			prefab = boxPool.prefabs["box_for_loft"] ;
+			prefab = sentryPool.prefabs["sentry_for_loft"] ;
 	}
 	
 	function Update ( )
@@ -26,10 +24,9 @@ class SpawnBox extends MonoBehaviour {
 
 		if ( ! onCooldown )
 		{
-			var newBox = boxPool.Spawn ( prefab ) ;
-			var spawn = newBox.GetComponent ( SpawnOnLoft ) ;
+			var newSentry = sentryPool.Spawn ( prefab ) ;
+			var spawn = newSentry.GetComponent ( SpawnOnLoft ) ;
 			spawn.Init ( ) ;
-			activ = boxPool.Count ;
 			startCooldown ( );
 		}
 	}
@@ -38,7 +35,7 @@ class SpawnBox extends MonoBehaviour {
 	{
 		onCooldown = true ;
 		var extraTime = Mathf.Max ( ( 0.0003 / LoftMovement.movementVariation ) , 1 ) ;
-		yield WaitForSeconds ( 0.6 * Mathf.Min ( extraTime , 3 ) ) ;
+		yield WaitForSeconds ( 5 * Mathf.Min ( extraTime , 3 ) ) ;
 		onCooldown = false ;
 	}
 }
