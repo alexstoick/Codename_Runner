@@ -37,19 +37,18 @@ class BulletForTurret extends MonoBehaviour {
 	
 	    var hit : RaycastHit;
 	    var startPosition:Vector3 = Target.position ;
-	    Physics.Linecast (transform.position, Target.position, hit) ;
-	    
-	    if ( hit.transform.name != "plane" )
-	    {
-	    	line.renderer.enabled = false ;
-	    	return ;
-	    }
+	    if ( Physics.Linecast (transform.position, Target.position, hit) )
+		    if ( hit.transform.name != "plane" )
+		    {
+		    	line.renderer.enabled = false ;
+		    	return ;
+		    }
 	    //Debug.DrawRay ( transform.position , (Target.position-transform.position ), Color.green , 0.5) ;
 	    
 		var startWidth = 0.03;
 		var endWidth = 0.03;
 	
-		var startPos = transform.position ;
+		var startPos:Vector3 = transform.position ;
 		var length = ( Target.position-transform.position ) ;	
 
 //		Debug.Log ( "shot a bullet from "+ transform.name ) ;
@@ -66,25 +65,29 @@ class BulletForTurret extends MonoBehaviour {
 		line.SetPosition(1, point02);
 
 		lastTime = Time.time ;
-		yield WaitForSeconds ( 0.1 ) ;
+		yield WaitForSeconds ( 0.2 ) ;
 		line.renderer.enabled = false ;
-		yield WaitForSeconds ( 0.1 ) ;
+		yield WaitForSeconds ( 0.2 ) ;
 		line.renderer.enabled = true ;
-		yield WaitForSeconds ( 0.1) ;
+		yield WaitForSeconds ( 0.2) ;
 		line.renderer.enabled = false ;
-		yield WaitForSeconds ( 0.1 ) ;
+		yield WaitForSeconds ( 0.2 ) ;
 		line.renderer.enabled = true ;
-		yield WaitForSeconds ( 0.1 ) ;
+		yield WaitForSeconds ( 0.2 ) ;
 		line.renderer.enabled = false ;
-		yield WaitForSeconds ( 0.1 ) ;
+		yield WaitForSeconds ( 0.2 ) ;
 		line.renderer.enabled = true ;
-		yield WaitForSeconds ( 0.1 ) ;
+		yield WaitForSeconds ( 0.2 ) ;
 		line.renderer.enabled = false ;
 
-		Physics.Linecast ( transform.position , startPosition , hit );
-		
-		if ( hit.transform.name == "plane" ) 
-			HealthProgressBar.currHealth -= 5 ;
+		if ( Physics.Linecast ( transform.position , Target.position , hit ) )
+			if ( hit.transform.name == "plane" ) 
+			{
+				HealthProgressBar.currHealth -= 1 ;
+				Debug.Log ( "hit by turret	" + transform.name ) ;
+			}
+
+
 	}
 
 }

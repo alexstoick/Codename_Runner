@@ -9,6 +9,7 @@ class CollisionHandler extends MonoBehaviour {
 	static private var bonusesPool: SpawnPool ;
 	
 	static public var bashOn:boolean = false ;
+	static private var pushBackDirection:String ;
 	
 	public var particleEffect:GameObject ;
 	static private var runner:GameObject ;
@@ -100,6 +101,10 @@ class CollisionHandler extends MonoBehaviour {
 	function OnCollisionEnter(CollisionInfo:Collision) 
 	{
 		var name:String = CollisionInfo.contacts[0].otherCollider.name ;
+		var planeHitArea:String = CollisionInfo.contacts[0].thisCollider.name ;
+		
+		if ( planeHitArea.Contains ( "critical" ) )
+			GameOver.Dead ( ) ;
 
 		if ( name.Contains ( "rock") ) 
 			return ;		
