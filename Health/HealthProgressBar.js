@@ -1,0 +1,25 @@
+#pragma strict
+
+class HealthProgressBar extends MonoBehaviour {
+
+	var texInner: Texture2D; 
+	var texCurr: Texture2D; 
+	private var fullRect: Rect = new Rect ( 5 , 150 , 200 , 20 ) ; 
+	var maxHealth: float; 
+	var currHealth: float; 
+	
+	 
+	
+	function OnGUI()
+	{ 
+	   var healthFrac:float = currHealth / 100 ; 
+	   
+	   healthFrac = Mathf.Clamp ( healthFrac , 0 , 100 ) ;
+	   
+	   var currRect = Rect(fullRect.x, fullRect.y, fullRect.width * healthFrac, fullRect.height); 
+	   var innerRect = Rect(fullRect.x, fullRect.y, fullRect.width, fullRect.height); 
+	
+	   GUI.DrawTexture(innerRect, texInner);
+	   GUI.DrawTexture(currRect, texCurr);  
+	}
+}
