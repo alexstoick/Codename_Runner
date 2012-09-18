@@ -46,7 +46,9 @@ class MoveRunnerNew extends MonoBehaviour {
 			case "right": move ( false ) ; break ;
 			case "up": activateBash ( ); break ;
 			case "down": slowdown ( ) ; break ;
-		}
+			case "loopleft": loop ( true ) ; break ;
+			case "loopright": loop ( false ) ; break ;
+ 		}
 	}
 	
 	private function activateBash ( )
@@ -64,11 +66,11 @@ class MoveRunnerNew extends MonoBehaviour {
 	
 	private function slowdown ( )
 	{
-		var renderer:Renderer = runner.gameObject.GetComponentInChildren ( Renderer ) ;
-		renderer.material = materials[2] ;
+//		var renderer:Renderer = runner.gameObject.GetComponentInChildren ( Renderer ) ;
+//		renderer.material = materials[2] ;
 		LoftMovement.setLowSpeed ( ) ;
 		yield WaitForSeconds ( 2.0 ) ;
-		renderer.material = materials[0] ;
+//		renderer.material = materials[0] ;
 		LoftMovement.setNormalSpeed ( );
 	}
 

@@ -75,22 +75,11 @@ class CollisionHandler extends MonoBehaviour {
 	{
 	
 		LoftMovement.setNegativeSpeed ( ) ;
-		var rnd = Random.value ;
-		if ( rnd < 0.5 )
-		{
-			moveRunner.action ( "left" ) ;
-			moveRunner.action ( "left" ) ;
-			moveRunner.action ( "left" ) ;
-			moveRunner.action ( "left" ) ;
 
-		}
-		else
-		{
-			moveRunner.action ( "right" ) ;
-			moveRunner.action ( "right" ) ;
-			moveRunner.action ( "right" ) ;
-			moveRunner.action ( "right" ) ;
-		}
+		moveRunner.action ( "loop" + pushBackDirection ) ;
+		moveRunner.action ( "loop" + pushBackDirection ) ;
+		moveRunner.action ( "loop" + pushBackDirection ) ;
+		moveRunner.action ( "loop" + pushBackDirection ) ;
 		
 		yield WaitForSeconds ( 0.3 ) ;
 		LoftMovement.acceleration = 0 ;
@@ -104,7 +93,17 @@ class CollisionHandler extends MonoBehaviour {
 		var planeHitArea:String = CollisionInfo.contacts[0].thisCollider.name ;
 		
 		if ( planeHitArea.Contains ( "critical" ) )
+		{
 			GameOver.Dead ( ) ;
+			return ;
+		}
+		
+		if ( planeHitArea.Contains ( "right" ) ) 
+			pushBackDirection = "right" ;
+		else
+			if ( planeHitArea.Contains ( "left" ) ) 
+				pushBackDirection = "left" ;
+		
 
 		if ( name.Contains ( "rock") ) 
 			return ;		
