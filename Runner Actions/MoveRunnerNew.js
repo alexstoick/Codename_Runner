@@ -17,10 +17,10 @@ class MoveRunnerNew extends MonoBehaviour {
 	static private var haveToRotate:boolean ;
 	static private var haveToRotateCamera:boolean ;
 
-	
 	static private var endingPosition:Vector3 = Vector3 ( 0 , 0 , 0 ) ;
-	
-	static private var lastTime:double ;
+	static private var doingLoop:int = 0 ;
+	static private var loopEndingPosition:Quaternion = Quaternion ( 0 , 0 , 0 , 0 ) ;
+	static private var startLoopX:float ;
 
 	function Start ( )
 	{
@@ -74,6 +74,20 @@ class MoveRunnerNew extends MonoBehaviour {
 		LoftMovement.setNormalSpeed ( );
 	}
 
+	private function loop ( left:boolean )
+	{
+		var endingPos:Vector3 ;
+		
+		if ( left )
+			endingPos = plane.localRotation.eulerAngles + Vector3 ( 180 , 0 , 0 ) ;
+		else
+			endingPos = plane.localRotation.eulerAngles - Vector3 ( 180 , 0 , 0 ) ;
+		loopEndingPosition = Quaternion.Euler ( Vector3 ( endingPos.x , endingPos.y , endingPos.z ) ) ;
+		Debug.Log ( endingPos + "		" + plane.localRotation.eulerAngles + "		" + loopEndingPosition.eulerAngles ) ;
+		startLoopX = plane.localRotation.eulerAngles.x ;
+		doingLoop = 1 ;
+	}
+	
 	private function move ( left:boolean )
 	{
 		var angle:int ;	
@@ -105,9 +119,7 @@ class MoveRunnerNew extends MonoBehaviour {
 	
 	function delayCameraMovement ( )
 	{
-		//yield WaitForSeconds ( 0.1 ) ;
 		haveToRotateCamera = true ;
-		lastTime = Time.time ;
 	}
 	
 	function Update ( )
@@ -120,6 +132,8 @@ class MoveRunnerNew extends MonoBehaviour {
 			action ( "down" ) ;
 		if ( Input.GetKeyDown ( KeyCode.LeftShift ) )
 			action ( "up" ) ;
+		if ( Input.GetKeyDown ( KeyCode.Backspace ) )
+			action ( "loopleft" ) ;
 			
 		if ( Input.GetKeyDown ( KeyCode.UpArrow ) )
 			LoftMovement.increaseSpeed ( ) ;
@@ -131,13 +145,14 @@ class MoveRunnerNew extends MonoBehaviour {
 			fire ( true ) ;
 		}
 
-		if ( haveToRotate ) 
+		if ( haveToRotate && ! doingLoop ) 
 		{
 		
 			var target:Quaternion = Quaternion.Euler (  Vector3 ( endingPosition.x , endingPosition.y , endingPosition.z ) ) ;
 
 			if ( target.Equals ( sphereGroup.localRotation ) )
 			{
+				Debug.Log ( "hit the value" ) ;
 				haveToRotate = false ;
 				haveToRotateCamera = false ;
 				return ;
@@ -145,9 +160,25 @@ class MoveRunnerNew extends MonoBehaviour {
 		
 			sphereGroup.localRotation = Quaternion.Slerp( sphereGroup.localRotation , target, Time.deltaTime * 4 ) ;//Mathf.Sin( 0.08 * Mathf.PI * 0.5) ) ; 
 		}
-		if ( haveToRotateCamera )
+		if ( haveToRotateCamera && ! doingLoop )
 		{
 			cameraTransform.localRotation = Quaternion.Slerp ( cameraTransform.localRotation , target , Time.deltaTime*3.6 ) ;// Mathf.Sin ( 0.08* Mathf.PI * 0.45 ) ) ;
+		}
+		
+		if ( doingLoop ) 
+		{
+			plane.localRotation = Quaternion.Slerp ( plane.localRotation , loopEndingPosition , Time.deltaTime * 10 ) ;
+			if ( ( ( loopEndingPosition.eulerAngles.x - 5 ) < plane.localRotation.eulerAngles.x  || 
+				plane.localRotation.eulerAngles.x < ( loopEndingPosition.eulerAngles.x + 5) )&& doingLoop == 1 )
+			{
+				loopEndingPosition = Quaternion.Euler ( loopEndingPosition.eulerAngles + Vector3 ( 180f , 0 , 0 ) );
+				doingLoop = 2 ;
+			}
+			if ( ( (startLoopX-5) < plane.localRotation.eulerAngles.x || plane.localRotation.eulerAngles.x < (startLoopX + 5) ) && doingLoop == 2 )
+			{
+				doingLoop = 0 ;
+				Debug.Log ( "stopped loop" ) ;
+			}
 		}
 	}
 	

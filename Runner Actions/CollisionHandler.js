@@ -74,7 +74,20 @@ class CollisionHandler extends MonoBehaviour {
 	function pushRunnerBack ( )
 	{
 	
+		var oppositeDirection:String;
+	
 		LoftMovement.setNegativeSpeed ( ) ;
+	
+		if ( pushBackDirection == "left" ) 
+			oppositeDirection = "right" ;
+		else
+			oppositeDirection = "left" ;
+		
+	
+		moveRunner.action ( oppositeDirection ) ;
+		moveRunner.action ( oppositeDirection ) ;
+		moveRunner.action ( oppositeDirection ) ;
+		moveRunner.action ( oppositeDirection ) ;
 
 		moveRunner.action ( "loop" + pushBackDirection ) ;
 		moveRunner.action ( "loop" + pushBackDirection ) ;
@@ -92,12 +105,7 @@ class CollisionHandler extends MonoBehaviour {
 		var name:String = CollisionInfo.contacts[0].otherCollider.name ;
 		var planeHitArea:String = CollisionInfo.contacts[0].thisCollider.name ;
 		
-		if ( planeHitArea.Contains ( "critical" ) )
-		{
-			GameOver.Dead ( ) ;
-			return ;
-		}
-		
+	
 		if ( planeHitArea.Contains ( "right" ) ) 
 			pushBackDirection = "right" ;
 		else
@@ -146,7 +154,15 @@ class CollisionHandler extends MonoBehaviour {
 		
 		//coliziune cu copac -- viitoare frunza
 		if ( name.Contains ( "Plant") )
+		{
 			pushRunnerBack ( );
+			if ( planeHitArea.Contains ( "critical" ) )
+			{
+				GameOver.Dead ( ) ;
+				return ;
+			}
+
+		}
 		else
 		{
 			ScoreControl.addScore ( -400 ) ;
