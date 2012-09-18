@@ -36,6 +36,7 @@ class BulletForTurret extends MonoBehaviour {
 	{
 	
 	    var hit : RaycastHit;
+	    var startPosition:Vector3 = Target.position ;
 	    Physics.Linecast (transform.position, Target.position, hit) ;
 	    
 	    if ( hit.transform.name != "plane" )
@@ -80,33 +81,10 @@ class BulletForTurret extends MonoBehaviour {
 		yield WaitForSeconds ( 0.1 ) ;
 		line.renderer.enabled = false ;
 
-
+		Physics.Linecast ( transform.position , startPosition , hit );
 		
-
-
-
-/*		Debug.Log ( "can see the plane" ) ;
-		
-		var newRock:Transform;
-		
-		newRock = rocksPool.Spawn ( rockPrefab ) ;
-		newRock.position = transform.position ;
-		var v3RayDirection:Vector3 = Target.position-transform.position;
-		newRock.rigidbody.AddForce(v3RayDirection * 100000 );
-
-/*		newRock.GetComponent ( MoveTurretBullet ).Init() ;
-		
-		yield WaitForSeconds (0.3) ;
-		
-		newRock = rocksPool.Spawn ( rockPrefab ) ;
-		newRock.position = transform.position ;
-		newRock.GetComponent ( MoveTurretBullet ).Init() ;
-		
-		yield WaitForSeconds (0.3) ;
-		
-		newRock = rocksPool.Spawn ( rockPrefab ) ;
-		newRock.position = transform.position ;
-		newRock.GetComponent ( MoveTurretBullet ).Init() ;*/
+		if ( hit.transform.name == "plane" ) 
+			HealthProgressBar.currHealth -= 5 ;
 	}
 
 }

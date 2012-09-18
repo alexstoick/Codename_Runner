@@ -6,9 +6,7 @@ class HealthProgressBar extends MonoBehaviour {
 	var texCurr: Texture2D; 
 	private var fullRect: Rect = new Rect ( 5 , 150 , 200 , 20 ) ; 
 	var maxHealth: float; 
-	var currHealth: float; 
-	
-	 
+	static var currHealth: float = 100.0; 
 	
 	function OnGUI()
 	{ 
