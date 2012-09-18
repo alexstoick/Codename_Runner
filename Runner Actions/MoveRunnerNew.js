@@ -18,9 +18,13 @@ class MoveRunnerNew extends MonoBehaviour {
 	static private var haveToRotateCamera:boolean ;
 
 	static private var endingPosition:Vector3 = Vector3 ( 0 , 0 , 0 ) ;
-	static private var doingLoop:int = 0 ;
+	static public var doingLoop:int = 0 ;
 	static private var loopEndingPosition:Quaternion = Quaternion ( 0 , 0 , 0 , 0 ) ;
 	static private var startLoopX:float ;
+	static private var loopLastTime:double ;
+	static private var endingPos:Vector3 ;
+	static private var loopStartingPosition:Quaternion; 
+
 
 	function Start ( )
 	{
@@ -76,15 +80,19 @@ class MoveRunnerNew extends MonoBehaviour {
 
 	private function loop ( left:boolean )
 	{
-		var endingPos:Vector3 ;
 		
 		if ( left )
 			endingPos = plane.localRotation.eulerAngles + Vector3 ( 180 , 0 , 0 ) ;
 		else
 			endingPos = plane.localRotation.eulerAngles - Vector3 ( 180 , 0 , 0 ) ;
-		loopEndingPosition = Quaternion.Euler ( Vector3 ( endingPos.x , endingPos.y , endingPos.z ) ) ;
+			
+		//loopEndingPosition = Quaternion.Euler ( Vector3 ( endingPos.x , endingPos.y , endingPos.z ) ) ;
+		
+		loopEndingPosition = Quaternion.Euler ( Vector3 ( 180f , 90f , 180f ) ) ;
+		loopStartingPosition = plane.localRotation ;
 		Debug.Log ( endingPos + "		" + plane.localRotation.eulerAngles + "		" + loopEndingPosition.eulerAngles ) ;
 		startLoopX = plane.localRotation.eulerAngles.x ;
+		loopLastTime = Time.time;
 		doingLoop = 1 ;
 	}
 	
@@ -157,28 +165,52 @@ class MoveRunnerNew extends MonoBehaviour {
 				haveToRotateCamera = false ;
 				return ;
 			}
-		
+			Debug.Log ( "rotating big group" );
 			sphereGroup.localRotation = Quaternion.Slerp( sphereGroup.localRotation , target, Time.deltaTime * 4 ) ;//Mathf.Sin( 0.08 * Mathf.PI * 0.5) ) ; 
 		}
 		if ( haveToRotateCamera && ! doingLoop )
 		{
+			Debug.Log ( "rotating camera" );
 			cameraTransform.localRotation = Quaternion.Slerp ( cameraTransform.localRotation , target , Time.deltaTime*3.6 ) ;// Mathf.Sin ( 0.08* Mathf.PI * 0.45 ) ) ;
 		}
 		
 		if ( doingLoop ) 
 		{
-			plane.localRotation = Quaternion.Slerp ( plane.localRotation , loopEndingPosition , Time.deltaTime * 10 ) ;
-			if ( ( ( loopEndingPosition.eulerAngles.x - 5 ) < plane.localRotation.eulerAngles.x  || 
-				plane.localRotation.eulerAngles.x < ( loopEndingPosition.eulerAngles.x + 5) )&& doingLoop == 1 )
+			//plane.localRotation = Quaternion.Slerp ( plane.localRotation , loopEndingPosition , Time.deltaTime * 10 ) ;
+			
+			//plane.localRotation.eulerAngles = Vector3.Slerp ( plane.localRotation.eulerAngles , endingPos , Time.deltaTime * 10 ) ;
+			var value:float = 10f ;
+			
+/*			if ( plane.localRotation.eulerAngles.x >= 90 )
+				value = -10f ;
+			else
+				value = 10f ; */
+
+
+			if ( doingLoop == 1 )
 			{
-				loopEndingPosition = Quaternion.Euler ( loopEndingPosition.eulerAngles + Vector3 ( 180f , 0 , 0 ) );
+				plane.localRotation.eulerAngles.x += value ;
+				plane.localRotation.eulerAngles.y = 90 ;
+				plane.localRotation.eulerAngles.z = 180 ;
+				Debug.Log ( plane.localRotation.eulerAngles.x ) ;
+			}
+			if ( loopLastTime < Time.time )
+				doingLoop = 2 ;
+			
+	/*		
+			if ( ( ( loopEndingPosition.eulerAngles.x - 5 ) < plane.localRotation.eulerAngles.x  || 
+				plane.localRotation.eulerAngles.x < ( loopEndingPosition.eulerAngles.x + 5) )&& doingLoop == 1 && loopLastTime + 0.1 < Time.time )
+			{
+				Debug.Log ( "started part II" ) ;
+				loopEndingPosition = loopStartingPosition ;
+				endingPos += Vector3 ( 180f , 0f , 0f ) ;
 				doingLoop = 2 ;
 			}
 			if ( ( (startLoopX-5) < plane.localRotation.eulerAngles.x || plane.localRotation.eulerAngles.x < (startLoopX + 5) ) && doingLoop == 2 )
 			{
 				doingLoop = 0 ;
 				Debug.Log ( "stopped loop" ) ;
-			}
+			}*/
 		}
 	}
 	
