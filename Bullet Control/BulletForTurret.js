@@ -26,7 +26,7 @@ class BulletForTurret extends MonoBehaviour {
 	{
 		if ( ! transform.gameObject.active )
 			return ;
-		if ( lastTime + 2 < Time.time  )
+		if ( lastTime + 1 < Time.time  )
 		{
 			spawnBullets ( ) ;
 			
@@ -75,6 +75,11 @@ class BulletForTurret extends MonoBehaviour {
 		line.renderer.enabled = true ;
 		yield WaitForSeconds ( 0.1 ) ;
 		line.renderer.enabled = false ;
+		yield WaitForSeconds ( 0.1 ) ;
+		line.renderer.enabled = true ;
+		yield WaitForSeconds ( 0.1 ) ;
+		line.renderer.enabled = false ;
+
 
 		
 
