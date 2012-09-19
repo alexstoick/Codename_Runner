@@ -16,7 +16,6 @@ class GiantControl extends MonoBehaviour {
 		{	
 			distance += ( ( LoftMovement.movementVariation + LoftMovement.acceleration ) - 0.0003 ) * 2500 ;
 			distance = Mathf.Min ( distance , 100 ) ;
-//			Debug.Log ( (LoftMovement.movementVariation + LoftMovement.acceleration)*1000  + " " + distance ) ;
 		}
 		if ( distance < 0 )
 		{

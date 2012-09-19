@@ -23,7 +23,6 @@ class RockMovementOnLoft extends MonoBehaviour {
 			loft = GameObject.Find ( "Loft").GetComponent ( MegaShapeLoft ) ;
 		if ( ! runner )
 			runner = GameObject.Find ( "BigGroup" ).transform ;
-//		copil = transform.GetChild ( 0 ) ;
 	}
 	
 
@@ -32,8 +31,7 @@ class RockMovementOnLoft extends MonoBehaviour {
 	{
 		
 		walk.alpha += LoftMovement.movementVariation + 0.0004 ;
-//		copil.rotation.eulerAngles.z += 0.1 ;
-		//no longer bugging out.
+
 		if ( walk.alpha >= 1 )
 			walk.alpha = -1.0 ;
 		if ( walk.alpha <= -1 )

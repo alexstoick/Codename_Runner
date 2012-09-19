@@ -4,15 +4,6 @@ class StartButton extends MonoBehaviour {
 	
 	static var Started:boolean = false ;
 	
-	static private var moveRunner:MoveRunner ;
-	
-	function Start ( )
-	{
-		if ( ! moveRunner )
-			moveRunner = GameObject. Find ( "BigGroup"). GetComponent ( MoveRunner ) ;
-	}
-
-	
 	function OnGUI()
 	{
 		if ( Started )
