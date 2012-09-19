@@ -52,6 +52,7 @@ class CollisionHandler extends MonoBehaviour {
 			yield WaitForSeconds ( 0.1 ) ;
 		}
 		
+		HealthProgressBar.currHealth -= 30 ;
 		LoftMovement.timeModifier = 0.8 ;
 		LoftMovement.setNormalSpeed ( ) ;
 	}
@@ -68,7 +69,7 @@ class CollisionHandler extends MonoBehaviour {
 		var oppositeDirection:String;
 	
 		LoftMovement.setNegativeSpeed ( ) ;
-	
+		HealthProgressBar.currHealth -= 30 ;	
 		if ( pushBackDirection == "left" ) 
 			oppositeDirection = "right" ;
 		else

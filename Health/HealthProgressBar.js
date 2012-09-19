@@ -10,14 +10,17 @@ class HealthProgressBar extends MonoBehaviour {
 	
 	function OnGUI()
 	{ 
-	   var healthFrac:float = currHealth / 100 ; 
-	   
-	   healthFrac = Mathf.Clamp ( healthFrac , 0 , 100 ) ;
-	   
-	   var currRect = Rect(fullRect.x, fullRect.y, fullRect.width * healthFrac, fullRect.height); 
-	   var innerRect = Rect(fullRect.x, fullRect.y, fullRect.width, fullRect.height); 
-	
-	   GUI.DrawTexture(innerRect, texInner);
-	   GUI.DrawTexture(currRect, texCurr);  
+		var healthFrac:float = currHealth / 100 ; 
+		
+		healthFrac = Mathf.Clamp ( healthFrac , 0 , 100 ) ;
+		
+		var currRect = Rect(fullRect.x, fullRect.y, fullRect.width * healthFrac, fullRect.height); 
+		var innerRect = Rect(fullRect.x, fullRect.y, fullRect.width, fullRect.height); 
+		
+		GUI.DrawTexture(innerRect, texInner);
+		GUI.DrawTexture(currRect, texCurr);  
+		
+		if ( healthFrac == 0 )
+			GameOver.Dead ( ) ;
 	}
 }
