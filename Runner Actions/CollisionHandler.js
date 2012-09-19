@@ -84,10 +84,10 @@ class CollisionHandler extends MonoBehaviour {
 			oppositeDirection = "left" ;
 		
 	
-		moveRunner.action ( oppositeDirection ) ;
-		moveRunner.action ( oppositeDirection ) ;
-		moveRunner.action ( oppositeDirection ) ;
-		moveRunner.action ( oppositeDirection ) ;
+		//moveRunner.action ( oppositeDirection ) ;
+		//moveRunner.action ( oppositeDirection ) ;
+		//moveRunner.action ( oppositeDirection ) ;
+		//moveRunner.action ( oppositeDirection ) ;
 
 		moveRunner.action ( "loop" + pushBackDirection ) ;
 		moveRunner.action ( "loop" + pushBackDirection ) ;

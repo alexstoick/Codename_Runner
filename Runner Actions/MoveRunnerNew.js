@@ -3,8 +3,8 @@ class MoveRunnerNew extends MonoBehaviour {
 	
 	static private var sphereGroup:Transform ;
 	static private var cameraTransform:Transform ;
-	static private var runner:GameObject ;
 	static private var plane:Transform ;
+	static private var planeHolder:Transform ;
 			
 	var materials:Material[] ;
 	//materials[0] = goober
@@ -24,6 +24,8 @@ class MoveRunnerNew extends MonoBehaviour {
 	static private var loopLastTime:double ;
 	static private var endingPos:Vector3 ;
 	static private var loopStartingPosition:Quaternion; 
+	var value:float = -10f ;
+
 
 
 	function Start ( )
@@ -34,12 +36,12 @@ class MoveRunnerNew extends MonoBehaviour {
 			sphereGroup = GameObject.Find ( "BigGroup").transform ;
 		if ( ! plane )
 			plane = GameObject.Find ( "plane" ).transform ;
-		if ( ! runner )
-			runner = GameObject.Find ( "Runner" ) ;
 		if ( ! rocksPool )
 			rocksPool = PoolManager.Pools[ "Rocks" ] ;
 		if ( ! prefab )
 			prefab = rocksPool.prefabs [ "rock_for_loft" ] ;
+		if ( ! planeHolder )
+			planeHolder = GameObject.Find ( "Plane Holder" ).transform ;
 	}
 	
 	public function action ( act:String )
@@ -109,7 +111,8 @@ class MoveRunnerNew extends MonoBehaviour {
 		{
 			angle = -15 ;
 		}
-		ReturnToRotation.StartRotation ( angle * -1 ) ;
+		
+//		ReturnToRotation.StartRotation ( angle * -1 ) ;
 
 		if ( endingPosition == Vector3 ( 0 , 0 , 0 ) ) 
 		{
@@ -179,7 +182,6 @@ class MoveRunnerNew extends MonoBehaviour {
 			//plane.localRotation = Quaternion.Slerp ( plane.localRotation , loopEndingPosition , Time.deltaTime * 10 ) ;
 			
 			//plane.localRotation.eulerAngles = Vector3.Slerp ( plane.localRotation.eulerAngles , endingPos , Time.deltaTime * 10 ) ;
-			var value:float = 10f ;
 			
 /*			if ( plane.localRotation.eulerAngles.x >= 90 )
 				value = -10f ;
@@ -189,12 +191,14 @@ class MoveRunnerNew extends MonoBehaviour {
 
 			if ( doingLoop == 1 )
 			{
-				plane.localRotation.eulerAngles.x += value ;
-				plane.localRotation.eulerAngles.y = 90 ;
-				plane.localRotation.eulerAngles.z = 180 ;
-				Debug.Log ( plane.localRotation.eulerAngles.x ) ;
+				//if ( plane.localRotation.eulerAngles.x == 90)
+				//	value=-10f;
+				planeHolder.localRotation.eulerAngles.x += 10f ;
+				//plane.localRotation.eulerAngles.y = 90 ;
+				//plane.localRotation.eulerAngles.z = 180 ;
+				Debug.Log ( planeHolder.localRotation.eulerAngles.x ) ;
 			}
-			if ( loopLastTime < Time.time )
+			if ( loopLastTime+0.5 < Time.time )
 				doingLoop = 2 ;
 			
 	/*		
