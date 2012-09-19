@@ -176,10 +176,6 @@ class MoveRunnerNew extends MonoBehaviour {
 					return ;
 				}
 				planeHolder.localRotation.eulerAngles.z += planeValue ;
-				//cameraTransform.localRotation.eulerAngles.y += cameraValue ;
-				//if ( cameraTransform.localRotation.eulerAngles.y > 36 )
-				//	cameraValue = -2f ;
-				//Debug.Log ( cameraTransform.localRotation.eulerAngles.y ) ;
 			}
 		}
 	}

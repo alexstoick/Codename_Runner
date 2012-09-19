@@ -79,10 +79,7 @@ class CollisionHandler extends MonoBehaviour {
 		moveRunner.action ( oppositeDirection ) ;
 		moveRunner.action ( oppositeDirection ) ;
 		moveRunner.action ( oppositeDirection ) ;
-
-		moveRunner.action ( "loop" + pushBackDirection ) ;
-		moveRunner.action ( "loop" + pushBackDirection ) ;
-		moveRunner.action ( "loop" + pushBackDirection ) ;
+		yield WaitForSeconds ( 0.1 ) ;
 		moveRunner.action ( "loop" + pushBackDirection ) ;
 		
 		yield WaitForSeconds ( 0.3 ) ;
@@ -96,7 +93,7 @@ class CollisionHandler extends MonoBehaviour {
 		var name:String = CollisionInfo.contacts[0].otherCollider.name ;
 		var planeHitArea:String = CollisionInfo.contacts[0].thisCollider.name ;
 		
-	
+		Debug.Log ( planeHitArea ) ;
 		if ( planeHitArea.Contains ( "right" ) ) 
 			pushBackDirection = "right" ;
 		else
