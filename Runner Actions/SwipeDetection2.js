@@ -73,7 +73,6 @@ class SwipeDetection2 extends MonoBehaviour {
 			
 			if ( delta < 0 )
 			{
-				Debug.Log ( "±±±±±LEFT	: " + delta + " ; time: " + deltaTime + "			velocity: " + velocity ) ;
 
 				moveRunner.action ( "left" ) ;
 				if ( velocity > VELOCITY_THRESHOLD )
@@ -85,7 +84,6 @@ class SwipeDetection2 extends MonoBehaviour {
 			else
 				if (delta > 0 )
 				{
-					Debug.Log ( "±±±±RIGHT	: " + delta + " ; time: " + deltaTime + "			velocity: " + velocity ) ;
 					
 					moveRunner.action ( "right" ) ;
 					if ( velocity > VELOCITY_THRESHOLD )
@@ -184,10 +182,10 @@ class SwipeDetection2 extends MonoBehaviour {
 	{
 		if ( ! MoveRunnerNew.doingLoop )
 		{
-			plane.localRotation.eulerAngles.z  += -1*altitudeModifier*100 ;
-			plane.localPosition.y += altitudeModifier ;
-			plane.localRotation.eulerAngles.z = Mathf.Clamp ( plane.localRotation.eulerAngles.z , 150 , 180 ) ;
-			plane.localPosition.y = Mathf.Clamp ( plane.localPosition.y , -6.5 , -3.5 ) ;
+//			plane.localRotation.eulerAngles.z  += -1*altitudeModifier*100 ;
+//			plane.localPosition.y += altitudeModifier ;
+//			plane.localRotation.eulerAngles.z = Mathf.Clamp ( plane.localRotation.eulerAngles.z , 150 , 180 ) ;
+//			plane.localPosition.y = Mathf.Clamp ( plane.localPosition.y , -6.5 , -3.5 ) ;
 		}
 	
 		if ( Input.touchCount == 0 ) 
