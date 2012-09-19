@@ -108,9 +108,6 @@ class SwipeDetection2 extends MonoBehaviour {
 
 		if ( (delta< - VERTICAL_TOUCH_LENGTH || delta > VERTICAL_TOUCH_LENGTH ) )
 		{	
-			
-//			if ( analyzedDuringMove )
-//					return ;
 			Debug.LogWarning( "from vert:" + delta ) ;
 			if ( delta < 0 )
 			{
@@ -164,17 +161,8 @@ class SwipeDetection2 extends MonoBehaviour {
 				deltaYY *= -1 ;
 				
 			shouldModify = false ;
-//			Debug.Log ( "±±±± V:" + deltaYY + "original:" + deltaY + " H:" + deltaXX + " original:"+ deltaX + "			###" + (Time.time - startingTime) ) ;
-			
-/*
-			if ( deltaYY > 5 ) 
-				HORIZONTAL_TOUCH_LENGTH = 1000 ;
-			else
-				HORIZONTAL_TOUCH_LENGTH = 0 ;
-*/
 		}
 
-//		Debug.Log ( "V: " + deltaY + " H:" + deltaX ) ;
 		analyzeVertically ( deltaY ) ;  
 		analyzeHorizontally ( deltaX , deltaTime ) ;
 	}
@@ -186,8 +174,6 @@ class SwipeDetection2 extends MonoBehaviour {
 		touchPositions.Clear ( ) ;
 		timeOfTouch.Clear ( ) ;
 		touchActive = false ;
-//		HORIZONTAL_TOUCH_LENGTH = 0 ;
-//		VERTICAL_TOUCH_LENGTH = 80 ;
 		shouldModify =true  ;
 		shouldFire = false ;
 		Debug.LogError ( "ended" ) ;

@@ -4,12 +4,11 @@ class LoftMovement extends MonoBehaviour {
 	
 	static var walk:MegaWalkLoft ;
 	static var layer:MegaLoftLayerSimple ;
-	static var speedText:GUIText ;
+	
 	function Start ( )
 	{
 		walk = GetComponent ( MegaWalkLoft ) ;
 		layer = GameObject.Find ( "Loft"). GetComponent ( MegaLoftLayerSimple ) ;
-//		speedText = GameObject.Find ( "SpeedText").guiText ;
 	}
 	
 	public static var acceleration:double = 0.0000 ;
@@ -95,18 +94,14 @@ class LoftMovement extends MonoBehaviour {
 				timeModifier = 5 ;
 			}
 			lastTime = Time.time ;
-		//	Debug.Log ( lastTime ) ;
 		}
 		
 		speed = movementVariation + acceleration ;
-		var acc:float = acceleration * 10000 ;
-//		speedText.text = (movementVariation * 10000f).ToString ( "f0" ) + "		" + (acc).ToString ( "f3" ) ;
 
 		layer.pathStart += ( movementVariation + acceleration ) ;
 		if ( movementVariation) 
 			ScoreControl.addScore ( 0.5) ;
 		
-		//no longer bugging out.
 		if ( layer.pathStart >= 1 )
 			layer.pathStart = -1.0 ;
 	}
