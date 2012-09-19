@@ -5,6 +5,7 @@ class MoveRock extends MonoBehaviour {
 	var particleEffect: GameObject ;
 	static private var rocksPool: SpawnPool ;
 	static private var enemiesPool: SpawnPool ;
+	static private var sentryPool: SpawnPool ;
 	static private var powerUp : PowerUp ;
 	
 	function Start ( )
@@ -13,6 +14,8 @@ class MoveRock extends MonoBehaviour {
 			rocksPool = PoolManager.Pools [ "Rocks" ] ;
 		if ( ! enemiesPool )
 			enemiesPool = PoolManager.Pools["Monsters"] ;
+		if ( ! sentryPool )
+			sentryPool = PoolManager.Pools [ "Sentry" ] ;
 		if ( ! powerUp)
 			powerUp = GameObject.Find ( "Power Up Control").GetComponent ( PowerUp ) ;
 	}
@@ -40,7 +43,12 @@ class MoveRock extends MonoBehaviour {
 			rocksPool. Despawn ( transform.parent.parent ) ;
 			return ;
 		}
-			
+		
+		if ( cname.Contains ( "sentry" ) )
+		{
+			sentryPool.Despawn ( CollisionInfo.contacts[0].otherCollider.gameObject.transform.parent ) ;
+			return ;
+		}	
 		
 		if ( cname == "MONSTER")
 		{
