@@ -19,12 +19,9 @@ class MoveRunnerNew extends MonoBehaviour {
 
 	static private var endingPosition:Vector3 = Vector3 ( 0 , 0 , 0 ) ;
 	static public var doingLoop:int = 0 ;
-	static private var loopEndingPosition:Quaternion = Quaternion ( 0 , 0 , 0 , 0 ) ;
-	static private var startLoopX:float ;
-	static private var loopLastTime:double ;
-	static private var endingPos:Vector3 ;
-	static private var loopStartingPosition:Quaternion; 
-	var value:float = -10f ;
+	
+	static private var cameraValue:float ;
+	static private var planeValue:float ;
 
 
 
@@ -84,17 +81,11 @@ class MoveRunnerNew extends MonoBehaviour {
 	{
 		
 		if ( left )
-			endingPos = plane.localRotation.eulerAngles + Vector3 ( 180 , 0 , 0 ) ;
+			planeValue = 10f ;
 		else
-			endingPos = plane.localRotation.eulerAngles - Vector3 ( 180 , 0 , 0 ) ;
-			
-		//loopEndingPosition = Quaternion.Euler ( Vector3 ( endingPos.x , endingPos.y , endingPos.z ) ) ;
-		
-		loopEndingPosition = Quaternion.Euler ( Vector3 ( 180f , 90f , 180f ) ) ;
-		loopStartingPosition = plane.localRotation ;
-		Debug.Log ( endingPos + "		" + plane.localRotation.eulerAngles + "		" + loopEndingPosition.eulerAngles ) ;
-		startLoopX = plane.localRotation.eulerAngles.x ;
-		loopLastTime = Time.time;
+			planeValue = -10f ;
+
+		cameraValue = 2f ;
 		doingLoop = 1 ;
 	}
 	
@@ -179,42 +170,16 @@ class MoveRunnerNew extends MonoBehaviour {
 		
 		if ( doingLoop ) 
 		{
-			//plane.localRotation = Quaternion.Slerp ( plane.localRotation , loopEndingPosition , Time.deltaTime * 10 ) ;
-			
-			//plane.localRotation.eulerAngles = Vector3.Slerp ( plane.localRotation.eulerAngles , endingPos , Time.deltaTime * 10 ) ;
-			
-/*			if ( plane.localRotation.eulerAngles.x >= 90 )
-				value = -10f ;
-			else
-				value = 10f ; */
-
-
 			if ( doingLoop == 1 )
 			{
-				//if ( plane.localRotation.eulerAngles.x == 90)
-				//	value=-10f;
-				planeHolder.localRotation.eulerAngles.x += 10f ;
-				//plane.localRotation.eulerAngles.y = 90 ;
-				//plane.localRotation.eulerAngles.z = 180 ;
-				Debug.Log ( planeHolder.localRotation.eulerAngles.x ) ;
+				if ( planeHolder.localRotation.eulerAngles.z >= 345 )
+					doingLoop = 0 ;
+				planeHolder.localRotation.eulerAngles.z += planeValue ;
+				//cameraTransform.localRotation.eulerAngles.y += cameraValue ;
+				//if ( cameraTransform.localRotation.eulerAngles.y > 36 )
+				//	cameraValue = -2f ;
+				//Debug.Log ( cameraTransform.localRotation.eulerAngles.y ) ;
 			}
-			if ( loopLastTime+0.5 < Time.time )
-				doingLoop = 2 ;
-			
-	/*		
-			if ( ( ( loopEndingPosition.eulerAngles.x - 5 ) < plane.localRotation.eulerAngles.x  || 
-				plane.localRotation.eulerAngles.x < ( loopEndingPosition.eulerAngles.x + 5) )&& doingLoop == 1 && loopLastTime + 0.1 < Time.time )
-			{
-				Debug.Log ( "started part II" ) ;
-				loopEndingPosition = loopStartingPosition ;
-				endingPos += Vector3 ( 180f , 0f , 0f ) ;
-				doingLoop = 2 ;
-			}
-			if ( ( (startLoopX-5) < plane.localRotation.eulerAngles.x || plane.localRotation.eulerAngles.x < (startLoopX + 5) ) && doingLoop == 2 )
-			{
-				doingLoop = 0 ;
-				Debug.Log ( "stopped loop" ) ;
-			}*/
 		}
 	}
 	
