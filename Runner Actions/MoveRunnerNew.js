@@ -81,12 +81,18 @@ class MoveRunnerNew extends MonoBehaviour {
 	{
 		
 		if ( left )
+		{
 			planeValue = 10f ;
+			doingLoop = 1 ;
+		}
 		else
+		{
 			planeValue = -10f ;
+			doingLoop = 2 ;
+		}
 
 		cameraValue = 2f ;
-		doingLoop = 1 ;
+		
 	}
 	
 	private function move ( left:boolean )
@@ -135,7 +141,7 @@ class MoveRunnerNew extends MonoBehaviour {
 		if ( Input.GetKeyDown ( KeyCode.LeftShift ) )
 			action ( "up" ) ;
 		if ( Input.GetKeyDown ( KeyCode.Backspace ) )
-			action ( "loopleft" ) ;
+			action ( "loopright" ) ;
 			
 		if ( Input.GetKeyDown ( KeyCode.UpArrow ) )
 			LoftMovement.increaseSpeed ( ) ;
@@ -158,11 +164,11 @@ class MoveRunnerNew extends MonoBehaviour {
 				haveToRotateCamera = false ;
 				return ;
 			}
-			sphereGroup.localRotation = Quaternion.Slerp( sphereGroup.localRotation , target, Time.deltaTime * 4 ) ;//Mathf.Sin( 0.08 * Mathf.PI * 0.5) ) ; 
+			sphereGroup.localRotation = Quaternion.Slerp( sphereGroup.localRotation , target, Time.deltaTime * 4 ) ;
 		}
 		if ( haveToRotateCamera && ! doingLoop )
 		{
-			cameraTransform.localRotation = Quaternion.Slerp ( cameraTransform.localRotation , target , Time.deltaTime*3.6 ) ;// Mathf.Sin ( 0.08* Mathf.PI * 0.45 ) ) ;
+			cameraTransform.localRotation = Quaternion.Slerp ( cameraTransform.localRotation , target , Time.deltaTime*3.6 ) ;
 		}
 		
 		if ( doingLoop ) 
@@ -176,6 +182,16 @@ class MoveRunnerNew extends MonoBehaviour {
 					return ;
 				}
 				planeHolder.localRotation.eulerAngles.z += planeValue ;
+			}
+			else
+			{
+				planeHolder.localRotation.eulerAngles.z += planeValue ;
+				if ( planeHolder.localRotation.eulerAngles.z < 10 )
+				{
+					planeHolder.localRotation.eulerAngles.z = 0 ;
+					doingLoop = 0 ;
+					return ;
+				}
 			}
 		}
 	}

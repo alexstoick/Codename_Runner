@@ -94,6 +94,14 @@ class CollisionHandler extends MonoBehaviour {
 		var planeHitArea:String = CollisionInfo.contacts[0].thisCollider.name ;
 		
 		Debug.Log ( planeHitArea ) ;
+		
+		if ( planeHitArea.Contains ( "critical" ) )
+		{
+			GameOver.Dead ( ) ;
+			return ;
+		}
+
+		
 		if ( planeHitArea.Contains ( "right" ) ) 
 			pushBackDirection = "right" ;
 		else
@@ -144,12 +152,6 @@ class CollisionHandler extends MonoBehaviour {
 		if ( name.Contains ( "Plant") )
 		{
 			pushRunnerBack ( );
-			if ( planeHitArea.Contains ( "critical" ) )
-			{
-				GameOver.Dead ( ) ;
-				return ;
-			}
-
 		}
 		else
 		{
