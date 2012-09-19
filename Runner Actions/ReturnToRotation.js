@@ -7,7 +7,7 @@ class ReturnToRotation extends MonoBehaviour {
 	static var doRotate:boolean = false ;
 	static var lastTime:double ;
 
-	static function StartRotation ( xRot:int , abc:boolean)
+	static function StartRotation ( xRot:int )
 	{
 
 		targetRotation.eulerAngles.x += xRot ;

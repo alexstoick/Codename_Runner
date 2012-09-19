@@ -103,7 +103,7 @@ class MoveRunnerNew extends MonoBehaviour {
 			angle = -15 ;
 		}
 		
-//		ReturnToRotation.StartRotation ( angle * -1 ) ;
+		ReturnToRotation.StartRotation ( angle * -1 ) ;
 
 		if ( endingPosition == Vector3 ( 0 , 0 , 0 ) ) 
 		{
@@ -154,17 +154,14 @@ class MoveRunnerNew extends MonoBehaviour {
 
 			if ( target.Equals ( sphereGroup.localRotation ) )
 			{
-				Debug.Log ( "hit the value" ) ;
 				haveToRotate = false ;
 				haveToRotateCamera = false ;
 				return ;
 			}
-			Debug.Log ( "rotating big group" );
 			sphereGroup.localRotation = Quaternion.Slerp( sphereGroup.localRotation , target, Time.deltaTime * 4 ) ;//Mathf.Sin( 0.08 * Mathf.PI * 0.5) ) ; 
 		}
 		if ( haveToRotateCamera && ! doingLoop )
 		{
-			Debug.Log ( "rotating camera" );
 			cameraTransform.localRotation = Quaternion.Slerp ( cameraTransform.localRotation , target , Time.deltaTime*3.6 ) ;// Mathf.Sin ( 0.08* Mathf.PI * 0.45 ) ) ;
 		}
 		
@@ -173,7 +170,11 @@ class MoveRunnerNew extends MonoBehaviour {
 			if ( doingLoop == 1 )
 			{
 				if ( planeHolder.localRotation.eulerAngles.z >= 345 )
+				{
 					doingLoop = 0 ;
+					planeHolder.localRotation.eulerAngles.z = 360 ;
+					return ;
+				}
 				planeHolder.localRotation.eulerAngles.z += planeValue ;
 				//cameraTransform.localRotation.eulerAngles.y += cameraValue ;
 				//if ( cameraTransform.localRotation.eulerAngles.y > 36 )

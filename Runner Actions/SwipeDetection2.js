@@ -182,10 +182,10 @@ class SwipeDetection2 extends MonoBehaviour {
 	{
 		if ( ! MoveRunnerNew.doingLoop )
 		{
-//			plane.localRotation.eulerAngles.z  += -1*altitudeModifier*100 ;
-//			plane.localPosition.y += altitudeModifier ;
-//			plane.localRotation.eulerAngles.z = Mathf.Clamp ( plane.localRotation.eulerAngles.z , 150 , 180 ) ;
-//			plane.localPosition.y = Mathf.Clamp ( plane.localPosition.y , -6.5 , -3.5 ) ;
+			plane.localRotation.eulerAngles.z  += -1*altitudeModifier*100 ;
+			plane.localPosition.y += altitudeModifier ;
+			plane.localRotation.eulerAngles.z = Mathf.Clamp ( plane.localRotation.eulerAngles.z , 150 , 180 ) ;
+			plane.localPosition.y = Mathf.Clamp ( plane.localPosition.y , -3 , 0 ) ;
 		}
 	
 		if ( Input.touchCount == 0 ) 
