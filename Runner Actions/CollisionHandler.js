@@ -94,14 +94,6 @@ class CollisionHandler extends MonoBehaviour {
 		var name:String = CollisionInfo.contacts[0].otherCollider.name ;
 		var planeHitArea:String = CollisionInfo.contacts[0].thisCollider.name ;
 		
-		Debug.Log ( planeHitArea ) ;
-		
-		if ( planeHitArea.Contains ( "critical" ) )
-		{
-			GameOver.Dead ( ) ;
-			return ;
-		}
-
 		
 		if ( planeHitArea.Contains ( "right" ) ) 
 			pushBackDirection = "right" ;
@@ -139,6 +131,18 @@ class CollisionHandler extends MonoBehaviour {
 			return ;
 		}
 		
+		if ( name.Contains ( "health" ) ) 
+		{
+			HealthProgressBar.currHealth = 100 ;
+			return ;
+		}
+				
+		if ( planeHitArea.Contains ( "critical" ) )
+		{
+			GameOver.Dead ( ) ;
+			return ;
+		}
+
 		if ( name == "MONSTER" )
 		{
 			parent = CollisionInfo.contacts[0].otherCollider.gameObject.transform.parent.transform ;
