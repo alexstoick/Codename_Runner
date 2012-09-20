@@ -10,9 +10,8 @@ class HealthProgressBar extends MonoBehaviour {
 	
 	function OnGUI()
 	{ 
+		currHealth = Mathf.Clamp ( currHealth , 0 , 100 ) ;
 		var healthFrac:float = currHealth / 100 ; 
-		
-		healthFrac = Mathf.Clamp ( healthFrac , 0 , 1 ) ;
 		
 		var currRect = Rect(fullRect.x, fullRect.y, fullRect.width * healthFrac, fullRect.height); 
 		var innerRect = Rect(fullRect.x, fullRect.y, fullRect.width, fullRect.height); 
