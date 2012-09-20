@@ -36,7 +36,7 @@ class SpawnGasTank extends MonoBehaviour {
 	{
 		onCooldown = true ;
 		var extraTime = Mathf.Max ( ( 0.0003 / LoftMovement.movementVariation ) , 1 ) ;
-		yield WaitForSeconds ( 25 * Mathf.Min ( extraTime , 3 ) ) ;
+		yield WaitForSeconds ( 40 * Mathf.Min ( extraTime , 3 ) ) ;
 		onCooldown = false ;
 	}
 }
