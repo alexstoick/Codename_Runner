@@ -12,7 +12,7 @@ class HealthProgressBar extends MonoBehaviour {
 	{ 
 		var healthFrac:float = currHealth / 100 ; 
 		
-		healthFrac = Mathf.Clamp ( healthFrac , 0 , 100 ) ;
+		healthFrac = Mathf.Clamp ( healthFrac , 0 , 1 ) ;
 		
 		var currRect = Rect(fullRect.x, fullRect.y, fullRect.width * healthFrac, fullRect.height); 
 		var innerRect = Rect(fullRect.x, fullRect.y, fullRect.width, fullRect.height); 

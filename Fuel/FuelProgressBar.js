@@ -22,8 +22,8 @@ class FuelProgressBar extends MonoBehaviour {
 	function OnGUI()
 	{ 
 		var fuelFrac:float = currFuel / 100f ; 
-		
-		fuelFrac  = Mathf.Clamp ( fuelFrac  , 0 , 100f ) ;
+
+		fuelFrac  = Mathf.Clamp ( fuelFrac  , 0 , 1 ) ;
 		
 		var currRect = Rect(fullRect.x, fullRect.y, fullRect.width * fuelFrac , fullRect.height); 
 		var innerRect = Rect(fullRect.x, fullRect.y, fullRect.width, fullRect.height); 

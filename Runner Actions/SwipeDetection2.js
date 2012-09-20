@@ -41,7 +41,6 @@ class SwipeDetection2 extends MonoBehaviour {
 		timeOfTouch.push ( Time.time ) ;
 		startingTime = Time.time ;
 		analyzedDuringMove = false ;
-		Debug.LogError ( "began" ) ;
 		touchActive = true ;
 		modifyAltitude ( ) ;
 	}
@@ -106,7 +105,6 @@ class SwipeDetection2 extends MonoBehaviour {
 
 		if ( (delta< - VERTICAL_TOUCH_LENGTH || delta > VERTICAL_TOUCH_LENGTH ) )
 		{	
-			Debug.LogWarning( "from vert:" + delta ) ;
 			if ( delta < 0 )
 			{
 				moveRunner.action ( "down" ) ;
@@ -174,7 +172,6 @@ class SwipeDetection2 extends MonoBehaviour {
 		touchActive = false ;
 		shouldModify =true  ;
 		shouldFire = false ;
-		Debug.LogError ( "ended" ) ;
 		altitudeModifier = -0.007 ;
 	}
 
