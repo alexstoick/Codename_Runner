@@ -134,7 +134,13 @@ class CollisionHandler extends MonoBehaviour {
 		
 		if ( name.Contains ( "health" ) ) 
 		{
-			HealthProgressBar.currHealth = 100 ;
+			HealthProgressBar.currHealth += 30 ;
+			return ;
+		}
+		
+		if ( name.Contains ( "gas" ) )
+		{
+			FuelProgressBar.currFuel += 15 ;
 			return ;
 		}
 				
