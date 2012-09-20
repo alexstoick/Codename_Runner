@@ -80,14 +80,12 @@ class BulletForTurret extends MonoBehaviour {
 		yield WaitForSeconds ( 0.2 ) ;
 		line.renderer.enabled = false ;
 
-		if ( Physics.Linecast ( transform.position , Target.position , hit ) )
-			if ( hit.transform.name == "plane" ) 
-			{
-				HealthProgressBar.currHealth -= 5 ;
-				Debug.Log ( HealthProgressBar.currHealth ) ;
-			}
-
-
+		if ( transform.gameObject.active )
+			if ( Physics.Linecast ( transform.position , Target.position , hit ) )
+				if ( hit.transform.name == "plane" ) 
+				{
+					HealthProgressBar.currHealth -= 3 ;
+					Debug.Log ( HealthProgressBar.currHealth ) ;
+				}
 	}
-
 }
