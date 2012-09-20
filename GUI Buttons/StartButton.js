@@ -16,6 +16,7 @@ class StartButton extends MonoBehaviour {
 			LoftMovement.isDead = false ;
 			GiantControl.distance = 100 ;
 			HealthProgressBar.currHealth = 100 ;
+			FuelProgressBar.currFuel = 100 ;
 			LoftMovement.acceleration = 0.0000 ;
 			LoftMovement.setNormalSpeed ( ) ;
 		}

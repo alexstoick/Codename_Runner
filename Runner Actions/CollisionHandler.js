@@ -94,6 +94,7 @@ class CollisionHandler extends MonoBehaviour {
 		var name:String = CollisionInfo.contacts[0].otherCollider.name ;
 		var planeHitArea:String = CollisionInfo.contacts[0].thisCollider.name ;
 		
+		Debug.Log ( planeHitArea + "		" + Time.time ) ;
 		
 		if ( planeHitArea.Contains ( "right" ) ) 
 			pushBackDirection = "right" ;
