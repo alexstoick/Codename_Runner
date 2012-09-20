@@ -89,7 +89,6 @@ class LoftMovement extends MonoBehaviour {
 			}
 			else
 			{
-				Debug.Log ( "creste mai incet" ) ;
 				acceleration += 0.00001 ;
 				timeModifier = 5 ;
 			}

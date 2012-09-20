@@ -82,13 +82,13 @@ class MoveRunnerNew extends MonoBehaviour {
 		
 		if ( left )
 		{
-			planeValue = 10f ;
-			doingLoop = 1 ;
+			planeValue = -10f ;
+			doingLoop = 2 ;
 		}
 		else
 		{
-			planeValue = -10f ;
-			doingLoop = 2 ;
+			planeValue = 10f ;
+			doingLoop = 1 ;
 		}
 
 		cameraValue = 2f ;

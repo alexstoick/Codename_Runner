@@ -26,7 +26,7 @@ class BulletForTurret extends MonoBehaviour {
 	{
 		if ( ! transform.gameObject.active )
 			return ;
-		if ( lastTime + 1 < Time.time  )
+		if ( lastTime + 5 < Time.time  )
 		{
 			spawnBullets ( ) ;
 			
@@ -83,8 +83,8 @@ class BulletForTurret extends MonoBehaviour {
 		if ( Physics.Linecast ( transform.position , Target.position , hit ) )
 			if ( hit.transform.name == "plane" ) 
 			{
-				HealthProgressBar.currHealth -= 1 ;
-				Debug.Log ( "hit by turret	" + transform.name ) ;
+				HealthProgressBar.currHealth -= 5 ;
+				Debug.Log ( HealthProgressBar.currHealth ) ;
 			}
 
 

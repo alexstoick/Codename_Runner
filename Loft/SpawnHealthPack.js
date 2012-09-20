@@ -24,6 +24,7 @@ class SpawnHealthPack extends MonoBehaviour {
 
 		if ( ! onCooldown )
 		{
+			Debug.Log ( "spawned health pack" + Time.time ) ;
 			var newHealthPack = healthPackPool.Spawn ( prefab ) ;
 			var spawn = newHealthPack.GetComponent ( SpawnOnLoft ) ;
 			spawn.Init ( ) ;
@@ -35,7 +36,7 @@ class SpawnHealthPack extends MonoBehaviour {
 	{
 		onCooldown = true ;
 		var extraTime = Mathf.Max ( ( 0.0003 / LoftMovement.movementVariation ) , 1 ) ;
-		yield WaitForSeconds ( 40 * Mathf.Min ( extraTime , 3 ) ) ;
+		yield WaitForSeconds ( 20 * Mathf.Min ( extraTime , 3 ) ) ;
 		onCooldown = false ;
 	}
 }
