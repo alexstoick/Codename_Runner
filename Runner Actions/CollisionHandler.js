@@ -68,7 +68,7 @@ class CollisionHandler extends MonoBehaviour {
 	
 		var oppositeDirection:String;
 	
-		LoftMovement.setNegativeSpeed ( ) ;
+		//LoftMovement.setNegativeSpeed ( ) ;
 		HealthProgressBar.currHealth -= 30 ;	
 		if ( pushBackDirection == "left" ) 
 			oppositeDirection = "right" ;
@@ -76,10 +76,10 @@ class CollisionHandler extends MonoBehaviour {
 			oppositeDirection = "left" ;
 		
 	
-		moveRunner.action ( oppositeDirection ) ;
-		moveRunner.action ( oppositeDirection ) ;
-		moveRunner.action ( oppositeDirection ) ;
-		moveRunner.action ( oppositeDirection ) ;
+		//moveRunner.action ( oppositeDirection ) ;
+		//moveRunner.action ( oppositeDirection ) ;
+		//moveRunner.action ( oppositeDirection ) ;
+		//moveRunner.action ( oppositeDirection ) ;
 		yield WaitForSeconds ( 0.1 ) ;
 		moveRunner.action ( "loop" + pushBackDirection ) ;
 		
