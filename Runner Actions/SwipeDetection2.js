@@ -47,7 +47,7 @@ class SwipeDetection2 extends MonoBehaviour {
 	
 	function modifyAltitude ( )
 	{
-		yield WaitForSeconds (0.3) ;
+		yield WaitForSeconds (0.7) ;
 		if ( touchActive )
 		altitudeModifier = 0.007 ;
 	}
