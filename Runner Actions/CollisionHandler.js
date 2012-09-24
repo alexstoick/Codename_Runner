@@ -140,7 +140,7 @@ class CollisionHandler extends MonoBehaviour {
 		
 		if ( name.Contains ( "gas" ) )
 		{
-			FuelProgressBar.currFuel += 15 ;
+			FuelProgressBar.currFuel += 40 ;
 			return ;
 		}
 				
