@@ -46,7 +46,7 @@ class BulletForTurret extends MonoBehaviour {
 	    
    		if ( Physics.Linecast ( transform.position , raycastPosition , hit ) )
 	    {     	
-   			if ( hit.transform.name == "Loft" )
+   			if ( hit.transform.name == "Loft" || hit.transform.name.Contains ( "Plant" ) )
    				return ;
 			if ( hit.transform.name.Contains ( "plane" ) )
     		{
