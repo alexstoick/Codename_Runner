@@ -44,15 +44,20 @@ class MoveRock extends MonoBehaviour {
 			return ;
 		}
 		
+		child = CollisionInfo.contacts[0].otherCollider.gameObject.transform ;
+
+		
 		if ( cname.Contains ( "sentry" ) )
 		{
+		
+			createParticleEffect ( child.position , child.rotation ) ;
 			sentryPool.Despawn ( CollisionInfo.contacts[0].otherCollider.gameObject.transform.parent ) ;
 			return ;
 		}	
 		
 		if ( cname == "MONSTER")
 		{
-					child = CollisionInfo.contacts[0].otherCollider.gameObject.transform ;
+
 					
 					enemiesPool.Despawn ( child.parent.parent ) ;
 					
