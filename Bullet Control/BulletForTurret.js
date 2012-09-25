@@ -56,7 +56,7 @@ class BulletForTurret extends MonoBehaviour {
    				return ;
 			if ( hit.transform.name.Contains ( "plane" ) )
     		{
-				HealthProgressBar.currHealth -= 0.5 ;
+				HealthProgressBar.currHealth -= 1 ;
 				Debug.Log ( "hit by turret:" + HealthProgressBar.currHealth ) ;
 				//ring of smoke + sunet
 				return ;
