@@ -7,6 +7,7 @@ class BulletForTurret extends MonoBehaviour {
 	private var rockPrefab:Transform ;
 	private var lastTime:double = -10.000 ;
 	private var line:LineRenderer ;
+	private var muzzleFlash:Transform ;
 	var aMaterial : Material;
 	
 	function Start  ( )
@@ -17,7 +18,10 @@ class BulletForTurret extends MonoBehaviour {
 			rocksPool = PoolManager. Pools ["Rocks"] ;
 		if ( ! rockPrefab )
 			rockPrefab = rocksPool.prefabs[ "rock_for_loft_2" ] ;
+		if ( ! muzzleFlash )
+			muzzleFlash = transform.gameObject.GetComponentsInChildren(Transform)[4] ;
 			
+		Debug.Log ( muzzleFlash ) ;			
 		line = this.GetComponent(LineRenderer);
 
 	}
@@ -26,7 +30,7 @@ class BulletForTurret extends MonoBehaviour {
 	{
 		if ( ! transform.gameObject.active )
 			return ;
-		if ( lastTime + 0.3 < Time.time  )
+		if ( lastTime + 0.15 < Time.time  )
 		{
 			spawnBullets ( ) ;
 			
@@ -35,23 +39,27 @@ class BulletForTurret extends MonoBehaviour {
 	
 	function setRendererFalse ( )
 	{
-		yield WaitForSeconds ( 0.25 ) ;
+		yield WaitForSeconds ( 0.1) ;
 		line.renderer.enabled = false ;
+		muzzleFlash.renderer.enabled = false ;
 	}
 	function spawnBullets ( )
 	{
 	
 	    var hit : RaycastHit;
-	    var raycastPosition:Vector3 = Target.position + Vector3 ( Random.Range ( -1 , 1 ) , Random.Range ( -1 , 1 ) , Random.Range ( -1 , 1 ) );
+	    var raycastPosition:Vector3 = Target.position + Vector3 ( Random.Range ( 0 , 3 ) , Random.Range ( 0 , 3 ) , Random.Range ( 0 , 3 ) );
 	    
    		if ( Physics.Linecast ( transform.position , raycastPosition , hit ) )
 	    {     	
+	    	Debug.Log ( hit.transform.name ) ;
    			if ( hit.transform.name == "Loft" || hit.transform.name.Contains ( "Plant" ) )
    				return ;
 			if ( hit.transform.name.Contains ( "plane" ) )
     		{
 				HealthProgressBar.currHealth -= 2 ;
 				Debug.Log ( "hit by turret:" + HealthProgressBar.currHealth ) ;
+				//ring of smoke + sunet
+				return ;
 			}
 	  	}
 
@@ -59,19 +67,21 @@ class BulletForTurret extends MonoBehaviour {
 		var startPos:Vector3 = transform.position ;
 		var length = ( raycastPosition - startPos ) ;	
 
-		var point01:Vector3 = startPos + length * Random.Range ( 0.60 , 0.7 ) ;
-		var point02:Vector3 = startPos + length * Random.Range ( 0.75 , 0.9 );	
+		var point01:Vector3 = startPos + length * Random.Range ( 0.9 , 0.95 ) ;
+		var point02:Vector3 = point01 + length * 0.05 ;	
 
 		line.SetWidth( 0.03 , 0.03 );
 		line.SetVertexCount(2);
 		line.material = aMaterial;
+		muzzleFlash.renderer.enabled = true ;
 		
 		line.renderer.enabled = true;
 		line.SetPosition(0, point01);
 		line.SetPosition(1, point02);
-		
+
+		lastTime = Time.time ;			
 	   	setRendererFalse ( );
-	   	lastTime = Time.time ;
+
 /*
 	    if ( Physics.Linecast (transform.position, Target.position, hit) )
 		    if ( hit.transform.name != "plane" )
