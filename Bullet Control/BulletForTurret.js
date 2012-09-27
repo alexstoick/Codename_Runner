@@ -28,7 +28,7 @@ class BulletForTurret extends MonoBehaviour {
 	{
 		if ( ! transform.gameObject.active )
 			return ;
-		if ( lastTime + 0.3 < Time.time  )
+		if ( lastTime + 0.1 < Time.time  )
 		{
 			spawnBullets ( ) ;
 			
@@ -45,14 +45,14 @@ class BulletForTurret extends MonoBehaviour {
 	{
 	
 	    var hit : RaycastHit;
-	    var raycastPosition:Vector3 = Target.position + Vector3 ( Random.Range ( 3 , 8 ) , Random.Range ( 0  , 3 ) , Random.Range ( 0 , 3 ) );
+	    var raycastPosition:Vector3 = Target.position ;//+ Vector3 ( Random.Range ( -1 , 1 ) , Random.Range ( -1  , 1 ) , Random.Range ( -1 , 1 ) );
 	    
 	
 		var startPos:Vector3 = transform.position ;
 		var length = ( raycastPosition - startPos ) ;	
 
 		var point01:Vector3 = startPos + Vector3 ( Random.Range ( -3 , 3 ) , Random.Range ( -3 , 3 ) , Random.Range ( -3 , 3 ) ) ;
-		var point02:Vector3 = raycastPosition ;
+		var point02:Vector3 = raycastPosition + length ;
 		
 		//Spawning rock at point01 and then gonna animate it towards point02.
 		

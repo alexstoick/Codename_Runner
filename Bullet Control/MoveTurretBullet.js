@@ -32,4 +32,14 @@ class MoveTurretBullet extends MonoBehaviour {
 			transform.rotation = Quaternion ( 0 , 0 , 0 , 0 ) ;
 		}
 	}
+	
+	function OnCollisionEnter(CollisionInfo:Collision) 
+	{
+		var name:String = CollisionInfo.contacts[0].otherCollider.name ;
+		
+		if ( name == "Loft" || name.Contains ( "Plant" ) )
+		{
+			rocksPool. Despawn ( transform ) ;
+		}
+	}
 }

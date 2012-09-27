@@ -51,7 +51,7 @@ class CollisionHandler extends MonoBehaviour {
 			//should blink.
 			yield WaitForSeconds ( 0.1 ) ;
 		}
-		
+		Debug.Log ( "blink runner" ) ;
 		HealthProgressBar.currHealth -= 30 ;
 		LoftMovement.timeModifier = 0.8 ;
 		LoftMovement.setNormalSpeed ( ) ;
@@ -69,6 +69,7 @@ class CollisionHandler extends MonoBehaviour {
 		var oppositeDirection:String;
 	
 		//LoftMovement.setNegativeSpeed ( ) ;
+		Debug.Log ( "push Runner Back" ) ;
 		HealthProgressBar.currHealth -= 30 ;	
 		if ( pushBackDirection == "left" ) 
 			oppositeDirection = "right" ;
@@ -104,7 +105,12 @@ class CollisionHandler extends MonoBehaviour {
 		
 
 		if ( name.Contains ( "rock") ) 
-			return ;		
+		{
+			Debug.Log ( "hit by rock" ) ;
+			HealthProgressBar.currHealth -= 4 ;
+			return ;
+		}
+					
 
 		if ( name == "ammoBox" ) 
 		{
@@ -159,16 +165,12 @@ class CollisionHandler extends MonoBehaviour {
 			blinkRunner ( ) ;
 			return ;
 		}
-		
+
 		//coliziune cu copac -- viitoare frunza
 		if ( name.Contains ( "Plant") )
 		{
 			pushRunnerBack ( );
-		}
-		else
-		{
-			ScoreControl.addScore ( -400 ) ;
-			blinkRunner () ;
+			return ;
 		}
 	}
 }
