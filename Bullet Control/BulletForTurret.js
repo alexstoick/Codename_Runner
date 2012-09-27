@@ -21,16 +21,14 @@ class BulletForTurret extends MonoBehaviour {
 		if ( ! muzzleFlash )
 			muzzleFlash = transform.gameObject.GetComponentsInChildren(Transform)[4] ;
 			
-		Debug.Log ( muzzleFlash ) ;			
 		line = this.GetComponent(LineRenderer);
-
 	}
 
 	function Update ( )
 	{
 		if ( ! transform.gameObject.active )
 			return ;
-		if ( lastTime + 0.15 < Time.time  )
+		if ( lastTime + 0.5 < Time.time  )
 		{
 			spawnBullets ( ) ;
 			
@@ -47,9 +45,9 @@ class BulletForTurret extends MonoBehaviour {
 	{
 	
 	    var hit : RaycastHit;
-	    var raycastPosition:Vector3 = Target.position + Vector3 ( Random.Range ( 0 , 3 ) , Random.Range ( 0 , 3 ) , Random.Range ( 0 , 3 ) );
+	    var raycastPosition:Vector3 = Target.position ;//+ Vector3 ( Random.Range ( 3 , 8 ) , Random.Range ( 0  , 3 ) , Random.Range ( 0 , 3 ) );
 	    
-   		if ( Physics.Linecast ( transform.position , raycastPosition , hit ) )
+/*   		if ( Physics.Linecast ( transform.position , raycastPosition , hit ) )
 	    {     	
 	    	Debug.Log ( hit.transform.name ) ;
    			if ( hit.transform.name == "Loft" || hit.transform.name.Contains ( "Plant" ) )
@@ -61,16 +59,24 @@ class BulletForTurret extends MonoBehaviour {
 				//ring of smoke + sunet
 				return ;
 			}
-	  	}
+	  	}*/
 
 	
 		var startPos:Vector3 = transform.position ;
 		var length = ( raycastPosition - startPos ) ;	
 
-		var point01:Vector3 = startPos + length * Random.Range ( 0.9 , 0.95 ) ;
-		var point02:Vector3 = point01 + length * 0.05 ;	
+		var point01:Vector3 = startPos + Vector3 ( Random.Range ( 0 , 3 ) , Random.Range ( 0 , 3 ) , Random.Range ( 0 , 3 ) ) ;
+		var point02:Vector3 = raycastPosition ;
+		
+		//Spawning rock at point01 and then gonna animate it towards point02.
+		
+		var rock = rocksPool. Spawn ( rockPrefab , point01 , Quaternion ( 0 , 0 , 0 , 0 ) )  ;
+		var rockScript : MoveTurretBullet = rock.GetComponent ( MoveTurretBullet ) ;
+		
+		rockScript.Init ( point02 ) ;
+		lastTime = Time.time ;	
 
-		line.SetWidth( 0.03 , 0.03 );
+/*		line.SetWidth( 0.03 , 0.03 );
 		line.SetVertexCount(2);
 		line.material = aMaterial;
 		muzzleFlash.renderer.enabled = true ;
@@ -79,7 +85,8 @@ class BulletForTurret extends MonoBehaviour {
 		line.SetPosition(0, point01);
 		line.SetPosition(1, point02);
 
-		lastTime = Time.time ;			
+				
 	   	setRendererFalse ( );
+*/	  
 	}
 }
