@@ -99,6 +99,8 @@ class CollisionHandler extends MonoBehaviour {
 			if ( planeHitArea.Contains ( "left" ) ) 
 				pushBackDirection = "left" ;
 		
+		if ( name.Contains ( "sentry" ) )
+			return ;
 
 		if ( name.Contains ( "rock") ) 
 		{
