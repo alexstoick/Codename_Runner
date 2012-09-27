@@ -5,21 +5,29 @@ class MoveTurretBullet extends MonoBehaviour {
 	static private var rocksPool: SpawnPool ;
 	private var despawnTime:double = 0.0 ;
 	private var targetLocation:Vector3 ;
+	private var followPlane:boolean ;
+	static private var plane:Transform ;
 	
 	function Start ( )
 	{
 		if ( ! rocksPool )
 			rocksPool = PoolManager.Pools [ "Rocks" ] ;
+		if ( ! plane )
+			plane = GameObject.Find ( "plane" ).transform ;
 	}
 	
-	function Init ( target:Vector3 )
+	function Init ( target:Vector3 , shouldFollow:boolean )
 	{
 		targetLocation = target ;
 		despawnTime = Time.time + 0.8 ;
+		followPlane = shouldFollow ;
 	}
 	
 	function Update ()
 	{
+//		if ( followPlane )
+//			targetLocation = plane.position ;
+			
 		if ( Time.time > despawnTime )
 		{
 			rocksPool. Despawn ( transform ) ;

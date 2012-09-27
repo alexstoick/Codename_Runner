@@ -9,6 +9,7 @@ class BulletForTurret extends MonoBehaviour {
 	private var line:LineRenderer ;
 	private var muzzleFlash:Transform ;
 	var aMaterial : Material;
+	private static var bulletNo:int = 0 ;
 	
 	function Start  ( )
 	{
@@ -52,14 +53,15 @@ class BulletForTurret extends MonoBehaviour {
 		var length = ( raycastPosition - startPos ) ;	
 
 		var point01:Vector3 = startPos + Vector3 ( Random.Range ( -3 , 3 ) , Random.Range ( -3 , 3 ) , Random.Range ( -3 , 3 ) ) ;
-		var point02:Vector3 = raycastPosition + length ;
+		var point02:Vector3 = raycastPosition ; //+ length ;
 		
 		//Spawning rock at point01 and then gonna animate it towards point02.
+		++ bulletNo ;
 		
 		var rock = rocksPool. Spawn ( rockPrefab , point01 , Quaternion ( 0 , 0 , 0 , 0 ) )  ;
 		var rockScript : MoveTurretBullet = rock.GetComponent ( MoveTurretBullet ) ;
 		
-		rockScript.Init ( point02 ) ;
+		rockScript.Init ( point02 , ( bulletNo%7 == 0 ) ) ;
 		lastTime = Time.time ;	
 		
 	}

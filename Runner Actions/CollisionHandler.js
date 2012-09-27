@@ -51,7 +51,6 @@ class CollisionHandler extends MonoBehaviour {
 			//should blink.
 			yield WaitForSeconds ( 0.1 ) ;
 		}
-		Debug.Log ( "blink runner" ) ;
 		HealthProgressBar.currHealth -= 30 ;
 		LoftMovement.timeModifier = 0.8 ;
 		LoftMovement.setNormalSpeed ( ) ;
@@ -69,7 +68,6 @@ class CollisionHandler extends MonoBehaviour {
 		var oppositeDirection:String;
 	
 		//LoftMovement.setNegativeSpeed ( ) ;
-		Debug.Log ( "push Runner Back" ) ;
 		HealthProgressBar.currHealth -= 30 ;	
 		if ( pushBackDirection == "left" ) 
 			oppositeDirection = "right" ;
@@ -95,8 +93,6 @@ class CollisionHandler extends MonoBehaviour {
 		var name:String = CollisionInfo.contacts[0].otherCollider.name ;
 		var planeHitArea:String = CollisionInfo.contacts[0].thisCollider.name ;
 		
-		Debug.Log ( planeHitArea + "		" + Time.time ) ;
-		
 		if ( planeHitArea.Contains ( "right" ) ) 
 			pushBackDirection = "right" ;
 		else
@@ -106,7 +102,6 @@ class CollisionHandler extends MonoBehaviour {
 
 		if ( name.Contains ( "rock") ) 
 		{
-			Debug.Log ( "hit by rock" ) ;
 			HealthProgressBar.currHealth -= 4 ;
 			return ;
 		}
@@ -114,7 +109,6 @@ class CollisionHandler extends MonoBehaviour {
 
 		if ( name == "ammoBox" ) 
 		{
-			Debug.LogWarning ( "coliziune cu ammo box" ) ;
 			SwipeDetection2.continuousFire = true ;
 			
 			FireCountdown.startEvent() ;
