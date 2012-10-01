@@ -63,7 +63,7 @@ class BulletForTurret extends MonoBehaviour {
 		var length = ( raycastPosition - startPos ) ;	
 
 		var point01:Vector3 = startPos + Vector3 ( Random.Range ( -1 , 1 ) , Random.Range ( -1 , 1 ) , Random.Range ( -1 , 1 ) ) ;
-		var point02:Vector3 = raycastPosition ;
+		var point02:Vector3 = raycastPosition + length* 0.1 ;
 		
 		//Spawning rock at point01 and then gonna animate it towards point02.
 		

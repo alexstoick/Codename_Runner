@@ -11,8 +11,9 @@ class CollisionHandler extends MonoBehaviour {
 	static public var bashOn:boolean = false ;
 	static private var pushBackDirection:String ;
 	
+	public var particleEffect_hitPlane:GameObject;
 	public var particleEffect:GameObject ;
-	static private var runner:GameObject ;
+	static private var plane:Transform ;
 
 	static private var powerUp:PowerUp ;
 
@@ -21,8 +22,8 @@ class CollisionHandler extends MonoBehaviour {
 	function Awake ( )
 	{
 
-		if ( ! runner )
-			runner = GameObject.Find ( "Runner") ;
+		if ( ! plane )
+			plane = GameObject.Find ( "plane" ).transform ;
 		if ( ! moveRunner )
 			moveRunner = GameObject.Find ( "BigGroup").GetComponent ( "MoveRunnerNew" ) ;
 		if ( ! powerUp )
@@ -62,6 +63,15 @@ class CollisionHandler extends MonoBehaviour {
 	    Destroy(instance.gameObject, 1 );
 	}
 	
+	function createParticleEffect_hitPlane ( position:Vector3 , rotation:Quaternion )
+	{
+		Debug.Log ( "should show particle effect" ) ;
+		var instance = Instantiate ( particleEffect_hitPlane , Vector3(0,0,0) , Quaternion ( 0 , 0 , 0 , 0 ) ) ;
+		instance.transform.parent = plane ;
+		instance.transform.localPosition = Vector3(0,0,0) ;
+		Destroy ( instance.gameObject , 1 ) ;
+	}
+	
 	function pushRunnerBack ( )
 	{
 	
@@ -74,11 +84,6 @@ class CollisionHandler extends MonoBehaviour {
 		else
 			oppositeDirection = "left" ;
 		
-	
-		//moveRunner.action ( oppositeDirection ) ;
-		//moveRunner.action ( oppositeDirection ) ;
-		//moveRunner.action ( oppositeDirection ) ;
-		//moveRunner.action ( oppositeDirection ) ;
 		yield WaitForSeconds ( 0.1 ) ;
 		moveRunner.action ( "loop" + pushBackDirection ) ;
 		
@@ -104,7 +109,8 @@ class CollisionHandler extends MonoBehaviour {
 
 		if ( name.Contains ( "rock") ) 
 		{
-			HealthProgressBar.currHealth -= 4 ;
+			createParticleEffect_hitPlane ( transform.position , transform.rotation ) ;
+			HealthProgressBar.currHealth -= 2 ;
 			return ;
 		}
 					
