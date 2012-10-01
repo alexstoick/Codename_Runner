@@ -28,7 +28,7 @@ class SwipeDetection2 extends MonoBehaviour {
 	static public var continuousFire:boolean = false ;
 	private var altitudeModifier:double = 0.0 ;
 	private var touchActive:boolean = false ;
-
+	
 	
 	//consts	
 	private var HORIZONTAL_TOUCH_LENGTH:int = 25 ;
@@ -139,13 +139,6 @@ class SwipeDetection2 extends MonoBehaviour {
 		var	deltaY:double = position.y - firstTouch.y ;
 		var ok:boolean = false ;
 
-		if ( continuousFire && ! shouldFire )
-		{
-			shouldFire = true ;
-			startFiring ( ) ;
-		}
-
-		
 		if ( deltaX && deltaY && shouldModify ) 
 		{
 			var deltaXX:double = deltaX;
@@ -184,11 +177,21 @@ class SwipeDetection2 extends MonoBehaviour {
 			plane.localRotation.eulerAngles.z = Mathf.Clamp ( plane.localRotation.eulerAngles.z , 150 , 180 ) ;
 			plane.localPosition.y = Mathf.Clamp ( plane.localPosition.y , 0 , 2 ) ;
 		}
-	
+		
+		
+		
 		if ( Input.touchCount == 0 ) 
 			return ;
-		
+		if ( shouldFire == false && Input.touchCount == 2 )
+		{
+			shouldFire = true ;
+			startFiring () ;
+		}
+			
+		shouldFire = ( Input.touchCount == 2 ) ;
+		Debug.Log ( shouldFire ) ;						
 		touch = Input.GetTouch ( 0 ) ;
+		
 		
 		switch ( touch.phase )
 		{
