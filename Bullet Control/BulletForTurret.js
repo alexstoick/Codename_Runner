@@ -37,13 +37,7 @@ class BulletForTurret extends MonoBehaviour {
 			
 		}
 	}	
-	
-	function setRendererFalse ( )
-	{
-		yield WaitForSeconds ( 0.1) ;
-		line.renderer.enabled = false ;
-		muzzleFlash.renderer.enabled = false ;
-	}
+
 	function spawnBullets ( )
 	{
 	

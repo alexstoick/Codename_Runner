@@ -63,11 +63,10 @@ class CollisionHandler extends MonoBehaviour {
 	    Destroy(instance.gameObject, 1 );
 	}
 	
-	function createParticleEffect_hitPlane ( position:Vector3 )
+	function createParticleEffect_hitPlane ( position:Vector3 , rotation:Quaternion )
 	{
 		var instance = Instantiate ( particleEffect_hitPlane , position , Quaternion ( 0 , 0 , 0 , 0 ) ) ;
 		instance.transform.parent = plane ;
-		Destroy ( instance.gameObject , 1 ) ;
 	}
 	
 	function pushRunnerBack ( )
