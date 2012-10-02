@@ -14,6 +14,9 @@ class CollisionHandler extends MonoBehaviour {
 	public var particleEffect_hitPlane:GameObject;
 	public var particleEffect:GameObject ;
 	static private var plane:Transform ;
+	static private var bobbingEndTime:double = 0.0 ;
+	
+	static private var cameraTransform:Transform ;
 
 	static private var powerUp:PowerUp ;
 
@@ -21,7 +24,8 @@ class CollisionHandler extends MonoBehaviour {
 
 	function Awake ( )
 	{
-
+		if ( ! cameraTransform )
+			cameraTransform  = GameObject.Find ( "Main Camera" ).transform ;
 		if ( ! plane )
 			plane = GameObject.Find ( "plane" ).transform ;
 		if ( ! moveRunner )
@@ -41,7 +45,18 @@ class CollisionHandler extends MonoBehaviour {
 			boxPool = PoolManager.Pools["Boxes"] ;
 
 	}
-	
+
+	function Update ( )
+	{
+		
+		if ( bobbingEndTime > Time.time )
+		{
+			cameraTransform.localRotation = Quaternion.Euler( 335 + Mathf.PingPong(Time.time * 30.0, 1.5), 0.0 , 180.0 );
+		}
+	}
+
+
+		
 	function blinkRunner ( )
 	{
 		LoftMovement.setLowSpeed ( ) ;
@@ -62,11 +77,12 @@ class CollisionHandler extends MonoBehaviour {
    		var instance = Instantiate( particleEffect , position , rotation ) ;
 	    Destroy(instance.gameObject, 1 );
 	}
-	
+
 	function createParticleEffect_hitPlane ( position:Vector3 )
 	{
 		var instance = Instantiate ( particleEffect_hitPlane , position , Quaternion ( 0 , 0 , 0 , 0 ) ) ;
 		instance.transform.parent = plane ;
+		bobbingEndTime = Time.time + 0.2 ;
 	}
 	
 	function pushRunnerBack ( )

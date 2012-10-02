@@ -7,7 +7,6 @@ class BulletForTurret extends MonoBehaviour {
 	private var rockPrefab:Transform ;
 	private var shootPoint:Transform ;
 	private var lastTime:double = -10.000 ;
-	var aMaterial : Material;
 	
 	function Start  ( )
 	{
@@ -25,7 +24,7 @@ class BulletForTurret extends MonoBehaviour {
 	{
 		if ( ! transform.gameObject.active )
 			return ;
-		if ( lastTime + 2 < Time.time  )
+		if ( lastTime + 0.01 < Time.time  )
 		{
 			spawnBullets ( ) ;
 		}
@@ -49,8 +48,6 @@ class BulletForTurret extends MonoBehaviour {
 		var startPos:Vector3 = shootPoint.position ;
 		var length = ( raycastPosition - startPos ) ;
 		
-		Debug.Log ( Time.time + "		" + ( shootPoint.rotation.eulerAngles - Target.rotation.eulerAngles ) + "		" + length ) ;	
-
 		var point01:Vector3 = startPos + Vector3 ( Random.Range ( -1 , 1 ) , Random.Range ( -1 , 1 ) , Random.Range ( -1 , 1 ) ) ;
 		var point02:Vector3 = raycastPosition ;//+ length* 0.1 ;
 		
