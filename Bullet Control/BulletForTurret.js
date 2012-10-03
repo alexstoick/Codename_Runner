@@ -3,8 +3,8 @@
 class BulletForTurret extends MonoBehaviour {
 
 	private var Target:Transform ;
-	private var rocksPool: SpawnPool ;
-	private var rockPrefab:Transform ;
+	static private var rocksPool: SpawnPool ;
+	static private var rockPrefab:Transform ;
 	private var shootPoint:Transform ;
 	private var lastTime:double = -10.000 ;
 	

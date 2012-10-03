@@ -23,7 +23,7 @@ class MoveRock extends MonoBehaviour {
 	function createParticleEffect ( position:Vector3 , rotation:Quaternion )
 	{
    		var instance = Instantiate( particleEffect , position , rotation ) ;
-	    Destroy(instance.gameObject, 1 );
+	    Destroy(instance.gameObject, 2 );
 	}
 
 
