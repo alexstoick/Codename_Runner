@@ -180,6 +180,11 @@ class CollisionHandler extends MonoBehaviour {
 			blinkRunner ( ) ;
 			return ;
 		}
+		
+		if ( name.Contains ( "mig" ) )
+		{
+			Debug.LogError ( "coliziune cu mig" ) ;
+		}
 
 		//coliziune cu copac -- viitoare frunza
 		if ( name.Contains ( "Plant") )
