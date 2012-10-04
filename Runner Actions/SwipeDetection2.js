@@ -14,6 +14,7 @@ class SwipeDetection2 extends MonoBehaviour {
 	
 	private var Velocity_X:float;
 	private var touch:Touch;
+	private var newTouch:Touch ;
 	private var moved:boolean ;
 	private var lastVelocity:float;
 	private var init:boolean = false ;
@@ -182,17 +183,9 @@ class SwipeDetection2 extends MonoBehaviour {
 		
 		if ( Input.touchCount == 0 ) 
 			return ;
-		if ( shouldFire == false && Input.touchCount == 2 )
-		{
-			shouldFire = true ;
-			startFiring () ;
-		}
 			
-		shouldFire = ( Input.touchCount == 2 ) ;
-		Debug.Log ( shouldFire ) ;						
 		touch = Input.GetTouch ( 0 ) ;
-		
-		
+			
 		switch ( touch.phase )
 		{
 			case TouchPhase.Began:
@@ -201,6 +194,17 @@ class SwipeDetection2 extends MonoBehaviour {
 				touchMoved ( ) ; break ;
 			case TouchPhase.Ended:
 				touchEnded ( ) ; break ;
+		}
+		var i:int ;
+		for ( i = 1 ; i < Input.touchCount ; ++ i )
+		{
+			newTouch = Input.GetTouch ( i ) ;
+			if ( newTouch.phase == TouchPhase.Ended )
+				if ( newTouch.tapCount >= 1 ) 
+				{
+					moveRunner.fire ( true ) ;
+					return ;
+				}
 		}
 	}
 }
