@@ -56,24 +56,20 @@ class MoveRunnerNew extends MonoBehaviour {
 	
 	private function activateBash ( )
 	{
-//		var renderer:Renderer = runner.gameObject.GetComponentInChildren ( Renderer ) ;
+		//TODO: visual effect
 		CollisionHandler.bashOn = true ;
-//		renderer.material = materials[1] ;
 		LoftMovement.setHighSpeed () ;
 		yield WaitForSeconds ( 0.4 ) ;
 		LoftMovement.setNormalSpeed ( );
 		yield WaitForSeconds ( 1.6 ) ;
-//		renderer.material = materials[0] ;
 		CollisionHandler.bashOn = false ;
 	}
 	
 	private function slowdown ( )
 	{
-//		var renderer:Renderer = runner.gameObject.GetComponentInChildren ( Renderer ) ;
-//		renderer.material = materials[2] ;
+		//TODO: visual effect
 		LoftMovement.setLowSpeed ( ) ;
 		yield WaitForSeconds ( 2.0 ) ;
-//		renderer.material = materials[0] ;
 		LoftMovement.setNormalSpeed ( );
 	}
 

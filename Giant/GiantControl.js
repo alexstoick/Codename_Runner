@@ -26,7 +26,5 @@ class GiantControl extends MonoBehaviour {
 		{
  			   cameraTransform.localRotation = Quaternion.Euler( 335 + Mathf.PingPong(Time.time * 30.0, 1.5), 0.0 , 180.0 );
 		}
-		//else
-		//	cameraTransform.localRotation = Quaternion.Euler ( 339 , 0.0 , 180.0 ) ;
 	}
 }

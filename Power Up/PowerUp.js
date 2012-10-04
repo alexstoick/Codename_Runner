@@ -23,15 +23,12 @@ class PowerUp extends MonoBehaviour {
 		
 		if ( random < 0.85 ) 
 		{
-//			Debug.Log ( "random is too small" + random.ToString() ) ;
 			return ;
 		}
 		
 		var position:Vector3 = loc.position ;
 		var rotation:Quaternion = loc.rotation ;
 		var prefab:Transform ;
-		//var rotation:Quaternion = Quaternion ( 0 , 0 , 0 ,0 ) ;
-		
 		
 		prefab = ammoBox ;
 
