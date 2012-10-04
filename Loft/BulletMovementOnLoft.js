@@ -10,7 +10,7 @@ class BulletMovementOnLoft extends MonoBehaviour {
 		transform.GetChild(0).localRotation = rotation ;
 		walk.surfaceLoft = loft ;
 		walk.surfaceLayer = 0 ;
-		walk.alpha = startPoint ;//0.10300f ;
+		walk.alpha = startPoint ;
 	}
 	
 	function Awake ( )
@@ -25,8 +25,6 @@ class BulletMovementOnLoft extends MonoBehaviour {
 	{
 	
 		walk.alpha -= LoftMovement.movementVariation * 2 ;
-		
-		//no longer bugging out.
 		if ( walk.alpha >= 1 )
 			walk.alpha = -1.0 ;
 		if ( walk.alpha <= -1 )

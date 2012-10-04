@@ -86,7 +86,6 @@ class LoftMovement extends MonoBehaviour {
 			if ( acceleration < 0.0003 )
 			{
 				acceleration += 0.000015 ;
-				//Debug.Log ( acceleration + movementVariation + "			" + Time.time ) ;
 			}
 			else
 			{

@@ -24,7 +24,6 @@ class SpawnEnemyAirplane extends MonoBehaviour {
 
 		if ( ! onCooldown )
 		{
-			Debug.Log ( "spawned health pack" + Time.time ) ;
 			var newAirplane = enemyAirplanePool.Spawn ( prefab ) ;
 			var spawn = newAirplane.GetComponent ( SpawnOnLoft ) ;
 			spawn.Init ( ) ;

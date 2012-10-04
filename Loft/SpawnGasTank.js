@@ -24,7 +24,6 @@ class SpawnGasTank extends MonoBehaviour {
 
 		if ( ! onCooldown )
 		{
-			Debug.Log ( "spawned GAS tank" + Time.time ) ;
 			var newGasTank = gasTankPool.Spawn ( prefab ) ;
 			var spawn = newGasTank.GetComponent ( SpawnOnLoft ) ;
 			spawn.Init ( ) ;
