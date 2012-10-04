@@ -6,8 +6,10 @@ class MoveRock extends MonoBehaviour {
 	static private var rocksPool: SpawnPool ;
 	static private var enemiesPool: SpawnPool ;
 	static private var sentryPool: SpawnPool ;
-	static private var powerUp : PowerUp ;
 	static private var migPool: SpawnPool ;
+
+	static private var powerUp : PowerUp ;
+
 	
 	function Start ( )
 	{
@@ -61,7 +63,7 @@ class MoveRock extends MonoBehaviour {
 		if ( cname.Contains ( "mig" ) )
 		{
 			createParticleEffect ( child.position, child.rotation ) ;
-			migPool.Despawn ( CollisionInfo.contacts[0].otherCollider.gameObject.transform.parent ) ;
+			migPool.Despawn ( CollisionInfo.contacts[0].otherCollider.gameObject.transform.parent.parent ) ;
 			return ;
 		}
 		

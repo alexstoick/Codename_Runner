@@ -20,6 +20,7 @@ class SwipeDetection2 extends MonoBehaviour {
 	private var init:boolean = false ;
 	private var analyzedDuringMove:boolean = false ;
 	private var shouldModify:boolean = false ;
+	static public var isTouching:boolean = false ;
 	
 	private var touchPositions:Array = new Array() ;
 	private var timeOfTouch:Array = new Array () ;
@@ -182,8 +183,12 @@ class SwipeDetection2 extends MonoBehaviour {
 		
 		
 		if ( Input.touchCount == 0 ) 
+		{
+			isTouching = false ;
 			return ;
-			
+		}
+		
+		isTouching = true ;
 		touch = Input.GetTouch ( 0 ) ;
 			
 		switch ( touch.phase )
