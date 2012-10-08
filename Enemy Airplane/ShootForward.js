@@ -6,6 +6,8 @@ class ShootForward extends MonoBehaviour {
 	private var rockPrefab:Transform ;
 	private var lastTime:double = -10.000 ;
 	private var isPlaneShooter:boolean = false ;
+	private var bulletsInBurst:int = 0 ;
+	private var MAX_bulletsInBurst:int = 2 ;
 
 
 	function Start  ( )
@@ -35,7 +37,7 @@ class ShootForward extends MonoBehaviour {
 		if ( isPlaneShooter && ! SwipeDetection2.isTouching ) 
 			return ;
 			
-		if ( lastTime + 0.03 > Time.time )
+		if ( lastTime > Time.time )
 			return ;
 		
 		var point01:Vector3 = transform.position ;
@@ -46,7 +48,17 @@ class ShootForward extends MonoBehaviour {
 		var rockScript : MoveTurretBullet = rock.GetComponent ( MoveTurretBullet ) ;
 		
 		rockScript.Init ( point02 ) ;
-		lastTime = Time.time ;
+		lastTime = Time.time + 0.03 ;
+
+		++bulletsInBurst ;			
+		
+		if ( bulletsInBurst > MAX_bulletsInBurst )
+		{
+			lastTime = Time.time + 0.5 ;
+			bulletsInBurst = 0 ;
+		}
+
+		
 	}
 	
 }
