@@ -160,8 +160,8 @@ class SwipeDetection2 extends MonoBehaviour {
 	
 	private function touchEnded ( ) 
 	{
-		if ( touch.tapCount >= 1 )
-				moveRunner.fire ( true ) ;
+//		if ( touch.tapCount >= 1 )
+//				moveRunner.fire ( true ) ;
 		touchPositions.Clear ( ) ;
 		timeOfTouch.Clear ( ) ;
 		touchActive = false ;
@@ -200,6 +200,7 @@ class SwipeDetection2 extends MonoBehaviour {
 			case TouchPhase.Ended:
 				touchEnded ( ) ; break ;
 		}
+		/*
 		var i:int ;
 		for ( i = 1 ; i < Input.touchCount ; ++ i )
 		{
@@ -211,5 +212,6 @@ class SwipeDetection2 extends MonoBehaviour {
 					return ;
 				}
 		}
+		*/
 	}
 }
