@@ -5,21 +5,30 @@ class ShootRocket extends MonoBehaviour {
 	var moveRunner:MoveRunnerNew ;
 	static var width:int ;
 	static var height:int ;
+	var texture:GUITexture ;
 	
 	function Awake ( )
 	{
 		if ( ! moveRunner )
 			moveRunner = GameObject.Find ( "BigGroup").GetComponent ( "MoveRunnerNew" ) ;
+			
+		texture = transform.GetComponent ( GUITexture ) ;		
+		
 		width = Screen.width ;
 		height = Screen.height ;
 	}
 	
-	function OnGUI()
+	function Update()
 	{
-		if(GUI.Button(Rect(0, height-100 , width/3 , 100 ), "SHOOT!"))
+		if ( Input.touchCount > 0 )		
 		{
-			moveRunner.fire ( true ) ;
+			var i :int;
+			for ( i = 0 ; i < Input.touchCount ; ++ i )
+			{
+				var touch: Touch = Input.touches[i] ;
+				if ( touch.phase == TouchPhase.Began && texture.HitTest ( touch.position ) ) 
+					moveRunner.fire ( true ) ; 
+			}
 		}
-	}
-
+    }
 }
