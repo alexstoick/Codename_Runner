@@ -26,7 +26,6 @@ class SwipeDetection2 extends MonoBehaviour {
 	private var init:boolean = false ;
 	private var analyzedDuringMove:boolean = false ;
 	private var shouldModify:boolean = false ;
-	static public var isTouching:boolean = false ;
 	
 	private var touchPositions:Array = new Array() ;
 	private var timeOfTouch:Array = new Array () ;
@@ -36,6 +35,7 @@ class SwipeDetection2 extends MonoBehaviour {
 	static public var continuousFire:boolean = false ;
 	private var altitudeModifier:double = 0.0 ;
 	private var touchActive:boolean = false ;
+	private var lastTime:double = 0.0 ;
 	
 	//consts	
 	private var HORIZONTAL_TOUCH_LENGTH:int = 25 ;
@@ -58,16 +58,6 @@ class SwipeDetection2 extends MonoBehaviour {
 		if ( touchActive )
 		altitudeModifier = 0.007 ;
 	}
-	
-	function startFiring ( )
-	{
-		while ( shouldFire )
-		{
-			moveRunner.fire ( true ) ;
-			yield WaitForSeconds ( 0.2 ) ;
-		}
-	}
-	
 	
 	private function analyzeHorizontally ( delta:double , deltaTime:double )
 	{
@@ -165,8 +155,6 @@ class SwipeDetection2 extends MonoBehaviour {
 	
 	private function touchEnded ( ) 
 	{
-//		if ( touch.tapCount >= 1 )
-//				moveRunner.fire ( true ) ;
 		touchPositions.Clear ( ) ;
 		timeOfTouch.Clear ( ) ;
 		touchActive = false ;
@@ -177,7 +165,12 @@ class SwipeDetection2 extends MonoBehaviour {
 
 	function FireGuns ( )
 	{
-		if ( ( FireProgressBar.currCooldown + 0.625*2 ) > 10 )
+		if ( lastTime > Time.time )
+			return ;
+			
+		lastTime = Time.time + 0.1 ;
+		
+		if ( ( FireProgressBar.currCooldown + 0.3125*2 ) > 10 )
 			return ;	
 		leftShooter.FireGun ( ) ;
 		rightShooter.FireGun ( ) ;
@@ -192,16 +185,13 @@ class SwipeDetection2 extends MonoBehaviour {
 			plane.localRotation.eulerAngles.z = Mathf.Clamp ( plane.localRotation.eulerAngles.z , 150 , 180 ) ;
 			plane.localPosition.y = Mathf.Clamp ( plane.localPosition.y , 0 , 2 ) ;
 		}
-		
-		
-		
-		if ( Input.touchCount == 0 ) 
-		{
-			isTouching = false ;
+
+		if ( Input.touchCount == 0 )		
 			return ;
-		}
-		
-		isTouching = true ;
+
+		if ( Input.touchCount == 2)		
+			FireGuns ( ) ;
+			
 		touch = Input.GetTouch ( 0 ) ;
 			
 		switch ( touch.phase )
@@ -213,18 +203,5 @@ class SwipeDetection2 extends MonoBehaviour {
 			case TouchPhase.Ended:
 				touchEnded ( ) ; break ;
 		}
-
-		var i:int ;
-		for ( i = 0 ; i < Input.touchCount ; ++ i )
-		{
-			newTouch = Input.GetTouch ( i ) ;
-			if ( newTouch.phase == TouchPhase.Ended )
-				if ( newTouch.tapCount >= 1 ) 
-				{
-					FireGuns ( ) ;
-					return ;
-				}
-		}
-
 	}
 }
