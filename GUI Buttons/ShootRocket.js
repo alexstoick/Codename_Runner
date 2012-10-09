@@ -16,6 +16,13 @@ class ShootRocket extends MonoBehaviour {
 		
 		width = Screen.width ;
 		height = Screen.height ;
+		
+		Debug.Log ( width + "	" + height ) ;
+		
+		texture.pixelInset.height = height / 8 ;
+		texture.pixelInset.width = width / 5 ;
+		texture.pixelInset.x = -width/2 ;
+		texture.pixelInset.y = -height/2 ;
 	}
 	
 	function Update()
