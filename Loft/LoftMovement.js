@@ -17,6 +17,7 @@ class LoftMovement extends MonoBehaviour {
 	private var speed:double ;
 	private var lastTime:double = 0 ;
 	public static var isDead:boolean = false ;
+	public static var currPath:double = 0.0 ;
 	
 	static public function position ( )
 	{
@@ -98,6 +99,7 @@ class LoftMovement extends MonoBehaviour {
 		speed = movementVariation + acceleration ;
 
 		layer.pathStart += ( movementVariation + acceleration ) ;
+		currPath = layer.pathStart ;
 		if ( movementVariation) 
 			ScoreControl.addScore ( 0.5) ;
 		
