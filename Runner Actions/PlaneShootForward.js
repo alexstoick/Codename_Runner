@@ -19,8 +19,6 @@ class PlaneShootForward extends MonoBehaviour {
 
 	function FireGun ( )
 	{		
-		if ( ( FireProgressBar.currCooldown + 0.625*2 ) > 10 )
-			return ;			
 		
 		var point01:Vector3 = transform.position ;
 		var point02:Vector3 = transform.position + transform.forward * 50 ;

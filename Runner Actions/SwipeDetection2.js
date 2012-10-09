@@ -175,6 +175,14 @@ class SwipeDetection2 extends MonoBehaviour {
 		altitudeModifier = -0.007 ;
 	}
 
+	function FireGuns ( )
+	{
+		if ( ( FireProgressBar.currCooldown + 0.625*2 ) > 10 )
+			return ;	
+		leftShooter.FireGun ( ) ;
+		rightShooter.FireGun ( ) ;
+	}
+
 	function Update() 
 	{
 		if ( ! MoveRunnerNew.doingLoop )
@@ -213,8 +221,7 @@ class SwipeDetection2 extends MonoBehaviour {
 			if ( newTouch.phase == TouchPhase.Ended )
 				if ( newTouch.tapCount >= 1 ) 
 				{
-					leftShooter.FireGun ( ) ;
-					rightShooter.FireGun ( ) ;
+					FireGuns ( ) ;
 					return ;
 				}
 		}
