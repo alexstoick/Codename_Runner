@@ -5,7 +5,7 @@ class SpawnEnemyAirplane extends MonoBehaviour {
 	static var enemyAirplanePool:SpawnPool ;
 	static var prefab:Transform ;
 	
-	var onCooldown:boolean = false ;
+	var lastPath:double = 0.0 ;	
 	
 	function Start ( )
 	{
@@ -17,25 +17,22 @@ class SpawnEnemyAirplane extends MonoBehaviour {
 	
 	function Update ( )
 	{
-		if ( ! StartButton.Started ) 
-			return ;
-		if (  LoftMovement.isStopped () )
-			return ;
+		if ( ! StartButton.Started || LoftMovement.isStopped () )
+			return ; 
 
-		if ( ! onCooldown )
+		if ( LoftMovement.currPath * lastPath >= 0 && LoftMovement.currPath  > lastPath )
 		{
+			lastPath = LoftMovement.currPath + 0.1500 ;
+			
+			if ( lastPath >= 1 )
+			{
+				lastPath -= 1f;
+				lastPath = -1f + lastPath ; 
+			}	
+			
 			var newAirplane = enemyAirplanePool.Spawn ( prefab ) ;
 			var spawn = newAirplane.GetComponent ( SpawnOnLoft ) ;
 			spawn.Init ( ) ;
-			startCooldown ( );
 		}
-	}
-
-	function startCooldown ( )
-	{
-		onCooldown = true ;
-		var extraTime = Mathf.Max ( ( 0.0003 / LoftMovement.movementVariation ) , 1 ) ;
-		yield WaitForSeconds ( 7 * Mathf.Min ( extraTime , 3 ) ) ;
-		onCooldown = false ;
 	}
 }

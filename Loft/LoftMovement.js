@@ -99,12 +99,14 @@ class LoftMovement extends MonoBehaviour {
 		speed = movementVariation + acceleration ;
 
 		layer.pathStart += ( movementVariation + acceleration ) ;
-		currPath = layer.pathStart ;
+		
 		if ( movementVariation) 
 			ScoreControl.addScore ( 0.5) ;
 		
 		if ( layer.pathStart >= 1 )
 			layer.pathStart = -1.0 ;
+		
+		currPath = layer.pathStart ;
 	}
 
 }

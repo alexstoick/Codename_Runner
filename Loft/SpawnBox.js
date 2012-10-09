@@ -2,12 +2,10 @@
 
 class SpawnBox extends MonoBehaviour {
 
-	private var limit:int = 75 ;
 	static var boxPool:SpawnPool ;
 	static var prefab:Transform ;
-	var activ:int = 0 ;
 	
-	var onCooldown:boolean = false ;
+	var lastPath:double = 0.0 ;
 	
 	function Start ( )
 	{
@@ -19,26 +17,15 @@ class SpawnBox extends MonoBehaviour {
 	
 	function Update ( )
 	{
-		if ( ! StartButton.Started ) 
-			return ;
-		if (  LoftMovement.isStopped () )
+		if ( ! StartButton.Started || LoftMovement.isStopped () )
 			return ;
 
-		if ( ! onCooldown )
+		if ( lastPath + 0.030 < LoftMovement.currPath  )
 		{
+			lastPath = LoftMovement.currPath ;
 			var newBox = boxPool.Spawn ( prefab ) ;
 			var spawn = newBox.GetComponent ( SpawnOnLoft ) ;
 			spawn.Init ( ) ;
-			activ = boxPool.Count ;
-			startCooldown ( );
 		}
-	}
-
-	function startCooldown ( )
-	{
-		onCooldown = true ;
-		var extraTime = Mathf.Max ( ( 0.0003 / LoftMovement.movementVariation ) , 1 ) ;
-		yield WaitForSeconds ( 0.6 * Mathf.Min ( extraTime , 3 ) ) ;
-		onCooldown = false ;
 	}
 }

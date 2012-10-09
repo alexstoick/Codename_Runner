@@ -2,13 +2,11 @@
 
 class SpawnTree extends MonoBehaviour {
 
-	private var limit:int = 50 ;
 	static var treePool:SpawnPool ;
 	static var prefab:Transform ;
-	var activ:int = 0 ;
 	static var contor = 2 ;
 	
-	var onCooldown:boolean = false ;
+	var lastPath:double = 0.0 ;
 	
 	function Start ( )
 	{
@@ -19,12 +17,20 @@ class SpawnTree extends MonoBehaviour {
 	
 	function Update ( )
 	{
-		if ( ! StartButton.Started ) 
-			return ;
-		if (  LoftMovement.isStopped () )
+		if ( ! StartButton.Started || LoftMovement.isStopped () )
 			return ; 
-		if ( ! onCooldown )
+			
+		if ( LoftMovement.currPath * lastPath >= 0 && LoftMovement.currPath  > lastPath )
 		{
+		
+			lastPath = LoftMovement.currPath + 0.0175 ;
+			
+			if ( lastPath >= 1 )
+			{
+				lastPath -= 1f;
+				lastPath = -1f + lastPath ; 
+			}
+			
 			prefab = treePool.prefabs["leaf_for_loft_"+contor] ;
 			++contor ;
 			if ( contor == 7 )
@@ -32,17 +38,6 @@ class SpawnTree extends MonoBehaviour {
 			var newTree = treePool.Spawn ( prefab ) ;
 			var spawn = newTree.GetComponent ( SpawnOnLoft ) ;
 			spawn.Init ( ) ;
-			activ = treePool.Count ;
-			startCooldown ( );
 		}
 	}
-
-	function startCooldown ( )
-	{
-		onCooldown = true ;
-		var extraTime = Mathf.Max ( ( 0.0003 / LoftMovement.movementVariation ) , 1 ) ;
-		yield WaitForSeconds ( 0.5 * extraTime ) ;
-		onCooldown = false ;
-	}
-	
 }

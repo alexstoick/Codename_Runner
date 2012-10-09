@@ -2,12 +2,10 @@
 
 class SpawnMonster extends MonoBehaviour {
 
-	private var limit:int = 25 ;
 	static var monsterPool:SpawnPool ;
 	static var prefab:Transform ;
-	var activ:int = 0 ;
 	
-	var onCooldown:boolean = false ;
+	var lastPath:double = 0.0 ;
 	
 	function Start ( )
 	{
@@ -19,32 +17,25 @@ class SpawnMonster extends MonoBehaviour {
 	
 	function Update ( )
 	{
-		if ( ! StartButton.Started ) 
-			return ;
-		if (  LoftMovement.isStopped () )
-			return ;
+		if ( ! StartButton.Started || LoftMovement.isStopped () )
+			return ; 
 
-		if ( ! onCooldown )
+		if ( LoftMovement.currPath * lastPath >= 0 && LoftMovement.currPath  > lastPath )
 		{
+		
+			lastPath = LoftMovement.currPath + 0.050 ;
+			
+			if ( lastPath >= 1 )
+			{
+				lastPath -= 1f;
+				lastPath = -1f + lastPath ; 
+			}
+			
 			var newMonster = monsterPool.Spawn ( prefab ) ;
 			var spawn = newMonster.GetComponent ( SpawnOnLoft ) ;
 			var PF = newMonster.GetComponentInChildren ( EnemyPathfinding ) ;
 			PF.Init ( ) ;
 			spawn.Init ( ) ;
-			activ = monsterPool.Count ;
-			startCooldown ( );
 		}
 	}
-
-	function startCooldown ( )
-	{
-		onCooldown = true ;
-		var extraTime = Mathf.Max ( ( 0.0003 / LoftMovement.movementVariation ) , 1 ) ;
-		yield WaitForSeconds ( 1 * extraTime ) ;
-		onCooldown = false ;
-	}
-
-
-
-
 }
