@@ -1,6 +1,6 @@
 #pragma strict
 
-class ShootForward extends MonoBehaviour {
+class PlaneShootForward extends MonoBehaviour {
 
 	static private var rocksPool: SpawnPool ;
 	private var rockPrefab:Transform ;
@@ -14,17 +14,13 @@ class ShootForward extends MonoBehaviour {
 		if ( ! rocksPool )
 			rocksPool = PoolManager. Pools ["Rocks"] ;
 		if ( ! rockPrefab )
-			rockPrefab = rocksPool.prefabs[ "rock_for_loft_2" ] ;
+			rockPrefab = rocksPool.prefabs[ "plane_bullet" ] ;
 	}	
 
-	function Update ( )
-	{
-
-		if ( LoftMovement.isDead )
-			return ;
-			
-		if ( lastTime > Time.time )
-			return ;
+	function FireGun ( )
+	{		
+		if ( ( FireProgressBar.currCooldown + 0.625*2 ) > 10 )
+			return ;			
 		
 		var point01:Vector3 = transform.position ;
 		var point02:Vector3 = transform.position + transform.forward * 50 ;
@@ -34,15 +30,8 @@ class ShootForward extends MonoBehaviour {
 		var rockScript : MoveTurretBullet = rock.GetComponent ( MoveTurretBullet ) ;
 		
 		rockScript.Init ( point02 ) ;
-		lastTime = Time.time + 0.03 ;
 		
-		++bulletsInBurst ;			
-		
-		if ( bulletsInBurst > MAX_bulletsInBurst )
-		{
-			lastTime = Time.time + 0.5 ;
-			bulletsInBurst = 0 ;
-		}
+		FireProgressBar.currCooldown += 0.625 ;
+		FireProgressBar.lastModified = Time.time ;
 	}
-	
 }

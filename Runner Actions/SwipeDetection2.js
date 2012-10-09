@@ -3,13 +3,19 @@ class SwipeDetection2 extends MonoBehaviour {
 
 	static private var moveRunner:MoveRunnerNew ;
 	static private var plane:Transform ;
-	
+	static private var leftShooter:PlaneShootForward ;
+	static private var rightShooter:PlaneShootForward ;		
+			
 	function Start () 
 	{
 		if ( !moveRunner )
 			moveRunner = GameObject.Find ( "BigGroup" ). GetComponent ( MoveRunnerNew ) ;
 		if ( ! plane )
 			plane = GameObject.Find ( "plane" ).transform ;
+		if ( ! leftShooter )
+			leftShooter = GameObject.Find ( "planeShooter left").GetComponent ( PlaneShootForward ) ;
+		if ( ! rightShooter )
+			rightShooter = GameObject.Find ( "planeShooter right").GetComponent ( PlaneShootForward ) ;
 	}
 	
 	private var Velocity_X:float;
@@ -30,7 +36,6 @@ class SwipeDetection2 extends MonoBehaviour {
 	static public var continuousFire:boolean = false ;
 	private var altitudeModifier:double = 0.0 ;
 	private var touchActive:boolean = false ;
-	
 	
 	//consts	
 	private var HORIZONTAL_TOUCH_LENGTH:int = 25 ;
@@ -200,18 +205,19 @@ class SwipeDetection2 extends MonoBehaviour {
 			case TouchPhase.Ended:
 				touchEnded ( ) ; break ;
 		}
-		/*
+
 		var i:int ;
-		for ( i = 1 ; i < Input.touchCount ; ++ i )
+		for ( i = 0 ; i < Input.touchCount ; ++ i )
 		{
 			newTouch = Input.GetTouch ( i ) ;
 			if ( newTouch.phase == TouchPhase.Ended )
 				if ( newTouch.tapCount >= 1 ) 
 				{
-					moveRunner.fire ( true ) ;
+					leftShooter.FireGun ( ) ;
+					rightShooter.FireGun ( ) ;
 					return ;
 				}
 		}
-		*/
+
 	}
 }
