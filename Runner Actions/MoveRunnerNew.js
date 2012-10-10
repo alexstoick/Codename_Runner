@@ -194,6 +194,8 @@ class MoveRunnerNew extends MonoBehaviour {
 	
 	function fire ( useTime:boolean )
 	{
+		if ( MonsterVector.monsters.Count > 1)
+			Debug.Log ( MonsterVector.monsters[0] ) ;
 		var rock = rocksPool.Spawn ( prefab , transform.position , transform.localRotation ) ;
 		var movement = rock.GetComponent ( RockMovementOnLoft ) ;
 		movement.Init ( ) ;
