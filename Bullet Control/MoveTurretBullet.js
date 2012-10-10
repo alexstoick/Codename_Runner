@@ -5,6 +5,8 @@ class MoveTurretBullet extends MonoBehaviour {
 	private var despawnTime:double = 0.0 ;
 	private var targetLocation:Vector3 ;
 
+	static private var rocksPool: SpawnPool ;
+
 	function Start ( )
 	{
 		if ( ! rocksPool )
@@ -32,13 +34,6 @@ class MoveTurretBullet extends MonoBehaviour {
 			transform.rotation = Quaternion ( 0 , 0 , 0 , 0 ) ;
 		}
 	}
-	
-	function createParticleEffect ( position:Vector3 , rotation:Quaternion )
-	{
-   		var instance = Instantiate( particleEffect , position , rotation ) ;
-	    Destroy(instance.gameObject, 2 );
-	}
-
 	
 	function OnCollisionEnter(CollisionInfo:Collision) 
 	{

@@ -71,6 +71,8 @@ class MovePlaneBullet extends MonoBehaviour {
 			MonsterVector.removeFromArray (cname);
 			createParticleEffect ( child.position , child.rotation ) ;
 			sentryPool.Despawn ( CollisionInfo.contacts[0].otherCollider.gameObject.transform.parent ) ;
+			rocksPool. Despawn ( transform ) ;
+			return ;
 		}	
 		
 		if ( cname.Contains ( "mig" ) )
@@ -79,6 +81,8 @@ class MovePlaneBullet extends MonoBehaviour {
 			createParticleEffect ( child.position, child.rotation ) ;
 			migPool.Despawn ( CollisionInfo.contacts[0].otherCollider.gameObject.transform.parent.parent ) ;
 			ScoreControl.addScore ( 500 ) ;
+			rocksPool. Despawn ( transform ) ;
+			return ;
 		}
 		
 		if ( cname == "MONSTER")
@@ -87,6 +91,8 @@ class MovePlaneBullet extends MonoBehaviour {
 			enemiesPool.Despawn ( child.parent.parent ) ;
 			createParticleEffect ( child.position , child.rotation ) ;
 			ScoreControl.addScore ( 300 ) ;
+			rocksPool. Despawn ( transform ) ;
+			return ;
 		}
 		
 		if ( cname == "crate" )
@@ -94,8 +100,8 @@ class MovePlaneBullet extends MonoBehaviour {
     		collider.gameObject.active = false ;
     		createParticleEffect ( collider.gameObject.transform.position , collider.gameObject.transform.rotation ) ;	
 		    ScoreControl.addScore ( 150 ) ;
+			rocksPool. Despawn ( transform ) ;
+			return ;
 		}
-		
-		rocksPool. Despawn ( transform ) ;
 	}
 }
