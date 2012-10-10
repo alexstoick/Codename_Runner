@@ -25,7 +25,7 @@ class PlaneShootForward extends MonoBehaviour {
 		
 		
 		var rock = rocksPool. Spawn ( rockPrefab , point01 , Quaternion ( 0 , 0 , 0 , 0 ) )  ;
-		var rockScript : MoveTurretBullet = rock.GetComponent ( MoveTurretBullet ) ;
+		var rockScript : MovePlaneBullet = rock.GetComponent ( MovePlaneBullet ) ;
 		
 		rockScript.Init ( point02 ) ;
 		
