@@ -57,6 +57,7 @@ class MoveRock extends MonoBehaviour {
 		
 			createParticleEffect ( child.position , child.rotation ) ;
 			sentryPool.Despawn ( CollisionInfo.contacts[0].otherCollider.gameObject.transform.parent ) ;
+			rocksPool. Despawn ( transform.parent.parent ) ;
 			return ;
 		}	
 		
@@ -70,12 +71,11 @@ class MoveRock extends MonoBehaviour {
 		
 		if ( cname == "MONSTER")
 		{
-
-					
-					enemiesPool.Despawn ( child.parent.parent ) ;
-					
-	    			createParticleEffect ( child.position , child.rotation ) ;
-	    			ScoreControl.addScore ( 300 ) ;
+			enemiesPool.Despawn ( child.parent.parent ) ;
+			createParticleEffect ( child.position , child.rotation ) ;
+			ScoreControl.addScore ( 300 ) ;
+			rocksPool. Despawn ( transform.parent.parent ) ;
+			return ;
 		}
 		else
 			if ( cname == "crate" )
@@ -84,9 +84,8 @@ class MoveRock extends MonoBehaviour {
 	    		createParticleEffect ( collider.gameObject.transform.position , collider.gameObject.transform.rotation ) ;	
 			    ScoreControl.addScore ( 150 ) ;
 			    powerUp.Spawn ( collider.gameObject.transform ) ;
+			    rocksPool. Despawn ( transform.parent.parent ) ;
+			    return ;
 			}
-			
-		rocksPool . Despawn ( transform.parent.parent ) ;
-		
 	}
 }
