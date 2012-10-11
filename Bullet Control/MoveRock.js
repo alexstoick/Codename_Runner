@@ -9,6 +9,8 @@ class MoveRock extends MonoBehaviour {
 	static private var migPool: SpawnPool ;
 
 	static private var powerUp : PowerUp ;
+	private var targetNo:int = 0;
+	private var shouldLock:boolean = false ;
 
 	
 	function Start ( )
@@ -30,8 +32,7 @@ class MoveRock extends MonoBehaviour {
    		var instance = Instantiate( particleEffect , position , rotation ) ;
 	    Destroy(instance.gameObject, 2 );
 	}
-
-
+	
 	function OnCollisionEnter(CollisionInfo:Collision) 
 	{
 	

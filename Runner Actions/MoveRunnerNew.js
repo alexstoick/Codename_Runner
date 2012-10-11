@@ -205,6 +205,7 @@ class MoveRunnerNew extends MonoBehaviour {
 		var i:int ;
 		var flying:boolean = true ;
 		var found: boolean = false ;
+		var foundI:int = 0;
 		
 		for ( i = 0 ; i < MonsterVector.monsters.Count && ! found ; ++ i )
 		{
@@ -243,7 +244,7 @@ class MoveRunnerNew extends MonoBehaviour {
 					flying = true ;
 				else
 					flying = false ;
-					
+				foundI = i ;
 				//Debug.Log ( MonsterVector.monsters[i] + "		" + monsterRotation + "		" + lowRot + "		" + highRot + "should fly:" + flying ) ;
 
 			}
@@ -263,6 +264,11 @@ class MoveRunnerNew extends MonoBehaviour {
 
 		var movement = rock.GetComponent ( RockMovementOnLoft ) ;
 		movement.Init ( ) ;
+		if ( found )
+		{
+			var tmp = rock.GetComponentInChildren ( BulletFollowTarget ) ;
+			tmp.LockTarget ( foundI ) ;
+		}
 	}
 
 }

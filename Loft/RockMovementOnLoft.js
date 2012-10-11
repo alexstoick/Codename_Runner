@@ -25,8 +25,6 @@ class RockMovementOnLoft extends MonoBehaviour {
 			runner = GameObject.Find ( "BigGroup" ).transform ;
 	}
 	
-
-
 	function Update ( )
 	{
 		
