@@ -203,7 +203,7 @@ class MoveRunnerNew extends MonoBehaviour {
 		var planeRotation:double = transform.localRotation.eulerAngles.z ;
 
 		var i:int ;
-		var flying:boolean = false ;
+		var flying:boolean = true ;
 		var found: boolean = false ;
 		
 		for ( i = 0 ; i < MonsterVector.monsters.Count && ! found ; ++ i )
@@ -241,8 +241,10 @@ class MoveRunnerNew extends MonoBehaviour {
 				//vedem ce tip e
 				if ( MonsterVector.monsters[i].Contains ( "mig" ) )
 					flying = true ;
-				
-				Debug.Log ( monsterRotation + "		" + lowRot + "		" + highRot + "should fly:" + flying ) ;
+				else
+					flying = false ;
+					
+				//Debug.Log ( MonsterVector.monsters[i] + "		" + monsterRotation + "		" + lowRot + "		" + highRot + "should fly:" + flying ) ;
 
 			}
 		}
@@ -253,8 +255,8 @@ class MoveRunnerNew extends MonoBehaviour {
 		{
 			rock = rocksPool.Spawn ( prefab , position, rotation ) ;
 			var holder = rock.GetChild(0) ;
-			holder.GetChild(0).localPosition.y -= 2.5 ;
-			holder.GetChild(1).localPosition.y -= 2.5 ;
+			holder.GetChild(0).localPosition.y = -5.6 ;
+			holder.GetChild(1).localPosition.y = -5.2 ;
 		}
 		else
 			rock = rocksPool.Spawn ( prefab , position, rotation ) ;
