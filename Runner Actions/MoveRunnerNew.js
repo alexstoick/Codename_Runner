@@ -13,6 +13,7 @@ class MoveRunnerNew extends MonoBehaviour {
 	
 	static var rocksPool:SpawnPool ;
 	static var prefab:Transform ;
+	static var high_prefab:Transform ;
 	
 	static private var haveToRotate:boolean ;
 	static private var haveToRotateCamera:boolean ;
@@ -37,6 +38,8 @@ class MoveRunnerNew extends MonoBehaviour {
 			rocksPool = PoolManager.Pools[ "Rocks" ] ;
 		if ( ! prefab )
 			prefab = rocksPool.prefabs [ "rock_for_loft" ] ;
+		if ( ! high_prefab )
+			high_prefab = rocksPool.prefabs [ "rock_for_loft_high" ] ;
 		if ( ! planeHolder )
 			planeHolder = GameObject.Find ( "Plane Holder" ).transform ;
 	}
@@ -134,8 +137,8 @@ class MoveRunnerNew extends MonoBehaviour {
 			action ( "right" ) ;
 		if ( Input.GetKeyDown ( KeyCode.LeftControl ) )
 			action ( "down" ) ;
-		if ( Input.GetKeyDown ( KeyCode.LeftShift ) )
-			action ( "up" ) ;
+//		if ( Input.GetKeyDown ( KeyCode.LeftShift ) )
+//			action ( "up" ) ;
 		if ( Input.GetKeyDown ( KeyCode.Backspace ) )
 			action ( "loopright" ) ;
 			
@@ -195,30 +198,24 @@ class MoveRunnerNew extends MonoBehaviour {
 	function fire ( useTime:boolean )
 	{
 		var position:Vector3 = transform.position ;
-		var rotation:Quaternion = transform.localRotation ;
+		var rotation:Quaternion = transform.rotation ;
 		
-		var planeRotation:double = rotation.eulerAngles.z ;
+		var planeRotation:double = transform.localRotation.eulerAngles.z ;
 
 		var i:int ;
-		var y:double = 2.45 ;
+		var flying:boolean = false ;
 		var found: boolean = false ;
 		
 		for ( i = 0 ; i < MonsterVector.monsters.Count && ! found ; ++ i )
 		{
 			//vedem daca rotatia este corecta. ii dam un threshold de ±10grade
-			var monsterRotation:double = MonsterVector.angles[i].localRotation.eulerAngles.z ;
-			
-
-
+			var monsterRotation:double = MonsterVector.transforms[i].localRotation.eulerAngles.z + MonsterVector.angles[i];
 			
 			if ( monsterRotation < 0 )
 				monsterRotation += 360 ;
 			var lowRot:double = monsterRotation - 15.5 ;
 			var highRot:double = monsterRotation + 15.5 ;
 		
-			Debug.Log ( monsterRotation + "		" + lowRot + "		" + highRot ) ;
-
-			
 			if ( highRot > 360 )
 			{
 				if ( lowRot <= planeRotation )
@@ -234,7 +231,7 @@ class MoveRunnerNew extends MonoBehaviour {
 					found = true ;
 			}
 				
-			if ( monsterRotation - 10 <= planeRotation && planeRotation <= monsterRotation + 10 )
+			if ( lowRot <= planeRotation && planeRotation <= highRot )
 			{
 				found = true ;
 			}
@@ -243,17 +240,27 @@ class MoveRunnerNew extends MonoBehaviour {
 			{
 				//vedem ce tip e
 				if ( MonsterVector.monsters[i].Contains ( "mig" ) )
-					y = 0.5 ;
-				else
-					y = 2.45 ;
+					flying = true ;
+				
+				Debug.Log ( monsterRotation + "		" + lowRot + "		" + highRot + "should fly:" + flying ) ;
+
 			}
 		}
 
-		var rock = rocksPool.Spawn ( prefab , position, rotation ) ;
-		rock.GetChild(0).localPosition.y = y ;
+		var prefabForRock:Transform ;
+		var rock:Transform;
+		if ( flying )
+		{
+			rock = rocksPool.Spawn ( prefab , position, rotation ) ;
+			var holder = rock.GetChild(0) ;
+			holder.GetChild(0).localPosition.y -= 2.5 ;
+			holder.GetChild(1).localPosition.y -= 2.5 ;
+		}
+		else
+			rock = rocksPool.Spawn ( prefab , position, rotation ) ;
+
 		var movement = rock.GetComponent ( RockMovementOnLoft ) ;
 		movement.Init ( ) ;
-		
 	}
 
 }
