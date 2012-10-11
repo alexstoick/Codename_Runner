@@ -197,15 +197,63 @@ class MoveRunnerNew extends MonoBehaviour {
 		var position:Vector3 = transform.position ;
 		var rotation:Quaternion = transform.localRotation ;
 		
-		if ( MonsterVector.monsters.Count >= 1)
-		{
-			//vedem daca este pe rotatia respectiva 
-			Debug.Log ( MonsterVector.angles[0] * 360 + "		" + MonsterVector.angles[0] ) ;
-		}
+		var planeRotation:double = rotation.eulerAngles.z ;
+
+		var i:int ;
+		var y:double = 2.45 ;
+		var found: boolean = false ;
 		
+		for ( i = 0 ; i < MonsterVector.monsters.Count && ! found ; ++ i )
+		{
+			//vedem daca rotatia este corecta. ii dam un threshold de ±10grade
+			var monsterRotation:double = MonsterVector.angles[i].localRotation.eulerAngles.z ;
+			
+
+
+			
+			if ( monsterRotation < 0 )
+				monsterRotation += 360 ;
+			var lowRot:double = monsterRotation - 15.5 ;
+			var highRot:double = monsterRotation + 15.5 ;
+		
+			Debug.Log ( monsterRotation + "		" + lowRot + "		" + highRot ) ;
+
+			
+			if ( highRot > 360 )
+			{
+				if ( lowRot <= planeRotation )
+					found = true ;
+				if ( planeRotation <= highRot - 360 )
+					found = true ;
+			}
+			if ( lowRot < 0 )
+			{
+				if ( lowRot + 360 <= planeRotation )
+					found = true ;
+				if ( planeRotation <= highRot )
+					found = true ;
+			}
+				
+			if ( monsterRotation - 10 <= planeRotation && planeRotation <= monsterRotation + 10 )
+			{
+				found = true ;
+			}
+			
+			if ( found )
+			{
+				//vedem ce tip e
+				if ( MonsterVector.monsters[i].Contains ( "mig" ) )
+					y = 0.5 ;
+				else
+					y = 2.45 ;
+			}
+		}
+
 		var rock = rocksPool.Spawn ( prefab , position, rotation ) ;
+		rock.GetChild(0).localPosition.y = y ;
 		var movement = rock.GetComponent ( RockMovementOnLoft ) ;
 		movement.Init ( ) ;
+		
 	}
 
 }
