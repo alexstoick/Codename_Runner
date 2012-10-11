@@ -2,10 +2,10 @@
 
 class ShootRocket extends MonoBehaviour {
 	
-	var moveRunner:MoveRunnerNew ;
+	private var moveRunner:MoveRunnerNew ;
 	static var width:int ;
 	static var height:int ;
-	var texture:GUITexture ;
+	private var texture:GUITexture ;
 	
 	function Awake ( )
 	{

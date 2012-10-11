@@ -6,6 +6,7 @@ class MoveEnemyAirplane extends MonoBehaviour {
 	private var patrolDirection:int = 1 ;
 	var patrolling:boolean = false ;
 	var target = Quaternion ( 0 , 0, 0 , 0 ) ;
+	var freeze:boolean = false ;
 
 
 	function Update ( )
@@ -28,7 +29,7 @@ class MoveEnemyAirplane extends MonoBehaviour {
 	function Patrol ( ) 
 	{
 	
-		if ( patrolling )
+		if ( patrolling || freeze )
 			return ;
 		
 		if ( computeDirection ( patrolDirection  , "compute for patrolling" , false ) )
