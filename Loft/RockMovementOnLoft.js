@@ -5,13 +5,15 @@ class RockMovementOnLoft extends MonoBehaviour {
 	var walk:MegaWalkLoft ;
 	static var loft:MegaShapeLoft ;
 	static var runner:Transform ;
+	private var addVariation:double = 0.0004 ;
 	var copil:Transform ;
 	
-	function Init ( )
+	function Init ( speed:double )
 	{
 		transform.GetChild(0).localRotation = runner.localRotation ;
 		walk.surfaceLoft = loft ;
 		walk.surfaceLayer = 0 ;
+		addVariation = speed ;
 		walk.alpha = 0.10300f ;
 	}
 	
@@ -28,7 +30,7 @@ class RockMovementOnLoft extends MonoBehaviour {
 	function Update ( )
 	{
 		
-		walk.alpha += LoftMovement.movementVariation + 0.0004 ;
+		walk.alpha += 0.0004 ;
 
 		if ( walk.alpha >= 1 )
 			walk.alpha = -1.0 ;

@@ -203,20 +203,20 @@ class MoveRunnerNew extends MonoBehaviour {
 		var planeRotation:double = transform.localRotation.eulerAngles.z ;
 
 		var i:int ;
-		var flying:boolean = true ;
+		var flying:boolean = false ;
 		var found: boolean = false ;
 		var foundI:int = 0;
 		
 		for ( i = 0 ; i < MonsterVector.monsters.Count && ! found ; ++ i )
 		{
 			//vedem daca rotatia este corecta. ii dam un threshold de ±10grade
-			var monsterRotation:double = MonsterVector.transforms[i].localRotation.eulerAngles.z + MonsterVector.angles[i];
+			var monsterRotation:double = ( MonsterVector.transforms[i].localRotation.eulerAngles.z + MonsterVector.angles[i] ) % 360 ;
 			
 			if ( monsterRotation < 0 )
 				monsterRotation += 360 ;
-			var lowRot:double = monsterRotation - 15.5 ;
-			var highRot:double = monsterRotation + 15.5 ;
-		
+			var lowRot:double = monsterRotation - 45.5 ;
+			var highRot:double = monsterRotation + 45.5 ;
+	
 			if ( highRot > 360 )
 			{
 				if ( lowRot <= planeRotation )
@@ -252,23 +252,37 @@ class MoveRunnerNew extends MonoBehaviour {
 
 		var prefabForRock:Transform ;
 		var rock:Transform;
+		var holder:Transform ;
 		if ( flying )
 		{
 			rock = rocksPool.Spawn ( prefab , position, rotation ) ;
-			var holder = rock.GetChild(0) ;
-			holder.GetChild(0).localPosition.y = -5.6 ;
-			holder.GetChild(1).localPosition.y = -5.2 ;
+			holder = rock.GetChild(0) ;
+			holder.GetChild(0).localPosition.y = -6.6 ;
+			holder.GetChild(1).localPosition.y = -6.2 ;
 		}
 		else
+		{
 			rock = rocksPool.Spawn ( prefab , position, rotation ) ;
+			holder = rock.GetChild(0) ;
+			holder.GetChild(0).localPosition.y = -3.6 ;
+			holder.GetChild(1).localPosition.y = -3.2 ;
+		}
 
 		var movement = rock.GetComponent ( RockMovementOnLoft ) ;
-		movement.Init ( ) ;
+		var tmp = rock.GetComponentInChildren ( BulletFollowTarget ) ;
+
 		if ( found )
 		{
-			var tmp = rock.GetComponentInChildren ( BulletFollowTarget ) ;
 			tmp.LockTarget ( foundI ) ;
+			movement.Init ( 0 ) ;
+			Debug.Log ( "locked target	" + MonsterVector.monsters[foundI] + "		" + foundI  + "		" + ( MonsterVector.transforms[foundI].localRotation.eulerAngles.z + MonsterVector.angles[foundI] ) % 360 ) ;
 		}
+		else
+		{
+			tmp.ResetLock ( ) ;
+			movement.Init ( 0.0004 ) ;
+		}
+		
 	}
 
 }

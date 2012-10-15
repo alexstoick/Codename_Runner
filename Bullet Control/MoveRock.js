@@ -55,30 +55,30 @@ class MoveRock extends MonoBehaviour {
 		
 		if ( cname.Contains ( "sentry" ) )
 		{
-			MonsterVector.removeFromArray (cname);
 			createParticleEffect ( child.position , child.rotation ) ;
-			sentryPool.Despawn ( CollisionInfo.contacts[0].otherCollider.gameObject.transform.parent ) ;
+			sentryPool.Despawn ( child.transform.parent ) ;
 			rocksPool. Despawn ( transform.parent.parent ) ;
+			MonsterVector.removeFromArray (child.parent.name);
 			return ;
 		}	
 		
 		if ( cname.Contains ( "mig" ) )
 		{
-			MonsterVector.removeFromArray (cname);
 			createParticleEffect ( child.position, child.rotation ) ;
-			migPool.Despawn ( CollisionInfo.contacts[0].otherCollider.gameObject.transform.parent.parent ) ;
+			migPool.Despawn ( child.parent.parent ) ;
 			ScoreControl.addScore ( 500 ) ;
 			rocksPool. Despawn ( transform.parent.parent ) ;
+			MonsterVector.removeFromArray ( child.parent.parent.name);
 			return ;
 		}
 		
 		if ( cname == "MONSTER")
 		{
-			MonsterVector.removeFromArray (cname);			
 			enemiesPool.Despawn ( child.parent.parent ) ;
 			createParticleEffect ( child.position , child.rotation ) ;
 			ScoreControl.addScore ( 300 ) ;
 			rocksPool. Despawn ( transform.parent.parent ) ;
+			MonsterVector.removeFromArray (child.parent.parent.name);
 			return ;
 		}
 		else
