@@ -145,7 +145,10 @@ class CollisionHandler extends MonoBehaviour {
 		{
 			var parent:Transform = CollisionInfo.contacts[0].otherCollider.gameObject.transform.parent.transform ;
 			if ( name == "MONSTER" )
+			{
 				enemiesPool.Despawn ( parent.parent ) ;
+				MonsterVector.removeFromArray (parent.parent.name , "collision with the plane");
+			}
 			else
 			{
 				boxPool. Despawn ( parent ) ;
@@ -180,6 +183,7 @@ class CollisionHandler extends MonoBehaviour {
 			enemiesPool.Despawn ( parent.parent ) ;
 			createParticleEffect ( parent.parent.position , parent.rotation ) ;
 			ScoreControl.addScore ( -400 ) ;
+			MonsterVector.removeFromArray (parent.parent.name , "collision with the plane");
 			blinkRunner ( ) ;
 			return ;
 		}

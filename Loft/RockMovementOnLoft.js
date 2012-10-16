@@ -30,7 +30,7 @@ class RockMovementOnLoft extends MonoBehaviour {
 	function Update ( )
 	{
 		
-		walk.alpha += 0.0004 ;
+		walk.alpha += Mathf.Max ( 0.0003 , 0.0006 - LoftMovement.acceleration - LoftMovement.movementVariation) ;
 
 		if ( walk.alpha >= 1 )
 			walk.alpha = -1.0 ;

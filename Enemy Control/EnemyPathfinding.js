@@ -18,7 +18,7 @@ class EnemyPathfinding extends MonoBehaviour {
 	private var direction:String[] = new String[4] ;
 
 	var target:Quaternion ;
-	private var WAIT_SECONDS_FOR_PATROL:float = 1.00 ;
+	private var WAIT_SECONDS_FOR_PATROL:float = 0.50 ;
 	private var WAIT_SECONDS_FOR_MOVEMENT:float = 0.50 ;
 
 	

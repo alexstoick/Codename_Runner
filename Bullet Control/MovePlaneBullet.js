@@ -65,24 +65,26 @@ class MovePlaneBullet extends MonoBehaviour {
 			return ;
 		}
 		
-
+		if ( ! child.gameObject.active )
+			return ;
 		if ( cname.Contains ( "sentry" ) )
 		{
 			createParticleEffect ( child.position , child.rotation ) ;
-			sentryPool.Despawn ( CollisionInfo.contacts[0].otherCollider.gameObject.transform.parent ) ;
+			sentryPool.Despawn ( child.transform.parent ) ;
 			rocksPool. Despawn ( transform ) ;
-			MonsterVector.removeFromArray (child.parent.name);				
+			MonsterVector.removeFromArray (child.parent.name , "collision with plane bullet (turret)");
 			return ;
 		}	
 		
 		if ( cname.Contains ( "mig" ) )
 		{
 			createParticleEffect ( child.position, child.rotation ) ;
-			migPool.Despawn ( CollisionInfo.contacts[0].otherCollider.gameObject.transform.parent.parent ) ;
+			migPool.Despawn ( child.parent.parent ) ;
 			ScoreControl.addScore ( 500 ) ;
 			rocksPool. Despawn ( transform ) ;
-			MonsterVector.removeFromArray ( child.parent.parent.name);
+			MonsterVector.removeFromArray ( child.parent.parent.name , "collision with plane bullet (turret)" );
 			return ;
+
 		}
 		
 		if ( cname == "MONSTER")
@@ -91,7 +93,7 @@ class MovePlaneBullet extends MonoBehaviour {
 			createParticleEffect ( child.position , child.rotation ) ;
 			ScoreControl.addScore ( 300 ) ;
 			rocksPool. Despawn ( transform ) ;
-			MonsterVector.removeFromArray ( child.parent.parent.name);
+			MonsterVector.removeFromArray ( child.parent.parent.name ,"collision with plane bullet (turret)" );
 			return ;
 		}
 		

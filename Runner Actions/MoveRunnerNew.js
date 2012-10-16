@@ -281,7 +281,7 @@ class MoveRunnerNew extends MonoBehaviour {
 		{
 			tmp.LockTarget ( foundI ) ;
 			movement.Init ( 0 ) ;
-			Debug.Log ( "locked target	" + MonsterVector.monsters[foundI] + "		" + foundI  + "		" + ( MonsterVector.transforms[foundI].localRotation.eulerAngles.z + MonsterVector.angles[foundI] ) % 360 ) ;
+			Debug.Log ( "locked target	" + MonsterVector.monsters[foundI] + "		" + Time.time ) ;//+ foundI  + "		" + ( MonsterVector.transforms[foundI].localRotation.eulerAngles.z + MonsterVector.angles[foundI] ) % 360 ) ;
 		}
 		else
 		{

@@ -58,7 +58,7 @@ class MoveRock extends MonoBehaviour {
 			createParticleEffect ( child.position , child.rotation ) ;
 			sentryPool.Despawn ( child.transform.parent ) ;
 			rocksPool. Despawn ( transform.parent.parent ) ;
-			MonsterVector.removeFromArray (child.parent.name);
+			MonsterVector.removeFromArray (child.parent.name , "collision with plane rock");
 			return ;
 		}	
 		
@@ -68,7 +68,7 @@ class MoveRock extends MonoBehaviour {
 			migPool.Despawn ( child.parent.parent ) ;
 			ScoreControl.addScore ( 500 ) ;
 			rocksPool. Despawn ( transform.parent.parent ) ;
-			MonsterVector.removeFromArray ( child.parent.parent.name);
+			MonsterVector.removeFromArray ( child.parent.parent.name ,"collision with plane rock" );
 			return ;
 		}
 		
@@ -78,7 +78,7 @@ class MoveRock extends MonoBehaviour {
 			createParticleEffect ( child.position , child.rotation ) ;
 			ScoreControl.addScore ( 300 ) ;
 			rocksPool. Despawn ( transform.parent.parent ) ;
-			MonsterVector.removeFromArray (child.parent.parent.name);
+			MonsterVector.removeFromArray (child.parent.parent.name ,"collision with plane rock" );
 			return ;
 		}
 		else
