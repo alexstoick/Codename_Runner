@@ -214,8 +214,8 @@ class MoveRunnerNew extends MonoBehaviour {
 			
 			if ( monsterRotation < 0 )
 				monsterRotation += 360 ;
-			var lowRot:double = monsterRotation - 45.5 ;
-			var highRot:double = monsterRotation + 45.5 ;
+			var lowRot:double = monsterRotation - 90.5 ;
+			var highRot:double = monsterRotation + 90.5 ;
 	
 			if ( highRot > 360 )
 			{
@@ -249,7 +249,13 @@ class MoveRunnerNew extends MonoBehaviour {
 
 			}
 		}
-
+		
+		if ( ! found )
+		{
+			Debug.Log ( "NO TARGET" ) ;
+			return ;
+		}
+		
 		var prefabForRock:Transform ;
 		var rock:Transform;
 		var holder:Transform ;
@@ -267,7 +273,7 @@ class MoveRunnerNew extends MonoBehaviour {
 			holder.GetChild(0).localPosition.y = -3.6 ;
 			holder.GetChild(1).localPosition.y = -3.2 ;
 		}
-
+		
 		var movement = rock.GetComponent ( RockMovementOnLoft ) ;
 		var tmp = rock.GetComponentInChildren ( BulletFollowTarget ) ;
 

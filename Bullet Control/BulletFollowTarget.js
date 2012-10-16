@@ -5,6 +5,7 @@ class BulletFollowTarget extends MonoBehaviour {
 	private var target:int = 0 ;
 	private var shouldLock:boolean = false ;
 	private var lastTime:double ;
+	private var targetName:String ;
 
 	function ResetLock ( )
 	{
@@ -16,10 +17,12 @@ class BulletFollowTarget extends MonoBehaviour {
 		target = targetNo ;
 		shouldLock = true ;
 		lastTime = Time.time + 100 ;
+		tParam = 0 ;
+		targetName = MonsterVector.transforms[target].name ;
 	}
 	
 	var tParam : float = 0;
-	var speed: float = 0.1 ;
+	var speed: float = 0.01 ;
 
 
 
@@ -33,8 +36,9 @@ class BulletFollowTarget extends MonoBehaviour {
 		{
 		
     		tParam += Time.deltaTime * speed; //This will increment tParam based on Time.deltaTime multiplied by a speed multiplier
-    		if ( MonsterVector.transforms.Count <= target )
+    		if ( MonsterVector.transforms.Count <= target || MonsterVector.transforms[target].name != targetName )
     		{
+    			Debug.Log ( "lost target" ) ;
     			shouldLock = false ;
     			return ;
     		}
