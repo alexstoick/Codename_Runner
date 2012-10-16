@@ -23,7 +23,7 @@ class SpawnMonster extends MonoBehaviour {
 		if ( LoftMovement.currPath * lastPath >= 0 && LoftMovement.currPath  > lastPath )
 		{
 		
-			lastPath = LoftMovement.currPath + 0.050 ;
+			lastPath = LoftMovement.currPath + 0.053 ;
 			
 			if ( lastPath >= 1 )
 			{

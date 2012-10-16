@@ -22,7 +22,7 @@ class SpawnEnemyAirplane extends MonoBehaviour {
 
 		if ( LoftMovement.currPath * lastPath >= 0 && LoftMovement.currPath  > lastPath )
 		{
-			lastPath = LoftMovement.currPath + 0.1500 ;
+			lastPath = LoftMovement.currPath + 0.1511 ;
 			
 			if ( lastPath >= 1 )
 			{

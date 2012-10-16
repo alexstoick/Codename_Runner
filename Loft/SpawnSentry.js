@@ -19,11 +19,11 @@ class SpawnSentry extends MonoBehaviour {
 	{
 		if ( ! StartButton.Started || LoftMovement.isStopped () )
 			return ; 
-
+/*
 		if ( LoftMovement.currPath * lastPath >= 0 && LoftMovement.currPath  > lastPath )
 		{
 		
-			lastPath = LoftMovement.currPath + 0.1000 ;
+			lastPath = LoftMovement.currPath + 0.1009 ;
 			
 			if ( lastPath >= 1 )
 			{
@@ -35,5 +35,6 @@ class SpawnSentry extends MonoBehaviour {
 			var spawn = newSentry.GetComponent ( SpawnOnLoft ) ;
 			spawn.Init ( ) ;
 		}
+*/
 	}
 }
