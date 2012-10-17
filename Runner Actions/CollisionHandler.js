@@ -6,7 +6,6 @@ class CollisionHandler extends MonoBehaviour {
 
 	static private var enemiesPool: SpawnPool ;
 	static private var boxPool: SpawnPool ;
-	static private var bonusesPool: SpawnPool ;
 	
 	static public var bashOn:boolean = false ;
 	static private var pushBackDirection:String ;
@@ -18,8 +17,6 @@ class CollisionHandler extends MonoBehaviour {
 	
 	static private var cameraTransform:Transform ;
 
-	static private var powerUp:PowerUp ;
-
 	var materials:Material[] ;
 
 	function Awake ( )
@@ -30,15 +27,10 @@ class CollisionHandler extends MonoBehaviour {
 			plane = GameObject.Find ( "plane" ).transform ;
 		if ( ! moveRunner )
 			moveRunner = GameObject.Find ( "BigGroup").GetComponent ( "MoveRunnerNew" ) ;
-		if ( ! powerUp )
-			powerUp = GameObject.Find ( "Power Up Control").GetComponent ( PowerUp ) ;
 	}
 	
 	function Start ( )
 	{ 
-
-		if ( ! bonusesPool )
-			bonusesPool = PoolManager.Pools["Bonuses"] ;
 		if ( ! enemiesPool )
 			enemiesPool = PoolManager.Pools["Monsters"] ;
 		if ( ! boxPool ) 
@@ -131,7 +123,7 @@ class CollisionHandler extends MonoBehaviour {
 		}
 					
 
-		if ( name == "ammoBox" ) 
+/*		if ( name == "ammoBox" ) 
 		{
 			SwipeDetection2.continuousFire = true ;
 			
@@ -139,7 +131,7 @@ class CollisionHandler extends MonoBehaviour {
 			
 			bonusesPool.Despawn ( CollisionInfo.contacts[0].otherCollider.gameObject.transform.parent.transform ) ; 
 			return ;
-		}
+		}*/
 		
 		if ( bashOn && ( name == "crate" || name == "MONSTER" ) ) 
 		{
@@ -150,10 +142,8 @@ class CollisionHandler extends MonoBehaviour {
 				MonsterVector.removeFromArray (parent.parent.name , "collision with the plane");
 			}
 			else
-			{
 				boxPool. Despawn ( parent ) ;
-				powerUp.Spawn ( parent.GetChild(0) ) ;
-			}
+				
 			createParticleEffect ( parent.parent.position , parent.rotation ) ;
 			ScoreControl.addScore ( 400 ) ;
 			return ;
