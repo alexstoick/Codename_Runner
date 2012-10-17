@@ -67,12 +67,13 @@ class MovePlaneBullet extends MonoBehaviour {
 		
 		if ( ! child.gameObject.active )
 			return ;
+			
 		if ( cname.Contains ( "sentry" ) )
 		{
 			createParticleEffect ( child.position , child.rotation ) ;
-			sentryPool.Despawn ( child.transform.parent ) ;
+			sentryPool.Despawn ( child.parent.parent ) ;
 			rocksPool. Despawn ( transform ) ;
-			MonsterVector.removeFromArray (child.parent.name , "collision with plane bullet (turret)");
+			MonsterVector.removeFromArray (child.parent.parent.name , "collision with plane bullet (turret)");
 			return ;
 		}	
 		

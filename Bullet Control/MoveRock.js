@@ -7,6 +7,7 @@ class MoveRock extends MonoBehaviour {
 	static private var enemiesPool: SpawnPool ;
 	static private var sentryPool: SpawnPool ;
 	static private var migPool: SpawnPool ;
+	static private var powerUpControl : PowerUpControl ; 
 
 	static private var powerUp : PowerUp ;
 	private var targetNo:int = 0;
@@ -23,8 +24,8 @@ class MoveRock extends MonoBehaviour {
 			sentryPool = PoolManager.Pools [ "Sentry" ] ;
 		if ( ! migPool ) 
 			migPool = PoolManager.Pools [ "Enemy Airplane" ] ;
-		if ( ! powerUp)
-			powerUp = GameObject.Find ( "Power Up Control").GetComponent ( PowerUp ) ;
+		if ( ! powerUpControl )
+			powerUpControl = GameObject.Find ( "PowerUp").GetComponent ( PowerUpControl ) ;
 	}
 	
 	function createParticleEffect ( position:Vector3 , rotation:Quaternion )
@@ -46,7 +47,8 @@ class MoveRock extends MonoBehaviour {
 		
 		if ( cname.Contains ( "Plant" ) )
 		{
-			rocksPool. Despawn ( transform.parent.parent ) ;
+			if ( transform.parent.parent.gameObject.active )
+				rocksPool. Despawn ( transform.parent.parent ) ;
 			return ;
 		}
 		
@@ -56,28 +58,34 @@ class MoveRock extends MonoBehaviour {
 		if ( cname.Contains ( "sentry" ) )
 		{
 			createParticleEffect ( child.position , child.rotation ) ;
-			sentryPool.Despawn ( child.transform.parent ) ;
-			rocksPool. Despawn ( transform.parent.parent ) ;
-			MonsterVector.removeFromArray (child.parent.name , "collision with plane rock");
+			powerUpControl.Spawn ( child.parent.parent ) ;
+			sentryPool.Despawn ( child.parent.parent ) ;
+			if ( transform.parent.parent.gameObject.active )
+				rocksPool. Despawn ( transform.parent.parent ) ;
+			MonsterVector.removeFromArray (child.parent.parent.name , "collision with plane rock");
 			return ;
 		}	
 		
 		if ( cname.Contains ( "mig" ) )
 		{
 			createParticleEffect ( child.position, child.rotation ) ;
+			powerUpControl.Spawn ( child.parent.parent ) ;
 			migPool.Despawn ( child.parent.parent ) ;
 			ScoreControl.addScore ( 500 ) ;
-			rocksPool. Despawn ( transform.parent.parent ) ;
+			if ( transform.parent.parent.gameObject.active )
+				rocksPool. Despawn ( transform.parent.parent ) ;
 			MonsterVector.removeFromArray ( child.parent.parent.name ,"collision with plane rock" );
 			return ;
 		}
 		
 		if ( cname == "MONSTER")
 		{
+			powerUpControl.Spawn ( child.parent.parent ) ;
 			enemiesPool.Despawn ( child.parent.parent ) ;
 			createParticleEffect ( child.position , child.rotation ) ;
 			ScoreControl.addScore ( 300 ) ;
-			rocksPool. Despawn ( transform.parent.parent ) ;
+			if ( transform.parent.parent.gameObject.active )
+				rocksPool. Despawn ( transform.parent.parent ) ;
 			MonsterVector.removeFromArray (child.parent.parent.name ,"collision with plane rock" );
 			return ;
 		}
@@ -87,8 +95,8 @@ class MoveRock extends MonoBehaviour {
 	    		collider.gameObject.active = false ;
 	    		createParticleEffect ( collider.gameObject.transform.position , collider.gameObject.transform.rotation ) ;	
 			    ScoreControl.addScore ( 150 ) ;
-			    powerUp.Spawn ( collider.gameObject.transform ) ;
-			    rocksPool. Despawn ( transform.parent.parent ) ;
+			    if ( transform.parent.parent.gameObject.active )
+				    rocksPool. Despawn ( transform.parent.parent ) ;
 			    return ;
 			}
 	}
