@@ -13,7 +13,6 @@ class MoveRunnerNew extends MonoBehaviour {
 	
 	static var rocksPool:SpawnPool ;
 	static var prefab:Transform ;
-	static var high_prefab:Transform ;
 	
 	static private var haveToRotate:boolean ;
 	static private var haveToRotateCamera:boolean ;
@@ -38,8 +37,6 @@ class MoveRunnerNew extends MonoBehaviour {
 			rocksPool = PoolManager.Pools[ "Rocks" ] ;
 		if ( ! prefab )
 			prefab = rocksPool.prefabs [ "rock_for_loft" ] ;
-		if ( ! high_prefab )
-			high_prefab = rocksPool.prefabs [ "rock_for_loft_high" ] ;
 		if ( ! planeHolder )
 			planeHolder = GameObject.Find ( "Plane Holder" ).transform ;
 	}
@@ -50,8 +47,8 @@ class MoveRunnerNew extends MonoBehaviour {
 		{
 			case "left": move ( true ) ; break ;
 			case "right": move ( false ) ; break ;
-			case "up": activateBash ( ); break ;
-			case "down": slowdown ( ) ; break ;
+			//case "up": activateBash ( ); break ;
+			case "down": fire ( true ) ; break ;
 			case "loopleft": loop ( true ) ; break ;
 			case "loopright": loop ( false ) ; break ;
  		}
@@ -250,11 +247,12 @@ class MoveRunnerNew extends MonoBehaviour {
 			}
 		}
 		
-		if ( ! found )
+/*		if ( ! found )
 		{
 			Debug.Log ( "NO TARGET" ) ;
 			return ;
 		}
+*/
 		
 		var prefabForRock:Transform ;
 		var rock:Transform;

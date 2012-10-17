@@ -5,7 +5,6 @@ class BulletForTurret extends MonoBehaviour {
 	private var Target:Transform ;
 	static private var rocksPool: SpawnPool ;
 	static private var rockPrefab:Transform ;
-	private var shootPoint:Transform ;
 	private var lastTime:double = -10.000 ;
 	
 	function Start  ( )
@@ -16,15 +15,13 @@ class BulletForTurret extends MonoBehaviour {
 			rocksPool = PoolManager. Pools ["Rocks"] ;
 		if ( ! rockPrefab )
 			rockPrefab = rocksPool.prefabs[ "rock_for_loft_2" ] ;
-		if ( ! shootPoint )
-			shootPoint = transform.gameObject.GetComponentsInChildren(Transform)[2] ;
 	}
 
 	function Update ( )
 	{
 		if ( ! transform.gameObject.active )
 			return ;
-		if ( lastTime + 0.01 < Time.time  )
+		if ( lastTime + 0.1 < Time.time  )
 		{
 			spawnBullets ( ) ;
 		}
@@ -39,24 +36,24 @@ class BulletForTurret extends MonoBehaviour {
 	    var hit : RaycastHit;
 	    var raycastPosition:Vector3 = Target.position ;
 
-	    if ( Physics.Linecast ( shootPoint.position , raycastPosition , hit ) )
+	    if ( Physics.Linecast ( transform.position , raycastPosition , hit ) )
 	    {     	
    			if ( hit.transform.name == "Loft" || hit.transform.name.Contains ( "Plant" ) )
    				return ;
 	  	}     
 	
-		var startPos:Vector3 = shootPoint.position ;
+		var startPos:Vector3 = transform.position ;
 		var length = ( raycastPosition - startPos ) ;
 		
-		var point01:Vector3 = startPos + Vector3 ( Random.Range ( -1 , 1 ) , Random.Range ( -1 , 1 ) , Random.Range ( -1 , 1 ) ) ;
-		var point02:Vector3 = raycastPosition ;
+		var point01:Vector3 = startPos ;//+ Vector3 ( Random.Range ( -1 , 1 ) , Random.Range ( -1 , 1 ) , Random.Range ( -1 , 1 ) ) ;
+		var point02:Vector3 = Target.position ;
 		
 		//Spawning rock at point01 and then gonna animate it towards point02.
 		
 		var rock = rocksPool. Spawn ( rockPrefab , point01 , Quaternion ( 0 , 0 , 0 , 0 ) )  ;
 		var rockScript : MoveTurretBullet = rock.GetComponent ( MoveTurretBullet ) ;
 		
-		rockScript.Init ( point02 ) ;
+		rockScript.Init ( Target.position ) ;
 		lastTime = Time.time ;	
 		
 	}
