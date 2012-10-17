@@ -214,8 +214,8 @@ class MoveRunnerNew extends MonoBehaviour {
 			
 			if ( monsterRotation < 0 )
 				monsterRotation += 360 ;
-			var lowRot:double = monsterRotation - 90.5 ;
-			var highRot:double = monsterRotation + 90.5 ;
+			var lowRot:double = monsterRotation - 60.5 ;
+			var highRot:double = monsterRotation + 60.5 ;
 	
 			if ( highRot > 360 )
 			{

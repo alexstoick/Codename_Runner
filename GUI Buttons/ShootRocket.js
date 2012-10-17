@@ -6,6 +6,7 @@ class ShootRocket extends MonoBehaviour {
 	static var width:int ;
 	static var height:int ;
 	private var texture:GUITexture ;
+	private var lastTime:double =0.0 ;
 	
 	function Awake ( )
 	{
@@ -32,7 +33,10 @@ class ShootRocket extends MonoBehaviour {
 			{
 				var touch: Touch = Input.touches[i] ;
 				if ( touch.phase == TouchPhase.Began && texture.HitTest ( touch.position ) ) 
+				{
 					moveRunner.fire ( true ) ; 
+					return ;
+				}
 			}
 		}
     }

@@ -4,7 +4,9 @@ class SwipeDetection2 extends MonoBehaviour {
 	static private var moveRunner:MoveRunnerNew ;
 	static private var plane:Transform ;
 	static private var leftShooter:PlaneShootForward ;
-	static private var rightShooter:PlaneShootForward ;		
+	static private var rightShooter:PlaneShootForward ;	
+	static private var shootRocket:GUITexture ;
+
 			
 	function Start () 
 	{
@@ -16,6 +18,8 @@ class SwipeDetection2 extends MonoBehaviour {
 			leftShooter = GameObject.Find ( "planeShooter left").GetComponent ( PlaneShootForward ) ;
 		if ( ! rightShooter )
 			rightShooter = GameObject.Find ( "planeShooter right").GetComponent ( PlaneShootForward ) ;
+		if ( ! shootRocket )
+			shootRocket = GameObject.Find ( "Shoot Rocket").GetComponent ( GUITexture ) ;
 	}
 	
 	private var Velocity_X:float;
@@ -170,6 +174,9 @@ class SwipeDetection2 extends MonoBehaviour {
 			
 		lastTime = Time.time + 0.1 ;
 		
+		if ( shootRocket.HitTest ( Input.touches[1].position ) )
+			return ;
+		
 		if ( ( FireProgressBar.currCooldown + 0.3125*2 ) > 10 )
 			return ;	
 		leftShooter.FireGun ( ) ;
@@ -190,7 +197,9 @@ class SwipeDetection2 extends MonoBehaviour {
 			return ;
 
 		if ( Input.touchCount == 2)		
+		{
 			FireGuns ( ) ;
+		}
 			
 		touch = Input.GetTouch ( 0 ) ;
 			
