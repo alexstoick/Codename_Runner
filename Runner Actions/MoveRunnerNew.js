@@ -262,14 +262,14 @@ class MoveRunnerNew extends MonoBehaviour {
 			rock = rocksPool.Spawn ( prefab , position, rotation ) ;
 			holder = rock.GetChild(0) ;
 			holder.GetChild(0).localPosition.y = -6.6 ;
-			holder.GetChild(1).localPosition.y = -6.2 ;
+			holder.GetChild(1).localPosition.y = -6.6 ;
 		}
 		else
 		{
 			rock = rocksPool.Spawn ( prefab , position, rotation ) ;
 			holder = rock.GetChild(0) ;
 			holder.GetChild(0).localPosition.y = -3.6 ;
-			holder.GetChild(1).localPosition.y = -3.2 ;
+			holder.GetChild(1).localPosition.y = -3.6 ;
 		}
 		
 		var movement = rock.GetComponent ( RockMovementOnLoft ) ;
