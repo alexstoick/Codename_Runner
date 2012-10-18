@@ -70,6 +70,7 @@ class MovePlaneBullet extends MonoBehaviour {
 			
 		if ( cname.Contains ( "sentry" ) )
 		{
+			powerUpControl.Spawn ( child.parent.parent , CollisionInfo.contacts[0].point ) ;		
 			createParticleEffect ( child.position , child.rotation ) ;
 			sentryPool.Despawn ( child.parent.parent ) ;
 			rocksPool. Despawn ( transform ) ;
@@ -79,6 +80,7 @@ class MovePlaneBullet extends MonoBehaviour {
 		
 		if ( cname.Contains ( "mig" ) )
 		{
+			powerUpControl.Spawn ( child.parent.parent , CollisionInfo.contacts[0].point ) ;
 			createParticleEffect ( child.position, child.rotation ) ;
 			migPool.Despawn ( child.parent.parent ) ;
 			ScoreControl.addScore ( 500 ) ;
@@ -90,6 +92,7 @@ class MovePlaneBullet extends MonoBehaviour {
 		
 		if ( cname == "MONSTER")
 		{
+			//powerUpControl.Spawn ( child.parent.parent , CollisionInfo.contacts[0].point ) ;		
 			enemiesPool.Despawn ( child.parent.parent ) ;
 			createParticleEffect ( child.position , child.rotation ) ;
 			ScoreControl.addScore ( 300 ) ;

@@ -19,7 +19,7 @@ class PowerUpControl extends MonoBehaviour {
 			health_prefab = healthPackPool.prefabs["health pack holder"] ;
 	}
 
-	public function Spawn ( trs:Transform )
+	public function Spawn ( trs:Transform , position:Vector3 )
 	{
 	
 		var spawnOnLoft:SpawnOnLoft = trs.GetComponent ( SpawnOnLoft ) ;

@@ -62,7 +62,7 @@ class MoveRock extends MonoBehaviour {
 		if ( cname.Contains ( "sentry" ) )
 		{
 			createParticleEffect ( child.position , child.rotation ) ;
-			powerUpControl.Spawn ( child.parent.parent ) ;
+			powerUpControl.Spawn ( child.parent.parent , CollisionInfo.contacts[0].point ) ;
 			sentryPool.Despawn ( child.parent.parent ) ;
 			if ( transform.parent.parent.gameObject.active )
 				rocksPool. Despawn ( transform.parent.parent ) ;
@@ -73,7 +73,7 @@ class MoveRock extends MonoBehaviour {
 		if ( cname.Contains ( "mig" ) )
 		{
 			createParticleEffect ( child.position, child.rotation ) ;
-			powerUpControl.Spawn ( child.parent.parent ) ;
+			powerUpControl.Spawn ( child.parent.parent , CollisionInfo.contacts[0].point ) ;
 			migPool.Despawn ( child.parent.parent ) ;
 			ScoreControl.addScore ( 500 ) ;
 			if ( transform.parent.parent.gameObject.active )
@@ -84,7 +84,7 @@ class MoveRock extends MonoBehaviour {
 		
 		if ( cname == "MONSTER")
 		{
-			powerUpControl.Spawn ( child.parent.parent ) ;
+			//powerUpControl.Spawn ( child.parent.parent , CollisionInfo.contacts[0].point ) ;
 			enemiesPool.Despawn ( child.parent.parent ) ;
 			createParticleEffect ( child.position , child.rotation ) ;
 			ScoreControl.addScore ( 300 ) ;
