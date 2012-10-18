@@ -48,7 +48,7 @@ class MoveRunnerNew extends MonoBehaviour {
 			case "left": move ( true ) ; break ;
 			case "right": move ( false ) ; break ;
 			//case "up": activateBash ( ); break ;
-			case "down": fire ( true ) ; break ;
+			//case "down": fire ( true ) ; break ;
 			case "loopleft": loop ( true ) ; break ;
 			case "loopright": loop ( false ) ; break ;
  		}
