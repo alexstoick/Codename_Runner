@@ -2,9 +2,10 @@
 
 class BulletForTurret extends MonoBehaviour {
 
-	private var Target:Transform ;
+	static private var Target:Transform ;
 	static private var rocksPool: SpawnPool ;
 	static private var rockPrefab:Transform ;
+	private var ownRotation:double ;
 	private var lastTime:double = -10.000 ;
 	
 	function Start  ( )
@@ -22,19 +23,53 @@ class BulletForTurret extends MonoBehaviour {
 		if ( ! transform.gameObject.active )
 			return ;
 		if ( lastTime + 0.1 < Time.time  )
-		{
 			spawnBullets ( ) ;
-		}
 	}	
+	
+	function setRotation ( val )
+	{
+		ownRotation = val ;
+	}
 
 	function spawnBullets ( )
 	{
+	
+		//Target.parent.parent == big group - rotatia
+		//trebuie sa aflu rotatia turetei
 	
 		if ( LoftMovement.isDead )
 			return ;
 			
 	    var hit : RaycastHit;
 	    var raycastPosition:Vector3 = Target.position ;
+	    
+    	var lowRot:double = ownRotation - 120.5 ;
+		var highRot:double = ownRotation + 120.5 ;
+		var planeRotation:double = Target.parent.parent.localRotation.eulerAngles.z ;
+		var found:boolean = false ;
+
+		if ( highRot > 360 )
+		{
+			if ( lowRot <= planeRotation )
+				found = true ;
+			if ( planeRotation <= highRot - 360 )
+				found = true ;
+		}
+		if ( lowRot < 0 )
+		{
+			if ( lowRot + 360 <= planeRotation )
+				found = true ;
+			if ( planeRotation <= highRot )
+				found = true ;
+		}
+		
+		if ( lowRot <= planeRotation && planeRotation <= highRot )
+		{
+			found = true ;
+		}
+
+		if ( ! found )
+			return ;
 
 	    if ( Physics.Linecast ( transform.position , raycastPosition , hit ) )
 	    {     	
