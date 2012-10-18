@@ -111,6 +111,9 @@ class CollisionHandler extends MonoBehaviour {
 		else
 			if ( planeHitArea.Contains ( "left" ) ) 
 				pushBackDirection = "left" ;
+				
+		if ( name.Contains ( "MONSTERS") || name.Contains ( "crate" ) )
+			return ;
 		
 		if ( name.Contains ( "sentry" ) )
 			return ;
@@ -151,7 +154,7 @@ class CollisionHandler extends MonoBehaviour {
 		
 		if ( name.Contains ( "health" ) ) 
 		{
-			HealthProgressBar.currHealth += 30 ;
+			HealthProgressBar.currHealth += 25 ;
 			return ;
 		}
 		
@@ -167,7 +170,7 @@ class CollisionHandler extends MonoBehaviour {
 			return ;
 		}
 
-		if ( name == "MONSTER" )
+/*		if ( name == "MONSTER" )
 		{
 			parent = CollisionInfo.contacts[0].otherCollider.gameObject.transform.parent.transform ;
 			enemiesPool.Despawn ( parent.parent ) ;
@@ -176,7 +179,7 @@ class CollisionHandler extends MonoBehaviour {
 			MonsterVector.removeFromArray (parent.parent.name , "collision with the plane");
 			blinkRunner ( ) ;
 			return ;
-		}
+		}*/
 		
 		//coliziune cu copac -- viitoare frunza
 		if ( name.Contains ( "Plant") || name.Contains ( "mig" ) )
