@@ -7,6 +7,7 @@ class MovePlaneBullet extends MonoBehaviour {
 	static private var enemiesPool: SpawnPool ;
 	static private var sentryPool: SpawnPool ;
 	static private var migPool: SpawnPool ;
+	static private var powerUpControl:PowerUpControl;
 
 	private var despawnTime:double = 0.0 ;
 	private var targetLocation:Vector3 ;
@@ -21,6 +22,8 @@ class MovePlaneBullet extends MonoBehaviour {
 			sentryPool = PoolManager.Pools [ "Sentry" ] ;
 		if ( ! migPool ) 
 			migPool = PoolManager.Pools [ "Enemy Airplane" ] ;
+		if ( ! powerUpControl )
+			powerUpControl = GameObject.Find ( "PowerUp").GetComponent ( PowerUpControl ) ;
 	}
 	
 	function Init ( target:Vector3 )
