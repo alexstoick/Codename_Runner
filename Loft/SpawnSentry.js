@@ -33,7 +33,9 @@ class SpawnSentry extends MonoBehaviour {
 			
 			var newSentry = sentryPool.Spawn ( prefab ) ;
 			var spawn = newSentry.GetComponent ( SpawnOnLoft ) ;
-			var setupRotation = newSentry.GetComponentInChildren ( BulletForTurret ) ;
+			var setupRotation_0:BulletForTurret = newSentry.GetComponentsInChildren ( BulletForTurret )[0] ;
+			var setupRotation_1:BulletForTurret = newSentry.GetComponentsInChildren ( BulletForTurret )[1] ;
+
 			
 			spawn.Init ( ) ;
 			
@@ -41,7 +43,8 @@ class SpawnSentry extends MonoBehaviour {
 			{
 				if ( newSentry.name.Equals ( MonsterVector.transforms[i].parent.name ) )
 				{
-					setupRotation.setRotation ( MonsterVector.angles[i] ) ;
+					setupRotation_0.setRotation ( MonsterVector.angles[i] ) ;
+					setupRotation_1.setRotation ( MonsterVector.angles[i] ) ;
 				}
 			}
 		}

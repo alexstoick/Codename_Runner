@@ -22,7 +22,7 @@ class BulletForTurret extends MonoBehaviour {
 	{
 		if ( ! transform.gameObject.active )
 			return ;
-		if ( lastTime + 0.1 < Time.time  )
+		if ( lastTime + 0.05 < Time.time  )
 			spawnBullets ( ) ;
 	}	
 	
@@ -43,9 +43,12 @@ class BulletForTurret extends MonoBehaviour {
 	    var hit : RaycastHit;
 	    var raycastPosition:Vector3 = Target.position ;
 	    
-    	var lowRot:double = ownRotation - 120.5 ;
-		var highRot:double = ownRotation + 120.5 ;
 		var planeRotation:double = Target.parent.parent.localRotation.eulerAngles.z ;
+    	var lowRot:double = planeRotation - 120.5 ;
+		var highRot:double = planeRotation + 120.5 ;
+		
+		planeRotation = ownRotation ;
+
 		var found:boolean = false ;
 
 		if ( highRot > 360 )
