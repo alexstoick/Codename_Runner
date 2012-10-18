@@ -4,7 +4,7 @@ class MoveTurretBullet extends MonoBehaviour {
 
 	private var despawnTime:double = 0.0 ;
 	private var targetLocation:Vector3 ;
-
+	private var tParam:double = 0.0 ;
 	static private var rocksPool: SpawnPool ;
 
 	function Start ( )
@@ -17,11 +17,12 @@ class MoveTurretBullet extends MonoBehaviour {
 	{
 		targetLocation = target ;
 		despawnTime = Time.time + 0.8 ;
+		tParam = 0.0 ;
 	}
 	
 	function Update ()
 	{
-		if ( Time.time > despawnTime )
+		if ( Time.time > despawnTime || tParam >= 1 )
 		{
 			rocksPool. Despawn ( transform ) ;
 			despawnTime = 0.0 ;
@@ -30,7 +31,8 @@ class MoveTurretBullet extends MonoBehaviour {
 	
 		if ( despawnTime )
 		{
-			transform.position = Vector3.Lerp ( transform.position , targetLocation , 5* Time.deltaTime ) ;
+			tParam += Time.deltaTime * 0.1;
+			transform.position = Vector3.Lerp ( transform.position , targetLocation , tParam ) ;
 			transform.rotation = Quaternion ( 0 , 0 , 0 , 0 ) ;
 		}
 	}
