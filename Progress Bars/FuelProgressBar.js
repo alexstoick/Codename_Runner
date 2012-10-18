@@ -4,7 +4,7 @@ class FuelProgressBar extends MonoBehaviour {
 
 	var texInner: Texture2D; 
 	var texCurr: Texture2D; 
-	private var fullRect: Rect = new Rect ( 5 , 200 , 200 , 20 ) ; 
+	private var fullRect: Rect = new Rect ( 5 , Screen.height/6+Screen.height/20 , Screen.width/3 , Screen.height/25 ) ; 
 	static var currFuel: float = 100.0f ; 
 	static var lastTime:double = 0.0 ;
 	function Update ( )

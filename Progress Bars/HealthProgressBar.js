@@ -4,7 +4,8 @@ class HealthProgressBar extends MonoBehaviour {
 
 	var texInner: Texture2D; 
 	var texCurr: Texture2D; 
-	private var fullRect: Rect = new Rect ( 5 , 150 , 200 , 20 ) ; 
+	
+	private var fullRect: Rect = new Rect ( 5 , Screen.height/6 , Screen.width/3 , Screen.height/25 ) ; 
 	var maxHealth: float; 
 	static var currHealth: float = 100.0; 
 	

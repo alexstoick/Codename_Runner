@@ -4,7 +4,7 @@ class FireProgressBar extends MonoBehaviour {
 
 	var texInner: Texture2D; 
 	var texCurr: Texture2D; 
-	private var fullRect: Rect = new Rect ( 450 , 150 , 200 , 20 ) ; 
+	private var fullRect: Rect = new Rect ( (Screen.width/3)*1.9 , Screen.height/6 , Screen.width/3 , Screen.height/25 ) ; 
 	static var currCooldown: float = 0;
 	static var lastModified: double = 0.0 ;
 	var pbl_CD:float = 0;
