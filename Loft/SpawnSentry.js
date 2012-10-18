@@ -41,7 +41,6 @@ class SpawnSentry extends MonoBehaviour {
 			{
 				if ( newSentry.name.Equals ( MonsterVector.transforms[i].parent.name ) )
 				{
-					Debug.Log ( newSentry.name + "		" + MonsterVector.angles[i] ) ;
 					setupRotation.setRotation ( MonsterVector.angles[i] ) ;
 				}
 			}

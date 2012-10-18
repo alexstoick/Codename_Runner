@@ -118,7 +118,7 @@ class CollisionHandler extends MonoBehaviour {
 		if ( name.Contains ( "rock") ) 
 		{
 			createParticleEffect_hitPlane ( CollisionInfo.contacts[0].point ) ;
-			HealthProgressBar.currHealth -= 2 ;
+			HealthProgressBar.currHealth -= 5 ;
 			return ;
 		}
 					

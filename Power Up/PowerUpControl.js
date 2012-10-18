@@ -25,11 +25,16 @@ class PowerUpControl extends MonoBehaviour {
 		var spawnOnLoft:SpawnOnLoft = trs.GetComponent ( SpawnOnLoft ) ;
 		var despawnTime:float = spawnOnLoft.despawnPoint ;
 		
+		var rnd:double = Random.value ;
+		
+		if ( rnd < 0.5 )
+			return ;
+		
 		if ( trs.name.Contains ( "mig") ) 
 		{
 			//fuel
 			var newGas: Transform = gasTankPool.Spawn ( gas_prefab , trs.position , trs.rotation ) ;
-			Debug.Log ( trs.name + "		" +  trs.position + "		" +  trs.rotation + "		" +newGas.name) ;
+//			Debug.Log ( trs.name + "		" +  trs.position + "		" +  trs.rotation + "		" +newGas.name) ;
 			
 			spawnOnLoft = newGas.GetComponent ( SpawnOnLoft ) ;
 			spawnOnLoft.despawnPoint = despawnTime ;
@@ -44,7 +49,7 @@ class PowerUpControl extends MonoBehaviour {
 		{
 			//health
 			var newHealth: Transform = healthPackPool.Spawn ( health_prefab , trs.position , trs.rotation ) ;
-			Debug.Log ( trs.name + "		" +  trs.position + "		" +  trs.rotation + "		" +newHealth.name) ;
+//			Debug.Log ( trs.name + "		" +  trs.position + "		" +  trs.rotation + "		" +newHealth.name) ;
 
 			spawnOnLoft = newHealth.GetComponent ( SpawnOnLoft ) ;
 			spawnOnLoft.despawnPoint = despawnTime ;
