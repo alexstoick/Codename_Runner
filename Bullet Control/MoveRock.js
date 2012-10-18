@@ -44,15 +44,19 @@ class MoveRock extends MonoBehaviour {
 		if ( cname.Contains ( "bullet") || cname == "Runner" ||
 			 cname.Contains ( "ammo") || cname.Contains ( "health" ) || cname.Contains ( "rock" ) )
 				return ;
+				
+		child = CollisionInfo.contacts[0].otherCollider.gameObject.transform ;
+
 		
 		if ( cname.Contains ( "Plant" ) )
 		{
+			createParticleEffect ( CollisionInfo.contacts[0].point , Quaternion ( 0 , 0 , 0 , 0 ) ) ;
 			if ( transform.parent.parent.gameObject.active )
 				rocksPool. Despawn ( transform.parent.parent ) ;
 			return ;
 		}
 		
-		child = CollisionInfo.contacts[0].otherCollider.gameObject.transform ;
+
 
 		
 		if ( cname.Contains ( "sentry" ) )
