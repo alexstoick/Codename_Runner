@@ -21,7 +21,7 @@ class SpawnHealthPack extends MonoBehaviour {
 			return ;
 		if (  LoftMovement.isStopped () )
 			return ;
-
+/*
 		if ( ! onCooldown )
 		{
 			Debug.Log ( "spawned health pack" + Time.time ) ;
@@ -30,6 +30,7 @@ class SpawnHealthPack extends MonoBehaviour {
 			spawn.Init ( ) ;
 			startCooldown ( );
 		}
+*/
 	}
 
 	function startCooldown ( )

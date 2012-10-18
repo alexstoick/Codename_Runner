@@ -21,7 +21,7 @@ class SpawnGasTank extends MonoBehaviour {
 			return ;
 		if (  LoftMovement.isStopped () )
 			return ;
-
+/*
 		if ( ! onCooldown )
 		{
 			var newGasTank = gasTankPool.Spawn ( prefab ) ;
@@ -29,6 +29,7 @@ class SpawnGasTank extends MonoBehaviour {
 			spawn.Init ( ) ;
 			startCooldown ( );
 		}
+*/
 	}
 
 	function startCooldown ( )
