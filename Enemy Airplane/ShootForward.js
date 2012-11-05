@@ -27,7 +27,7 @@ class ShootForward extends MonoBehaviour {
 			return ;
 		
 		var point01:Vector3 = transform.position ;
-		var point02:Vector3 = transform.position + transform.forward * 20 ;
+		var point02:Vector3 = transform.position + transform.forward * 50 ;
 		
 		var rock = rocksPool. Spawn ( rockPrefab , point01 , Quaternion ( 0 , 0 , 0 , 0 ) )  ;
 		var rockScript : MoveTurretBullet = rock.GetComponent ( MoveTurretBullet ) ;
