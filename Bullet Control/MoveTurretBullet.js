@@ -31,7 +31,8 @@ class MoveTurretBullet extends MonoBehaviour {
 	
 		if ( despawnTime )
 		{
-			transform.position = Vector3.Lerp ( transform.position , targetLocation , 5*Time.deltaTime ) ;
+			tParam += Time.deltaTime * 0.1 ;
+			transform.position = Vector3.Lerp ( transform.position , targetLocation , tParam ) ;
 			transform.rotation = Quaternion ( 0 , 0 , 0 , 0 ) ;
 		}
 	}
