@@ -164,7 +164,7 @@ class MoveRunnerNew extends MonoBehaviour {
 		}
 		if ( haveToRotateCamera && ! doingLoop )
 		{
-			cameraTransform.localRotation = Quaternion.Slerp ( cameraTransform.localRotation , target , Time.deltaTime*3.6 ) ;
+			cameraTransform.localRotation = Quaternion.Slerp ( cameraTransform.localRotation , target , Time.deltaTime*3.2 ) ; //3.6
 		}
 		
 		if ( doingLoop ) 
