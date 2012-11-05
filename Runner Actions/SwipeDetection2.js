@@ -65,32 +65,47 @@ class SwipeDetection2 extends MonoBehaviour {
 	
 	private function analyzeHorizontally ( delta:double , deltaTime:double )
 	{
-
+		var extra : int = 0 ;
 		if ( (delta< -HORIZONTAL_TOUCH_LENGTH  || delta > HORIZONTAL_TOUCH_LENGTH  ) )
 		{	
 			
  			var velocity:double = delta/deltaTime ;
+ 			var lim:int ;
+ 			var nr:int = 0 ;
 			
 			if ( delta < 0 )
 			{
-
 				moveRunner.action ( "left" ) ;
+				Debug.Log ( velocity ) ;
+				velocity *= -1 ;
+				nr = 0 ;
 				if ( velocity > VELOCITY_THRESHOLD )
 				{
-					for ( var extra = 0 ; extra < velocity / VELOCITY_THRESHOLD ; ++ extra )
+					lim = ( velocity / VELOCITY_THRESHOLD ) ;
+					for ( extra = 0 ; extra < lim ; ++ extra )
+					{
 						moveRunner.action ( "left" ) ;
+						++nr ;
+					}
 				}
+				Debug.Log ( nr + "left" ) ;
 			}
 			else
 				if (delta > 0 )
 				{
-					
+					Debug.Log ( velocity ) ;
 					moveRunner.action ( "right" ) ;
+					nr = 0;
 					if ( velocity > VELOCITY_THRESHOLD )
 					{
-						for ( extra = 0 ; extra < velocity / VELOCITY_THRESHOLD ; ++ extra )
+						lim = velocity / VELOCITY_THRESHOLD  ;
+						for ( extra = 0 ; extra < lim ; ++ extra )
+						{
 							moveRunner.action ( "right" ) ;
+							++nr ;
+						}
 					}
+					Debug.Log ( nr + "right" ) ;
 				}
 				
 			touchPositions.Clear ( ) ;
