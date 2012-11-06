@@ -3,7 +3,7 @@
 class ShootForward extends MonoBehaviour {
 
 	static private var rocksPool: SpawnPool ;
-	private var rockPrefab:Transform ;
+	static private var rockPrefab:Transform ;
 	private var lastTime:double = -10.000 ;
 	private var bulletsInBurst:int = 0 ;
 	var MAX_bulletsInBurst:int = 8 ;

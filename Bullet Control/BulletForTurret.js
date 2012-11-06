@@ -47,7 +47,7 @@ class BulletForTurret extends MonoBehaviour {
     	var lowRot:double = planeRotation - 120.5 ;
 		var highRot:double = planeRotation + 120.5 ;
 		
-		planeRotation = ownRotation ;
+		planeRotation = ownRotation ; //checking if ownRotation is between the boundries
 
 		var found:boolean = false ;
 
@@ -83,7 +83,7 @@ class BulletForTurret extends MonoBehaviour {
 		var startPos:Vector3 = transform.position ;
 		var length = ( raycastPosition - startPos ) ;
 		
-		var point01:Vector3 = startPos ;//+ Vector3 ( Random.Range ( -1 , 1 ) , Random.Range ( -1 , 1 ) , Random.Range ( -1 , 1 ) ) ;
+		var point01:Vector3 = startPos ;
 		var point02:Vector3 = Target.position ;
 		
 		//Spawning rock at point01 and then gonna animate it towards point02.
