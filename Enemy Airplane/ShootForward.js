@@ -7,7 +7,7 @@ class ShootForward extends MonoBehaviour {
 	private var lastTime:double = -10.000 ;
 	private var bulletsInBurst:int = 0 ;
 	var MAX_bulletsInBurst:int = 8 ;
-	var TIME_BETWEEN_SHOTS:float = 0.1 ;
+	var TIME_BETWEEN_SHOTS:float = 0.01 ;
 	var TIME_BETWEEN_BURSTS:float = 0.5 ;
 
 

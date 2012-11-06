@@ -18,24 +18,24 @@ class BossMovementOnLoft extends MonoBehaviour {
 		if ( ! loft )
 			loft = GameObject.Find ( "Loft").GetComponent ( MegaShapeLoft ) ;
 		layer = loft.Layers[0];
-		alpha = 0.13 ;
+		alpha = 0.99 ;
 
 	}
 	
 	function Update ( )
 	{
-	/*
+
+		if ( alpha <= 0.25 )
+			shouldMove = false ;
+
 		if ( shouldMove )
 			alpha -= 0.0005 ;
 			
-		if ( alpha <= 0.20 )
-			shouldMove = false ;
-
 		if ( alpha >= 1 )
 			alpha = -1.0 ;
 		if ( alpha <= -1 )
 			alpha = 1.0 ;
-		*/	
+		
 		var at:Vector3 = Vector3.zero;
 		var up:Vector3 = Vector3.zero;
 		var right:Vector3 = Vector3.zero;
