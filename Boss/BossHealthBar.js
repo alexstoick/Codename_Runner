@@ -10,6 +10,9 @@ class BossHealthBar extends MonoBehaviour {
 	
 	function OnGUI()
 	{ 
+		if ( ! Controller.showBossHealthBar )
+			return ;
+			
 		currHealth = Mathf.Clamp ( currHealth , 0 , 100 ) ;
 		var healthFrac:float = currHealth / 100 ; 
 		
@@ -18,5 +21,18 @@ class BossHealthBar extends MonoBehaviour {
 		
 		GUI.DrawTexture(innerRect, texInner);
 		GUI.DrawTexture(currRect, texCurr);  
+		if ( currHealth == 0 ) 
+		{
+			//after boss dies will have to replenish these to 100 & show fuel bar/cooldown.
+			//set cooldown back to normal value.
+			//hide this.
+			Debug.LogWarning ( "BOSS IS DEAD" ) ;
+			
+			SpawnBoss.shouldCountTime = true ;
+			Controller.showFuelBar = true ;
+			Controller.showFireCooldownBar = true ;
+			Controller.bossIsSpawned = false ;
+			Controller.showBossHealthBar = false ;
+		}
 	}
 }

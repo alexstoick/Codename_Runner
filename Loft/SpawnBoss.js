@@ -6,7 +6,7 @@ class SpawnBoss extends MonoBehaviour {
 	static var prefab:Transform ;
 	static private var mainCamera:Camera ;
 	var lastPath:double = 0.0 ;
-	static public var changeCameraFOV:boolean = true ;
+	static public var changeCameraFOV:boolean = false ;
 	var timer:double = 0.0 ;
 	static var shouldCountTime:boolean = false ;
 	
@@ -24,7 +24,8 @@ class SpawnBoss extends MonoBehaviour {
 	{
 		var newBoss = bossPool.Spawn ( prefab ) ;
 		var spawn = newBoss.GetComponent ( SpawnOnLoft ) ;
-		
+		BossHealthBar.currHealth = 100 ;
+		Debug.LogWarning ( "BOSS" ) ;
 		spawn.Init ( ) ;
 		
 		//initiate the camera zoom
@@ -34,6 +35,7 @@ class SpawnBoss extends MonoBehaviour {
 		Controller.showFuelBar = false ;
 		Controller.showFireCooldownBar = false ;
 		Controller.bossIsSpawned = true ;
+		Controller.showBossHealthBar = true ;
 		
 	}
 	
@@ -41,8 +43,10 @@ class SpawnBoss extends MonoBehaviour {
 	{
 		if ( shouldCountTime )
 			timer += Time.deltaTime ;
-		if ( timer >= 10 )
+		if ( timer >= Controller.TIME_FOR_BOSS )
 		{
+			shouldCountTime = false ;
+			timer = 0 ;
 			Spawn ( ) ;
 		}
 		if ( changeCameraFOV )

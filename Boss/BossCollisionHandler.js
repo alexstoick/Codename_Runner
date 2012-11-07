@@ -12,7 +12,7 @@ class BossCollisionHandler extends MonoBehaviour {
 		var bossHit:String = CollisionInfo.contacts[0].thisCollider.name ;
 		var bossHitArea:String = "" ;
 		
-		if ( name.Contains ( "rock" ) )
+		if ( ! name.Contains("plane_bullet" ) )
 			return ;
 
 		if ( bossHit.Contains ( "right" ) ) 
@@ -23,6 +23,7 @@ class BossCollisionHandler extends MonoBehaviour {
 			else
 				bossHitArea = "central" ;
 		
+		Debug.Log ( "BOSS HIT" + bossHitArea + "		" + name ) ;
 		switch ( bossHitArea )
 		{
 			case "left": 
@@ -38,5 +39,13 @@ class BossCollisionHandler extends MonoBehaviour {
 					BossHealthBar.currHealth -= 20 ;
 				break ;
 		}
+		
+		if ( BossHealthBar.currHealth <= 0 )
+		{
+			Controller.TIME_FOR_BOSS = 5000 ;
+			var pool:SpawnPool = PoolManager.Pools["Boss"] ;
+			pool.Despawn ( transform ) ;
+		}
+		
 	}
 }

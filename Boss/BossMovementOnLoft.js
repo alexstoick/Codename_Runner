@@ -18,7 +18,7 @@ class BossMovementOnLoft extends MonoBehaviour {
 		if ( ! loft )
 			loft = GameObject.Find ( "Loft").GetComponent ( MegaShapeLoft ) ;
 		layer = loft.Layers[0];
-		alpha = 0.15 ;
+		alpha = 0.99 ; //watch for this value in BossShootPlayer
 	}
 	
 	function Update ( )
