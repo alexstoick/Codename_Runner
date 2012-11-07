@@ -62,18 +62,16 @@ class BossShootPlayer extends MonoBehaviour {
 
 		if ( ! canSeePlane() )
 		{
-			Debug.Log ( "can't see plane" + Time.time ) ;
 			return ;
 		}
 		
-		if ( BossMovementOnLoft.alpha > 0.45 )
+		if ( BossMovementOnLoft.alpha > 0.45 ) //care here.
 		{
-			Debug.Log ( "plane too far away" + Time.time ) ;
 			return ;
 		}
 		
 
-		if ( LoftMovement.isDead ||  !gameObject.active )
+		if ( LoftMovement.isDead ||  ! gameObject.active || SpawnBoss.changeCameraFOV )
 			return ;
 			
 		if ( lastTime > Time.time )
@@ -83,7 +81,6 @@ class BossShootPlayer extends MonoBehaviour {
 			point02 = plane.position ;
 		
 		var point01:Vector3 = transform.position ;
-		//var point02:Vector3 = transform.position + transform.forward * 50 ;
 		var fin:Vector3 = plane.position ;
 		
 		var rock = rocksPool. Spawn ( rockPrefab , point01 , Quaternion ( 0 , 0 , 0 , 0 ) )  ;
