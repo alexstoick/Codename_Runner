@@ -82,7 +82,6 @@ class CollisionHandler extends MonoBehaviour {
 	
 		var oppositeDirection:String;
 	
-		//LoftMovement.setNegativeSpeed ( ) ;
 		HealthProgressBar.currHealth -= 30 ;	
 		if ( pushBackDirection == "left" ) 
 			oppositeDirection = "right" ;
@@ -124,17 +123,6 @@ class CollisionHandler extends MonoBehaviour {
 			HealthProgressBar.currHealth -= 5 ;
 			return ;
 		}
-					
-
-/*		if ( name == "ammoBox" ) 
-		{
-			SwipeDetection2.continuousFire = true ;
-			
-			FireCountdown.startEvent() ;
-			
-			bonusesPool.Despawn ( CollisionInfo.contacts[0].otherCollider.gameObject.transform.parent.transform ) ; 
-			return ;
-		}*/
 		
 		if ( bashOn && ( name == "crate" || name == "MONSTER" ) ) 
 		{
@@ -169,17 +157,6 @@ class CollisionHandler extends MonoBehaviour {
 			GameOver.Dead ( ) ;
 			return ;
 		}
-
-/*		if ( name == "MONSTER" )
-		{
-			parent = CollisionInfo.contacts[0].otherCollider.gameObject.transform.parent.transform ;
-			enemiesPool.Despawn ( parent.parent ) ;
-			createParticleEffect ( parent.parent.position , parent.rotation ) ;
-			ScoreControl.addScore ( -400 ) ;
-			MonsterVector.removeFromArray (parent.parent.name , "collision with the plane");
-			blinkRunner ( ) ;
-			return ;
-		}*/
 		
 		//coliziune cu copac -- viitoare frunza
 		if ( name.Contains ( "Plant") || name.Contains ( "mig" ) )
