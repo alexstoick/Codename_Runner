@@ -1,6 +1,6 @@
 #pragma strict
 
-class MoveRock extends MonoBehaviour {
+class RockCollisionHandler extends MonoBehaviour {
 	
 	var particleEffect: GameObject ;
 	static private var rocksPool: SpawnPool ;
