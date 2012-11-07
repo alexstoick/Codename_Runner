@@ -17,7 +17,7 @@ class SpawnBox extends MonoBehaviour {
 	
 	function Update ( )
 	{
-		if ( ! StartButton.Started || LoftMovement.isStopped () )
+		if ( ! StartButton.Started || LoftMovement.isStopped () || Controller.bossIsSpawned )
 			return ;
 
 		if ( lastPath + 0.030 < LoftMovement.currPath  )
