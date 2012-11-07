@@ -76,7 +76,6 @@ class SwipeDetection2 extends MonoBehaviour {
 			if ( delta < 0 )
 			{
 				moveRunner.action ( "left" ) ;
-				Debug.Log ( velocity ) ;
 				velocity *= -1 ;
 				nr = 0 ;
 				if ( velocity > VELOCITY_THRESHOLD )
@@ -88,12 +87,10 @@ class SwipeDetection2 extends MonoBehaviour {
 						++nr ;
 					}
 				}
-				Debug.Log ( nr + "left" ) ;
 			}
 			else
 				if (delta > 0 )
 				{
-					Debug.Log ( velocity ) ;
 					moveRunner.action ( "right" ) ;
 					nr = 0;
 					if ( velocity > VELOCITY_THRESHOLD )
@@ -105,7 +102,6 @@ class SwipeDetection2 extends MonoBehaviour {
 							++nr ;
 						}
 					}
-					Debug.Log ( nr + "right" ) ;
 				}
 				
 			touchPositions.Clear ( ) ;
