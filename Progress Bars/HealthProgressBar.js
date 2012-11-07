@@ -11,6 +11,9 @@ class HealthProgressBar extends MonoBehaviour {
 	
 	function OnGUI()
 	{ 
+		if ( ! Controller.showHealthBar ) 
+			return ;
+			
 		currHealth = Mathf.Clamp ( currHealth , 0 , 100 ) ;
 		var healthFrac:float = currHealth / 100 ; 
 		

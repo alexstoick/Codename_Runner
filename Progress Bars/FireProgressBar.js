@@ -11,6 +11,9 @@ class FireProgressBar extends MonoBehaviour {
 	
 	function OnGUI()
 	{ 
+		if ( ! Controller.showFireCooldownBar )
+			return ;
+			
 		currCooldown = Mathf.Clamp ( currCooldown , 0 , 10 ) ;
 		var cooldown:float = currCooldown / 10 ; 
 		
