@@ -188,7 +188,7 @@ class SwipeDetection2 extends MonoBehaviour {
 		if ( shootRocket.HitTest ( Input.touches[1].position ) )
 			return ;
 		
-		if ( ( FireProgressBar.currCooldown + 0.3125*2 ) > 10 )
+		if ( ( FireProgressBar.currCooldown + 0.3125*2 ) > 10 && ! Controller.bossIsSpawned )
 			return ;	
 		leftShooter.FireGun ( ) ;
 		rightShooter.FireGun ( ) ;
