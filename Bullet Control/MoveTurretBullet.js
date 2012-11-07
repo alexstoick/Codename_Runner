@@ -16,32 +16,29 @@ class MoveTurretBullet extends MonoBehaviour {
 	function Init ( target:Vector3 )
 	{
 		targetLocation = target ;
-		despawnTime = Time.time + 0.8 ;
+		despawnTime = Time.time + 1 ;
 		tParam = 0.0 ;
 	}
 	
 	function Update ()
 	{
-		if ( Time.time > despawnTime || tParam >= 1 )
+		if ( tParam >= 1 || Time.time > despawnTime )
 		{
 			rocksPool. Despawn ( transform ) ;
 			despawnTime = 0.0 ;
 			return ;
 		}
-	
-		if ( despawnTime )
-		{
-			tParam += Time.deltaTime * 0.1 ;
-			transform.position = Vector3.Lerp ( transform.position , targetLocation , tParam ) ;
-			transform.rotation = Quaternion ( 0 , 0 , 0 , 0 ) ;
-		}
+
+		tParam += Time.deltaTime * 0.1 ;
+		transform.position = Vector3.Lerp ( transform.position , targetLocation , tParam ) ;
+		transform.rotation = Quaternion ( 0 , 0 , 0 , 0 ) ;
 	}
 	
 	function OnCollisionEnter(CollisionInfo:Collision) 
 	{
 		var collider:Collider = CollisionInfo.contacts[0].otherCollider ;
 		var cname:String = collider.name ;
-		if ( cname.Contains ( "Plant" ) || name == "Loft" )
+		if ( cname.Contains ( "Plant" ) || name == "Loft" || cname.Contains ( "plane" ) )
 		{
 			rocksPool. Despawn ( transform ) ;
 			return ;
