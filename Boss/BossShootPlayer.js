@@ -9,8 +9,10 @@ class BossShootPlayer extends MonoBehaviour {
 	private var lastTime:double = -10.000 ;
 	private var bulletsInBurst:int = 0 ;
 	var MAX_bulletsInBurst:int = 8 ;
-	var TIME_BETWEEN_SHOTS:float = 0.5 ;
+	var TIME_BETWEEN_SHOTS:float = 0.1 ;
 	var TIME_BETWEEN_BURSTS:float = 0.5 ;
+	
+	private var point02:Vector3 = Vector3 ( 0 , 0 , 0 ) ;
 
 
 	function Start  ( )
@@ -20,13 +22,13 @@ class BossShootPlayer extends MonoBehaviour {
 		if ( ! rockPrefab )
 			rockPrefab = rocksPool.prefabs[ "rock_for_loft_2" ] ;
 		if ( ! plane )
-			plane = GameObject. Find ( "plane" ).transform ;
+			plane = GameObject. Find ( "plane critical hit area" ).transform ;
 	}	
 	
 	function canSeePlane() : boolean
 	{
 	
-		var planeRotation:double = plane.parent.parent.localEulerAngles.z ;
+		var planeRotation:double = plane.parent.parent.parent.localEulerAngles.z ;
     	var lowRot:double = planeRotation - 50 ;
 		var highRot:double = planeRotation + 50 ;
 		var ownRotation:double ;
@@ -58,19 +60,36 @@ class BossShootPlayer extends MonoBehaviour {
 	function Update ( )
 	{
 
-		if ( LoftMovement.isDead || ! canSeePlane() || !gameObject.active || BossMovementOnLoft.alpha > 0.3 )
+		if ( ! canSeePlane() )
+		{
+			Debug.Log ( "can't see plane" + Time.time ) ;
+			return ;
+		}
+		
+		if ( BossMovementOnLoft.alpha > 0.45 )
+		{
+			Debug.Log ( "plane too far away" + Time.time ) ;
+			return ;
+		}
+		
+
+		if ( LoftMovement.isDead ||  !gameObject.active )
 			return ;
 			
 		if ( lastTime > Time.time )
 			return ;
 		
+		if ( point02 == Vector3 ( 0 , 0 , 0 ) )
+			point02 = plane.position ;
+		
 		var point01:Vector3 = transform.position ;
-		var point02:Vector3 = transform.position + transform.forward * 50 ;
+		//var point02:Vector3 = transform.position + transform.forward * 50 ;
+		var fin:Vector3 = plane.position ;
 		
 		var rock = rocksPool. Spawn ( rockPrefab , point01 , Quaternion ( 0 , 0 , 0 , 0 ) )  ;
 		var rockScript : MoveTurretBullet = rock.GetComponent ( MoveTurretBullet ) ;
 		
-		rockScript.Init ( plane.position ) ;
+		rockScript.Init ( fin ) ;
 		
 		lastTime = Time.time + TIME_BETWEEN_SHOTS ;
 		
@@ -80,6 +99,7 @@ class BossShootPlayer extends MonoBehaviour {
 		{
 			lastTime = Time.time + TIME_BETWEEN_BURSTS ;
 			bulletsInBurst = 0 ;
+			point02 = plane.position ;
 		}
 	}
 	

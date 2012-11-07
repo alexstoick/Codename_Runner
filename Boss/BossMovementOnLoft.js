@@ -5,7 +5,7 @@ class BossMovementOnLoft extends MonoBehaviour {
 	static var loft:MegaShapeLoft ;
 	private var addVariation:double = 0.0004 ;
 	private var shouldMove:boolean = true ;
-	private var alpha:double = 0.000 ;
+	static public var alpha:double = 0.000 ;
 	private var layer:MegaLoftLayerSimple ;
 
 	function Start ( )
@@ -18,8 +18,7 @@ class BossMovementOnLoft extends MonoBehaviour {
 		if ( ! loft )
 			loft = GameObject.Find ( "Loft").GetComponent ( MegaShapeLoft ) ;
 		layer = loft.Layers[0];
-		alpha = 0.99 ;
-
+		alpha = 0.2499 ;
 	}
 	
 	function Update ( )
@@ -29,7 +28,7 @@ class BossMovementOnLoft extends MonoBehaviour {
 			shouldMove = false ;
 
 		if ( shouldMove )
-			alpha -= 0.0005 ;
+			alpha -= 0.0008 ;
 			
 		if ( alpha >= 1 )
 			alpha = -1.0 ;
@@ -46,7 +45,6 @@ class BossMovementOnLoft extends MonoBehaviour {
 		var rot:Quaternion = Quaternion.LookRotation (fwd, right) ;
 		
 		transform.rotation = rot;
-		
 
 		transform.position = layer.transform.TransformPoint(p);
 	}
