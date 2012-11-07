@@ -38,7 +38,7 @@ class MoveTurretBullet extends MonoBehaviour {
 	{
 		var collider:Collider = CollisionInfo.contacts[0].otherCollider ;
 		var cname:String = collider.name ;
-		if ( cname.Contains ( "Plant" ) || name == "Loft" || cname.Contains ( "plane" ) )
+		if ( cname.Contains ( "Plant" ) || name == "Loft" ) //|| cname.Contains ( "plane" ) )
 		{
 			rocksPool. Despawn ( transform ) ;
 			return ;

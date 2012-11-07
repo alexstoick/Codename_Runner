@@ -29,7 +29,7 @@ class MovePlaneBullet extends MonoBehaviour {
 	function Init ( target:Vector3 )
 	{
 		targetLocation = target ;
-		despawnTime = Time.time + 0.8 ;
+		despawnTime = Time.time + 1.5 ;
 	}
 	
 	function Update ()
