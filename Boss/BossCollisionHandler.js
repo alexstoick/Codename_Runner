@@ -14,7 +14,7 @@ class BossCollisionHandler extends MonoBehaviour {
 		
 		if ( name.Contains ( "rock" ) )
 			return ;
-		
+
 		if ( bossHit.Contains ( "right" ) ) 
 			bossHitArea = "right" ;
 		else
@@ -27,15 +27,15 @@ class BossCollisionHandler extends MonoBehaviour {
 		{
 			case "left": 
 				if ( left_wing_collider ) 
-					BossHealthBar.currHealth -= 30 ; 
+					BossHealthBar.currHealth -= 20 ; 
 				break ;
 			case "right":
 				if ( right_wing_collider )
-					BossHealthBar.currHealth -= 30 ;
+					BossHealthBar.currHealth -= 20 ;
 				break ;
 			case "central":
 				if ( central_collider )
-					BossHealthBar.currHealth -= 30 ;
+					BossHealthBar.currHealth -= 20 ;
 				break ;
 		}
 	}

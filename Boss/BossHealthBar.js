@@ -18,8 +18,5 @@ class BossHealthBar extends MonoBehaviour {
 		
 		GUI.DrawTexture(innerRect, texInner);
 		GUI.DrawTexture(currRect, texCurr);  
-		
-		if ( healthFrac == 0 )
-			GameOver.Dead ( ) ;
 	}
 }
