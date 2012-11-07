@@ -24,6 +24,8 @@ class MoveRunnerNew extends MonoBehaviour {
 	static private var planeValue:float ;
 
 
+	static private var leftShooter:PlaneShootForward ;
+	static private var rightShooter:PlaneShootForward ;	
 
 	function Start ( )
 	{
@@ -39,6 +41,18 @@ class MoveRunnerNew extends MonoBehaviour {
 			prefab = rocksPool.prefabs [ "rock_for_loft" ] ;
 		if ( ! planeHolder )
 			planeHolder = GameObject.Find ( "Plane Holder" ).transform ;
+			
+			
+		if ( ! leftShooter )
+			leftShooter = GameObject.Find ( "planeShooter left").GetComponent ( PlaneShootForward ) ;
+		if ( ! rightShooter )
+			rightShooter = GameObject.Find ( "planeShooter right").GetComponent ( PlaneShootForward ) ;
+	}
+	
+	function FireGuns ( )
+	{
+		leftShooter.FireGun ( ) ;
+		rightShooter.FireGun ( ) ;
 	}
 	
 	public function action ( act:String )
@@ -143,6 +157,8 @@ class MoveRunnerNew extends MonoBehaviour {
 			LoftMovement.increaseSpeed ( ) ;
 		if ( Input.GetKeyDown ( KeyCode.DownArrow ) )
 			LoftMovement.decreaseSpeed ( ) ;
+		if ( Input.GetKeyDown ( KeyCode.A ) )
+			FireGuns ( ) ;
 			
 		if ( Input.GetKeyDown ( KeyCode.Space ) )
 		{
