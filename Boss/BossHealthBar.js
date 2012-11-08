@@ -33,6 +33,18 @@ class BossHealthBar extends MonoBehaviour {
 			Controller.showFireCooldownBar = true ;
 			Controller.bossIsSpawned = false ;
 			Controller.showBossHealthBar = false ;
+			
+			//reset all spawn scripts so they spawn again
+			
+			SpawnEnemyAirplane.lastPath = LoftMovement.currPath ;
+			SpawnMonster.lastPath = LoftMovement.currPath ;
+			SpawnBox.lastPath = LoftMovement.currPath ;
+			SpawnSentry.lastPath = LoftMovement.currPath ;
+			SpawnTree.lastPath = LoftMovement.currPath ;
+			
+			 SpawnBoss.targetFOV = 110 ;
+			 SpawnBoss.changeCameraFOV = true ; 
+			
 		}
 	}
 }

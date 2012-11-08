@@ -5,7 +5,7 @@ class SpawnBox extends MonoBehaviour {
 	static var boxPool:SpawnPool ;
 	static var prefab:Transform ;
 	
-	var lastPath:double = 0.0 ;
+	static var lastPath:double = 0.0 ;
 	
 	function Start ( )
 	{

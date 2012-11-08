@@ -9,6 +9,7 @@ class SpawnBoss extends MonoBehaviour {
 	static public var changeCameraFOV:boolean = false ;
 	var timer:double = 0.0 ;
 	static var shouldCountTime:boolean = false ;
+	static public var targetFOV:int = 75 ;
 	
 	function Start ( )
 	{
@@ -30,6 +31,7 @@ class SpawnBoss extends MonoBehaviour {
 		
 		//initiate the camera zoom
 		changeCameraFOV = true ;
+		targetFOV = 75 ;
 		//hide Fuel bar & Fire Cooldown bars since they are of no use
 		shouldCountTime = false ;
 		Controller.showFuelBar = false ;
@@ -51,8 +53,10 @@ class SpawnBoss extends MonoBehaviour {
 		}
 		if ( changeCameraFOV )
 		{
-			mainCamera.fov = Mathf.Lerp ( mainCamera.fov , 75 , Time.deltaTime * 0.8 ) ;
-			if ( mainCamera.fov < 76 )
+			mainCamera.fov = Mathf.Lerp ( mainCamera.fov , targetFOV , Time.deltaTime * 0.8 ) ;
+			if ( mainCamera.fov < 76 && targetFOV == 75 )
+				changeCameraFOV = false ;
+			if ( mainCamera.fov > 109 && targetFOV == 110 ) 
 				changeCameraFOV = false ;
 		}
 	}

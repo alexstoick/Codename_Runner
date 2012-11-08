@@ -6,7 +6,7 @@ class SpawnTree extends MonoBehaviour {
 	static var prefab:Transform ;
 	static var contor = 2 ;
 	
-	var lastPath:double = 0.0 ;
+	static var lastPath:double = 0.0 ;
 	
 	function Start ( )
 	{

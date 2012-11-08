@@ -5,7 +5,7 @@ class SpawnEnemyAirplane extends MonoBehaviour {
 	static var enemyAirplanePool:SpawnPool ;
 	static var prefab:Transform ;
 	
-	var lastPath:double = 0.0 ;	
+	static var lastPath:double = 0.0 ;	
 	
 	function Start ( )
 	{
