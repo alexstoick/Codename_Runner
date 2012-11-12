@@ -11,6 +11,7 @@ class MovePlaneBullet extends MonoBehaviour {
 
 	private var despawnTime:double = 0.0 ;
 	private var targetLocation:Vector3 ;
+	private var tParam:double = 0.0 ;
 
 	function Start ( )
 	{
@@ -29,7 +30,8 @@ class MovePlaneBullet extends MonoBehaviour {
 	function Init ( target:Vector3 )
 	{
 		targetLocation = target ;
-		despawnTime = Time.time + 10 ;
+		despawnTime = Time.time + 1 ;
+		tParam = 0 ;
 	}
 	
 	function Update ()
@@ -43,7 +45,13 @@ class MovePlaneBullet extends MonoBehaviour {
 	
 		if ( despawnTime )
 		{
-			transform.position = Vector3.Lerp ( transform.position , targetLocation , 5* Time.deltaTime ) ;
+			tParam +=  Time.deltaTime * 0.5 ;
+			if ( Controller.bossIsSpawned && BossCrosshair.crosshair.active )
+			{
+				transform.position = Vector3.Lerp ( transform.position , BossCrosshair.crosshair.position , tParam ) ;
+			}
+			else
+				transform.position = Vector3.Lerp ( transform.position , targetLocation , tParam ) ;
 			transform.rotation = Quaternion ( 0 , 0 , 0 , 0 ) ;
 		}
 	}
