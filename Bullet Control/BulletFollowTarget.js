@@ -35,7 +35,7 @@ class BulletFollowTarget extends MonoBehaviour {
 		if ( shouldLock )
 		{
 		
-    		tParam += Time.deltaTime * 1 ;//* speed; //This will increment tParam based on Time.deltaTime multiplied by a speed multiplier
+    		tParam += Time.deltaTime * speed; //This will increment tParam based on Time.deltaTime multiplied by a speed multiplier
     		if ( MonsterVector.transforms.Count <= target || ! targetName.Equals ( MonsterVector.transforms[target].parent.name ) )
     		{
     		

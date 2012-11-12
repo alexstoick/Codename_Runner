@@ -223,6 +223,12 @@ class MoveRunnerNew extends MonoBehaviour {
 		for ( i = 0 ; i < MonsterVector.monsters.Count && ! found ; ++ i )
 		{
 			//vedem daca rotatia este corecta. ii dam un threshold de ±10grade
+			
+			if ( ! MonsterVector.transforms[i].gameObject.active )
+			{
+				MonsterVector.removeFromArray ( MonsterVector.monsters[i] , "de-activated" ) ;
+				continue ;
+			} 
 			var monsterRotation:double = ( MonsterVector.transforms[i].localRotation.eulerAngles.z + MonsterVector.angles[i] ) % 360 ;
 			
 			if ( monsterRotation < 0 )
