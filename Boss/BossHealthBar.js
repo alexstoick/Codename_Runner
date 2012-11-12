@@ -42,9 +42,17 @@ class BossHealthBar extends MonoBehaviour {
 			SpawnSentry.lastPath = LoftMovement.currPath ;
 			SpawnTree.lastPath = LoftMovement.currPath ;
 			
-			 SpawnBoss.targetFOV = 110 ;
-			 SpawnBoss.changeCameraFOV = true ; 
+			SpawnBoss.targetFOV = 110 ;
+			SpawnBoss.changeCameraFOV = true ;
 			
+			//refill HP & fuel. set normal speed.	 
+			  
+			LoftMovement.isDead = false ;
+			HealthProgressBar.currHealth = 100 ;
+			FuelProgressBar.currFuel = 100 ;
+			LoftMovement.acceleration = 0.0000 ;
+			LoftMovement.timeModifier = 0.5 ;
+			LoftMovement.setNormalSpeed ( ) ; 
 		}
 	}
 }
