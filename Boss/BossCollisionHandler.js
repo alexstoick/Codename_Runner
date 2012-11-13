@@ -28,15 +28,15 @@ class BossCollisionHandler extends MonoBehaviour {
 		{
 			case "left": 
 				if ( left_wing_collider ) 
-					BossHealthBar.currHealth -= 20 ; 
+					BossHealthBar.currHealth -= 2 ; 
 				break ;
 			case "right":
 				if ( right_wing_collider )
-					BossHealthBar.currHealth -= 20 ;
+					BossHealthBar.currHealth -= 2 ;
 				break ;
 			case "central":
 				if ( central_collider )
-					BossHealthBar.currHealth -= 20 ;
+					BossHealthBar.currHealth -= 4 ;
 				break ;
 		}
 		

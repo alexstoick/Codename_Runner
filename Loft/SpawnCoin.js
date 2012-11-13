@@ -24,7 +24,6 @@ class SpawnCoin extends MonoBehaviour {
 		var fwd:Vector3 = Vector3.zero;
 			
 		var p:Vector3 = layer.GetPosAndFrame( loft,  rotatie , 0.97 - i * 0.05f , 0.1f , at, up, right, fwd);
-		Debug.Log ( rotatie ) ;
 		var rot:Quaternion = Quaternion.LookRotation (fwd, right) ;
 		
 		transform.rotation = rot;

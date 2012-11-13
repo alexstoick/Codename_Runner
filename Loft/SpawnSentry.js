@@ -38,7 +38,6 @@ class SpawnSentry extends MonoBehaviour {
 
 			var rotatie:float = Random.value ;
 			spawn.Init ( rotatie ) ;
-			Debug.Log ( rotatie ) ;
 			
 			for ( var i = 0 ; i < MonsterVector.transforms.Count ; ++ i )
 			{

@@ -20,6 +20,10 @@ class BossCrosshair extends MonoBehaviour {
 		var ownRotation:int = transform.localEulerAngles.z ;
 				
 		var diff:double = playerRotation - ownRotation ;
+		
+		if ( BossMovementOnLoft.alpha > 0.30 ) //care here.
+			return ;
+		
 		if ( diff > 40 || diff < -40 )
 		{
 			crosshair.gameObject.active = false ;
