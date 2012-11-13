@@ -32,7 +32,7 @@ class SpawnEnemyAirplane extends MonoBehaviour {
 			
 			var newAirplane = enemyAirplanePool.Spawn ( prefab ) ;
 			var spawn = newAirplane.GetComponent ( SpawnOnLoft ) ;
-			spawn.Init ( ) ;
+			spawn.Init ( Random.value ) ;
 		}
 	}
 }

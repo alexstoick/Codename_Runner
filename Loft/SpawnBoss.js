@@ -27,7 +27,7 @@ class SpawnBoss extends MonoBehaviour {
 		var spawn = newBoss.GetComponent ( SpawnOnLoft ) ;
 		BossHealthBar.currHealth = 100 ;
 		Debug.LogWarning ( "BOSS" ) ;
-		spawn.Init ( ) ;
+		spawn.Init ( 0 ) ;
 		
 		//initiate the camera zoom
 		changeCameraFOV = true ;

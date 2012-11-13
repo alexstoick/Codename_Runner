@@ -25,7 +25,7 @@ class SpawnBox extends MonoBehaviour {
 			lastPath = LoftMovement.currPath ;
 			var newBox = boxPool.Spawn ( prefab ) ;
 			var spawn = newBox.GetComponent ( SpawnOnLoft ) ;
-			spawn.Init ( ) ;
+			spawn.Init ( Random.value ) ;
 		}
 	}
 }

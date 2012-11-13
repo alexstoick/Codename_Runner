@@ -36,8 +36,9 @@ class SpawnSentry extends MonoBehaviour {
 			var setupRotation_0:BulletForTurret = newSentry.GetComponentsInChildren ( BulletForTurret )[0] ;
 			var setupRotation_1:BulletForTurret = newSentry.GetComponentsInChildren ( BulletForTurret )[1] ;
 
-			
-			spawn.Init ( ) ;
+			var rotatie:float = Random.value ;
+			spawn.Init ( rotatie ) ;
+			Debug.Log ( rotatie ) ;
 			
 			for ( var i = 0 ; i < MonsterVector.transforms.Count ; ++ i )
 			{
@@ -46,6 +47,12 @@ class SpawnSentry extends MonoBehaviour {
 					setupRotation_0.setRotation ( MonsterVector.angles[i] ) ;
 					setupRotation_1.setRotation ( MonsterVector.angles[i] ) ;
 				}
+			}
+			
+			for ( i = 0 ; i < 4 ; ++ i )
+			{
+				var initCoin: SpawnCoin = newSentry.GetComponentsInChildren ( SpawnCoin ) [i] ;
+				initCoin. position ( i , rotatie ) ;
 			}
 		}
 	}

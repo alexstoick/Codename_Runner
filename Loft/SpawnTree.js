@@ -37,7 +37,7 @@ class SpawnTree extends MonoBehaviour {
 				contor = 2 ;
 			var newTree = treePool.Spawn ( prefab ) ;
 			var spawn = newTree.GetComponent ( SpawnOnLoft ) ;
-			spawn.Init ( ) ;
+			spawn.Init ( Random.value ) ;
 		}
 	}
 }

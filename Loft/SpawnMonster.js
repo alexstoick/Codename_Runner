@@ -35,7 +35,7 @@ class SpawnMonster extends MonoBehaviour {
 			var spawn = newMonster.GetComponent ( SpawnOnLoft ) ;
 			var PF = newMonster.GetComponentInChildren ( EnemyPathfinding ) ;
 			PF.Init ( ) ;
-			spawn.Init ( ) ;
+			spawn.Init ( Random.value ) ;
 		}
 	}
 }
