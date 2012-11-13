@@ -12,6 +12,9 @@ class CollisionHandler extends MonoBehaviour {
 	
 	public var particleEffect_hitPlane:GameObject;
 	public var particleEffect:GameObject ;
+	public var particleEffect_hitCoin:GameObject ;
+	
+	
 	static private var plane:Transform ;
 	static private var bobbingEndTime:double = 0.0 ;
 	
@@ -62,6 +65,15 @@ class CollisionHandler extends MonoBehaviour {
 		HealthProgressBar.currHealth -= 30 ;
 		LoftMovement.timeModifier = 0.8 ;
 		LoftMovement.setNormalSpeed ( ) ;
+	}
+	
+	function createParticleEffect_hitCoin ( position:Vector3 )
+	{
+		var instance = Instantiate( particleEffect_hitCoin , position, Quaternion ( 0 , 0 , 0 , 0 ) ) ;
+		instance.transform.parent = plane ;
+		//instance.localPosition = Vector3 ( 30 , 0 , 0 ) ;
+//		instance.localRotation = Quaternion ( 0 , 0 , 0 , 0 ) ;
+		Destroy(instance.gameObject, 1 );
 	}
 	
 	function createParticleEffect ( position:Vector3 , rotation:Quaternion )
@@ -120,7 +132,7 @@ class CollisionHandler extends MonoBehaviour {
 		if ( name.Contains ( "rock") ) 
 		{
 			createParticleEffect_hitPlane ( CollisionInfo.contacts[0].point ) ;
-			HealthProgressBar.currHealth -= 5 ;
+			HealthProgressBar.currHealth -= 3 ;
 			return ;
 		}
 		
@@ -137,6 +149,14 @@ class CollisionHandler extends MonoBehaviour {
 				
 			createParticleEffect ( parent.parent.position , parent.rotation ) ;
 			ScoreControl.addScore ( 400 ) ;
+			return ;
+		}
+		
+		if ( name.Contains ( "Coin" ) )
+		{
+			ScoreControl.addScore ( 100 ) ;
+			CollisionInfo.contacts[0].otherCollider.gameObject.active = false ;
+			createParticleEffect_hitCoin ( CollisionInfo.contacts[0].point ) ;
 			return ;
 		}
 		
