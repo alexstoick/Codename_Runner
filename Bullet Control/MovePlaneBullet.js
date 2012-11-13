@@ -46,7 +46,7 @@ class MovePlaneBullet extends MonoBehaviour {
 		if ( despawnTime )
 		{
 			tParam +=  Time.deltaTime * 0.5 ;
-			if ( Controller.bossIsSpawned && BossCrosshair.crosshair.active )
+			if ( Controller.bossIsSpawned && BossCrosshair.crosshair.gameObject.active )
 			{
 				transform.position = Vector3.Lerp ( transform.position , BossCrosshair.crosshair.position , tParam ) ;
 			}

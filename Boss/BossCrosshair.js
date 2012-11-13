@@ -22,11 +22,11 @@ class BossCrosshair extends MonoBehaviour {
 		var diff:double = playerRotation - ownRotation ;
 		if ( diff > 40 || diff < -40 )
 		{
-			crosshair.active = false ;
+			crosshair.gameObject.active = false ;
 		}
 		else
 		{
-			crosshair.active = true ;
+			crosshair.gameObject.active = true ;
 			diff /= 41 ;
 			crosshair.localPosition.x = diff ;
 		}
