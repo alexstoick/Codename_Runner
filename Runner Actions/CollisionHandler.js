@@ -71,8 +71,8 @@ class CollisionHandler extends MonoBehaviour {
 	{
 		var instance = Instantiate( particleEffect_hitCoin , position, Quaternion ( 0 , 0 , 0 , 0 ) ) ;
 		instance.transform.parent = plane ;
-		//instance.localPosition = Vector3 ( 30 , 0 , 0 ) ;
-//		instance.localRotation = Quaternion ( 0 , 0 , 0 , 0 ) ;
+		instance.transform.localPosition = Vector3 ( 1 , 0 , 0 ) ;
+		instance.transform.localRotation = Quaternion ( 0 , 0 , 0 , 0 ) ;
 		Destroy(instance.gameObject, 1 );
 	}
 	
@@ -132,7 +132,7 @@ class CollisionHandler extends MonoBehaviour {
 		if ( name.Contains ( "rock") ) 
 		{
 			createParticleEffect_hitPlane ( CollisionInfo.contacts[0].point ) ;
-			HealthProgressBar.currHealth -= 3 ;
+			HealthProgressBar.currHealth -= 5 ;
 			return ;
 		}
 		

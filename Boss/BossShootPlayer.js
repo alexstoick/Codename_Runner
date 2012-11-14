@@ -11,6 +11,7 @@ class BossShootPlayer extends MonoBehaviour {
 	var MAX_bulletsInBurst:int = 8 ;
 	var TIME_BETWEEN_SHOTS:float = 0.1 ;
 	var TIME_BETWEEN_BURSTS:float = 0.5 ;
+	static var isShootingPlayer:boolean = false ;
 	
 	private var point02:Vector3 = Vector3 ( 0 , 0 , 0 ) ;
 
@@ -73,6 +74,8 @@ class BossShootPlayer extends MonoBehaviour {
 
 		if ( LoftMovement.isDead ||  ! gameObject.active || SpawnBoss.changeCameraFOV )
 			return ;
+			
+		isShootingPlayer = true ;
 			
 		if ( lastTime > Time.time )
 			return ;

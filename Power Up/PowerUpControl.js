@@ -27,7 +27,7 @@ class PowerUpControl extends MonoBehaviour {
 		
 		var rnd:double = Random.value ;
 		
-		if ( rnd < 0.5 )
+		if ( rnd < 0.7 )
 			return ;
 		
 		if ( trs.name.Contains ( "mig") ) 
