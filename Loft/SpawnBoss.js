@@ -21,12 +21,14 @@ class SpawnBoss extends MonoBehaviour {
 			mainCamera = GameObject.Find ( "Main Camera" ).GetComponent(Camera) ;
 	}
 	
-	function Spawn ( ) //will be called from global controller when a level is completed
+	function Spawn ( )
 	{
 		var newBoss = bossPool.Spawn ( prefab ) ;
 		var spawn = newBoss.GetComponent ( SpawnOnLoft ) ;
 		BossHealthBar.currHealth = 100 ;
 		Debug.LogWarning ( "BOSS" ) ;
+		BossMovementOnLoft.alpha = 0.99 ;
+		BossMovementOnLoft.shouldMove = true ;
 		spawn.Init ( 0 ) ;
 		
 		//initiate the camera zoom

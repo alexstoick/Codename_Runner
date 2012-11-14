@@ -4,7 +4,7 @@ class BossMovementOnLoft extends MonoBehaviour {
 
 	static var loft:MegaShapeLoft ;
 	private var addVariation:double = 0.0004 ;
-	private var shouldMove:boolean = true ;
+	static public var shouldMove:boolean = true ;
 	static public var alpha:double = 0.000 ;
 	private var layer:MegaLoftLayerSimple ;
 
