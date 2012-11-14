@@ -11,6 +11,7 @@ class MoveEnemyAirplane extends MonoBehaviour {
 
 	function Update ( )
 	{
+		freeze = false ;
 		Patrol ( ) ;
 		target.eulerAngles.y = transform.localRotation.eulerAngles.y ;
 		target.eulerAngles.x = transform.localRotation.eulerAngles.x ;

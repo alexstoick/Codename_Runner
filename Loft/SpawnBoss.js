@@ -29,6 +29,7 @@ class SpawnBoss extends MonoBehaviour {
 		Debug.LogWarning ( "BOSS" ) ;
 		BossMovementOnLoft.alpha = 0.99 ;
 		BossMovementOnLoft.shouldMove = true ;
+		BossShootPlayer.isShootingPlayer = false ;
 		spawn.Init ( 0 ) ;
 		
 		//initiate the camera zoom
