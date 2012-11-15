@@ -2,13 +2,15 @@
 
 class SpawnMonster extends MonoBehaviour {
 
-	static var monsterPool:SpawnPool ;
-	static var prefab:Transform ;
+	static var monsterPool:SpawnPool ; //link to the Monster pool from PoolManager
+	static var prefab:Transform ; //prefab used to spawn monster.
 	
+	//This stores the last point at which a monster was spawned.
 	static var lastPath:double = 0.0 ;
 	
 	function Start ( )
 	{
+		//Initializations
 		if ( ! monsterPool ) 
 			monsterPool = PoolManager.Pools ["Monsters"] ;
 		if ( ! prefab )
@@ -17,8 +19,12 @@ class SpawnMonster extends MonoBehaviour {
 	
 	function Update ( )
 	{
+		//Do not spawn is there is no movement or the boss is spawned.
 		if ( ! StartButton.Started || LoftMovement.isStopped () || Controller.bossIsSpawned )
 			return ; 
+
+		//If the path has the same sign and enough distance has passed since the last monster (0.053) 
+		//another one will be spawned.
 
 		if ( LoftMovement.currPath * lastPath >= 0 && LoftMovement.currPath  > lastPath )
 		{
@@ -34,7 +40,8 @@ class SpawnMonster extends MonoBehaviour {
 			var newMonster = monsterPool.Spawn ( prefab ) ;
 			var spawn = newMonster.GetComponent ( SpawnOnLoft ) ;
 			var PF = newMonster.GetComponentInChildren ( EnemyPathfinding ) ;
-			PF.Init ( ) ;
+			//Initialization for the monster Pathfinding. (which is only patrol)
+			PF.Init ( ) ; 
 			spawn.Init ( Random.value ) ;
 		}
 	}

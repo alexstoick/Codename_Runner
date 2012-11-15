@@ -2,51 +2,57 @@
 
 class SpawnBoss extends MonoBehaviour {
 
-	static var bossPool:SpawnPool ;
-	static var prefab:Transform ;
-	static var planeSound:AudioSource ;
-	static private var mainCamera:Camera ;
-	var lastPath:double = 0.0 ;
-	static public var changeCameraFOV:boolean = false ;
-	var timer:double = 0.0 ;
-	static var shouldCountTime:boolean = false ;
-	static public var targetFOV:int = 75 ;
+	static var bossPool:SpawnPool ; //link to the Boss Pool from PoolManager
+	static var prefab:Transform ; //boss prefab used to spawn the boss.
 
-	
+	static private var mainCamera:Camera ; //link to the camera used to change the FOV
+	static public var changeCameraFOV:boolean = false ; //if the camera field of view should be changed
+	static public var targetFOV:int = 75 ; //towards what value I should animate (used to zoom-in and zoom-out)
+
+	static var shouldCountTime:boolean = false ; //if this is true it adds time towards the bosstimer. when it is 
+												// completed a new boss will appear.
+	var timer:double = 0.0 ; //holds how much time has elapsed
+
+
+	static var plane_audioSource:AudioSource ;
+
 	function Start ( )
 	{
+		//Perform initializations
 		if ( ! bossPool ) 
 			bossPool = PoolManager.Pools ["Boss"] ;
 		if ( ! prefab )
 			prefab = bossPool.prefabs["boss"] ;
-		if ( ! planeSound )
-			planeSound = GameObject.Find ( "BigGroup" ) .GetComponent(AudioSource) ;
+		if ( ! plane_audioSource )
+			plane_audioSource = GameObject.Find ( "BigGroup" ) .GetComponent(AudioSource) ;
 		if ( ! mainCamera )
 			mainCamera = GameObject.Find ( "Main Camera" ).GetComponent(Camera) ;
 	}
 	
-	function Spawn ( )
+	function Spawn ( ) //Spawns a new boss and does other changes to the HUD
 	{
+
 		var newBoss = bossPool.Spawn ( prefab ) ;
-		var spawn = newBoss.GetComponent ( SpawnOnLoft ) ;
+		var spawn = newBoss.GetComponent ( SpawnOnLoft ) ; //the SpawnOnLoft component of the boss.
+
+		//Initilizations of global variables related to the boss.
 		BossHealthBar.currHealth = 100 ;
-		Debug.LogWarning ( "BOSS" ) ;
 		BossMovementOnLoft.alpha = 0.99 ;
 		BossMovementOnLoft.shouldMove = true ;
 		BossShootPlayer.isShootingPlayer = false ;
 		spawn.Init ( 0 ) ;
-		planeSound.Play ( ) ;
+		plane_audioSource.Play ( ) ; //will play a tension sound
 		
-		//initiate the camera zoom
+		//Initiate the camera zoom
 		changeCameraFOV = true ;
 		targetFOV = 75 ;
 		//hide Fuel bar & Fire Cooldown bars since they are of no use
+		//show the boss health bar
 		shouldCountTime = false ;
 		Controller.showFuelBar = false ;
 		Controller.showFireCooldownBar = false ;
 		Controller.bossIsSpawned = true ;
 		Controller.showBossHealthBar = true ;
-		
 	}
 	
 	function Update ( )
@@ -61,6 +67,7 @@ class SpawnBoss extends MonoBehaviour {
 		}
 		if ( changeCameraFOV )
 		{
+			//animates the camera towrads the wanted value. Used to zoomin and zoomout.
 			mainCamera.fov = Mathf.Lerp ( mainCamera.fov , targetFOV , Time.deltaTime * 0.8 ) ;
 			if ( mainCamera.fov < 76 && targetFOV == 75 )
 				changeCameraFOV = false ;

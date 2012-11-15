@@ -2,9 +2,11 @@
 
 class SpawnEnemyAirplane extends MonoBehaviour {
 
-	static var enemyAirplanePool:SpawnPool ;
+	//Link to the EnemyAirplane pool from PoolManager
+	static var enemyAirplanePool:SpawnPool ; 
+	//The prefab used to spawn.
 	static var prefab:Transform ;
-	
+	//The last point where an airplane was spawned.
 	static var lastPath:double = 0.0 ;	
 	
 	function Start ( )
@@ -17,8 +19,13 @@ class SpawnEnemyAirplane extends MonoBehaviour {
 	
 	function Update ( )
 	{
+
+		//Do not spawn is there is no movement or the boss is spawned.				
 		if ( ! StartButton.Started || LoftMovement.isStopped () || Controller.bossIsSpawned )
 			return ; 
+
+		//If the path has the same sign and enough distance has passed since the last airplane (0.1319) 
+		//another one will be spawned.
 
 		if ( LoftMovement.currPath * lastPath >= 0 && LoftMovement.currPath  > lastPath )
 		{
