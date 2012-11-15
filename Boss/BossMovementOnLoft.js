@@ -28,7 +28,7 @@ class BossMovementOnLoft extends MonoBehaviour {
 			shouldMove = false ;
 
 		if ( shouldMove )
-			alpha -= 0.0008 ;
+			alpha -= 0.003 ;
 			
 		if ( alpha >= 1 )
 			alpha = -1.0 ;

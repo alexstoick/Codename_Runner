@@ -34,7 +34,7 @@ class ShootRocket extends MonoBehaviour {
 				var touch: Touch = Input.touches[i] ;
 				if ( touch.phase == TouchPhase.Began && texture.HitTest ( touch.position ) ) 
 				{
-					moveRunner.fire ( true ) ; 
+					moveRunner.fire ( ) ; 
 					return ;
 				}
 			}
