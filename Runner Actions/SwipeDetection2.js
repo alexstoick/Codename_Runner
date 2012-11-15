@@ -2,6 +2,7 @@
 class SwipeDetection2 extends MonoBehaviour {
 
 	static private var moveRunner:MoveRunnerNew ;
+	//Used to change the distance when touch starts.
 	static private var plane:Transform ;
 	static private var leftShooter:PlaneShootForward ;
 	static private var rightShooter:PlaneShootForward ;	
@@ -22,14 +23,8 @@ class SwipeDetection2 extends MonoBehaviour {
 			shootRocket = GameObject.Find ( "Shoot Rocket").GetComponent ( GUITexture ) ;
 	}
 	
-	private var Velocity_X:float;
 	private var touch:Touch;
-	private var newTouch:Touch ;
-	private var moved:boolean ;
-	private var lastVelocity:float;
-	private var init:boolean = false ;
 	private var analyzedDuringMove:boolean = false ;
-	private var shouldModify:boolean = false ;
 	
 	private var touchPositions:Array = new Array() ;
 	private var timeOfTouch:Array = new Array () ;
@@ -60,7 +55,7 @@ class SwipeDetection2 extends MonoBehaviour {
 	{
 		yield WaitForSeconds (0.7) ;
 		if ( touchActive )
-		altitudeModifier = 0.007 ;
+			altitudeModifier = 0.007 ;
 	}
 	
 	private function analyzeHorizontally ( delta:double , deltaTime:double )
@@ -111,29 +106,21 @@ class SwipeDetection2 extends MonoBehaviour {
 		}
 	}
 	
+	//Not used.
 	private function analyzeVertically ( delta:double ) 
 	{
 	
 
 		if ( (delta< - VERTICAL_TOUCH_LENGTH || delta > VERTICAL_TOUCH_LENGTH ) )
-		{	
 			if ( delta < 0 )
 			{
-				moveRunner.action ( "down" ) ;
+				//Down
 			}
 			else
 				if (delta > 0 )
 				{
-					moveRunner.action ( "up" ) ; 
+					//Up 
 				}
-				
-			touchPositions.Clear ( ) ;
-			timeOfTouch.Clear ( ) ;
-			
-			analyzedDuringMove = true ;
-		}
-
-
 	}
 	
 	private function touchMoved ( )
@@ -151,19 +138,6 @@ class SwipeDetection2 extends MonoBehaviour {
 		var	deltaY:double = position.y - firstTouch.y ;
 		var ok:boolean = false ;
 
-		if ( deltaX && deltaY && shouldModify ) 
-		{
-			var deltaXX:double = deltaX;
-			var deltaYY:double = deltaY;
-			
-			if ( deltaX < 0)
-				deltaXX *= -1 ;
-			if ( deltaY < 0 )
-				deltaYY *= -1 ;
-				
-			shouldModify = false ;
-		}
-
 		analyzeVertically ( deltaY ) ;  
 		analyzeHorizontally ( deltaX , deltaTime ) ;
 	}
@@ -173,7 +147,6 @@ class SwipeDetection2 extends MonoBehaviour {
 		touchPositions.Clear ( ) ;
 		timeOfTouch.Clear ( ) ;
 		touchActive = false ;
-		shouldModify =true  ;
 		shouldFire = false ;
 		altitudeModifier = -0.007 ;
 	}
