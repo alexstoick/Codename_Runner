@@ -19,7 +19,10 @@ class CollisionHandler extends MonoBehaviour {
 	static private var bobbingEndTime:double = 0.0 ;
 	
 	static private var cameraTransform:Transform ;
+	
 	public var coinCollectSound: AudioClip ;
+	public var rolloverSound: AudioClip ;
+	public var bonusHealthSound: AudioClip ;
 
 	var materials:Material[] ;
 
@@ -90,7 +93,7 @@ class CollisionHandler extends MonoBehaviour {
 		bobbingEndTime = Time.time + 0.2 ;
 	}
 	
-	function pushRunnerBack ( )
+	function rolloverRunnner ( )
 	{
 	
 		var oppositeDirection:String;
@@ -124,7 +127,7 @@ class CollisionHandler extends MonoBehaviour {
 			if ( planeHitArea.Contains ( "left" ) ) 
 				pushBackDirection = "left" ;
 				
-		if ( name.Contains ( "MONSTERS") || name.Contains ( "crate" ) )
+		if ( name.Contains ( "MONSTER") || name.Contains ( "crate" ) )
 			return ;
 		
 		if ( name.Contains ( "sentry" ) )
@@ -144,6 +147,7 @@ class CollisionHandler extends MonoBehaviour {
 			{
 				enemiesPool.Despawn ( parent.parent ) ;
 				MonsterVector.removeFromArray (parent.parent.name , "collision with the plane");
+				return ;
 			}
 			else
 				boxPool. Despawn ( parent ) ;
@@ -165,6 +169,7 @@ class CollisionHandler extends MonoBehaviour {
 		if ( name.Contains ( "health" ) ) 
 		{
 			HealthProgressBar.currHealth += 25 ;
+			AudioSource.PlayClipAtPoint( bonusHealthSound , transform.position );			
 			return ;
 		}
 		
@@ -183,7 +188,8 @@ class CollisionHandler extends MonoBehaviour {
 		//coliziune cu copac -- viitoare frunza
 		if ( name.Contains ( "Plant") || name.Contains ( "mig" ) )
 		{
-			pushRunnerBack ( );
+			AudioSource.PlayClipAtPoint( rolloverSound , transform.position );
+			rolloverRunnner ( ) ;
 			return ;
 		}
 	}
