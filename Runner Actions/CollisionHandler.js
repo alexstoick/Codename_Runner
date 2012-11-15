@@ -19,6 +19,7 @@ class CollisionHandler extends MonoBehaviour {
 	static private var bobbingEndTime:double = 0.0 ;
 	
 	static private var cameraTransform:Transform ;
+	public var coinCollectSound: AudioClip ;
 
 	var materials:Material[] ;
 
@@ -157,6 +158,7 @@ class CollisionHandler extends MonoBehaviour {
 			ScoreControl.addScore ( 100 ) ;
 			CollisionInfo.contacts[0].otherCollider.gameObject.active = false ;
 			createParticleEffect_hitCoin ( CollisionInfo.contacts[0].point ) ;
+			AudioSource.PlayClipAtPoint( coinCollectSound , transform.position );
 			return ;
 		}
 		

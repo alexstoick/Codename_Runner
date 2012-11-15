@@ -4,12 +4,14 @@ class SpawnBoss extends MonoBehaviour {
 
 	static var bossPool:SpawnPool ;
 	static var prefab:Transform ;
+	static var planeSound:AudioSource ;
 	static private var mainCamera:Camera ;
 	var lastPath:double = 0.0 ;
 	static public var changeCameraFOV:boolean = false ;
 	var timer:double = 0.0 ;
 	static var shouldCountTime:boolean = false ;
 	static public var targetFOV:int = 75 ;
+
 	
 	function Start ( )
 	{
@@ -17,6 +19,8 @@ class SpawnBoss extends MonoBehaviour {
 			bossPool = PoolManager.Pools ["Boss"] ;
 		if ( ! prefab )
 			prefab = bossPool.prefabs["boss"] ;
+		if ( ! planeSound )
+			planeSound = GameObject.Find ( "BigGroup" ) .GetComponent(AudioSource) ;
 		if ( ! mainCamera )
 			mainCamera = GameObject.Find ( "Main Camera" ).GetComponent(Camera) ;
 	}
@@ -31,6 +35,7 @@ class SpawnBoss extends MonoBehaviour {
 		BossMovementOnLoft.shouldMove = true ;
 		BossShootPlayer.isShootingPlayer = false ;
 		spawn.Init ( 0 ) ;
+		planeSound.Play ( ) ;
 		
 		//initiate the camera zoom
 		changeCameraFOV = true ;

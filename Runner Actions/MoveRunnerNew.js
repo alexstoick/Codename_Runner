@@ -26,6 +26,7 @@ class MoveRunnerNew extends MonoBehaviour {
 
 	static private var leftShooter:PlaneShootForward ;
 	static private var rightShooter:PlaneShootForward ;	
+	public var fireBigGun:AudioClip;
 
 	function Start ( )
 	{
@@ -219,6 +220,8 @@ class MoveRunnerNew extends MonoBehaviour {
 		var flying:boolean = false ;
 		var found: boolean = false ;
 		var foundI:int = 0;
+		
+		AudioSource.PlayClipAtPoint( fireBigGun , transform.position );
 		
 		for ( i = 0 ; i < MonsterVector.monsters.Count && ! found ; ++ i )
 		{
