@@ -20,6 +20,7 @@ class StartButton extends MonoBehaviour {
 			LoftMovement.acceleration = 0.0000 ;
 			LoftMovement.timeModifier = 0.5 ;
 			LoftMovement.setNormalSpeed ( ) ;
+			Controller.bossNumber = -1 ;
 			SpawnBoss.shouldCountTime = true ;
 		}
 	}

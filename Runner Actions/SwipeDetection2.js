@@ -170,7 +170,7 @@ class SwipeDetection2 extends MonoBehaviour {
 		if ( lastTime > Time.time )
 			return ;
 			
-		lastTime = Time.time + 0.1 ;
+		lastTime = Time.time + 0.2 ;
 		
 		//If the rocket button is not touched go back.
 		if ( shootRocket.HitTest ( Input.touches[1].position ) )

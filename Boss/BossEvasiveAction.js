@@ -2,12 +2,13 @@
 
 class BossEvasiveAction extends MonoBehaviour {
 
-	//This can be set from the inspector. 
+	//This values are pulled form Controller. See delayedDeactivation
+	
 	//Represents the starting value(going downwards) from which the boss will start to making evasive maneuvers.
-	public var starting_HP_Percentage:float ; 
+	static var starting_HP_Percentage:float = 20; 
 	
 	//The number of bullets after which the plane will do the evasive maneuver.
-	public var number_of_bullets:int ;
+	static var number_of_bullets:int = 6 ;
 	
 	//Will add to this value when a collision happens.
 	static var current_number_of_bullets:int = 0.0 ;
@@ -32,13 +33,6 @@ class BossEvasiveAction extends MonoBehaviour {
 		
 		if ( ! isMoving )
 		{
-			Controller.bossNumber ++ ;
-			if ( Controller.bossNumber >= 5 )
-				Controller.bossNumber = 4 ;
-				
-			number_of_bullets = Controller.bossBullets [ Controller.bossNumber ] ;
-			starting_HP_Percentage = Controller.bossHP [ Controller.bossNumber ] ;
-			
 			val = Random.value;
 			var modifier:int = 1 ;
 			
@@ -46,6 +40,9 @@ class BossEvasiveAction extends MonoBehaviour {
 				modifier = -1 ;
 			isMoving = true ;
 			//Calculating the value for the target rotation.
+			
+			Debug.Log ( starting_HP_Percentage + "		" + number_of_bullets ) ;
+			
 			target = transform.localEulerAngles.z + modifier * 100 ; 
 			
 			if ( target < 0 )

@@ -3,7 +3,7 @@
 class FollowPlayerRotation extends MonoBehaviour {
 
 	static var runner:Transform ;
-	private var shouldMove:boolean = true ;
+	static var shouldMove:boolean = true ;
 	
 	var freeze:boolean = false ;
 	var WAIT_SECONDS_FOR_MOVEMENT:float = 2 ;

@@ -70,7 +70,7 @@ class MovePlaneBullet extends MonoBehaviour {
 		var child:Transform = CollisionInfo.contacts[0].otherCollider.gameObject.transform ;
 		var cname:String = collider.name ;
 
-		if ( cname.Contains ( "Plant" ) || name == "Loft" )
+		if ( cname.Contains ( "Plant" ) || cname == "Loft" || cname.Contains ( "boss" ) )
 		{
 			rocksPool. Despawn ( transform ) ;
 			return ;

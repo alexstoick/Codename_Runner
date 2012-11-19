@@ -40,8 +40,18 @@ class SpawnBoss extends MonoBehaviour {
 		BossMovementOnLoft.alpha = 0.99 ;
 		BossMovementOnLoft.shouldMove = true ;
 		BossShootPlayer.isShootingPlayer = false ;
+		
+		FollowPlayerRotation.shouldMove = true ;
 		spawn.Init ( 0 ) ;
 		plane_audioSource.Play ( ) ; //will play a tension sound
+
+		//Updating the stats for evasion.		
+		Controller.bossNumber ++ ;
+		if ( Controller.bossNumber >= 5 )
+			Controller.bossNumber = 4 ;
+		BossEvasiveAction.isMoving = false ;	
+		BossEvasiveAction.number_of_bullets = Controller.bossBullets [ Controller.bossNumber ] ;
+		BossEvasiveAction.starting_HP_Percentage = Controller.bossHP [ Controller.bossNumber ] ;
 		
 		//Initiate the camera zoom
 		changeCameraFOV = true ;
