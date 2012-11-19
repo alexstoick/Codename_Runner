@@ -9,7 +9,6 @@ class RockCollisionHandler extends MonoBehaviour {
 	static private var migPool: SpawnPool ;
 	static private var powerUpControl : PowerUpControl ; 
 
-	static private var powerUp : PowerUp ;
 	private var targetNo:int = 0;
 	private var shouldLock:boolean = false ;
 

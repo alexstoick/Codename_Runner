@@ -92,7 +92,6 @@ class SwipeDetection2 extends MonoBehaviour {
 					for ( extra = 0 ; extra < lim ; ++ extra )
 					{
 						moveRunner.action ( "left" ) ;
-						++nr ;
 					}
 				}
 			}
