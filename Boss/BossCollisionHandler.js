@@ -2,9 +2,15 @@
 
 class BossCollisionHandler extends MonoBehaviour {
 
-	var left_wing_collider:boolean = false ;
-	var right_wing_collider:boolean = false ;
-	var central_collider:boolean = false ;
+	//Variable that indicates if the collider is active.
+	public var left_wing_collider:boolean = false ;
+	public var right_wing_collider:boolean = false ;
+	public var central_collider:boolean = false ;
+	
+	//Specific damage for each collider.
+	public var central_collider_damage:int = 2 ;
+	public var left_collider_damage:int = 2 ;
+	public var right_collider_damage:int = 2 ;
 
 	function OnCollisionEnter(CollisionInfo:Collision)
 	{
@@ -23,20 +29,22 @@ class BossCollisionHandler extends MonoBehaviour {
 			else
 				bossHitArea = "central" ;
 		
-		Debug.Log ( "BOSS HIT" + bossHitArea + "		" + name ) ;
 		switch ( bossHitArea )
 		{
 			case "left": 
 				if ( left_wing_collider ) 
-					BossHealthBar.currHealth -= 2 ; 
+					BossHealthBar.currHealth -= left_collider_damage ; 
+				BossEvasiveAction.current_number_of_bullets ++ ;
 				break ;
 			case "right":
 				if ( right_wing_collider )
-					BossHealthBar.currHealth -= 2 ;
+					BossHealthBar.currHealth -= right_collider_damage ;
+				BossEvasiveAction.current_number_of_bullets ++ ;	
 				break ;
 			case "central":
 				if ( central_collider )
-					BossHealthBar.currHealth -= 4 ;
+					BossHealthBar.currHealth -= central_collider_damage ;
+				BossEvasiveAction.current_number_of_bullets ++ ;
 				break ;
 		}
 		

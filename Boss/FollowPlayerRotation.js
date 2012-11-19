@@ -11,24 +11,12 @@ class FollowPlayerRotation extends MonoBehaviour {
 	var LERP_VALUE:float = 1 ; //lower values = slower movement
 	private var tParam:float = 0.0 ;
 	
-	function Init ( )
-	{
-		freeze = false ;
-	}
-	
-	function Start () 
-	{
-	}
-
-	
 	function Awake ( )
 	{
 		if ( ! runner )
 			runner = GameObject. Find ( "BigGroup").transform ;
-
 	}
 
-	
 	function Update ( )
 	{	
 	
@@ -39,9 +27,10 @@ class FollowPlayerRotation extends MonoBehaviour {
 		}
 	}
 
-	//Currently not using Move
 	function Move ( )
 	{
+		if ( BossEvasiveAction.isMoving )
+			return ;
 		if ( ! shouldMove ) 
 			return ;
 			

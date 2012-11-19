@@ -13,6 +13,10 @@ class Controller extends MonoBehaviour {
 	static var myArmour:int = 30 ;
 	static var TIME_FOR_BOSS:int = 10 ;
 	
+	static var bossNumber:int = -1 ;
+	
+	static var bossHP:Array = [ 20 , 40 , 60 , 80 , 100 ] ;
+	static var bossBullets:Array = [ 4 , 4 , 4 , 2 , 2 ] ;
 	
 	
 }
