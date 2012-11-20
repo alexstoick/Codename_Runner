@@ -9,10 +9,16 @@ class ShootForward extends MonoBehaviour {
 	var MAX_bulletsInBurst:int = 8 ;
 	var TIME_BETWEEN_SHOTS:float = 0.01 ;
 	var TIME_BETWEEN_BURSTS:float = 0.5 ;
+	
+	static private var plane:Transform ;
+	
+	public var enemy_shootSound: AudioClip ;
 
 
 	function Start  ( )
 	{
+		if ( ! plane )
+			plane = GameObject.Find ( "plane" ). transform ;
 		if ( ! rocksPool )
 			rocksPool = PoolManager. Pools ["Rocks"] ;
 		if ( ! rockPrefab )
@@ -31,8 +37,15 @@ class ShootForward extends MonoBehaviour {
 		var point01:Vector3 = transform.position ;
 		var point02:Vector3 = transform.position + transform.forward * 50 ;
 		
+		var distance = Vector3.Distance ( transform.position , plane.position ) ;
+		
+		if ( distance > 50 ) 
+			return ;
+		
 		var rock = rocksPool. Spawn ( rockPrefab , point01 , Quaternion ( 0 , 0 , 0 , 0 ) )  ;
 		var rockScript : MoveTurretBullet = rock.GetComponent ( MoveTurretBullet ) ;
+		
+		AudioSource.PlayClipAtPoint( enemy_shootSound , transform.position );
 		
 		rockScript.Init ( point02 ) ;
 		lastTime = Time.time + TIME_BETWEEN_SHOTS ;
