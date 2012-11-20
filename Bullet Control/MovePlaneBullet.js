@@ -2,7 +2,6 @@
 
 class MovePlaneBullet extends MonoBehaviour {
 
-	var particleEffect: GameObject ;
 	static private var rocksPool: SpawnPool ;
 	static private var enemiesPool: SpawnPool ;
 	static private var sentryPool: SpawnPool ;
@@ -12,6 +11,9 @@ class MovePlaneBullet extends MonoBehaviour {
 	private var despawnTime:double = 0.0 ;
 	private var targetLocation:Vector3 ;
 	private var tParam:double = 0.0 ;
+	
+	var particleEffect: GameObject ;
+	public var explosionSound:AudioClip ;
 
 	function Start ( )
 	{
@@ -59,6 +61,7 @@ class MovePlaneBullet extends MonoBehaviour {
 	function createParticleEffect ( position:Vector3 , rotation:Quaternion )
 	{
    		var instance = Instantiate( particleEffect , position , rotation ) ;
+		AudioSource.PlayClipAtPoint( explosionSound , transform.position );
 	    Destroy(instance.gameObject, 2 );
 	}
 

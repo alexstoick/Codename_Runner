@@ -8,6 +8,8 @@ class BulletForTurret extends MonoBehaviour {
 	private var ownRotation:double ;
 	private var lastTime:double = -10.000 ;
 	
+	public var enemy_shootSound: AudioClip ;
+	
 	function Start  ( )
 	{
 		if ( ! Target )
@@ -22,7 +24,7 @@ class BulletForTurret extends MonoBehaviour {
 	{
 		if ( ! transform.gameObject.active )
 			return ;
-		if ( lastTime + 0.05 < Time.time  )
+		if ( lastTime + 0.1 < Time.time  )
 			spawnBullets ( ) ;
 	}	
 	
@@ -91,6 +93,7 @@ class BulletForTurret extends MonoBehaviour {
 		var rock = rocksPool. Spawn ( rockPrefab , point01 , Quaternion ( 0 , 0 , 0 , 0 ) )  ;
 		var rockScript : MoveTurretBullet = rock.GetComponent ( MoveTurretBullet ) ;
 		
+		AudioSource.PlayClipAtPoint( enemy_shootSound , transform.position );
 		rockScript.Init ( Target.position ) ;
 		lastTime = Time.time ;	
 		

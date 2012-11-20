@@ -12,6 +12,7 @@ class RockCollisionHandler extends MonoBehaviour {
 	private var targetNo:int = 0;
 	private var shouldLock:boolean = false ;
 
+	public var explosionSound:AudioClip ;
 	
 	function Start ( )
 	{
@@ -30,6 +31,7 @@ class RockCollisionHandler extends MonoBehaviour {
 	function createParticleEffect ( position:Vector3 , rotation:Quaternion )
 	{
    		var instance = Instantiate( particleEffect , position , rotation ) ;
+   		AudioSource.PlayClipAtPoint( explosionSound , transform.position );
 	    Destroy(instance.gameObject, 2 );
 	}
 	
@@ -55,8 +57,6 @@ class RockCollisionHandler extends MonoBehaviour {
 			return ;
 		}
 		
-
-
 		
 		if ( cname.Contains ( "sentry" ) )
 		{
