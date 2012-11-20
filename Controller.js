@@ -11,7 +11,7 @@ class Controller extends MonoBehaviour {
 	
 	static var weaponDamage:int = 20 ;
 	static var myArmour:int = 30 ;
-	static var TIME_FOR_BOSS:int = 10 ;
+	static var TIME_FOR_BOSS:int = 90 ;
 	
 	static var bossNumber:int = -1 ;
 	

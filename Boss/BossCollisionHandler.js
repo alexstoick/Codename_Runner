@@ -50,7 +50,7 @@ class BossCollisionHandler extends MonoBehaviour {
 		
 		if ( BossHealthBar.currHealth <= 0 )
 		{
-			Controller.TIME_FOR_BOSS = 50 ;
+			Controller.TIME_FOR_BOSS = 90 ; //!!!
 			var pool:SpawnPool = PoolManager.Pools["Boss"] ;
 			pool.Despawn ( transform ) ;
 		}
