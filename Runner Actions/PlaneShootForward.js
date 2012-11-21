@@ -4,6 +4,8 @@ class PlaneShootForward extends MonoBehaviour {
 
 	static private var rocksPool: SpawnPool ;
 	private var rockPrefab:Transform ;
+	
+	public var minigunSound:AudioClip ;
 
 	function Start  ( )
 	{
@@ -19,6 +21,7 @@ class PlaneShootForward extends MonoBehaviour {
 		var point01:Vector3 = transform.position ;
 		var point02:Vector3 = transform.position + transform.forward * 150 ;
 		
+		AudioSource.PlayClipAtPoint( minigunSound , transform.position );	
 		
 		var rock = rocksPool. Spawn ( rockPrefab , point01 , Quaternion ( 0 , 0 , 0 , 0 ) )  ;
 		var rockScript : MovePlaneBullet = rock.GetComponent ( MovePlaneBullet ) ;

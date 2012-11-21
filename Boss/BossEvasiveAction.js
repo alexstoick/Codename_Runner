@@ -58,6 +58,5 @@ class BossEvasiveAction extends MonoBehaviour {
 			if ( target -1 < val && val < target + 1 )
 				delayedDeactivation () ;
 		}
-		
 	}
 }
