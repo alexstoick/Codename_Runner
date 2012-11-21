@@ -23,6 +23,7 @@ class CollisionHandler extends MonoBehaviour {
 	public var coinCollectSound: AudioClip ;
 	public var rolloverSound: AudioClip ;
 	public var bonusHealthSound: AudioClip ;
+	public var hitByBulletSound:AudioClip ;
 
 	var materials:Material[] ;
 
@@ -90,6 +91,7 @@ class CollisionHandler extends MonoBehaviour {
 	{
 		var instance = Instantiate ( particleEffect_hitPlane , position , Quaternion ( 0 , 0 , 0 , 0 ) ) ;
 		instance.transform.parent = plane ;
+		AudioSource.PlayClipAtPoint( hitByBulletSound , transform.position );		
 		bobbingEndTime = Time.time + 0.2 ;
 	}
 	

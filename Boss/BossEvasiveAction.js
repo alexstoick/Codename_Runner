@@ -20,7 +20,6 @@ class BossEvasiveAction extends MonoBehaviour {
 	
 	function delayedDeactivation ( )
 	{
-		yield WaitForSeconds ( 1 ) ;
 		isMoving = false ;
 	}
 	
@@ -55,11 +54,9 @@ class BossEvasiveAction extends MonoBehaviour {
 		{
 			//5 is high enough so the movement will get the plane away from the player's shooting radius.
 			transform.localEulerAngles.z = Mathf.LerpAngle ( transform.localEulerAngles.z , target , Time.deltaTime * 4 ) ; 
-			val = Mathf.Clamp ( transform.localEulerAngles.z , target -5  , target + 5 ) ;
-			if ( val == transform.localEulerAngles.z )
-			{
-				delayedDeactivation ( ) ;
-			}
+			val = transform.localEulerAngles.z ;
+			if ( target -1 < val && val < target + 1 )
+				delayedDeactivation () ;
 		}
 		
 	}
