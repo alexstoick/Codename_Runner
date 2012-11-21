@@ -14,7 +14,7 @@ class FuelProgressBar extends MonoBehaviour {
 			
 		if ( lastTime + 1 < Time.time )
 		{
-			currFuel -= 0.8 ;
+			currFuel -= 1.5 ;
 			lastTime = Time.time ;
 		}
 	}
