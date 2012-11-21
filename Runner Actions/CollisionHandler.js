@@ -4,10 +4,10 @@ class CollisionHandler extends MonoBehaviour {
 
 	static private var moveRunner:MoveRunnerNew ;
 
+	//Refferences to the spawnPools
 	static private var enemiesPool: SpawnPool ;
 	static private var boxPool: SpawnPool ;
 	
-	static public var bashOn:boolean = false ;
 	static private var pushBackDirection:String ;
 	
 	public var particleEffect_hitPlane:GameObject;
@@ -53,23 +53,6 @@ class CollisionHandler extends MonoBehaviour {
 		{
 			cameraTransform.localRotation = Quaternion.Euler( 335 + Mathf.PingPong(Time.time * 30.0, 1.5), 0.0 , 180.0 );
 		}
-	}
-
-
-		
-	function blinkRunner ( )
-	{
-		LoftMovement.setLowSpeed ( ) ;
-		LoftMovement.timeModifier = 1000 ;
-		
-		for ( var i = 0 ; i < 20 ; ++ i )
-		{
-			//should blink.
-			yield WaitForSeconds ( 0.1 ) ;
-		}
-		HealthProgressBar.currHealth -= 30 ;
-		LoftMovement.timeModifier = 0.8 ;
-		LoftMovement.setNormalSpeed ( ) ;
 	}
 	
 	function createParticleEffect_hitCoin ( position:Vector3 )
@@ -139,23 +122,6 @@ class CollisionHandler extends MonoBehaviour {
 		{
 			createParticleEffect_hitPlane ( CollisionInfo.contacts[0].point ) ;
 			HealthProgressBar.currHealth -= 5 ;
-			return ;
-		}
-		
-		if ( bashOn && ( name == "crate" || name == "MONSTER" ) ) 
-		{
-			var parent:Transform = CollisionInfo.contacts[0].otherCollider.gameObject.transform.parent.transform ;
-			if ( name == "MONSTER" )
-			{
-				enemiesPool.Despawn ( parent.parent ) ;
-				MonsterVector.removeFromArray (parent.parent.name , "collision with the plane");
-				return ;
-			}
-			else
-				boxPool. Despawn ( parent ) ;
-				
-			createParticleEffect ( parent.parent.position , parent.rotation ) ;
-			ScoreControl.addScore ( 400 ) ;
 			return ;
 		}
 		
