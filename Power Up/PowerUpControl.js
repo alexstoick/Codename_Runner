@@ -34,7 +34,6 @@ class PowerUpControl extends MonoBehaviour {
 		{
 			//fuel
 			var newGas: Transform = gasTankPool.Spawn ( gas_prefab , trs.position , trs.rotation ) ;
-//			Debug.Log ( trs.name + "		" +  trs.position + "		" +  trs.rotation + "		" +newGas.name) ;
 			
 			spawnOnLoft = newGas.GetComponent ( SpawnOnLoft ) ;
 			spawnOnLoft.despawnPoint = despawnTime ;
@@ -44,22 +43,19 @@ class PowerUpControl extends MonoBehaviour {
 			var copil:Transform ;
 			copil = newGas.GetChild ( 0 ) ;
 			copil.localRotation = trs.GetChild(0).localRotation ;
+			return ;
 		}
 		if ( trs.name.Contains ( "sentry") ) 
 		{
 			//health
 			var newHealth: Transform = healthPackPool.Spawn ( health_prefab , trs.position , trs.rotation ) ;
-//			Debug.Log ( trs.name + "		" +  trs.position + "		" +  trs.rotation + "		" +newHealth.name) ;
 
 			spawnOnLoft = newHealth.GetComponent ( SpawnOnLoft ) ;
 			spawnOnLoft.despawnPoint = despawnTime ;
 
 			newHealth.position = trs.position ;
 			newHealth.rotation = trs.rotation ;
+			return ;
 		}
-		
 	}
-
-
-
 }
