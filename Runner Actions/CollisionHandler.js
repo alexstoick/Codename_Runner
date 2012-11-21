@@ -83,7 +83,8 @@ class CollisionHandler extends MonoBehaviour {
 	//Used to make the runner roll over.
 	function rolloverRunnner ( )
 	{
-		HealthProgressBar.currHealth -= 30 ;	
+		
+		HealthProgressBar.currHealth -= Controller.HP_lost_onNonCriticalHit ;	
 		
 		yield WaitForSeconds ( 0.1 ) ;
 		moveRunner.action ( "loop" + rolloverDirection ) ;
@@ -118,7 +119,7 @@ class CollisionHandler extends MonoBehaviour {
 			if ( planeHitArea.Contains ( "left" ) ) 
 				rolloverDirection = "left" ;
 	
-		//If a collision with a rock happens, drop 5HP and create the particle effect.
+		//If a collision with a rock happens, drop 5HP and create the particle effect & play sound.
 		if ( name.Contains ( "rock") ) 
 		{
 			createParticleEffect_hitPlane ( CollisionInfo.contacts[0].point ) ;
@@ -138,27 +139,34 @@ class CollisionHandler extends MonoBehaviour {
 			return ;
 		}
 		
+		//If a collision with a health pack happens, add XHP points ( value can be adjusted
+		//from the Controller class).
 		if ( name.Contains ( "health" ) ) 
 		{
-			HealthProgressBar.currHealth += 25 ;
+			HealthProgressBar.currHealth += Controller.HP_gained_onHealthPack ;
 			AudioSource.PlayClipAtPoint( bonusHealthSound , transform.position );			
 			return ;
 		}
 		
+		//If a collision with a fuel pack happens, add X fuel ( value can be adjusted
+		//from the Controller class).
 		if ( name.Contains ( "gas" ) )
 		{
-			FuelProgressBar.currFuel += 40 ;
+			FuelProgressBar.currFuel += Controller.Fuel_gained_onFuelPack ;
 			return ;
 		}
 				
+		//If a collision with a plant is on the critical collider of the plane, the 
+		//game ends.
 		if ( planeHitArea.Contains ( "critical" ) )
 		{
 			GameOver.Dead ( ) ;
 			return ;
 		}
 		
-		//coliziune cu copac -- viitoare frunza
-		if ( name.Contains ( "Plant") || name.Contains ( "mig" ) )
+		//If the collision with the plant is not fatal, play the rollover sound and
+		//roll the plane.
+		if ( name.Contains ( "Plant")  )
 		{
 			AudioSource.PlayClipAtPoint( rolloverSound , transform.position );
 			rolloverRunnner ( ) ;
