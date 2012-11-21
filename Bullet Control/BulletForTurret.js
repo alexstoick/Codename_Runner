@@ -5,6 +5,7 @@ class BulletForTurret extends MonoBehaviour {
 	static private var Target:Transform ;
 	static private var rocksPool: SpawnPool ;
 	static private var rockPrefab:Transform ;
+	
 	private var ownRotation:double ;
 	private var lastTime:double = -10.000 ;
 	
@@ -46,12 +47,16 @@ class BulletForTurret extends MonoBehaviour {
 	    var raycastPosition:Vector3 = Target.position ;
 	    
 		var planeRotation:double = Target.parent.parent.localRotation.eulerAngles.z ;
-    	var lowRot:double = planeRotation - 120.5 ;
-		var highRot:double = planeRotation + 120.5 ;
+    	var lowRot:double = planeRotation - 60.5 ;
+		var highRot:double = planeRotation + 60.5 ;
 		
 		planeRotation = ownRotation ; //checking if ownRotation is between the boundries
 
 		var found:boolean = false ;
+
+		//Special cases when the rotation goes over 360.
+		//For example if the target is at 345 we should check the interval (285,45), but unf we cannot do that.
+		//Therefore, we check if the angle > 285 or lower than 45.
 
 		if ( highRot > 360 )
 		{
@@ -68,6 +73,7 @@ class BulletForTurret extends MonoBehaviour {
 				found = true ;
 		}
 		
+		//Normal case.
 		if ( lowRot <= planeRotation && planeRotation <= highRot )
 		{
 			found = true ;
@@ -76,19 +82,16 @@ class BulletForTurret extends MonoBehaviour {
 		if ( ! found )
 			return ;
 
+		//Check to see if there is a clear trajectory between the turret & the plane.
 	    if ( Physics.Linecast ( transform.position , raycastPosition , hit ) )
 	    {     	
    			if ( hit.transform.name == "Loft" || hit.transform.name.Contains ( "Plant" ) )
    				return ;
 	  	}     
 	
-		var startPos:Vector3 = transform.position ;
-		var length = ( raycastPosition - startPos ) ;
-		
-		var point01:Vector3 = startPos ;
-		var point02:Vector3 = Target.position ;
-		
-		//Spawning rock at point01 and then gonna animate it towards point02.
+		var point01:Vector3 = transform.position ;
+	
+		//Spawning rock at point01 and then gonna animate it towards Target.position (plane's position).
 		
 		var rock = rocksPool. Spawn ( rockPrefab , point01 , Quaternion ( 0 , 0 , 0 , 0 ) )  ;
 		var rockScript : MoveTurretBullet = rock.GetComponent ( MoveTurretBullet ) ;

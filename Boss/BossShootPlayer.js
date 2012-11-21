@@ -13,9 +13,6 @@ class BossShootPlayer extends MonoBehaviour {
 	var TIME_BETWEEN_BURSTS:float = 0.5 ;
 	static var isShootingPlayer:boolean = false ;
 	
-	private var point02:Vector3 = Vector3 ( 0 , 0 , 0 ) ;
-
-
 	function Start  ( )
 	{
 		if ( ! rocksPool )
@@ -34,7 +31,11 @@ class BossShootPlayer extends MonoBehaviour {
 		var highRot:double = planeRotation + 50 ;
 		var ownRotation:double ;
 		
-		ownRotation = transform.parent.parent.localEulerAngles.z ; //checking if ownRotation is between the boundries
+		ownRotation = transform.parent.parent.localEulerAngles.z ; 
+		
+		//Special cases when the rotation goes over 360.
+		//For example if the target is at 345 we should check the interval (285,45), but unf we cannot do that.
+		//Therefore, we check if the angle > 285 or lower than 45.
 
 		if ( highRot > 360 )
 		{
@@ -51,6 +52,7 @@ class BossShootPlayer extends MonoBehaviour {
 				return true ;
 		}
 		
+		//Normal case.
 		if ( lowRot <= ownRotation && ownRotation <= highRot )
 			return true ;
 
@@ -62,16 +64,13 @@ class BossShootPlayer extends MonoBehaviour {
 	{
 
 		if ( ! canSeePlane() )
-		{
 			return ;
-		}
 		
-		if ( BossMovementOnLoft.alpha > 0.45 ) //care here.
-		{
+		if ( BossMovementOnLoft.alpha > 0.45 )
 			return ;
-		}
-		
 
+		//Do no shoot the player if he is dead, or the boss is not active or still
+		//animating the change in FOV.
 		if ( LoftMovement.isDead ||  ! gameObject.active || SpawnBoss.changeCameraFOV )
 			return ;
 			
@@ -80,9 +79,7 @@ class BossShootPlayer extends MonoBehaviour {
 		if ( lastTime > Time.time )
 			return ;
 		
-		if ( point02 == Vector3 ( 0 , 0 , 0 ) )
-			point02 = plane.position ;
-		
+		//Initialize the starting point & final point for the bullets.
 		var point01:Vector3 = transform.position ;
 		var fin:Vector3 = plane.position ;
 		
@@ -95,11 +92,11 @@ class BossShootPlayer extends MonoBehaviour {
 		
 		++bulletsInBurst ;			
 		
+		//If exceeded the number of bullets in burst, delay the next bullet with the correct time.
 		if ( bulletsInBurst > MAX_bulletsInBurst )
 		{
 			lastTime = Time.time + TIME_BETWEEN_BURSTS ;
 			bulletsInBurst = 0 ;
-			point02 = plane.position ;
 		}
 	}
 	
