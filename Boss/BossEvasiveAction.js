@@ -40,8 +40,6 @@ class BossEvasiveAction extends MonoBehaviour {
 			isMoving = true ;
 			//Calculating the value for the target rotation.
 			
-			Debug.Log ( starting_HP_Percentage + "		" + number_of_bullets ) ;
-			
 			target = transform.localEulerAngles.z + modifier * 100 ; 
 			
 			if ( target < 0 )
@@ -52,9 +50,12 @@ class BossEvasiveAction extends MonoBehaviour {
 		}
 		else
 		{
-			//5 is high enough so the movement will get the plane away from the player's shooting radius.
+			//4 is high enough so the movement will get the plane away from the player's shooting radius.
 			transform.localEulerAngles.z = Mathf.LerpAngle ( transform.localEulerAngles.z , target , Time.deltaTime * 4 ) ; 
 			val = transform.localEulerAngles.z ;
+			
+			//Because you cannot get 2 float variables to be the same, we use an interval to see if the
+			//rotation has reached a certain value.
 			if ( target -1 < val && val < target + 1 )
 				delayedDeactivation () ;
 		}
