@@ -14,13 +14,18 @@ class BossCollisionHandler extends MonoBehaviour {
 
 	function OnCollisionEnter(CollisionInfo:Collision)
 	{
+		//Name of the object that hit the boss.
 		var name:String = CollisionInfo.contacts[0].otherCollider.name ;
+		
+		//Name of the boss part that is hit.
 		var bossHit:String = CollisionInfo.contacts[0].thisCollider.name ;
 		var bossHitArea:String = "" ;
 		
+		//Ignore any object except the plane bullets (they are shot by the miniguns).
 		if ( ! name.Contains("plane_bullet" ) )
 			return ;
 
+		//Setup the variable that indicates the place where the boss was hit.
 		if ( bossHit.Contains ( "right" ) ) 
 			bossHitArea = "right" ;
 		else
@@ -29,6 +34,9 @@ class BossCollisionHandler extends MonoBehaviour {
 			else
 				bossHitArea = "central" ;
 		
+		//If the collider is 'active', the boss will take damage. Also will count the 
+		//bullet towards the current number of bullets that require the boss to start
+		//the evasive maneuvers.
 		switch ( bossHitArea )
 		{
 			case "left": 
@@ -48,12 +56,11 @@ class BossCollisionHandler extends MonoBehaviour {
 				break ;
 		}
 		
+		//Boss is dead => despawn it.
 		if ( BossHealthBar.currHealth <= 0 )
 		{
-			Controller.TIME_FOR_BOSS = 90 ; //!!!
 			var pool:SpawnPool = PoolManager.Pools["Boss"] ;
 			pool.Despawn ( transform ) ;
 		}
-		
 	}
 }
