@@ -47,8 +47,8 @@ class BulletForTurret extends MonoBehaviour {
 	    var raycastPosition:Vector3 = Target.position ;
 	    
 		var planeRotation:double = Target.parent.parent.localRotation.eulerAngles.z ;
-    	var lowRot:double = planeRotation - 60.5 ;
-		var highRot:double = planeRotation + 60.5 ;
+    	var lowRot:double = planeRotation - 90.5 ;
+		var highRot:double = planeRotation + 90.5 ;
 		
 		planeRotation = ownRotation ; //checking if ownRotation is between the boundries
 

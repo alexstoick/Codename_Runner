@@ -277,8 +277,8 @@ class MoveRunnerNew extends MonoBehaviour {
 		var holder:Transform ;
 
 		//Position&rotation from where to spawn the missle.
-		var position:Vector3 = transform.position ;
-		var rotation:Quaternion = transform.rotation ;
+		var position:Vector3 = planeHolder.position ;
+		var rotation:Quaternion = planeHolder.rotation ;
 
 		if ( flying )
 		{
