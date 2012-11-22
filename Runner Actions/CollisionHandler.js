@@ -88,7 +88,7 @@ class CollisionHandler extends MonoBehaviour {
 		
 		yield WaitForSeconds ( 0.1 ) ;
 		moveRunner.action ( "loop" + rolloverDirection ) ;
-		yield WaitForSeconds ( 0.3 ) ;	public var explosionSound:AudioClip ;
+		yield WaitForSeconds ( 0.3 ) ;
 		LoftMovement.acceleration = 0 ;
 		LoftMovement.timeModifier = 0.5 ;
 		LoftMovement.setNormalSpeed ( ) ;
