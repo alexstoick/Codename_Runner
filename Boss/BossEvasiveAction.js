@@ -18,6 +18,9 @@ class BossEvasiveAction extends MonoBehaviour {
 	//The target rotation for the maneuver.
 	private var target:float ;
 	
+	static public var newBullet:boolean = false  ;
+	
+	
 	function delayedDeactivation ( )
 	{
 		isMoving = false ;
@@ -25,10 +28,11 @@ class BossEvasiveAction extends MonoBehaviour {
 	
 	function Update () 
 	{
-		if ( ( BossHealthBar.currHealth > starting_HP_Percentage || current_number_of_bullets < number_of_bullets ) && ! isMoving ) 
+		if ( ( BossHealthBar.currHealth > starting_HP_Percentage || current_number_of_bullets < number_of_bullets ) && ! isMoving && !newBullet )
 			return ;
 		
 		var val:float ;
+		newBullet = false ;
 		
 		if ( ! isMoving )
 		{

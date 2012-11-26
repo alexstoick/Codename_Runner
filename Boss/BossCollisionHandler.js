@@ -21,10 +21,20 @@ class BossCollisionHandler extends MonoBehaviour {
 		var bossHit:String = CollisionInfo.contacts[0].thisCollider.name ;
 		var bossHitArea:String = "" ;
 		
+		//A guided missile aproaches the boss. We have to dodge this.
+		if ( bossHit.Contains ( "frontal" ) && name.Equals ( "rock" ) )
+		{
+			Debug.Log ( "new bullet e true" + name + "		" +  CollisionInfo.contacts[0].otherCollider.gameObject.transform.parent.name ) ;
+			
+			CollisionInfo.contacts[0].otherCollider.gameObject.transform.parent.GetComponent(BulletFollowTarget).ResetLock ( ) ;
+			BossEvasiveAction.newBullet = true ;
+			return ;
+		}
+		
 		//Ignore any object except the plane bullets (they are shot by the miniguns).
 		if ( ! name.Contains("plane_bullet" ) )
 			return ;
-
+		
 		//Setup the variable that indicates the place where the boss was hit.
 		if ( bossHit.Contains ( "right" ) ) 
 			bossHitArea = "right" ;
