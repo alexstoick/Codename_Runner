@@ -15,8 +15,8 @@ class Controller extends MonoBehaviour {
 	
 	static var bossNumber:int = -1 ;
 	
-	static var bossHP:Array = [ 20 , 40 , 40 , 50 , 60 ] ;
-	static var bossBullets:Array = [ 6 , 4 , 4 , 2 , 2 ] ;
+	static var bossHP:Array = [ 40 , 40 , 40 , 60 , 70 ] ;
+	static var bossBullets:Array = [ 6 , 4 , 2 , 3 , 4 ] ;
 
 	/// Used in CollisionHandler class.
 		

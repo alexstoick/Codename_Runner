@@ -3,7 +3,7 @@
 class StartButton extends MonoBehaviour {
 	
 	static var Started:boolean = false ;
-	
+
 	function OnGUI()
 	{
 		if ( Started )
@@ -22,6 +22,10 @@ class StartButton extends MonoBehaviour {
 			LoftMovement.setNormalSpeed ( ) ;
 			Controller.bossNumber = -1 ;
 			SpawnBoss.shouldCountTime = true ;
+			
+			//Show the plane
+			CollisionHandler.plane.gameObject.active = true ;
+			DamageSmoke.doNotEmit = false ;
 		}
 	}
 

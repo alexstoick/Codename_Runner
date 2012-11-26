@@ -264,7 +264,7 @@ class MoveRunnerNew extends MonoBehaviour {
 			if ( found )
 			{
 				//Checking what type of monster we found (flying/grounded)
-				if ( MonsterVector.monsters[i].Contains ( "mig" ) )
+				if ( MonsterVector.monsters[i].Contains ( "mig" ) || MonsterVector.monsters[i].Contains("boss") )
 					flying = true ;
 				else
 					flying = false ;
