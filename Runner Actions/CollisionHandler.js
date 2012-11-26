@@ -13,11 +13,11 @@ class CollisionHandler extends MonoBehaviour {
 	
 	//Particle effects. Can be edited from the inspector.
 	public var particleEffect_hitPlane:GameObject;
-	public var particleEffect:GameObject ;
+	public var particleEffect_dead:GameObject ;
 	public var particleEffect_hitCoin:GameObject ;
 	
 	//Link to the 'plane' object in order to place explosions.
-	static private var plane:Transform ;
+	static public var plane:Transform ;
 	
 	//The bobbing time that happens on collision.
 	static private var bobbingEndTime:double = 0.0 ;
@@ -71,6 +71,14 @@ class CollisionHandler extends MonoBehaviour {
 		Destroy(instance.gameObject, 1 );
 	}
 	
+	//Create the particle effect when the plane dies.
+	function createParticleEffect_dead ( )
+	{
+		var instance = Instantiate( particleEffect_dead , plane.position , Quaternion ( 0 , 0 , 0 , 0 ) ) ;
+		plane.gameObject.active = false ;
+		DamageSmoke.doNotEmit = true ;
+		Destroy(instance.gameObject, 1 );
+	}
 	
 	//Creates the particle effect when the plane is hit, on @param:position.
 	function createParticleEffect_hitPlane ( position:Vector3 )
@@ -84,7 +92,9 @@ class CollisionHandler extends MonoBehaviour {
 	function rolloverRunnner ( )
 	{
 		
-		HealthProgressBar.currHealth -= Controller.HP_lost_onNonCriticalHit ;	
+		HealthProgressBar.currHealth -= Controller.HP_lost_onNonCriticalHit ;
+		if ( HealthProgressBar.currHealth <= 0 )
+			createParticleEffect_dead ( ) ;
 		
 		yield WaitForSeconds ( 0.1 ) ;
 		moveRunner.action ( "loop" + rolloverDirection ) ;
@@ -125,6 +135,8 @@ class CollisionHandler extends MonoBehaviour {
 			createParticleEffect_hitPlane ( CollisionInfo.contacts[0].point ) ;
 			AudioSource.PlayClipAtPoint( hitByBulletSound , transform.position );	
 			HealthProgressBar.currHealth -= 5 ;
+			if ( HealthProgressBar.currHealth <= 0 )
+				createParticleEffect_dead ( ) ;
 			return ;
 		}
 		
@@ -160,6 +172,7 @@ class CollisionHandler extends MonoBehaviour {
 		//game ends.
 		if ( planeHitArea.Contains ( "critical" ) )
 		{
+			createParticleEffect_dead ( ) ;
 			GameOver.Dead ( ) ;
 			return ;
 		}

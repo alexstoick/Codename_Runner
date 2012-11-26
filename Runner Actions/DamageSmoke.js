@@ -6,6 +6,7 @@ class DamageSmoke extends MonoBehaviour {
 	//the plane object.
 	
 	var particleSys:ParticleEmitter ;
+	static var doNotEmit:boolean = false ;
 	
 	function Start ( )
 	{
@@ -15,6 +16,11 @@ class DamageSmoke extends MonoBehaviour {
 	function Update ( )
 	{
 		particleSys.maxSize = 1.5  - HealthProgressBar.currHealth / 66.6 ;
+		particleSys.minSize = particleSys.maxSize / 2; 
+		if ( doNotEmit )
+			particleSys.emit = false ;
+		else
+			particleSys.emit = true ;
 	}
 	
 }
