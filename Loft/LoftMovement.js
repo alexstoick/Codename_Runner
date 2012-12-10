@@ -95,8 +95,6 @@ class LoftMovement extends MonoBehaviour {
 		movementVariation -= 0.0001 ;
 	}
 	
-
-	
 	function Update ( )
 	{
 		

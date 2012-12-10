@@ -207,8 +207,8 @@ class MoveRunnerNew extends MonoBehaviour {
 	//Fires a rocket.
 	function fire ( )
 	{
-		Debug.Log ( availableRockets ) ;
-		--availableRockets ;
+
+//		--availableRockets ;
 		//Used for comparing with the the monsters.
 		var planeRotation:double = transform.localRotation.eulerAngles.z ;
 

@@ -13,7 +13,7 @@ class BossCollisionHandler extends MonoBehaviour {
 	public var right_collider_damage:int = 2 ;
 	
 	//Pool used for despawning the boss.
-	var pool:SpawnPool = PoolManager.Pools["Boss"] ;
+	var pool:SpawnPool ;
 	
 	function Start ( )
 	{
