@@ -7,6 +7,7 @@ class BossCrosshair extends MonoBehaviour {
 	
 	function Start ( )
 	{
+		//Refferences to the player and boss target.
 		if ( ! player )
 			player = GameObject.Find ( "BigGroup" ).transform ;
 		if ( ! crosshair ) 
@@ -22,14 +23,14 @@ class BossCrosshair extends MonoBehaviour {
 				
 		var diff:double = playerRotation - ownRotation ;
 		
-		//If currently doing evasive maneuvers do not show the crosshair.
+		//If currently doing evasive maneuvers do not show the boss targeted area.
 		if ( BossEvasiveAction.isMoving )
 		{
 			crosshair.gameObject.active = false ;
 			return ;
 		}
 		
-		//If the boss is far ahead do not show the crosshair.
+		//If the boss is far ahead do not show the boss targeted area.
 		if ( BossMovementOnLoft.alpha > 0.30 )
 		{
 			crosshair.gameObject.active = false ;
@@ -37,7 +38,7 @@ class BossCrosshair extends MonoBehaviour {
 		}
 		
 		//If the difference between the two rotations if too big, 
-		//do not show the crosshair.
+		//do not show the boss targeted area.
 		if ( diff > 40 || diff < -40 )
 		{
 			crosshair.gameObject.active = false ;

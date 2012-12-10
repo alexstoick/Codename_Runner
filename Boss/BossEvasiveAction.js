@@ -18,6 +18,8 @@ class BossEvasiveAction extends MonoBehaviour {
 	//The target rotation for the maneuver.
 	private var target:float ;
 	
+	//Used to detect the collision with the bullets. It will
+	//become true when the plane is hit by a bullet. ( in BossCollisionHandler )
 	static public var newBullet:boolean = false  ;
 	
 	
