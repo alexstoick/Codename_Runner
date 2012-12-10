@@ -34,7 +34,10 @@ class MoveRunnerNew extends MonoBehaviour {
 
 	//Audio that is played when the big gun is fired.
 	public var fireBigGun:AudioClip;
-
+	
+	//The number of available rockets. (guided missiles, used in function Fire).
+	public var availableRockets:int = 10 ;
+	
 	function Start ( )
 	{
 		//Initializations.
@@ -103,7 +106,7 @@ class MoveRunnerNew extends MonoBehaviour {
 		{
 			angle = -15 ;
 		}
-
+		
 		//Start tilting the plane.		
 		ReturnToRotation.StartRotation ( angle * -1 ) ;
 
@@ -118,6 +121,7 @@ class MoveRunnerNew extends MonoBehaviour {
 			zInt = (endingPosition.z / 15 ) ;
 			endingPosition.z = zInt * 15 ;
 		}
+		
 		haveToRotate = true ;
 
 		//Activate the camera, but with a slight delay.
@@ -203,6 +207,8 @@ class MoveRunnerNew extends MonoBehaviour {
 	//Fires a rocket.
 	function fire ( )
 	{
+		Debug.Log ( availableRockets ) ;
+		--availableRockets ;
 		//Used for comparing with the the monsters.
 		var planeRotation:double = transform.localRotation.eulerAngles.z ;
 
