@@ -3,10 +3,6 @@
 class CollisionHandler extends MonoBehaviour {
 
 	static private var moveRunner:MoveRunnerNew ;
-
-	//Refferences to the spawnPools
-	static private var enemiesPool: SpawnPool ;
-	static private var boxPool: SpawnPool ;
 	
 	//The direction in which the plane will roll-over.
 	static private var rolloverDirection:String ;
@@ -41,15 +37,6 @@ class CollisionHandler extends MonoBehaviour {
 			plane = GameObject.Find ( "plane" ).transform ;
 		if ( ! moveRunner )
 			moveRunner = GameObject.Find ( "BigGroup").GetComponent ( "MoveRunnerNew" ) ;
-	}
-	
-	function Start ( )
-	{ 
-		//Set-up the pools.
-		if ( ! enemiesPool )
-			enemiesPool = PoolManager.Pools["Monsters"] ;
-		if ( ! boxPool ) 
-			boxPool = PoolManager.Pools["Boxes"] ;
 	}
 
 	function Update ( )
@@ -128,6 +115,16 @@ class CollisionHandler extends MonoBehaviour {
 		else
 			if ( planeHitArea.Contains ( "left" ) ) 
 				rolloverDirection = "left" ;
+	
+		//If a collision with an ammo holder happens, increase the number of rockets available by 
+		//the number in the controller file.
+		
+		if ( name.Contains ( "ammo" ) )
+		{
+			moveRunner.availableRockets += Controller.rockets_gainedOnAmmo ;
+			
+			return ;
+		}
 	
 		//If a collision with a rock happens, drop 5HP and create the particle effect & play sound.
 		if ( name.Contains ( "rock") ) 
