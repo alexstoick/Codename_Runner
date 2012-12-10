@@ -1,0 +1,41 @@
+
+
+**MonsterVector:
+	- holds all the targetable objects ( enemy airplane, monsters, sentries )
+	- has 3 vectors: monsters (names), transforms (transforms), angles (holds the angle with which they were spawned.
+	- has static functions for adding/retrieving information about its vectors.
+
+** SpawnOnLoft:
+	- exists on all new objects that are spawned and it is the one that controls that the objects are spawned exactly on the loft.
+	- when an object is added to the loft they are given a random rotation which is important for some objects (sentry gun)
+	- also triggers their addition to the MonsterVector class.
+	
+1. Spawning Scripts
+
+	1a. SpawnBoss
+		- handles the change in the camera FOV when the boss is spawned
+		- counts down the time until the next boss spawn
+		- when the boss spawns does several initializations to global variables.
+		
+	1b. SpawnBox
+		- spawns a box whenever the loft moved more a well defined distance.
+		
+	1c. SpawnCoin
+		- spawns a coin at a predefined position (in relation with the turret in which it is placed)
+		
+	1d. SpawnEnemyAirplane
+		- after a predifined distance has passed will spawn an enemy aircraft.
+		- also initiates its patrolling
+		
+	1e. SpawnMonster
+		- spawn the monster and initiate the patrolling
+		
+	1f. SpawnSentry
+		- spawns the sentry
+		- will search for its children to setup their correct rotation in relationship with the loft so that the guns will not shoot through the loft
+	
+	1g. SpawnTree
+		- spawns a leaf from an array of 7
+	
+
+
