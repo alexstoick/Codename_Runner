@@ -44,6 +44,7 @@
 		- spawns a leaf from an array of 7
 
 2. Runner Actions
+
 	2a. Collision Handler
 		- handles the collision with all objects
 		- creates particle effects ( can be edited from the editor )
@@ -67,6 +68,7 @@
 		- miniturret events ( 2 fingers down )
 		
 3. Progress Bars
+
 	3a. BossHealthBar
 		- only appears when the boss is active
 		- it is in the center of the screen
@@ -82,6 +84,7 @@
 		- show how much health you have left
 		
 4. Bullet Scripts
+
 	4a. BulletFollowTarget
 		- attached to the missile object
 		- this will follow a predefinied object; if it loses that object it will try to search for it in MonsterVector; if the object is no longer to be found the rocket unlocks from its target and continues on its current path.
@@ -110,3 +113,47 @@
 	4g. MoveBossBullet
 		- attached to the boss' bullets
 		- bullets are animated towards the plane critical hit area
+
+5. Loft
+
+	5a. LoftMovement
+		- attached to the BigGroup and moves it across the loft
+		- has functions for speed; if it is stopped, etc.
+		
+	5b. RockMovementOnLoft
+		- this is attached to the guided missile so that when it has no target it will go along the loft.
+	
+	5c. BossMovementOnLoft
+		- moves the boss along the loft until it reaches 20% of the loft - which is where the player can start shooting it.
+	
+6. Buttons
+
+	6a.	StartButton
+		- when it is pressed some initializations are done
+		- is shown when the players is dead/ not spawned.
+	
+	6b. ShootRocket
+		- When this button is touched it will shoot a guided missile.
+		
+7. Boss
+	
+	7a. BossCollisionHandler
+		- this is where it counts with how many bullets it has collisioned and then sends it over to BossEvasiveAction
+		- check in which zone of the plane the collision has happened ( 3 zones - and some can be deactivated depending on boss dificulty )
+	
+	7b. BossCrosshair
+		- shows a red box where the player is targeting and all the bullets will go there during the period in which that box is shown
+	
+	7c. BossEvasiveAction
+		- after a certain number of bullets has been reached the boss will make a fast turn left/right in order to avoid additional hits.
+		
+	7d. FollowPlayerRotation
+		- the boss will try to stay on the same rotation as the player in order to shoot him
+		- has a cooldown between each move and parameters for the speed of the move
+
+Additional Scripts:
+	*a. FPS indicator
+	*b. Score
+	
+
+	
