@@ -23,4 +23,5 @@ class Controller extends MonoBehaviour {
 	static var HP_gained_onHealthPack:int = 25 ;
 	static var Fuel_gained_onFuelPack:int = 40 ;
 	static var HP_lost_onNonCriticalHit:int = 30 ;
+	static var rockets_gainedOnAmmo:int = 5 ;
 }

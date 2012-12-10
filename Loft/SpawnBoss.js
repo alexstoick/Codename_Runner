@@ -6,7 +6,9 @@ class SpawnBoss extends MonoBehaviour {
 	static var prefab:Transform ; //boss prefab used to spawn the boss.
 
 	static private var mainCamera:Camera ; //link to the camera used to change the FOV
+	
 	static public var changeCameraFOV:boolean = false ; //if the camera field of view should be changed
+	
 	static public var targetFOV:int = 75 ; //towards what value I should animate (used to zoom-in and zoom-out)
 
 	static var shouldCountTime:boolean = false ; //if this is true it adds time towards the bosstimer. when it is 
