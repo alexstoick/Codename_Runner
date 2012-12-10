@@ -37,9 +37,6 @@ class BulletForTurret extends MonoBehaviour {
 	function spawnBullets ( )
 	{
 	
-		//Target.parent.parent == big group - rotatia
-		//trebuie sa aflu rotatia turetei
-	
 		if ( LoftMovement.isDead )
 			return ;
 			
