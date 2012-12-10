@@ -11,6 +11,15 @@ class BossCollisionHandler extends MonoBehaviour {
 	public var central_collider_damage:int = 2 ;
 	public var left_collider_damage:int = 2 ;
 	public var right_collider_damage:int = 2 ;
+	
+	//Pool used for despawning the boss.
+	var pool:SpawnPool = PoolManager.Pools["Boss"] ;
+	
+	function Start ( )
+	{
+		if ( ! pool )
+			pool = PoolManager.Pools["Boss"] ;
+	}	
 
 	function OnCollisionEnter(CollisionInfo:Collision)
 	{
@@ -69,7 +78,6 @@ class BossCollisionHandler extends MonoBehaviour {
 		//Boss is dead => despawn it.
 		if ( BossHealthBar.currHealth <= 0 )
 		{
-			var pool:SpawnPool = PoolManager.Pools["Boss"] ;
 			pool.Despawn ( transform ) ;
 		}
 	}
