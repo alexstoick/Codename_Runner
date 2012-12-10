@@ -2,6 +2,8 @@
 
 class BossMovementOnLoft extends MonoBehaviour {
 
+	//Moves the boss along the loft so that it approaches the player.
+
 	static var loft:MegaShapeLoft ;
 	private var addVariation:double = 0.0004 ;
 	static public var shouldMove:boolean = true ;
@@ -18,7 +20,7 @@ class BossMovementOnLoft extends MonoBehaviour {
 		if ( ! loft )
 			loft = GameObject.Find ( "Loft").GetComponent ( MegaShapeLoft ) ;
 		layer = loft.Layers[0];
-		alpha = 0.99 ; //watch for this value in BossShootPlayer
+		alpha = 0.99 ;
 	}
 	
 	function Update ( )

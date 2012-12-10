@@ -44,17 +44,7 @@ class EnemyPathfinding extends MonoBehaviour {
 		dy[2] =  1 ; //Right
 		dy[1] = -1 ; //Left
 	}
-	
-	private function doubleToInt ( x: double )
-	{
-		var intX : int = System.Math.Floor ( x ) ;
-		
-		if ( x - intX > 0.5 )
-			return intX + 1 ;
-			
-		return intX ;
-	}
-	
+
 	function Update ( )
 	{	
 		//If not frozen, will patrol.

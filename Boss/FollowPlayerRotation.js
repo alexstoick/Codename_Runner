@@ -5,10 +5,15 @@ class FollowPlayerRotation extends MonoBehaviour {
 	static var runner:Transform ;
 	static var shouldMove:boolean = true ;
 	
+	//Ability to freeze the boss.
 	var freeze:boolean = false ;
+	
+	//Constants that do exactly what expected.
 	var WAIT_SECONDS_FOR_MOVEMENT:float = 2 ;
 	var MOVE_FOR_SECONDS:float = 1.0 ;
-	var LERP_VALUE:float = 1 ; //lower values = slower movement
+	
+	//Lower values result in a slower movement.
+	var LERP_VALUE:float = 1 ; 
 	private var tParam:float = 0.0 ;
 	
 	function Awake ( )
@@ -19,12 +24,9 @@ class FollowPlayerRotation extends MonoBehaviour {
 
 	function Update ( )
 	{	
-	
-		if ( ! freeze )
-		{
-			Move ( ) ;
+		if ( freeze )
 			return ;
-		}
+		Move ( ) ;
 	}
 
 	function Move ( )

@@ -2,6 +2,10 @@
 
 class MoveTurretBullet extends MonoBehaviour {
 
+	//Attached to the turret's bullets. They are animated
+	//towars a target position that is given through the
+	//Init function.
+
 	private var despawnTime:double = 0.0 ;
 	private var targetLocation:Vector3 ;
 	private var tParam:double = 0.0 ;
@@ -22,7 +26,7 @@ class MoveTurretBullet extends MonoBehaviour {
 	
 	function Update ()
 	{
-		if ( tParam >= 1 || Time.time > despawnTime )
+		if ( tParam > 1 || Time.time > despawnTime )
 		{
 			rocksPool. Despawn ( transform ) ;
 			despawnTime = 0.0 ;
@@ -38,7 +42,7 @@ class MoveTurretBullet extends MonoBehaviour {
 	{
 		var collider:Collider = CollisionInfo.contacts[0].otherCollider ;
 		var cname:String = collider.name ;
-		if ( cname.Contains ( "Plant" ) || name == "Loft" ) //|| cname.Contains ( "plane" ) )
+		if ( cname.Contains ( "Plant" ) || name == "Loft" )
 		{
 			rocksPool. Despawn ( transform ) ;
 			return ;
