@@ -14,7 +14,6 @@ class StartButton extends MonoBehaviour {
 			Started = true ;
 			GameOver.gText.text = "" ;
 			LoftMovement.isDead = false ;
-			GiantControl.distance = 100 ;
 			HealthProgressBar.currHealth = 100 ;
 			FuelProgressBar.currFuel = 100 ;
 			LoftMovement.acceleration = 0.0000 ;

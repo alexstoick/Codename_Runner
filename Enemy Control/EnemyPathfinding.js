@@ -9,7 +9,8 @@ class EnemyPathfinding extends MonoBehaviour {
 	var myRow:int ;
 	var freeze:boolean = false ;
 
-	
+	//Variables that control the patrol: direction and 
+	//if we are currently patrolling or not.
 	private var patrolDirection:int = 1 ;
 	var patrolling:boolean = false ;
 
@@ -40,10 +41,8 @@ class EnemyPathfinding extends MonoBehaviour {
 		if ( ! runner )
 			runner = GameObject. Find ( "BigGroup").transform ;
 					
-		dx[2] =  0 ; dy[2] =  1 ; direction[2] = "right" ;
-		dx[3] =  1 ; dy[3] =  0 ; direction[3] = "backward" ;
-		dx[1] =  0 ; dy[1] = -1 ; direction[1] = "left" ;
-		dx[0] = -1 ; dy[0] =  0 ; direction[0] = "forward" ;
+		dy[2] =  1 ; //Right
+		dy[1] = -1 ; //Left
 	}
 	
 	private function doubleToInt ( x: double )
@@ -56,33 +55,12 @@ class EnemyPathfinding extends MonoBehaviour {
 		return intX ;
 	}
 	
-	function GetRunnerPosition ( )
-	{
-		var row:int = doubleToInt ( runner.localRotation.eulerAngles.z / 15 ) ;
-		if ( row == 24 )
-			row = 0 ;
-		return row ;
-	}
-	
-	
 	function Update ( )
 	{	
-	
+		//If not frozen, will patrol.
 		if ( ! freeze )
 		{
-			// TODO: implement the distance feature
-			/*
-			if ( LoftMovement.position ( ) > transform.position.z )
-			{
-				if ( shouldMove )
-					Move ( ) ;
-			}
-			else
-			{
-				Patrol ( ) ;
-			}*/
 			Patrol ( );
-
 		}
 		
 		if ( ! ( target.x || target.y || target.z || target.w ))
@@ -95,10 +73,11 @@ class EnemyPathfinding extends MonoBehaviour {
 		transform.localRotation = Quaternion.Slerp( transform.localRotation, target, Time.deltaTime * 4 ); 
 
 	}
-	
+
+	//Function that handles the patrol operation. It goes in one direction 
+	//until it encounters an obstacle, then changes direction.	
 	function Patrol ( ) 
 	{
-	
 		if ( patrolling )
 			return ;
 		
@@ -121,74 +100,9 @@ class EnemyPathfinding extends MonoBehaviour {
 			yield WaitForSeconds ( WAIT_SECONDS_FOR_PATROL ) ;
 			patrolling = false ;
 		}
-		
-	
 	}
 	
-	//Currently not using Move
-	function Move ( )
-	{
-		shouldMove = false ;
-		var c:int ;
-		var runnerPos:int ;
-		
-		runnerPos = GetRunnerPosition () ;
-		myRow = doubleToInt ( transform.eulerAngles.z / 15 ) ;
-		transform.eulerAngles.z = myRow * 15.00000 ;
-		
-		if ( myRow != runnerPos )
-		{
-			var target:int = runnerPos ;	
-			
-			var distance = Mathf.Abs ( myRow - target ) ;
-			
-			if ( distance <= 12 )
-				if ( myRow > target )
-				{
-					if ( computeDirection ( 1 , "compute for left" , false ) )
-					{
-						yield WaitForSeconds ( WAIT_SECONDS_FOR_MOVEMENT  ) ;
-//						Debug.LogWarning ( transform.name + " " + " row:" + myRow + " rot:" + transform.rotation.eulerAngles.z ) ;
-					}
-				}
-				else
-				{
-					if ( computeDirection ( 2 , "compute for right" , false ) )
-					{
-						yield WaitForSeconds ( WAIT_SECONDS_FOR_MOVEMENT ) ;
-//						Debug.LogWarning ( transform.name + " " + " row:" + myRow + " rot:" + transform.rotation.eulerAngles.z ) ;
-					}
-				}
-			else
-			{
-				//distance >12 
-				if ( myRow < target )
-				{
-					if ( computeDirection ( 1 , "compute for left" , false ) )
-					{
-						yield WaitForSeconds ( WAIT_SECONDS_FOR_MOVEMENT ) ;
-//						Debug.LogWarning ( transform.name + " " + " row:" + myRow + " rot:" + transform.rotation.eulerAngles.z ) ;
-					}
-				}
-				else
-				{
-					if ( computeDirection ( 2 , "compute for right" , false ) )
-					{
-						yield WaitForSeconds ( WAIT_SECONDS_FOR_MOVEMENT ) ;
-//						Debug.LogWarning ( transform.name + " " + " row:" + myRow + " rot:" + transform.rotation.eulerAngles.z ) ;
-					}
-				}
-			}
-		}
-		else
-		{
-			if ( myRow > 23 )
-				myRow = 23 ;
-		}
-			
-		shouldMove = true ;
-	}
-	
+	//Returns true if the move can be completed, false otherwise.
 	private function computeDirection ( c:int , mesaj:String , useLS:boolean )
 	{
 		
@@ -203,23 +117,16 @@ class EnemyPathfinding extends MonoBehaviour {
 		
 		switch ( c )
 		{
-			case 0: directionVector = -Vector3.up ; break ;
-			case 3: directionVector = Vector3.up ; break ;
 			case 1: directionVector = -Vector3.right ; break ;
 			case 2: directionVector = Vector3.right ; break ;
 		}
 		
+		//If there is an obstacle in the way, return false;
 		if (Physics.Raycast ( position , copil.TransformDirection ( directionVector ), hit,  4 ) )
 		{
-//			Debug.LogWarning ( "OBSTACOL" + hit.transform.parent.name) ;
-			
-			Debug.DrawRay ( position , copil.TransformDirection ( directionVector ) * 4 , Color.green , 0.5 );
-			
 			return false ;
 		}
 
-		Debug.DrawRay ( position , copil.TransformDirection ( directionVector  )*4 , Color.red , 0.5 );
-		
 		if ( ! ( target.x || target.y || target.z || target.w ) )
 			target = Quaternion.Euler ( 0 , 0 , transform.rotation.eulerAngles.z + dy[c] * 15) ;
 		else
