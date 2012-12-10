@@ -2,6 +2,10 @@
 
 class MovePlaneBullet extends MonoBehaviour {
 
+	//This is used on the plane miniturrets and
+	//handles the collisions and destruction of different 
+	//game objects.
+
 	static private var rocksPool: SpawnPool ;
 	static private var enemiesPool: SpawnPool ;
 	static private var sentryPool: SpawnPool ;
@@ -48,16 +52,20 @@ class MovePlaneBullet extends MonoBehaviour {
 		if ( despawnTime )
 		{
 			tParam +=  Time.deltaTime * 0.5 ;
+			
+			//If the boss is active and we can see a targeted area, aim the bullets at that position.
 			if ( Controller.bossIsSpawned && BossCrosshair.crosshair.gameObject.active && BossShootPlayer.isShootingPlayer )
 			{
 				transform.position = Vector3.Lerp ( transform.position , BossCrosshair.crosshair.position , tParam ) ;
 			}
 			else
+			//Animate the bullets towards the front of the plane in a straight line.
 				transform.position = Vector3.Lerp ( transform.position , targetLocation , tParam ) ;
 			transform.rotation = Quaternion ( 0 , 0 , 0 , 0 ) ;
 		}
 	}
 	
+	//Particle effect that is showed when the sentry/plane/monster are destroyed.
 	function createParticleEffect ( position:Vector3 , rotation:Quaternion )
 	{
    		var instance = Instantiate( particleEffect , position , rotation ) ;
@@ -66,6 +74,7 @@ class MovePlaneBullet extends MonoBehaviour {
 	}
 
 	
+	//Handles collision with: snetry, plane, monster, crate.
 	function OnCollisionEnter(CollisionInfo:Collision) 
 	{
 	
@@ -82,16 +91,24 @@ class MovePlaneBullet extends MonoBehaviour {
 		if ( ! child.gameObject.active )
 			return ;
 			
+		//If there is a collision with a sentry, spawn a powerUp, create a particle effect
+		//despawn both the sentry and the rock; and remove the sentry from the array of
+		//targetable monsters.
 		if ( cname.Contains ( "sentry" ) )
 		{
 			powerUpControl.Spawn ( child.parent.parent , CollisionInfo.contacts[0].point ) ;		
 			createParticleEffect ( child.position , child.rotation ) ;
 			sentryPool.Despawn ( child.parent.parent ) ;
 			rocksPool. Despawn ( transform ) ;
+			ScoreControl.addScore ( 500 ) ;
 			MonsterVector.removeFromArray (child.parent.parent.name , "collision with plane bullet (turret)");
 			return ;
 		}	
 		
+		
+		//If there is a collision with a plane, spawn a powerUp, create a particle effect
+		//despawn both the plane and the rock; and plane the sentry from the array of
+		//targetable monsters.
 		if ( cname.Contains ( "mig" ) )
 		{
 			powerUpControl.Spawn ( child.parent.parent , CollisionInfo.contacts[0].point ) ;
@@ -104,23 +121,16 @@ class MovePlaneBullet extends MonoBehaviour {
 
 		}
 		
+		//If there is a collision with a monsters, spawn a powerUp, create a particle effect
+		//despawn both the monster and the rock; and remove the monster from the array of
+		//targetable monsters.
 		if ( cname == "MONSTER")
 		{
-			//powerUpControl.Spawn ( child.parent.parent , CollisionInfo.contacts[0].point ) ;		
 			enemiesPool.Despawn ( child.parent.parent ) ;
 			createParticleEffect ( child.position , child.rotation ) ;
 			ScoreControl.addScore ( 300 ) ;
 			rocksPool. Despawn ( transform ) ;
 			MonsterVector.removeFromArray ( child.parent.parent.name ,"collision with plane bullet (turret)" );
-			return ;
-		}
-		
-		if ( cname == "crate" )
-		{
-    		collider.gameObject.active = false ;
-    		createParticleEffect ( collider.gameObject.transform.position , collider.gameObject.transform.rotation ) ;	
-		    ScoreControl.addScore ( 150 ) ;
-			rocksPool. Despawn ( transform ) ;
 			return ;
 		}
 	}

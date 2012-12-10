@@ -2,10 +2,19 @@
 
 class BulletFollowTarget extends MonoBehaviour {
 
-	private var target:int = 0 ;
+	//Whether this rocket has a target or not.
 	private var shouldLock:boolean = false ;
-	private var lastTime:double ;
+	
+	//The target name and the position it has in the 
+	//vector. (used to get a pointer to the position vector).
 	private var targetName:String ;
+	private var target:int = 0 ;
+
+	//Influences the speed with which the rocket moves
+	//towards its target.
+	var tParam : float = 0;
+	var speed: float = 0.1 ;
+
 
 	function ResetLock ( )
 	{
@@ -16,35 +25,24 @@ class BulletFollowTarget extends MonoBehaviour {
 	{
 		target = targetNo ;
 		shouldLock = true ;
-		lastTime = Time.time + 100 ;
 		tParam = 0 ;
 		targetName = MonsterVector.transforms[target].parent.name ;
 	}
 	
-	var tParam : float = 0;
-	var speed: float = 0.1 ;
-
-
-
-	
 	function Update ( )
 	{
-		if ( lastTime < Time.time )
-			shouldLock = false ;
-
 		if ( shouldLock )
 		{
-		
-    		tParam += Time.deltaTime * speed; //This will increment tParam based on Time.deltaTime multiplied by a speed multiplier
+			//This will increment tParam based on Time.deltaTime multiplied by a speed multiplier
+    		tParam += Time.deltaTime * speed; 
+    		//Checks if the target is still there, or if we have to look for it.
     		if ( MonsterVector.transforms.Count <= target || ! targetName.Equals ( MonsterVector.transforms[target].parent.name ) )
     		{
     		
-				// + targetName + "		" + MonsterVector.transforms[target].parent.name + "		" + targetName.Equals ( MonsterVector.transforms[target].parent.name ) ) ;// (MonsterVector.transforms[target].name != targetName) ) ;
-    			//Debug.Log ( MonsterVector.transforms.Count + "		" + target + "		" + (MonsterVector.transforms.Count <= target) ) ;
     			var found:boolean = false ;
+    			//Searching for our target.
     			for ( var i:int = 0 ; i < MonsterVector.transforms.Count ; ++ i )
     			{
-    				//Debug.Log ( targetName + "		" + MonsterVector.transforms[i].parent.name + "		" + targetName.Equals ( MonsterVector.transforms[i].parent.name ) ) ;
     				if ( targetName.Equals ( MonsterVector.transforms[i].parent.name) )
     				{
     					found = true ;
@@ -54,15 +52,16 @@ class BulletFollowTarget extends MonoBehaviour {
     			}
     			if ( ! found )   			
     			{
-	    			Debug.LogWarning ( "lost target	" + targetName + "		" + Time.time ) ;
+    				//If we have not found our target then the rocket gets unlocked and
+    				//continues on the same path.
     				shouldLock = false ;
     				return ;
     			}
     		}
-    		//transform.position = Vector3.Lerp ( transform.position , MonsterVector.transforms[target].position , tParam ) ;
+    		
+    		//We have a target, therefore animating the missle towards it.
 			var targetRotation:Quaternion = MonsterVector.transforms[target].localRotation ;
 			targetRotation.eulerAngles.z += MonsterVector.angles[target] ;
-//			Debug.Log ( targetRotation.eulerAngles.z ) ;
 			transform.localRotation.eulerAngles.z = Mathf.LerpAngle ( transform.localRotation.eulerAngles.z , targetRotation.eulerAngles.z , tParam ) ;
 		}
 	}
