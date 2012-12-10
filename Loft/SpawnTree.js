@@ -30,7 +30,7 @@ class SpawnTree extends MonoBehaviour {
 		if ( LoftMovement.currPath * lastPath >= 0 && LoftMovement.currPath  > lastPath )
 		{
 		
-			lastPath = LoftMovement.currPath + 0.0175 ;
+			lastPath = LoftMovement.currPath + Controller.tree_spawn_distance ;
 			
 			if ( lastPath >= 1 )
 			{

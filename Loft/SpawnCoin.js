@@ -12,10 +12,6 @@ class SpawnCoin extends MonoBehaviour {
 			loft = GameObject.Find ( "Loft").GetComponent ( MegaShapeLoft ) ;
 		layer = loft.Layers[0];
 	}
-	
-	function Update ( )
-	{
-	}
 
 	// i: the coin number so they are spawned at distance from the turret (which right now is at 0.99)
 	// rotatie: the random number used for the turret crossalpha (so the coins are on the same row)

@@ -23,7 +23,7 @@ class SpawnBox extends MonoBehaviour {
 			return ;
 
 		//Spawn a new box if enough distance (0.030) has passed
-		if ( lastPath + 0.030 < LoftMovement.currPath  )
+		if ( lastPath + Controller.box_spawn_distance < LoftMovement.currPath  )
 		{
 			lastPath = LoftMovement.currPath ;
 			var newBox = boxPool.Spawn ( prefab ) ;

@@ -29,7 +29,7 @@ class SpawnMonster extends MonoBehaviour {
 		if ( LoftMovement.currPath * lastPath >= 0 && LoftMovement.currPath  > lastPath )
 		{
 		
-			lastPath = LoftMovement.currPath + 0.053 ;
+			lastPath = LoftMovement.currPath + Controller.monster_spawn_distance ;
 			
 			if ( lastPath >= 1 )
 			{

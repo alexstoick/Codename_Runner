@@ -24,4 +24,12 @@ class Controller extends MonoBehaviour {
 	static var Fuel_gained_onFuelPack:int = 40 ;
 	static var HP_lost_onNonCriticalHit:int = 30 ;
 	static var rockets_gainedOnAmmo:int = 5 ;
+	
+	/// Used for Spawning
+	
+	static var box_spawn_distance:float = 0.030 ;
+	static var monster_spawn_distance:float = 0.053 ;
+	static var sentry_spawn_distance:float = 0.1009 ;
+	static var tree_spawn_distance:float = 0.0175 ;
+	static var enemyAirplane_spawn_distance:float = 0.1319 ;
 }

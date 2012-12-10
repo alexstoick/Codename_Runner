@@ -27,7 +27,7 @@ class SpawnSentry extends MonoBehaviour {
 		if ( LoftMovement.currPath * lastPath >= 0 && LoftMovement.currPath  > lastPath )
 		{
 		
-			lastPath = LoftMovement.currPath + 0.1009 ;
+			lastPath = LoftMovement.currPath + Controller.sentry_spawn_distance ;
 			
 			if ( lastPath >= 1 )
 			{
