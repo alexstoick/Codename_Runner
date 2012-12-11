@@ -9,7 +9,6 @@ class FireProgressBar extends MonoBehaviour {
 	static var currCooldown: float = 0;
 	static var lastModified: double = 0.0 ;
 	static var targetCooldown:float = 0.0 ;
-	var pbl_CD:float = 0;
 	
 	function OnGUI()
 	{ 
@@ -31,7 +30,6 @@ class FireProgressBar extends MonoBehaviour {
 		if ( currCooldown > 0 && lastModified + 0.2 < Time.time ) 
 			targetCooldown -= Time.deltaTime ;
 		targetCooldown = Mathf.Clamp ( targetCooldown , 0 , 10 ) ;
-		currCooldown = Mathf.Lerp ( currCooldown , targetCooldown , Time.deltaTime * 0.6 ) ;
-		pbl_CD = currCooldown ;
+		currCooldown = Mathf.Lerp ( currCooldown , targetCooldown , Time.deltaTime * 1.2 ) ;
 	}
 }
