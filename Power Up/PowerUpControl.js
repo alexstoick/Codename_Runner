@@ -4,8 +4,12 @@ class PowerUpControl extends MonoBehaviour {
 
 	static var gasTankPool:SpawnPool ;
 	static var gas_prefab:Transform ;
+	
 	static var healthPackPool:SpawnPool ;
 	static var health_prefab:Transform ;
+	
+	static var ammoPackPool:SpawnPool ;
+	static var ammoPrefab:Transform ;
 		
 	function Start ( )
 	{
@@ -17,6 +21,10 @@ class PowerUpControl extends MonoBehaviour {
 			healthPackPool  = PoolManager.Pools ["HealthPack"] ;
 		if ( ! health_prefab )
 			health_prefab = healthPackPool.prefabs["health pack holder"] ;
+		if ( ! ammoPackPool ) 
+			ammoPackPool = PoolManager.Pools["Ammo"] ;
+		if ( ! ammoPrefab )
+			ammoPrefab = ammoPackPool.prefabs["ammo Holder"] ;
 	}
 
 	public function Spawn ( trs:Transform , position:Vector3 )
@@ -27,8 +35,8 @@ class PowerUpControl extends MonoBehaviour {
 		
 		var rnd:double = Random.value ;
 		
-		if ( rnd < 0.7 )
-			return ;
+		//if ( rnd < 0.7 )
+		//	return ;
 		
 		if ( trs.name.Contains ( "mig") ) 
 		{
@@ -55,6 +63,19 @@ class PowerUpControl extends MonoBehaviour {
 
 			newHealth.position = trs.position ;
 			newHealth.rotation = trs.rotation ;
+			return ;
+		}
+		
+		if ( trs.name.Contains ( "MONSTER" ) ) 
+		{
+			//ammo
+			var newAmmo: Transform = ammoPackPool.Spawn ( ammoPrefab , trs.position , trs.rotation ) ;
+
+			spawnOnLoft = newAmmo.GetComponent ( SpawnOnLoft ) ;
+			spawnOnLoft.despawnPoint = despawnTime ;
+
+			newAmmo.position = trs.position ;
+			newAmmo.rotation = trs.rotation ;
 			return ;
 		}
 	}
