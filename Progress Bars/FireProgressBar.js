@@ -5,7 +5,7 @@ class FireProgressBar extends MonoBehaviour {
 	var texInner: Texture2D; 
 	var texCurr: Texture2D; 
 	
-	private var fullRect: Rect = new Rect ( 0 , Screen.height/6 , Screen.width/25 , Screen.height/3 ) ; 
+	private var fullRect: Rect = new Rect ( 0 , Screen.height/8 , Screen.width/25 , Screen.height/3 ) ; 
 	static var currCooldown: float = 0;
 	static var lastModified: double = 0.0 ;
 	static var targetCooldown:float = 0.0 ;
