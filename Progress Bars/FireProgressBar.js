@@ -30,6 +30,7 @@ class FireProgressBar extends MonoBehaviour {
 	{
 		if ( currCooldown > 0 && lastModified + 0.2 < Time.time ) 
 			targetCooldown -= Time.deltaTime ;
+		targetCooldown = Mathf.Clamp ( targetCooldown , 0 , 10 ) ;
 		currCooldown = Mathf.Lerp ( currCooldown , targetCooldown , Time.deltaTime * 0.6 ) ;
 		pbl_CD = currCooldown ;
 	}

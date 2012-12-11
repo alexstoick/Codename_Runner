@@ -12,6 +12,7 @@ class HealthProgressBar extends MonoBehaviour {
 	
 	function Update ( ) 
 	{
+		targetHealth = Mathf.Clamp ( targetHealth , 0 , 100 ) ;
 		currHealth = Mathf.Lerp ( currHealth , targetHealth , Time.deltaTime * 0.6 ) ;
 		if ( targetHealth <= 0 )
 			GameOver.Dead ( ) ;
