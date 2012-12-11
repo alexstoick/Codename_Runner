@@ -36,7 +36,7 @@ class MoveRunnerNew extends MonoBehaviour {
 	public var fireBigGun:AudioClip;
 	
 	//The number of available rockets. (guided missiles, used in function Fire).
-	public var availableRockets:int = 10 ;
+	static public var availableRockets:int = 10 ;
 	
 	function Start ( )
 	{
@@ -59,8 +59,11 @@ class MoveRunnerNew extends MonoBehaviour {
 	
 	function FireGuns ( ) //fire both shooters.
 	{
-		leftShooter.FireGun ( ) ;
-		rightShooter.FireGun ( ) ;
+		if ( ( FireProgressBar.targetCooldown + 0.3125*2 ) < 10 ) 
+		{
+			leftShooter.FireGun ( ) ;
+			rightShooter.FireGun ( ) ;
+		}
 	}
 	
 	//Main handler for the action.
@@ -208,7 +211,7 @@ class MoveRunnerNew extends MonoBehaviour {
 	function fire ( )
 	{
 
-//		--availableRockets ;
+		--availableRockets ;
 		//Used for comparing with the the monsters.
 		var planeRotation:double = transform.localRotation.eulerAngles.z ;
 
