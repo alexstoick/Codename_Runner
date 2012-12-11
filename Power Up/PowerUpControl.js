@@ -35,12 +35,13 @@ class PowerUpControl extends MonoBehaviour {
 		
 		var rnd:double = Random.value ;
 		
-		//if ( rnd < 0.7 )
-		//	return ;
+
 		
 		if ( trs.name.Contains ( "mig") ) 
 		{
 			//fuel
+			if ( rnd < 0.7 )
+				return ;
 			var newGas: Transform = gasTankPool.Spawn ( gas_prefab , trs.position , trs.rotation ) ;
 			
 			spawnOnLoft = newGas.GetComponent ( SpawnOnLoft ) ;
@@ -56,6 +57,8 @@ class PowerUpControl extends MonoBehaviour {
 		if ( trs.name.Contains ( "sentry") ) 
 		{
 			//health
+			if ( rnd < 0.7 )
+				return ;
 			var newHealth: Transform = healthPackPool.Spawn ( health_prefab , trs.position , trs.rotation ) ;
 
 			spawnOnLoft = newHealth.GetComponent ( SpawnOnLoft ) ;
@@ -65,9 +68,10 @@ class PowerUpControl extends MonoBehaviour {
 			newHealth.rotation = trs.rotation ;
 			return ;
 		}
-		
-		if ( trs.name.Contains ( "MONSTER" ) ) 
+
+		if ( trs.name.Contains ( "monster" ) ) 
 		{
+			Debug.Log ( "spawned ammo" + trs.name ) ;
 			//ammo
 			var newAmmo: Transform = ammoPackPool.Spawn ( ammoPrefab , trs.position , trs.rotation ) ;
 
@@ -76,6 +80,9 @@ class PowerUpControl extends MonoBehaviour {
 
 			newAmmo.position = trs.position ;
 			newAmmo.rotation = trs.rotation ;
+			
+			copil = newAmmo.GetChild ( 0 ) ;
+			copil.localRotation = trs.GetChild(0).localRotation ;
 			return ;
 		}
 	}
