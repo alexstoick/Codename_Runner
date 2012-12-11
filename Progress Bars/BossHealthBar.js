@@ -48,8 +48,13 @@ class BossHealthBar extends MonoBehaviour {
 			//refill HP & fuel. set normal speed.	 
 			  
 			LoftMovement.isDead = false ;
+			
+			HealthProgressBar.targetHealth = 100.0 ;
 			HealthProgressBar.currHealth = 100 ;
+			
+			FuelProgressBar.targetFuel = 100.0 ;
 			FuelProgressBar.currFuel = 100 ;
+			
 			LoftMovement.acceleration = 0.0000 ;
 			LoftMovement.timeModifier = 0.5 ;
 			LoftMovement.setNormalSpeed ( ) ; 

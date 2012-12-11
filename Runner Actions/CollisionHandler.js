@@ -79,8 +79,8 @@ class CollisionHandler extends MonoBehaviour {
 	function rolloverRunnner ( )
 	{
 		
-		HealthProgressBar.currHealth -= Controller.HP_lost_onNonCriticalHit ;
-		if ( HealthProgressBar.currHealth <= 0 )
+		HealthProgressBar.targetHealth -= Controller.HP_lost_onNonCriticalHit ;
+		if ( HealthProgressBar.targetHealth <= 0 )
 			createParticleEffect_dead ( ) ;
 		
 		yield WaitForSeconds ( 0.1 ) ;
@@ -131,8 +131,8 @@ class CollisionHandler extends MonoBehaviour {
 		{
 			createParticleEffect_hitPlane ( CollisionInfo.contacts[0].point ) ;
 			AudioSource.PlayClipAtPoint( hitByBulletSound , transform.position );	
-			HealthProgressBar.currHealth -= 5 ;
-			if ( HealthProgressBar.currHealth <= 0 )
+			HealthProgressBar.targetHealth -= 5 ;
+			if ( HealthProgressBar.targetHealth <= 0 )
 				createParticleEffect_dead ( ) ;
 			return ;
 		}
@@ -152,7 +152,7 @@ class CollisionHandler extends MonoBehaviour {
 		//from the Controller class).
 		if ( name.Contains ( "health" ) ) 
 		{
-			HealthProgressBar.currHealth += Controller.HP_gained_onHealthPack ;
+			HealthProgressBar.targetHealth += Controller.HP_gained_onHealthPack ;
 			AudioSource.PlayClipAtPoint( bonusHealthSound , transform.position );			
 			return ;
 		}
@@ -161,7 +161,7 @@ class CollisionHandler extends MonoBehaviour {
 		//from the Controller class).
 		if ( name.Contains ( "gas" ) )
 		{
-			FuelProgressBar.currFuel += Controller.Fuel_gained_onFuelPack ;
+			FuelProgressBar.targetFuel += Controller.Fuel_gained_onFuelPack ;
 			return ;
 		}
 				

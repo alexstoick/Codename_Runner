@@ -28,7 +28,7 @@ class PlaneShootForward extends MonoBehaviour {
 		
 		rockScript.Init ( point02 ) ;
 		
-		FireProgressBar.currCooldown += 0.3125 ;
+		FireProgressBar.targetCooldown += 0.3125 ;
 		FireProgressBar.lastModified = Time.time ;
 	}
 }

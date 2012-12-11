@@ -4,9 +4,14 @@ class FuelProgressBar extends MonoBehaviour {
 
 	var texInner: Texture2D; 
 	var texCurr: Texture2D; 
-	private var fullRect: Rect = new Rect ( 5 , Screen.height/6+Screen.height/20 , Screen.width/3 , Screen.height/25 ) ; 
+	
+	private var fullRect: Rect = new Rect ( Screen.width - Screen.width/10 , Screen.height/6 , Screen.width/25 , Screen.height/3 ) ; 
+	
 	static var currFuel: float = 100.0f ; 
 	static var lastTime:double = 0.0 ;
+	
+	static var targetFuel:float = 100.0f ;
+	
 	function Update ( )
 	{
 		if ( LoftMovement.isStopped ( ) )
@@ -14,9 +19,10 @@ class FuelProgressBar extends MonoBehaviour {
 			
 		if ( lastTime + 1 < Time.time )
 		{
-			currFuel -= 1.5 ;
+			targetFuel -= 1.5 ;
 			lastTime = Time.time ;
 		}
+		currFuel = Mathf.Lerp ( currFuel , targetFuel , Time.deltaTime * 0.6 ) ;
 	}
 	
 	function OnGUI()
@@ -28,7 +34,7 @@ class FuelProgressBar extends MonoBehaviour {
 
 		var fuelFrac:float = currFuel / 100f ; 
 		
-		var currRect = Rect(fullRect.x, fullRect.y, fullRect.width * fuelFrac , fullRect.height); 
+		var currRect = Rect(fullRect.x , fullRect.y + fullRect.height * ( 1 - fuelFrac ) , fullRect.width , fullRect.height * fuelFrac ); 
 		var innerRect = Rect(fullRect.x, fullRect.y, fullRect.width, fullRect.height); 
 		
 		GUI.DrawTexture(innerRect, texInner);

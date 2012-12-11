@@ -177,7 +177,7 @@ class SwipeDetection2 extends MonoBehaviour {
 			return ;
 		
 		//If the cooldown has been reached, do not shoot.
-		if ( ( FireProgressBar.currCooldown + 0.3125*2 ) > 10 && ! Controller.bossIsSpawned )
+		if ( ( FireProgressBar.targetCooldown + 0.3125*2 ) > 10 && ! Controller.bossIsSpawned )
 			return ;	
 
 		//Shoot the miniturrets.
