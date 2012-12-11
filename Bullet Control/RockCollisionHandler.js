@@ -98,9 +98,9 @@ class RockCollisionHandler extends MonoBehaviour {
 		//targetable monsters.		
 		if ( cname == "MONSTER")
 		{
-			enemiesPool.Despawn ( child.parent.parent ) ;
 			powerUpControl.Spawn ( child.parent.parent , CollisionInfo.contacts[0].point ) ;
 			createParticleEffect ( child.position , child.rotation ) ;
+			enemiesPool.Despawn ( child.parent.parent ) ;
 			ScoreControl.addScore ( 300 ) ;
 			if ( transform.parent.parent.gameObject.active )
 				rocksPool. Despawn ( transform.parent.parent ) ;
