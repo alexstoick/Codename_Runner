@@ -127,6 +127,7 @@ class MovePlaneBullet extends MonoBehaviour {
 		if ( cname == "MONSTER")
 		{
 			enemiesPool.Despawn ( child.parent.parent ) ;
+			powerUpControl.Spawn ( child.parent.parent , CollisionInfo.contacts[0].point ) ;
 			createParticleEffect ( child.position , child.rotation ) ;
 			ScoreControl.addScore ( 300 ) ;
 			rocksPool. Despawn ( transform ) ;
