@@ -121,8 +121,7 @@ class CollisionHandler extends MonoBehaviour {
 		
 		if ( name.Contains ( "ammo" ) )
 		{
-			moveRunner.availableRockets += Controller.rockets_gainedOnAmmo ;
-			
+			RocketAvailable.setAllTrue () ;
 			return ;
 		}
 	

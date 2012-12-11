@@ -21,7 +21,7 @@ class ShootRocket extends MonoBehaviour {
 		width = Screen.width ;
 		height = Screen.height ;
 
-		texture.pixelInset.height = height / 8 ;
+		texture.pixelInset.height = width / 8 ;
 		texture.pixelInset.width = width / 8 ;
 		texture.pixelInset.x = 10 + -width/2 ;
 		texture.pixelInset.y = -height/4 ;
@@ -42,7 +42,7 @@ class ShootRocket extends MonoBehaviour {
 				}
 			}
 		}
-		if ( MoveRunnerNew.availableRockets > 0 )
+		if ( RocketAvailable.isRocketAvailable () )
 			texture.texture = onTexture ;
 		else
 			texture.texture = offTexture ; 

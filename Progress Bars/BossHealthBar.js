@@ -58,6 +58,9 @@ class BossHealthBar extends MonoBehaviour {
 			LoftMovement.acceleration = 0.0000 ;
 			LoftMovement.timeModifier = 0.5 ;
 			LoftMovement.setNormalSpeed ( ) ; 
+			
+			//Refill ammo
+			RocketAvailable.setAllTrue ( ) ;
 		}
 	}
 }

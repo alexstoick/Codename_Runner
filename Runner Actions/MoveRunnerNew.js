@@ -35,9 +35,6 @@ class MoveRunnerNew extends MonoBehaviour {
 	//Audio that is played when the big gun is fired.
 	public var fireBigGun:AudioClip;
 	
-	//The number of available rockets. (guided missiles, used in function Fire).
-	static public var availableRockets:int = 10 ;
-	
 	function Start ( )
 	{
 		//Initializations.
@@ -210,8 +207,9 @@ class MoveRunnerNew extends MonoBehaviour {
 	//Fires a rocket.
 	function fire ( )
 	{
-
-		--availableRockets ;
+		if ( ! RocketAvailable.isRocketAvailable () )
+			return ;
+		RocketAvailable.deactivateRocket () ;
 		//Used for comparing with the the monsters.
 		var planeRotation:double = transform.localRotation.eulerAngles.z ;
 
