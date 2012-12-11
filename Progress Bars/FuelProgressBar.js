@@ -23,6 +23,8 @@ class FuelProgressBar extends MonoBehaviour {
 			lastTime = Time.time ;
 		}
 		targetFuel = Mathf.Clamp ( targetFuel , 0 , 100 ) ;
+		if ( targetFuel <= 0 )
+			GameOver.Dead ( ) ;
 		currFuel = Mathf.Lerp ( currFuel , targetFuel , Time.deltaTime * 0.6 ) ;
 	}
 	
