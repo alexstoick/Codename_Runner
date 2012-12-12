@@ -130,7 +130,7 @@ class CollisionHandler extends MonoBehaviour {
 		{
 			createParticleEffect_hitPlane ( CollisionInfo.contacts[0].point ) ;
 			AudioSource.PlayClipAtPoint( hitByBulletSound , transform.position );	
-			HealthProgressBar.targetHealth -= 5 ;
+			HealthProgressBar.targetHealth -= Controller.HP_lost_on_collision_with_bullet ;
 			if ( HealthProgressBar.targetHealth <= 0 )
 				createParticleEffect_dead ( ) ;
 			return ;

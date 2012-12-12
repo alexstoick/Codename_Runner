@@ -26,6 +26,8 @@ class Controller extends MonoBehaviour {
 	static var HP_lost_onNonCriticalHit:int = 30 ;
 	static var rockets_gainedOnAmmo:int = 5 ;
 	
+	static var HP_lost_on_collision_with_bullet:int = 5 ;
+	
 	/// Used for Spawning
 	
 	static var box_spawn_distance:float = 0.030 ;
@@ -33,4 +35,8 @@ class Controller extends MonoBehaviour {
 	static var sentry_spawn_distance:float = 0.1009 ;
 	static var tree_spawn_distance:float = 0.0175 ;
 	static var enemyAirplane_spawn_distance:float = 0.1319 ;
+	
+	///Miniguns
+	
+	static var time_added_on_minigun_fire:float = 0.3125 ; //the total is 10 => now 32 bullets are fired before it reaches the total cooldown.
 }
