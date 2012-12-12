@@ -18,6 +18,9 @@ class SpawnBoss extends MonoBehaviour {
 	static var playerCrosshair:GameObject ;
 
 	static var plane_audioSource:AudioSource ;
+	
+	//Used to apply the correct texture to the boss.
+	var bossTexture:Material[] ;
 
 	function Start ( )
 	{
@@ -47,13 +50,14 @@ class SpawnBoss extends MonoBehaviour {
 		BossShootPlayer.isShootingPlayer = false ;
 		
 		//Deactivate the player's crosshair
-		
 		playerCrosshair.SetActiveRecursively(false);
 		
+		
+		//Activate the follow player & setup the SpawnOnLoft
 		FollowPlayerRotation.shouldMove = true ;
 		spawn.Init ( 0 ) ;
 		plane_audioSource.Play ( ) ; //will play a tension sound
-
+		
 		//Updating the stats for evasion.		
 		Controller.bossNumber ++ ;
 		if ( Controller.bossNumber >= Controller.numberOfBosses )
@@ -61,6 +65,12 @@ class SpawnBoss extends MonoBehaviour {
 		BossEvasiveAction.isMoving = false ;	
 		BossEvasiveAction.number_of_bullets = Controller.bossBullets [ Controller.bossNumber ] ;
 		BossEvasiveAction.starting_HP_Percentage = Controller.bossHP [ Controller.bossNumber ] ;
+		
+		//Setup the boss' texture in regard to it's grade
+		
+		var rdr:Renderer = newBoss.GetComponentsInChildren(Renderer)[1] ;
+		rdr.material = bossTexture [ Controller.bossNumber ] ;
+
 		
 		//Initiate the camera zoom
 		changeCameraFOV = true ;
