@@ -56,8 +56,8 @@ class SpawnBoss extends MonoBehaviour {
 
 		//Updating the stats for evasion.		
 		Controller.bossNumber ++ ;
-		if ( Controller.bossNumber >= 5 )
-			Controller.bossNumber = 4 ;
+		if ( Controller.bossNumber >= Controller.numberOfBosses )
+			Controller.bossNumber = Controller.numberOfBosses-1 ;
 		BossEvasiveAction.isMoving = false ;	
 		BossEvasiveAction.number_of_bullets = Controller.bossBullets [ Controller.bossNumber ] ;
 		BossEvasiveAction.starting_HP_Percentage = Controller.bossHP [ Controller.bossNumber ] ;

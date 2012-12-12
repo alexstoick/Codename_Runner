@@ -15,6 +15,7 @@ class Controller extends MonoBehaviour {
 	static var bossIsSpawned:boolean = false ;
 	static var TIME_FOR_BOSS:int = 90 ;
 	
+	static var numberOfBosses:int = 5 ;
 	static var bossNumber:int = -1 ;
 	static var bossHP:Array = [ 40 , 40 , 40 , 60 , 70 ] ;
 	static var bossBullets:Array = [ 6 , 4 , 2 , 3 , 4 ] ;
