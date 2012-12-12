@@ -45,7 +45,7 @@ class ReturnToRotation extends MonoBehaviour {
 		else
 			unghi = transform.localEulerAngles.x;			
 			
-		audioSource.pitch = 1 + 0.03333333333333 * unghi ;
+		audioSource.pitch = 1 + 0.01 * unghi ;
 
 		
 		if ( doRotate )
