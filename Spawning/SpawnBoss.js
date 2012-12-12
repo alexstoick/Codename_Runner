@@ -14,7 +14,8 @@ class SpawnBoss extends MonoBehaviour {
 	static var shouldCountTime:boolean = false ; //if this is true it adds time towards the bosstimer. when it is 
 												// completed a new boss will appear.
 	var timer:double = 0.0 ; //holds how much time has elapsed
-
+	
+	static var playerCrosshair:GameObject ;
 
 	static var plane_audioSource:AudioSource ;
 
@@ -29,6 +30,8 @@ class SpawnBoss extends MonoBehaviour {
 			plane_audioSource = GameObject.Find ( "BigGroup" ) .GetComponent(AudioSource) ;
 		if ( ! mainCamera )
 			mainCamera = GameObject.Find ( "Main Camera" ).GetComponent(Camera) ;
+		if ( ! playerCrosshair )
+			playerCrosshair = GameObject.Find ( "CrosshairPlane") ;
 	}
 	
 	function Spawn ( ) //Spawns a new boss and does other changes to the HUD
@@ -42,6 +45,10 @@ class SpawnBoss extends MonoBehaviour {
 		BossMovementOnLoft.alpha = 0.99 ;
 		BossMovementOnLoft.shouldMove = true ;
 		BossShootPlayer.isShootingPlayer = false ;
+		
+		//Deactivate the player's crosshair
+		
+		playerCrosshair.SetActiveRecursively(false);
 		
 		FollowPlayerRotation.shouldMove = true ;
 		spawn.Init ( 0 ) ;

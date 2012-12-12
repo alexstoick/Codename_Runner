@@ -26,6 +26,7 @@ class StartButton extends MonoBehaviour {
 			LoftMovement.setNormalSpeed ( ) ;
 			Controller.bossNumber = -1 ;
 			SpawnBoss.shouldCountTime = true ;
+			GameObject.Find ( "CrosshairPlane").SetActiveRecursively(true);
 			
 			//Show the plane
 			CollisionHandler.plane.gameObject.active = true ;

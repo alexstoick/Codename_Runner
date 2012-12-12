@@ -8,6 +8,14 @@ class BossHealthBar extends MonoBehaviour {
 	private var fullRect: Rect = new Rect ( Screen.width/2 - Screen.width/6 , 0 , Screen.width/3 , Screen.height/25 ) ; 
 	static var currHealth: float = 100.0; 
 	
+	static var playerCrosshair:GameObject ;
+	
+	function Awake ( )
+	{
+		if ( ! playerCrosshair ) 
+			playerCrosshair = GameObject.Find ( "CrosshairPlane" ) ;
+	}
+
 	function OnGUI()
 	{ 
 		if ( ! Controller.showBossHealthBar )
@@ -61,6 +69,10 @@ class BossHealthBar extends MonoBehaviour {
 			
 			//Refill ammo
 			RocketAvailable.setAllTrue ( ) ;
+			
+			//Activate the player's crosshair
+			
+			playerCrosshair.SetActiveRecursively(true);
 		}
 	}
 }
