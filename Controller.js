@@ -27,7 +27,7 @@ class Controller extends MonoBehaviour {
 	static var HP_lost_onNonCriticalHit:int = 30 ;
 	static var rockets_gainedOnAmmo:int = 5 ;
 	
-	static var HP_lost_on_collision_with_bullet:int = 5 ;
+	static var HP_lost_on_collision_with_bullet:int = 7 ;
 	
 	/// Used for Spawning
 	
