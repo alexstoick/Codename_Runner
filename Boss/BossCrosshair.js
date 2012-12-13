@@ -39,7 +39,7 @@ class BossCrosshair extends MonoBehaviour {
 		
 		//If the difference between the two rotations if too big, 
 		//do not show the boss targeted area.
-		if ( diff > 40 || diff < -40 )
+		if ( diff > 60 || diff < -60 )
 		{
 			crosshair.gameObject.SetActiveRecursively( false );
 		}
@@ -47,7 +47,7 @@ class BossCrosshair extends MonoBehaviour {
 		{
 			//Activate & place the crosshair on the correct coordinates.
 			crosshair.gameObject.SetActiveRecursively( true );
-			diff /= 41 ;
+			diff /= 30 ;
 			crosshair.localPosition.x = diff ;
 		}
 	}
