@@ -28,6 +28,9 @@ class StartButton extends MonoBehaviour {
 			SpawnBoss.shouldCountTime = true ;
 			SpawnBoss.playerCrosshair.SetActiveRecursively(true);
 			
+			//Set all missiles to true
+			RocketAvailable.setAllTrue () ;
+			
 			//Show the plane
 			CollisionHandler.plane.gameObject.active = true ;
 			DamageSmoke.doNotEmit = false ;
