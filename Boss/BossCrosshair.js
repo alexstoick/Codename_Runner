@@ -26,14 +26,14 @@ class BossCrosshair extends MonoBehaviour {
 		//If currently doing evasive maneuvers do not show the boss targeted area.
 		if ( BossEvasiveAction.isMoving )
 		{
-			crosshair.gameObject.active = false ;
+			crosshair.gameObject.SetActiveRecursively( false );
 			return ;
 		}
 		
 		//If the boss is far ahead do not show the boss targeted area.
 		if ( BossMovementOnLoft.alpha > 0.30 )
 		{
-			crosshair.gameObject.active = false ;
+			crosshair.gameObject.SetActiveRecursively( false );
 			return ;
 		}
 		
@@ -41,12 +41,12 @@ class BossCrosshair extends MonoBehaviour {
 		//do not show the boss targeted area.
 		if ( diff > 40 || diff < -40 )
 		{
-			crosshair.gameObject.active = false ;
+			crosshair.gameObject.SetActiveRecursively( false );
 		}
 		else
 		{
 			//Activate & place the crosshair on the correct coordinates.
-			crosshair.gameObject.active = true ;
+			crosshair.gameObject.SetActiveRecursively( true );
 			diff /= 41 ;
 			crosshair.localPosition.x = diff ;
 		}
