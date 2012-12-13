@@ -9,7 +9,7 @@ class StartButton extends MonoBehaviour {
 		if ( Started )
 			return ;
 
-		if(GUI.Button(Rect(200, 500, 150, 150), "Start"))
+		if(GUI.Button(Rect(Screen.width/4, Screen.width/3*2, Screen.width/2, Screen.height/3 ), "Start"))
 		{
 			Started = true ;
 			GameOver.gText.text = "" ;
