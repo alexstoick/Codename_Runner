@@ -36,7 +36,7 @@ class MoveBossBullet extends MonoBehaviour {
 		}
 		
 		//Animate the rock towards the plane critical hit area.
-		tParam += Time.deltaTime * 0.3 ;
+		tParam += Time.deltaTime * 0.1 ;
 		transform.position = Vector3.Lerp ( transform.position , plane.position , tParam ) ;
 		transform.rotation = Quaternion ( 0 , 0 , 0 , 0 ) ;
 	}

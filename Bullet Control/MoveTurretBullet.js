@@ -33,7 +33,7 @@ class MoveTurretBullet extends MonoBehaviour {
 			return ;
 		}
 
-		tParam += Time.deltaTime * 0.1 ;
+		tParam += Time.deltaTime * 0.5 ;
 		transform.position = Vector3.Lerp ( transform.position , targetLocation , tParam ) ;
 		transform.rotation = Quaternion ( 0 , 0 , 0 , 0 ) ;
 	}
