@@ -68,7 +68,7 @@ class SpawnBoss extends MonoBehaviour {
 		
 		//Setup the boss' texture in regard to it's grade
 		
-		var rdr:Renderer = newBoss.GetComponentsInChildren(Renderer)[1] ;
+		var rdr:Renderer = newBoss.GetComponentsInChildren(Renderer)[6] ;
 		rdr.material = bossTexture [ Controller.bossNumber ] ;
 
 		
