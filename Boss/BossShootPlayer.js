@@ -18,7 +18,7 @@ class BossShootPlayer extends MonoBehaviour {
 		if ( ! rocksPool )
 			rocksPool = PoolManager. Pools ["Rocks"] ;
 		if ( ! rockPrefab )
-			rockPrefab = rocksPool.prefabs[ "rock_for_loft_2" ] ;
+			rockPrefab = rocksPool.prefabs[ "rock_for_loft_3" ] ;
 		if ( ! plane )
 			plane = GameObject. Find ( "plane critical hit area" ).transform ;
 	}	
@@ -84,9 +84,9 @@ class BossShootPlayer extends MonoBehaviour {
 		var fin:Vector3 = plane.position ;
 		
 		var rock = rocksPool. Spawn ( rockPrefab , point01 , Quaternion ( 0 , 0 , 0 , 0 ) )  ;
-		var rockScript : MoveTurretBullet = rock.GetComponent ( MoveTurretBullet ) ;
+		var rockScript : MoveBossBullet = rock.GetComponent ( MoveBossBullet ) ;
 		
-		rockScript.Init ( fin ) ;
+		rockScript.Init ( ) ;
 		
 		lastTime = Time.time + TIME_BETWEEN_SHOTS ;
 		
